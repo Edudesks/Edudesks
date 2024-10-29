@@ -13,13 +13,6 @@
     animation: move 3s linear 1s forwards;
     opacity: 0;
 }
-  
-.logo {
-    font-size: 3rem;
-    color: #158dc5;
-    font-weight: bold;
-    animation: name duration timing-function delay iteration-count direction fill-mode;
-}
 
   .textLogoWrapper {
     font-size: 50px;
