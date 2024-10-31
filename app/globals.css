@@ -13,6 +13,7 @@
     --secondary-text-color: #F8FBFD;
     --border: #E2E9F6;
     --grey: #59676e;
+    --background: #DDE4F2;
 }
 
 
@@ -20,4 +21,3 @@ body {
     margin: 0;
     padding: 0;
 }
-  
