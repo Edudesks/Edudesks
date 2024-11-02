@@ -20,10 +20,8 @@ import { SignUpFormData, signUpSchema } from "@/features/auth/signUpSchema";
 /**
  *
  * TODO: For backend, functionality for save details
- * TODO: Form validation
  * TODO: Ask about password icon
  * TODO: Ask about the checkbox
- * TODO: Add hide password functionality and icon
  * TODO: Minimum requirements for password
  *
  */
@@ -35,8 +33,8 @@ const SignUp: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<SignUpFormData>({ resolver: zodResolver(signUpSchema) });
+    formState: { errors, isValid },
+  } = useForm<SignUpFormData>({ resolver: zodResolver(signUpSchema), mode: "onChange" });
 
   const submitData = (data: SignUpFormData) => {
     console.log("Registration Successful", data);
@@ -54,7 +52,7 @@ const SignUp: React.FC = () => {
   return (
     <>
       <div
-        className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[8.5625rem] h-screen whitespace-nowrap`}
+        className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[8.5625rem] h-screen whitespace-nowrap pb-[4.1875rem] lg:pb-0`}
       >
         {/* -------- left half of signup page -------- */}
         <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[8.9375rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-[44.875rem]">
@@ -303,7 +301,7 @@ const SignUp: React.FC = () => {
               </div>
             </div>
             <button
-              className="bg-[var(--grey)] px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]"
+              className={`${isValid ? 'bg-[var(--primary)]' : 'bg-[var(--grey)]'} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
               type="submit"
             >
               Create account
