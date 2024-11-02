@@ -18,6 +18,7 @@
     --border: #E2E9F6;
     --grey: #59676e;
 
+    --background: #DDE4F2;
 }
 
 
@@ -30,5 +31,21 @@ body {
     font-family: 'Open Sans', sans-serif;
     background-color: #e2e9f6;
     overflow-x: hidden;
+    /* height: 100vh; */
 }
-  
+
+/* Target autofilled input fields */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset; /* Change 'white' to your desired background color */
+  box-shadow: 0 0 0px 1000px white inset;
+  -webkit-text-fill-color: inherit; /* Ensures the text color remains consistent */
+}
+
+input:-webkit-autofill::first-line {
+  font-family: inherit; /* Ensures autofilled text uses the same font */
+}
+
+input[type="checkbox"]:checked {
+    background-color: blue; /* Set background color when checked */
+    border: 1px solid blue; /* Adjust border when checked */
+  }

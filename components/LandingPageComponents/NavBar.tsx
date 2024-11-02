@@ -50,7 +50,7 @@ const Navbar: FC = () => {
 
           <div className={styles.navActions}>
             <div className={styles.logIn}>
-              <a href="#take-control">Log in</a>
+              <a href="login">Log in</a>
               <Image
                 src="/icons/arrow-right-dark.svg"
                 alt="Edudesk Logo"
