@@ -33,8 +33,9 @@ const SignUp: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<SignUpFormData>({ resolver: zodResolver(signUpSchema), mode: "onChange" });
+    formState: { errors, isValid, isSubmitted },
+    watch
+  } = useForm<SignUpFormData>({ resolver: zodResolver(signUpSchema), mode: "onSubmit" });
 
   const submitData = (data: SignUpFormData) => {
     console.log("Registration Successful", data);
@@ -49,10 +50,28 @@ const SignUp: React.FC = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
+  // ------ changing button color dependent on form validation ------
+  const schoolName = watch("schoolName");
+  const schoolEmail = watch("schoolEmail");
+  const password = watch("password");
+  const confirmPassword = watch("confirmPassword");
+  const allFieldsFilled = schoolName && schoolEmail && password && confirmPassword;
+
+  let buttonColor;
+  if (!allFieldsFilled) {
+    buttonColor = "bg-[var(--grey)]";
+  } else if (allFieldsFilled && !isSubmitted) {
+    buttonColor = "bg-[var(--primary)]";
+  } else if (isSubmitted && Object.keys(errors).length > 0) {
+    buttonColor = "bg-[var(--secondary)]";
+  } else if (isSubmitted && Object.keys(errors).length === 0 && isValid) {
+    buttonColor = "bg-[var(--primary)]";
+  }
+
   return (
     <>
       <div
-        className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[8.5625rem] h-screen whitespace-nowrap pb-[4.1875rem] lg:pb-0`}
+        className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[8.5625rem] h-screen whitespace-nowrap pb-[4.1875rem] lg:pb-0 bg-white`}
       >
         {/* -------- left half of signup page -------- */}
         <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[8.9375rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-[44.875rem]">
@@ -301,7 +320,7 @@ const SignUp: React.FC = () => {
               </div>
             </div>
             <button
-              className={`${isValid ? 'bg-[var(--primary)]' : 'bg-[var(--grey)]'} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
+              className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
               type="submit"
             >
               Create account
