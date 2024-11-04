@@ -11,7 +11,7 @@ const Hero: FC = () => (
       Gain full control over income and expenses processes - all from one
       seamless platform designed for schools
     </h3>
-    <ButtonTrial variant="light" text="Start 30 days free trial" />
+    <ButtonTrial url="signup" variant="light" text="Start 30 days free trial" />
     <Image 
       src="/icons/dashboard.svg"
       alt="Edudesk Logo"

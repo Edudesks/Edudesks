@@ -101,7 +101,7 @@ const FaqSection = () => {
           Can&apos;t find the answer you&apos;re looking for? Please chat to our friendly
           team.
         </p>
-        <ButtonStart variant="light" text="Get in touch" />
+        <ButtonStart url="signup" variant="light" text="Get in touch" />
       </div>
     </div>
   );

@@ -31,7 +31,8 @@ const Login: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
+    watch,
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     mode: "onSubmit",
@@ -45,6 +46,22 @@ const Login: React.FC = () => {
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  // ------ changing button color dependent on form validation ------
+  const schoolEmail = watch("schoolEmail");
+  const password = watch("password");
+  const allFieldsFilled = schoolEmail && password;
+
+  let buttonColor;
+  if (!allFieldsFilled) {
+    buttonColor = "bg-[var(--grey)]";
+  } else if (allFieldsFilled && !isSubmitted) {
+    buttonColor = "bg-[var(--primary)]";
+  } else if (isSubmitted && Object.keys(errors).length > 0) {
+    buttonColor = "bg-[var(--secondary)]";
+  } else if (isSubmitted && Object.keys(errors).length === 0 && isValid) {
+    buttonColor = "bg-[var(--primary)]";
+  }
 
   return (
     <>
@@ -203,15 +220,18 @@ const Login: React.FC = () => {
                   />
                   <label htmlFor="save-details">Save details</label>
                 </div>
-                <Link href={"/forgot-password"} className="text-sm leading-5 text-[var(--secondary)]">Forgot password</Link>
+                <Link
+                  href={"/forgot-password"}
+                  className="text-sm leading-5 text-[var(--secondary)]"
+                >
+                  Forgot password
+                </Link>
               </div>
             </div>
             <button
-              className={`${
-                isValid ? "bg-[var(--primary)]" : "bg-[var(--grey)]"
-              } px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
+              className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
               type="submit"
-              disabled={!isValid}
+              // disabled={!isValid}
             >
               Sign In
             </button>

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styles from '../../styles/LandingPage.module.css';
-import Image from 'next/image';
-import ButtonStart from './Button';
+
 
 const QuestionAndAnswer = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
