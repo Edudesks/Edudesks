@@ -48,7 +48,7 @@ const PricingPlan = () => {
               <p className={styles.price}>₦ {isAnnually ? "60000" : "5000"}</p>
               <p className={styles.priceLabel}>{isAnnually ? "Annually" : "Per Month"}</p>
             </div>
-            <ButtonTrial variant={"dark"} text={"Start 30 days free trial"}/>
+            <ButtonTrial url="/signup" variant={"dark"} text={"Start 30 days free trial"}/>
           </div>
           <div className={styles.lineDivider}></div>
           <h4 className={styles.featuresTitle}>Features</h4>
@@ -72,7 +72,7 @@ const PricingPlan = () => {
           </div>
           <div className={styles.premiumBottom}>
 
-            <ButtonTrial variant={"dark"} text={"Start 30 days free trial"}/>
+            <ButtonTrial url="/signup" variant={"dark"} text={"Start 30 days free trial"}/>
             <div className={styles.lineDivider}></div>
             <h4 className={styles.featuresTitle}>Features</h4>
             <ul className={`${styles.featureList} ${styles.textWhite}`}>
@@ -96,7 +96,7 @@ const PricingPlan = () => {
             <p className={styles.price}>₦ {isAnnually ? "180000" : "15000"}</p>
             <p className={styles.priceLabel}>{isAnnually ? "Annually" : "Per Month"}</p>
           </div>
-          <ButtonTrial variant={"dark"} text={"Start 30 days free trial"}/>
+          <ButtonTrial url="/signup" variant={"dark"} text={"Start 30 days free trial"}/>
           </div>
           <div className={styles.lineDivider}></div>
           <h4 className={styles.featuresTitle}>Features</h4>

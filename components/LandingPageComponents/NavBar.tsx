@@ -36,7 +36,7 @@ const Navbar: FC = () => {
           {/* Desktop Navigation Links */}
           <ul className={styles.navLinks}>
             <li>
-              <a href="#features">Home</a>
+            <Link href="/">Home</Link>
             </li>
             <li>
               <Link href="/#features">Features</Link>
@@ -45,7 +45,7 @@ const Navbar: FC = () => {
               <Link href="/pricing-plan">Pricing</Link>
             </li>
             <li>
-              <a href="#faq">Contact us</a>
+              <Link href="/#faq">Contact us</Link>
             </li>
           </ul>
 
@@ -61,7 +61,7 @@ const Navbar: FC = () => {
                 priority
               />
             </div>
-            <ButtonTrial variant="dark" text="Start 30 days free trial" />
+            <ButtonTrial url="pricing-plan" variant="dark" text="Start 30 days free trial" />
           </div>
           <div className={styles.hamburger} onClick={toggleMobileMenu}>
             ☰
