@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from '../../styles/LandingPage.module.css';
 import Image from 'next/image';
 
@@ -14,22 +15,22 @@ const Footer = () => (
           />
     <ul>
       <li>
-        <a href="#features">Home</a>
+        <Link href="/">Home</Link>
       </li>
       <li>
-        <a href="#features">Features</a>
+        <Link href="/#features">Features</Link>
       </li>
       <li>
-        <a href="#plans">Pricing</a>
+        <Link href="/pricing-plan">Pricing</Link>
       </li>
       <li>
-        <a href="#faq">Contact us</a>
+        <Link href="/#faq">Contact us</Link>
       </li>
       <li>
-        <a href="#faq">Terms of service</a>
+        <Link href="/terms-of-service">Terms of service</Link>
       </li>
       <li>
-        <a href="#faq">Privacy policy</a>
+        <Link href="/privacy-policy">Privacy policy</Link>
       </li>
     </ul>
     <div className={styles.hLine} />

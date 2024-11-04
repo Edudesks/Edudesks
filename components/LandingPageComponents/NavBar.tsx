@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import styles from '../../styles/LandingPage.module.css';
 import ButtonTrial from './Button';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Navbar: FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,9 +15,9 @@ const Navbar: FC = () => {
     <div className={styles.navWrapper}>
       <div className={styles.topPage}>
         <p className={styles.topPageText}>Buy Now And Save 20% Off Plan</p>
-        <a href="#pricing" className={styles.topPagePricing}>
+        <Link href="/pricing-plan" className={styles.topPagePricing}>
           See Plans and Pricing
-        </a>
+        </Link>
       </div>
       <div className={styles.navContainer}>
         <nav className={styles.navBar}>
@@ -38,10 +39,10 @@ const Navbar: FC = () => {
               <a href="#features">Home</a>
             </li>
             <li>
-              <a href="#features">Features</a>
+              <Link href="/#features">Features</Link>
             </li>
             <li>
-              <a href="#plans">Pricing</a>
+              <Link href="/pricing-plan">Pricing</Link>
             </li>
             <li>
               <a href="#faq">Contact us</a>

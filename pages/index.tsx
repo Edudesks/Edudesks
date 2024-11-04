@@ -12,6 +12,7 @@ import HowItWorks from '@/components/LandingPageComponents/HowItWorks';
 import FaqSection from '@/components/LandingPageComponents/FaqSection';
 import Footer from '@/components/LandingPageComponents/Footer';
 import TakeControl from '@/components/LandingPageComponents/TakeControl';
+import styles from '@/styles/LandingPage.module.css';
 // import Image from 'next/image';
 
 
@@ -26,7 +27,7 @@ const LandingPage: React.FC = () => {
   if (isLoading) return <Loader />;
 
   return (
-    <>
+    <div className={styles.landingPage}>
       <Navbar />
       <Hero />
       <TrustedSection />
@@ -38,7 +39,7 @@ const LandingPage: React.FC = () => {
       <FaqSection />
       <TakeControl />
       <Footer />
-    </>
+    </div>
   );
 };
 
