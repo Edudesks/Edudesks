@@ -2,11 +2,12 @@ import React from "react";
 import Image from "next/image";
 import '../app/globals.css';
 import Link from "next/link";
+import Link from "next/link";
 
 
 const AuthentificationLogo = () => {
   return (
-      <Link href={'/'} className="w-[11.5625rem] lg:w-[17.25rem]">
+      <Link href={'/'} className="w-[11.5625rem] lg:w-[17.25rem] inline-block">
         <Image
           src={"/logos/loginLogo.svg"}
           alt="text-Logo"

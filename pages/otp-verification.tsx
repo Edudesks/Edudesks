@@ -18,12 +18,18 @@ const OTPVerification = () => {
     defaultValues: { otp1: "", otp2: "", otp3: "", otp4: "" },
   });
 
-  //   const otpValues = watch(["otp1", "otp2", "otp3", "otp4"]);
+  const testOTP = 1111;
 
   const onSubmit = (data: OTPFormData) => {
     const combinedOTP = `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`;
     console.log(`combinedOTP: ${combinedOTP}`);
     console.log(`validatedData`, data);
+
+    if (testOTP === Number(combinedOTP)) {
+      console.log(`OTP is correct`);
+    } else {
+      console.log(`OTP is incorrect`);
+    }
   };
 
   const handleInputChange = (
@@ -35,22 +41,6 @@ const OTPVerification = () => {
       setValue(`otp${index + 1}` as keyof OTPFormData, value);
     }
   };
-
-  //   -------- test otp data --------
-  const otpInput = 1111;
-  const otpString = otpInput.toString().padStart(4, "0");
-  const otpData = {
-    otp1: otpString[0],
-    otp2: otpString[1],
-    otp3: otpString[2],
-    otp4: otpString[3],
-  };
-  const validation = otpSchema.safeParse(otpData);
-  if (validation.success) {
-    console.log("OTP is valid:", validation.data);
-  } else {
-    console.error("OTP validation error:", validation.error.errors);
-  }
 
   return (
     <div className="flex flex-col items-center justify-center pt-[1.75rem] lg:pt-[2.75rem] px-[1.125rem] lg:pl-[5.625rem] text-[var(--primary-text-color)]">
