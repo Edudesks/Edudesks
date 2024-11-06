@@ -5,6 +5,7 @@ export type OTPFormData = {
   otp2: string;
   otp3: string;
   otp4: string;
+  otp? : string;
 };
 
 export const otpSchema: ZodType<OTPFormData> = z.object({

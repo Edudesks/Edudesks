@@ -15,15 +15,32 @@ const OTPVerification = () => {
   } = useForm<OTPFormData>({
     resolver: zodResolver(otpSchema),
     mode: "onSubmit",
+    defaultValues: { otp1: "", otp2: "", otp3: "", otp4: "" },
   });
 
-  const otpValues = watch(["otp1", "otp2", "otp3", "otp4"]);
+  const testOTP = 1111;
 
-  const onSubmit = () => {
-    const combinedOTP = otpValues.join("");
+  const onSubmit = (data: OTPFormData) => {
+    const combinedOTP = `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`;
     console.log(`combinedOTP: ${combinedOTP}`);
-    handleSubmit((data) => console.log(data))({otp: combinedOTP})
-  }
+    console.log(`validatedData`, data);
+
+    if (testOTP === Number(combinedOTP)) {
+      console.log(`OTP is correct`);
+    } else {
+      console.log(`OTP is incorrect`);
+    }
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { value } = e.target;
+    if (/^\d$/.test(value) || value === "") {
+      setValue(`otp${index + 1}` as keyof OTPFormData, value);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center pt-[1.75rem] lg:pt-[2.75rem] px-[1.125rem] lg:pl-[5.625rem] text-[var(--primary-text-color)]">
@@ -48,12 +65,13 @@ const OTPVerification = () => {
         <form
           action=""
           className="flex flex-col justify-between w-full max-w-[26.625rem] gap-[2.8125rem]"
+          onSubmit={handleSubmit(onSubmit)}
         >
           {/* -------- input and otp resend -------- */}
           <div className="flex flex-col gap-[3.125rem]">
             {/* -------- main otp input -------- */}
             <div className="flex justify-between w-full">
-              {[1, 2, 3, 4].map((index) => (
+              {[0, 1, 2, 3].map((index) => (
                 <Controller
                   key={index}
                   name={`otp${index + 1}` as any}
@@ -63,7 +81,8 @@ const OTPVerification = () => {
                       {...field}
                       type="text"
                       maxLength={1}
-                      className="w-[4.6875rem] h-[4.6875rem] border border-solid border-[var(--border)] rounded-[0.9375rem] bg-[var(--secondary-text-color)] p-2.5 text-center flex justify-center items-center text-2xl leading-[20px]"
+                      className="w-[4.6875rem] h-[4.6875rem] border border-solid border-[var(--border)] rounded-[0.9375rem] bg-[var(--secondary-text-color)] p-2.5 text-center flex justify-center items-center text-2xl leading-[20px] focus:outline-none autofill:bg-none"
+                      onChange={(e) => handleInputChange(e, index)}
                     />
                   )}
                 />
@@ -76,6 +95,9 @@ const OTPVerification = () => {
               </span>
             </p>
           </div>
+          {errors.otp && (
+            <p className="text-red-500 text-sm mt-2">{errors.otp.message}</p>
+          )}
           {/* -------- form buttons -------- */}
           <div className="flex flex-col gap-8 w-full">
             <button
@@ -83,7 +105,6 @@ const OTPVerification = () => {
                 isValid ? "bg-[var(--primary)]" : "bg-[var(--grey)]"
               } px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)] w-full`}
               type="submit"
-              disabled={!isValid}
             >
               Verify code
             </button>
