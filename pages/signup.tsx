@@ -74,14 +74,14 @@ const SignUp: React.FC = () => {
         className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[8.5625rem] h-screen whitespace-nowrap pb-[4.1875rem] lg:pb-0 bg-white`}
       >
         {/* -------- left half of signup page -------- */}
-        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[8.9375rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-[44.875rem]">
+        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[1.9375rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-[44.875rem]">
           <AuthentificationLogo />
           <div className="w-[16.625rem] lg:w-[33.6875rem] self-center">
             <Image
               src={"/loginIcon.svg"}
               alt="login image"
-              width={539}
-              height={539}
+              width={470}
+              height={470}
             />
           </div>
         </div>

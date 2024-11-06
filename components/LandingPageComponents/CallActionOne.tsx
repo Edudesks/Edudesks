@@ -48,67 +48,78 @@ const CallActionOne: FC = () => (
       </p>
     </div>
     <div className={styles.actionRight}>
-      <div className={styles.actionRightContainer}>
-        {/* Top text and date */}
-          
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', mb: 1 }}>
-          <Typography variant="body1" component="div">
-            Income Report
-          </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', border: '1px solid #E2E9F6', borderRadius: '4px', padding: '2px 8px' }}>
-            <CalendarToday sx={{ fontSize: '1rem', color: 'gray', mr: 0.5 }} />
-            <Typography variant="body2" color="textSecondary">
-              Oct 30 - Sep 28
+      <div className={styles.actionContainerWrapper}>
+        <div className={styles.actionRightContainer}>
+          {/* Top text and date */}
+            
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', mb: 1 }}>
+            <Typography variant="body1" component="div">
+              Income Report
             </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', border: '1px solid #E2E9F6', borderRadius: '4px', padding: '2px 8px' }}>
+              <CalendarToday sx={{ fontSize: '1rem', color: 'gray', mr: 0.5 }} />
+              <Typography variant="body2" color="textSecondary">
+                Oct 30 - Sep 28
+              </Typography>
+            </Box>
           </Box>
-        </Box>
 
-        {/* Doughnut Chart */}
-        <Box sx={{ position: 'relative', display: 'inline-flex', marginBottom: 2 }}>
-          <Doughnut data={data} options={options} />
-          <Box
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              textAlign: 'center',
-            }}
-          >
-            <Typography variant="h6" component="div">
-              ₦456,789.00
-            </Typography>
-            <Typography variant="subtitle2" color="textSecondary">
-              Revenue for October
-            </Typography>
-          </Box>
-        </Box>
+          {/* Doughnut Chart */}
+          <Box sx={{ position: 'relative', display: 'inline-flex', width: '100%', height: '100%', marginBottom: 2 }}>
+  <Doughnut
+    data={data}
+    options={{
+      ...options,
+      responsive: true,
+      maintainAspectRatio: false, // Ensure it fills the container
+    }}
+  />
+  <Box
+    sx={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      textAlign: 'center',
+    }}
+  >
+    <Typography variant="h6" component="div">
+      ₦456,789.00
+    </Typography>
+    <Typography variant="subtitle2" color="textSecondary">
+      Revenue for October
+    </Typography>
+  </Box>
+</Box>
 
-        {/* Bottom details */}
-        <div className={styles.bottomDetails}>
-          <div className={styles.detailItem}>
-            <div className={styles.labelContainer}>
 
-              <div className={styles.dot1} />
-              <span className={styles.detailLabel}>Tuition Fees (67%)</span>
+          {/* Bottom details */}
+          <div className={styles.bottomDetails}>
+            <div className={styles.detailItem}>
+              <div className={styles.labelContainer}>
+
+                <div className={styles.dot1} />
+                <span className={styles.detailLabel}>Tuition Fees (67%)</span>
+              </div>
+              <p className={styles.detailValue}>₦234,678.00</p>
             </div>
-            <p className={styles.detailValue}>₦234,678.00</p>
-          </div>
-          <div className={styles.detailItem}>
-            <div className={styles.labelContainer}>
-              <div className={styles.dot2} />
-              <span className={styles.detailLabel}>Donations (23%)</span>
+            <div className={styles.detailItem}>
+              <div className={styles.labelContainer}>
+                <div className={styles.dot2} />
+                <span className={styles.detailLabel}>Donations (23%)</span>
+              </div>
+              <p className={styles.detailValue}>₦134,678.00</p>
             </div>
-            <p className={styles.detailValue}>₦134,678.00</p>
-          </div>
-          <div className={styles.detailItem}>
-            <div className={styles.labelContainer}>
-              <div className={styles.dot3} />
-              <span className={styles.detailLabel}>Other Profit (10%)</span>
+            <div className={styles.detailItem}>
+              <div className={styles.labelContainer}>
+                <div className={styles.dot3} />
+                <span className={styles.detailLabel}>Other Profit (10%)</span>
+              </div>
+              <p className={styles.detailValue}>₦34,678.00</p>
             </div>
-            <p className={styles.detailValue}>₦34,678.00</p>
           </div>
         </div>
+        <div className={styles.actionRightContainerBefore}></div>
       </div>
     </div>
   </section>

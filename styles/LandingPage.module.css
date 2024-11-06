@@ -208,6 +208,7 @@
     flex-direction: column;
     border-radius: 20px;
     padding-top: 90px;
+    overflow-x: hidden;
   }
   
   .heroSmallText {
@@ -277,6 +278,7 @@
   .trusted {
     margin: 55px;
     margin-top: 75px;
+    overflow-x: hidden;
   }
   
   .trusted h2 {
@@ -298,10 +300,13 @@
   }
   
   .schoolImage__text > div {
+    max-width: 380px;
+    width: 100%;
     color: #59676e;
     font-size: 1.5em;
     font-weight: 500;
     margin-left: 6px;
+    text-wrap: wrap;
   }
 
   .schoolImage {
@@ -316,9 +321,6 @@
       flex-wrap: wrap;
       justify-content: flex-start;
       gap: 20px;
-    }
-    .schoolImage__text {
-      width: max-content;
     }
    }
    @media (max-width: 1000px) {
@@ -351,7 +353,9 @@
     display: flex;
     align-items: center;
     margin: 55px;
-    margin-top: 150px;
+    overflow-x: hidden;
+    margin-top: 50px;
+    margin-bottom: 0px;
   }
   
   .actionLeft {
@@ -379,55 +383,46 @@
     align-items: center;
     margin-left: 35px;
     justify-content: center;
+  }
+  .actionContainerWrapper {
     position: relative;
+    height: 500px;
+    width: 500px;
+    transform: scale(.96);
   }
   
   .actionRightContainer {
-    height: 440px;
-    width: 440px;
-    position: relative;
+    height: 95%;
+    width: 95%;
+    position: absolute;
     display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     align-items: center;
     flex-direction: column;
-    justify-content: center;
-    z-index: 2;
+    /* justify-content: center; */
+    z-index: 3;
+    background-color: #fafafb;
     padding: 2em;
   }
   
-  .actionRightContainer::after {
-    content: '';
-    display: block;
-    position: absolute;
-    height: 470px;
-    width: 460px;
-    background-color: #fafafb;
-    z-index: -1;
-    border-radius: 10px;
-  }
-  .actionRightContainer::before {
-    content: '';
-    display: block;
+  .actionRightContainerBefore {
     position: absolute;
     top: 50%;
     left: 50%;
-    z-index: -1;
+    z-index: 2;
     background-color: var(--primary);
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    width: 120%;
-    height: 120%;
+    width: 100%;
+    height: 100%;
   }
   
   .circleImg {
     position: absolute;
     bottom: -10px;
     left: -50px;
-  }
-
-  .actionRightContainer {
-    border-radius: 50%;
-    position: relative;
-    padding: 20px;
   }
   
   .bottomDetails {
@@ -491,43 +486,18 @@
       width: 70%;
       margin-right: 5em;
      }
-    .actionRightContainer {
-      transform: scale(.9);
-      padding: 2.5em;
-    }
     
-    .actionRightContainer::after {
-      transform: scale(.9);
-    }
-    .actionRightContainer::before {
-      transform: scale(.9)
-      translate(-10%, -10%);
-      top: 0;
-      left: 0;
-    }
+    
    }
    @media (max-width: 1000px) {
     .actionLeft {
       width: 60%;
      }
-     .actionLeft h2 {
-      width: 140%;
-     }
-     .actionLeft p {
-      width: 140%;
-     }
-     .actionRight {
-      width: 60%;
-      /* transform: scale(.8) translateX(30px); */
-     }
-    .actionRightContainer {
-      padding: 2.5em;
-    }
     
-    /* .actionRightContainer::after {
+    /* .actionRightContainerAfter {
       transform: scale(.8);
     }
-    .actionRightContainer::before {
+    .actionRightContainerBefore {
       transform: scale(.8)
       translate(-10%, -10%);
       top: 0;
@@ -553,22 +523,7 @@
       color: #041822;
       margin-bottom: .7em;
     }
-    @media (max-width: 598px) {
-      .actionRightContainer {
-        transform: scale(.9);
-        padding: 2.5em;
-      }
-      
-      .actionRightContainer::after {
-        transform: scale(.9);
-      }
-      .actionRightContainer::before {
-        transform: scale(.9)
-        translate(-10%, -10%);
-        top: 0;
-        left: 0;
-  }
-    }
+   
    }
    @media (max-width: 768px) {
     .callActionOne {
@@ -590,21 +545,85 @@
       color: #041822;
       margin-bottom: .7em;
     }
-    @media (max-width: 598px) {
-      .actionRightContainer {
-        transform: scale(.9);
-        padding: 2.5em;
-      }
+    @media (max-width: 750px) {
       
-      .actionRightContainer::after {
-        transform: scale(.9);
-      }
-      .actionRightContainer::before {
-        transform: scale(.9)
-        translate(-10%, -10%);
-        top: 0;
-        left: 0;
+  .dot1 {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #4b8bbe;
+    margin-right: 3px;
   }
+  .dot2 {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #041822;
+    margin-right: 3px;
+  }
+  .dot3 {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #E2E9F6;
+    margin-right: 3px;
+  }
+  
+  .detailItem {
+    margin: 5px;
+  }
+  .detailLabel {
+    font-size: 0.75rem;
+    color: #6c757d;
+  }
+  
+  .detailValue {
+    font-size: .8rem;
+    font-weight: 500;
+    margin-top: .2em;
+  }
+    }
+   }
+   @media (max-width: 591px) {
+    .actionContainerWrapper {
+      transform: scale(.9);
+    }
+   }
+   @media (max-width: 540px) {
+    .actionContainerWrapper {
+      transform: scale(.7);
+    }
+   }
+   @media (max-width: 510px) {
+    .actionContainerWrapper {
+      transform: scale(0.68);
+    }
+   }
+   @media (max-width: 470px) {
+    .actionContainerWrapper {
+      transform: scale(0.64);
+    }
+   }
+   @media (max-width: 390px) {
+    .callActionOne, .actionLeft, .actionRight {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .actionContainerWrapper {
+      transform: scale(0.57);
+    }
+   }
+   @media (max-width: 333px) {
+    .callActionOne, .actionLeft, .actionRight {
+      margin-top: 0;
+      margin-bottom: 0;
+      overflow-x: hidden;
+    }
+    .actionContainerWrapper {
+      transform: scale(0.45);
     }
    }
   
@@ -618,6 +637,7 @@
     align-items: center;
     flex-direction: column;
     margin-top: 100px;
+    overflow-x: hidden;
   }
   
   .features > h2 {
@@ -779,6 +799,7 @@
   align-items: center;
   gap: 3.5em;
   margin-top: 120px;
+  overflow-x: hidden;
 }
 
 .actionTwoLeft {
@@ -929,7 +950,6 @@
     ;
   }
   .callActionTwo {
-    margin: 25px;
     flex-direction: column;
     margin-top: 100px;
   }
@@ -949,6 +969,12 @@
     line-height: 30px;
     color: #59676e;
     width: 97%;
+  }
+}
+
+@media (max-width: 768px) {
+  .callActionTwo {
+    margin: 25px;
   }
 }
 
@@ -1166,8 +1192,10 @@
 
   /* Start How it Works */
   .howItWorks {
+    position: relative;
     padding: 50px;
     text-align: center;
+    overflow-x: hidden;
   }
   
   /* Title and subtitle */
@@ -1273,7 +1301,7 @@
   .steps p{
     width: 95%;
   }
-   /* Responsive Faq Screen */
+   /* Responsive How It Works Screen */
    @media (max-width: 1200px) {
     .steps p{
       width: 90%;
@@ -1302,6 +1330,7 @@
     display: flex;
     justify-content: space-between;
     margin: 55px;
+    overflow-x: hidden;
   }
   
   /* FAQ section */
@@ -1388,7 +1417,6 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        margin: 25px;
       }
       .faqSection {
         width: 100%;
@@ -1396,6 +1424,12 @@
       .contactCard {
         max-width: 600px;
         width: 100%;
+      }
+    }
+    @media (max-width: 768px) {
+  
+      .faqPage {
+        margin: 25px;
       }
     }
     
@@ -1414,6 +1448,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden;
   }
   
   .avatarGroup {
@@ -1547,6 +1582,7 @@
   padding-bottom: 2.5rem;
   margin-left: 55px;
   margin-right: 55px;
+  overflow-x: hidden;
 }
 
 .privacyPolicyContent {
@@ -1664,6 +1700,7 @@
     align-items: center;
     margin: 55px;
     border-radius: 15px;
+    overflow-x: hidden;
   }
   
   .takeControl h2 {
@@ -1671,6 +1708,7 @@
     text-transform: capitalize;
     margin-bottom: 0;
     line-height: 49px;
+    text-align: center;
     color: #f8fbfd; /* Bright white for the heading */
   }
   
@@ -1679,7 +1717,7 @@
     font-size: 20px;
     margin-top: 10px;
     margin-bottom: 40px;
-    width: 50%;
+    width: 60%;
     font-weight: 400;
     text-align: center;
     color: #f8fbfd; /* Slightly off-white for the paragraph text */
@@ -1687,7 +1725,9 @@
 
     /* Responsive Take Control Screen */
   @media (max-width: 1200px) {
-    
+    .takeControl p {
+      width: 70%; /* Slightly off-white for the paragraph text */
+    }
   }
   @media (max-width: 1000px) {
     
@@ -1731,6 +1771,7 @@
     text-align: center;
     margin-top: 50px;
     padding: 20px 55px;
+    overflow-x: hidden;
   }
 
   .hLine {
