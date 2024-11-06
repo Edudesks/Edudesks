@@ -4,7 +4,6 @@ import { openSans } from "@/app/fonts/fonts";
 import { otpSchema, OTPFormData } from "@/features/auth/otpSchema";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 
 const OTPVerification = () => {
   const {
@@ -19,6 +18,13 @@ const OTPVerification = () => {
   });
 
   const otpValues = watch(["otp1", "otp2", "otp3", "otp4"]);
+
+  const onSubmit = () => {
+    const combinedOTP = otpValues.join("");
+    console.log(`combinedOTP: ${combinedOTP}`);
+    handleSubmit((data) => console.log(data))({otp: combinedOTP})
+  }
+
   return (
     <div className="flex flex-col items-center justify-center pt-[1.75rem] lg:pt-[2.75rem] px-[1.125rem] lg:pl-[5.625rem] text-[var(--primary-text-color)]">
       <div className="self-start">

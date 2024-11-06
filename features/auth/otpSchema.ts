@@ -1,9 +1,21 @@
 import { z, ZodType } from "zod";
 
 export type OTPFormData = {
-  otp: string;
+  otp1: string;
+  otp2: string;
+  otp3: string;
+  otp4: string;
 };
 
 export const otpSchema: ZodType<OTPFormData> = z.object({
-    otp: z.string().length(4, 'Invalid OTP').regex(/^\d+$/, 'Invalid OTP'),
+    otp1: z.string().length(1,).regex(/^\d+$/,),
+    otp2: z.string().length(1,).regex(/^\d+$/,),
+    otp3: z.string().length(1,).regex(/^\d+$/,),
+    otp4: z.string().length(1,).regex(/^\d+$/,),
+}).refine((data) => {
+    const combinedOTP = `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`;
+    return combinedOTP.length === 4 && /^\d{4}$/.test(combinedOTP)
+},{
+    message: "Invalid OTP",
+    path: ["otp"]
 })
