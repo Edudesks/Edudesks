@@ -46,7 +46,7 @@ const Verification: React.FC = () => {
     const combinedOTP = `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`;
     console.log(`combinedOTP: ${combinedOTP}`);
     console.log(`validatedData`, data);
-    router.push("/");
+    router.push("/otp-confirmation");
   };
 
   const handleInputChange = (

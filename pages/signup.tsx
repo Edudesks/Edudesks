@@ -16,6 +16,7 @@ import {
 import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormData, signUpSchema } from "@/features/auth/signUpSchema";
+import Router from "next/router";
 
 /**
  *
@@ -27,6 +28,7 @@ import { SignUpFormData, signUpSchema } from "@/features/auth/signUpSchema";
  */
 
 const SignUp: React.FC = () => {
+    const router = Router
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -39,6 +41,7 @@ const SignUp: React.FC = () => {
 
   const submitData = (data: SignUpFormData) => {
     console.log("Registration Successful", data);
+    router.push('/verification')
   };
 
   // show/hide password
