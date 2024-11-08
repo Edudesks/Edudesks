@@ -192,7 +192,7 @@ const PricingPayment = () => {
                 <ButtonTrial
                   variant="dark"
                   text="Start 30 days free trial"
-                  url="/complete-payment"
+                  url="/pricing-confirmation"
                 />
               </div>
               {/* -------- terms and conditions text -------- */}
