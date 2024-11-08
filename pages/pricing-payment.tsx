@@ -2,10 +2,14 @@ import Footer from "@/components/LandingPageComponents/Footer";
 import Navbar from "@/components/LandingPageComponents/NavBar";
 import React from "react";
 import "../app/globals.css";
-import styles from "@/styles/LandingPage.module.css";
 import { openSans } from "@/app/fonts/fonts";
 import Image from "next/image";
-import { LockIcon, SquareLock01Icon, SquareLock02Icon } from "hugeicons-react";
+import SubscriptionDropdown from "@/components/PricingPaymentComponent/SubscriptionDropdown";
+
+/**
+ *
+ * TODO: Functionality for monthly and annual payment
+ */
 
 const PricingPayment = () => {
   return (
@@ -25,7 +29,7 @@ const PricingPayment = () => {
           </p>
         </div>
         {/* -------- billing section and order section */}
-        <div className="flex flex-col">
+        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-[3.1875rem] lg:gap-[8.1875rem] lg:px-4">
           {/* -------- billing details -------- */}
           <div className="flex flex-col gap-3">
             <h3 className={`${openSans.className} text-2xl font-bold`}>
@@ -86,7 +90,7 @@ const PricingPayment = () => {
               {/* -------- expiration date and security code -------- */}
               <div className="flex justify-center lg:justify-between items-end gap-[0.8125rem] lg:gap-5">
                 {/* -------- expiration date -------- */}
-                <div className="flex flex-col gap-[0.4375rem] max-w-[7.9375rem] lg:max-w-none">
+                <div className="flex flex-col gap-[0.4375rem] max-w-[7.9375rem] lg:max-w-[12.1875rem]">
                   <label
                     htmlFor="expiration-date"
                     className="text-sm font-semibold text-[var(--primary)]"
@@ -102,7 +106,7 @@ const PricingPayment = () => {
                   />
                 </div>
                 {/* -------- security code -------- */}
-                <div className="flex flex-col gap-[0.4375rem] max-w-[7.9375rem] lg:max-w-none">
+                <div className="flex flex-col gap-[0.4375rem] max-w-[7.9375rem] lg:max-w-[12.1875rem]">
                   <label
                     htmlFor="security-code"
                     className="text-sm font-semibold text-[var(--primary)]"
@@ -147,7 +151,24 @@ const PricingPayment = () => {
             </form>
           </div>
           {/* -------- order details -------- */}
-          <div></div>
+          <div className="flex flex-col gap-3 w-full">
+            <h3 className={`${openSans.className} text-2xl font-bold`}>
+              Order details
+            </h3>
+            {/* -------- premium plan box -------- */}
+            <div className="flex flex-col gap-[1.625rem] border border-solid border-[var(--border)] rounded-[10px] py:2.75rem lg:py-[1.625rem] px-[0.8125rem] lg:px-[1.1875rem]">
+              <div>
+                <h3 className="text-3xl font-bold text-var(--primary)">
+                  Premium Plan
+                </h3>
+                <div className="w-full h-[1px] bg-[var(--border)] my-[1.375rem]"></div>
+                {/* -------- monthly subscription -------- */}
+                <div>
+                    <SubscriptionDropdown />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <Footer />
