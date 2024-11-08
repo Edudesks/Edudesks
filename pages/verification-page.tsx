@@ -4,9 +4,7 @@ import AuthentificationLogo from "@/components/AuthentificationLogo";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ForgotPasswordFormData, forgotPasswordSchema} from "@/features/auth/forgottenPassword";
-import { Mail01Icon, InformationCircleIcon } from "hugeicons-react";
-import { useState } from "react";
+import { VerificationCodeFormData, verificationCodeSchema} from "@/features/auth/codeVerify";
 import { useRouter } from "next/router";
 
 export default function ForgottenPassword() {
@@ -16,15 +14,14 @@ export default function ForgottenPassword() {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<ForgotPasswordFormData>({
-    resolver: zodResolver(forgotPasswordSchema),
+  } = useForm<VerificationCodeFormData>({
+    resolver: zodResolver(verificationCodeSchema),
     mode: "onSubmit",
   });
 
-  const submitData = (data: ForgotPasswordFormData) =>
-    {
-      console.log("Code Successfully Sent", data);
-    };
+  const submitData = (data: VerificationCodeFormData) => {
+    console.log("Code Successfully Sent", data);
+  };
 
   return (
     <>
@@ -53,64 +50,50 @@ export default function ForgottenPassword() {
             <h2
               className={`text-[var(--primary-text-color)] text-4xl lg:text-[2.5rem] font-bold leading-snug tracking-[0.1px]`}
             >
-              Forgot Password?
+              Verification Code
             </h2>
             <p className="text-[18px] leading-8 ">
-              No problem! Just enter the email address you used to register, and
-              we&apos;ll send you a code.
+              Enter the code that was sent to savage********@gmail.com
             </p>
           </div>
 
           {/* -------- form details and input -------- */}
           <form
             className="w-full flex flex-col gap-9 lg:w-[80%] self-start"
-            action=""
             onSubmit={handleSubmit(submitData)}
           >
-            {/* -------- form details only -------- */}
-            <div className="flex flex-col gap-5 ">
-              {/* -------- school email -------- */}
-              <div className="flex flex-col gap-[0.5rem]">
-                <label
-                  htmlFor="school-email"
-                  className="text-lg text-[var(--primary-text-color)] font-[700]"
-                >
-                  School Email
-                </label>
-                <div className="w-full flex relative items-center text-[var(--grey)]">
-                  <input
-                    className={`border ${
-                      errors.schoolEmail
-                        ? "border-[var(--danger)]"
-                        : "border-[var(--border)]"
-                    } rounded-[10px] py-2.5 px-9 w-full placeholder:text-[var(--grey)] ${
-                      errors.schoolEmail
-                        ? "text-[var(--danger)]"
-                        : "text-[var(--primary-text-color)]"
-                    } focus:outline-none autofill:bg-none`}
-                    type="email"
-                    id="school-email"
-                    placeholder="Enter your school email"
-                    required
-                    aria-label="Enter your school email"
-                    {...register("schoolEmail")}
-                  />
-                  <span className="absolute left-2.5">
-                    <Mail01Icon
-                      color={errors.schoolEmail ? "#f65252" : "#59676e"}
-                      size={18}
-                    />
-                  </span>
-                </div>
-                {errors.schoolEmail && (
-                  <div className="flex gap-[7px] text-[var(--danger)] items-center">
-                    <InformationCircleIcon size={"18px"} />
-                    <p className="text-lg leading-normal">
-                      {errors.schoolEmail.message}
-                    </p>
-                  </div>
-                )}
-              </div>
+            {/* -------- code input fields -------- */}
+            <div className="flex gap-5">
+              <input
+                {...register("code1")}
+                className="w-[75px] h-[75px] rounded-[15px] bg-[var(--border)] text-center text-xl"
+              />
+              <input
+                {...register("code2")}
+                className="w-[75px] h-[75px] rounded-[15px] bg-[var(--border)] text-center text-xl"
+              />
+              <input
+                {...register("code3")}
+                className="w-[75px] h-[75px] rounded-[15px] bg-[var(--border)] text-center text-xl"
+              />
+              <input
+                {...register("code4")}
+                className="w-[75px] h-[75px] rounded-[15px] bg-[var(--border)] text-center text-xl"
+              />
+            </div>
+
+            {/* Error messages */}
+            <div className="flex gap-5 text-red-500 text-sm">
+              {errors.code1 && <p>{errors.code1.message}</p>}
+              {errors.code2 && <p>{errors.code2.message}</p>}
+              {errors.code3 && <p>{errors.code3.message}</p>}
+              {errors.code4 && <p>{errors.code4.message}</p>}
+            </div>
+
+            {/* didn't receive code */}
+            <div className="flex gap-4">
+              <span className="text-xl leading-5">Didn’t receive the OTP?</span>
+              <span className={`${inter.className} text-[var(--secondary)] font-semibold`}>Resend</span>
             </div>
 
             {/* button container */}
@@ -120,16 +103,15 @@ export default function ForgottenPassword() {
                   isValid ? "bg-[var(--primary)]" : "bg-[var(--grey)]"
                 } px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)] w-full`}
                 type="submit"
-                onClick={() => router.push("/verification-page")} 
                 disabled={!isValid}
               >
-                Send Code
+                Verify code
               </button>
 
               <button
-                className={`border border-[var(--primary)] px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 w-full text-[var(--primary)]`}
+                className="border border-[var(--primary)] px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 w-full text-[var(--primary)]"
                 type="button"
-                onClick={() => router.push("/login")} 
+                onClick={() => router.push("/login")}
               >
                 Back to login
               </button>
