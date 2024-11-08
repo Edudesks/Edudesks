@@ -1,19 +1,22 @@
 import Footer from "@/components/LandingPageComponents/Footer";
 import Navbar from "@/components/LandingPageComponents/NavBar";
-import React from "react";
+import React, { useState } from "react";
 import "../app/globals.css";
 import { openSans } from "@/app/fonts/fonts";
 import Image from "next/image";
 import SubscriptionDropdown from "@/components/PricingPaymentComponent/SubscriptionDropdown";
+import ButtonTrial from "@/components/LandingPageComponents/Button";
 
 /**
  *
  * TODO: Functionality for monthly and annual payment
+ * TODO: Form validation
  */
 
 const PricingPayment = () => {
+  const [subscriptionPrice, setSubscriptionPrice] = useState<string>("5,000");
   return (
-    <div className="flex flex-col">
+    <div className={`${openSans.className} flex flex-col`}>
       <Navbar />
       {/* -------- billing details and order details section -------- */}
       <div className="flex flex-col max-w-[78.0625rem] w-full self-center p-[1.125rem] lg:p-0 gap-20 lg:gap-[3.75rem]">
@@ -29,9 +32,9 @@ const PricingPayment = () => {
           </p>
         </div>
         {/* -------- billing section and order section */}
-        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-[3.1875rem] lg:gap-[8.1875rem] lg:px-4">
+        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-[3.1875rem] lg:gap-[8.1875rem] lg:px-4 w-full">
           {/* -------- billing details -------- */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 w-full">
             <h3 className={`${openSans.className} text-2xl font-bold`}>
               Billing details
             </h3>
@@ -156,16 +159,45 @@ const PricingPayment = () => {
               Order details
             </h3>
             {/* -------- premium plan box -------- */}
-            <div className="flex flex-col gap-[1.625rem] border border-solid border-[var(--border)] rounded-[10px] py:2.75rem lg:py-[1.625rem] px-[0.8125rem] lg:px-[1.1875rem]">
+            <div className="flex flex-col border border-solid border-[var(--border)] rounded-[10px] py-[2.75rem] lg:py-[1.625rem] px-[0.8125rem] lg:px-[1.1875rem]">
               <div>
                 <h3 className="text-3xl font-bold text-var(--primary)">
                   Premium Plan
                 </h3>
+                {/* -------- divider -------- */}
                 <div className="w-full h-[1px] bg-[var(--border)] my-[1.375rem]"></div>
                 {/* -------- monthly subscription -------- */}
                 <div>
-                    <SubscriptionDropdown />
+                  <SubscriptionDropdown
+                    subscriptionPrice={subscriptionPrice}
+                    setSubscriptionPrice={setSubscriptionPrice}
+                  />
                 </div>
+                {/* -------- divider -------- */}
+                <div className="w-full h-[1px] bg-[var(--border)] my-[1.375rem]"></div>
+                {/* -------- total -------- */}
+                <div className="flex items-center justify-between">
+                  <p
+                    className={`text-[var(--primary-text-color)] text-xl font-bold`}
+                  >
+                    Total
+                  </p>
+                  <p className="text-[var(--primary-text-color)] text-xl font-semibold">
+                    ₦&nbsp;{subscriptionPrice}
+                  </p>
+                </div>
+              </div>
+              {/* -------- start trial button -------- */}
+              <div className="mt-[2.75rem]">
+                <ButtonTrial
+                  variant="dark"
+                  text="Start 30 days free trial"
+                  url="/complete-payment"
+                />
+              </div>
+              {/* -------- terms and conditions text -------- */}
+              <div className={`${openSans.className} mt-[1.125rem] self-stretch text-justify max-w-[31.5625rem]`}>
+                <p className="text-[var(--grey)] leading-6">Enjoy a 30-day free trial—your card will only be charged after the trial period ends. Following this, your subscription will automatically renew each month at N10,000. You can cancel anytime before the trial ends with no charge. By selecting “Start 30-Day Free Trial,” you agree to our Terms and Conditions.</p>
               </div>
             </div>
           </div>
