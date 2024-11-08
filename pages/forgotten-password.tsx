@@ -49,13 +49,13 @@ export default function ForgottenPassword() {
         {/* -------- form input of signup page -------- */}
         <div className="flex flex-col gap-9 items-center justify-start lg:justify-center h-full px-[1.125rem] lg:p-0 lg:w-[35.9375rem] lg:mr-2.5">
           {/* -------- form heading -------- */}
-          <div className="flex flex-col gap-[0.6875rem] w-[80%] whitespace-normal self-start">
+          <div className="flex flex-col gap-[0.6875rem] w-full lg:w-[80%] whitespace-normal self-start">
             <h2
               className={`text-[var(--primary-text-color)] text-4xl lg:text-[2.5rem] font-bold leading-snug tracking-[0.1px]`}
             >
               Forgot Password?
             </h2>
-            <p className="text-[18px] leading-8 ">
+            <p className="text-[15px] sm:text-[18px] leading-8 ">
               No problem! Just enter the email address you used to register, and
               we&apos;ll send you a code.
             </p>
