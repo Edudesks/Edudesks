@@ -1,12 +1,11 @@
 // components/Dashboard.js
 import { Card, Typography, CircularProgress, Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@mui/material';
-import Sidebar from '../components/Sidebar';
-import DashboardTable from '@/components/DashboardTable/DashboardTable';
+import Sidebar from '@/components/Sidebar';
+import DashboardTable from '@/components/DashboardTable';
 import BalanceCard from '@/components/BalancedCard';
 import RevenueAnalytics from '@/components/RevenueAnalysis';
 import Navbar from '@/components/NavBar';
 import CircularChart from '@/components/CircularChart';
-import TransactionReceiptModal from '../components/TransactionReceiptModal';
 import { useState } from 'react';
 import styles from '@/styles/Dashboard.module.css';
 
