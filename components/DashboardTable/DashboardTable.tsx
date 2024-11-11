@@ -43,6 +43,7 @@ interface Transaction {
   amount: number;
   paymentMethod: string;
   status: React.ReactNode;
+  isPositiveChange: boolean;
   // Add other fields if necessary
 }
 
