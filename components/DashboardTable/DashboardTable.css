@@ -1,0 +1,23 @@
+.search-box {
+    display: flex;
+    background-color: white;
+    border-radius: 2em;
+    padding: .2em 1em;
+    overflow: hidden;
+}
+
+.search-box input::-webkit-input-placeholder {
+    color: black;
+}
+
+.date-range {
+    display: flex;
+    padding: .2em 3.8em;
+    border-radius: 2em;
+    background-color: white;
+    color: black;
+}
+
+.date-range button {
+    margin-left: 15px;
+}

@@ -1,0 +1,85 @@
+/* components/BalanceCard.module.css */
+
+.card {
+    border: 1px solid #e5e7eb; 
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); 
+    padding: 0.5rem;
+    flex: 1 1 100%;
+    max-width: 320px;
+  }
+  
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* space-x-2 */
+    margin-bottom: 0.5rem; /* mb-2 */
+  }
+  
+  .iconContainer {
+    padding: 0.5rem; /* p-2 */
+    background-color: #ebf8ff; /* bg-blue-100 */
+    border-radius: 9999px; /* rounded-full */
+  }
+  
+  .title {
+    color: #4b5563; /* text-gray-700 */
+    font-weight: 600; /* font-semibold */
+    font-size: 0.875rem; /* text-sm */
+  }
+  .infoContainer {
+    display: flex;
+    justify-items: space-between;
+  }
+  .amountContainer {
+    margin-right: 2em;
+
+  }
+  
+  .amount {
+    font-size: .9rem; /* text-xl */
+    font-weight: bold; /* font-bold */
+    color: #111827; /* text-gray-900 */
+    margin-right: 2em;
+    text-wrap: nowrap;
+  }
+  
+  .changeInfo {
+    display: flex;
+    gap: 0.25rem; /* space-x-1 */
+    margin-top: 0.25rem; /* mt-1 */
+    font-size: 0.75rem; /* text-xs */
+  }
+  
+  .changePositive {
+    color: #16a34a; /* text-green-600 */
+  }
+  
+  .changeNegative {
+    color: #dc2626; /* text-red-600 */
+  }
+  
+  .changeLabel {
+    color: #9ca3af; /* text-gray-400 */
+  }
+  
+  .chartContainer {
+    width: 6rem; 
+    height: 3rem;
+  }
+  
+
+  
+  @media (max-width: 640px) {
+    /* equivalent to Tailwind's sm breakpoint */
+    .card {
+      flex: 1 1 48%; /* 50% width with some gap */
+    }
+  }
+  @media (min-width: 1024px) {
+    /* equivalent to Tailwind's lg breakpoint */
+    .card {
+      flex: 1 1 23%; /* roughly 1/4 width with gap */
+    }
+  }

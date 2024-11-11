@@ -1,0 +1,51 @@
+/* StatusButton.module.css */
+
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem; /* equivalent to px-3 py-1 */
+    width: 6.4rem; /* equivalent to w-24 */
+    border-radius: 0.25rem;
+    
+  }
+  
+  .statusText {
+    font-size: 0.875rem; /* equivalent to text-sm */
+    font-weight: 500; /* equivalent to font-medium */
+    margin-left: 0.5rem; /* space-x-2 */
+  }
+  
+  /* .icon {
+    height: 10px;
+    width: 10px;
+  } */
+  /* Status-specific background, icon, and text colors */
+  .received {
+    background-color: #d1fae5; /* bg-green-100 */
+    color: #065f46; /* text-green-800 */
+  }
+  .receivedIcon {
+    background-color: #10b981; /* bg-green-500 */
+  }
+  
+  .pending {
+    background-color: #ffedd5; /* bg-orange-100 */
+    color: #7c2d12; /* text-orange-800 */
+  }
+  .pendingIcon {
+    background-color: #f97316; /* bg-orange-500 */
+  }
+  
+  .paid {
+    background-color: #fee2e2; /* bg-red-100 */
+    color: #7f1d1d; /* text-red-800 */
+  }
+  .paidIcon {
+    background-color: #ef4444; /* bg-red-500 */
+  }
+  
+  .icon {
+    width: 0.5rem; /* equivalent to w-2.5 */
+    height: 0.5rem; /* equivalent to h-2.5 */
+  }
+  

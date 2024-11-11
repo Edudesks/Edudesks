@@ -1,0 +1,145 @@
+/* components/Navbar.module.css */
+
+.navbarContainer {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .searchContainer {
+    display: flex;
+    align-items: center;
+    width: 46%;
+    background-color: var(--secondary-text-color); /* bg-gray-100 */
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+  }
+  .mobileSearchContainer {
+    display: none;
+  }
+  
+  .searchIcon {
+    cursor: pointer;
+  }
+  
+  .searchInput {
+    background: transparent;
+    outline: none;
+    color: #4b5563; /* text-gray-700 */
+    width: 100%;
+    padding-left: 0.5rem;
+  }
+  
+  .closeButton {
+    margin-left: 0.5rem;
+    color: #6b7280; /* text-gray-500 */
+  }
+  
+  
+  .freeTrialContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 25%;
+    min-width: 150px;
+  }
+
+  .freeTrialTop {
+    display: flex;
+    align-items: center;
+  }
+  
+  .freeTrialLabel {
+    color: linear-gradient(#141B34 #1A1A1A); /* text-gray-500 */
+    white-space: nowrap;
+    margin-right: 20px;
+  }
+  
+  .progressContainer {
+    position: relative;
+    width: 8.9rem;
+    height: 0.9rem;
+    background-color: #d1d5db; /* bg-gray-300 */
+    border-radius: 9999px;
+  }
+  
+  .progressBar {
+    position: absolute;
+    height: 100%;
+    background: linear-gradient(to right, #002F49, #045887); /* bg-blue-900 */
+    border-radius: 9999px;
+    width: 75%;
+  }
+  
+  .trialDays {
+    color: var(--primary-text-color); /* text-gray-500 */
+    font-size: 0.875rem; /* text-sm */
+    white-space: nowrap;
+  }
+  
+  .rightIconsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: fit-content;
+    min-width: 100px;
+    gap: 1rem;
+  }
+
+  .menuBar {
+    display: none;
+  }
+  
+
+@media (max-width: 1100px) {
+  .desktopSearch {
+    display: none;
+  }
+  .mobileSearchContainer {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .searchContainer {
+    width: 100%;
+  }
+  .freeTrialContainer {
+    display: none;
+  }
+  .searchIconDark {
+    display: block;
+  }
+  .searchIconLight {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  .rightIconsContainer {
+    display: none;
+  }
+  .menuBar {
+    display: block;
+    margin-right: 2em;
+  }
+  .navbarContainer {
+    background-color: var(--primary);
+  }
+  .searchIcon {
+    color: white;
+  }
+  .searchIconDark {
+    display: none;
+  }
+  .searchIconLight {
+    display: block;
+  }
+}
