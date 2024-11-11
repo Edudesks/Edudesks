@@ -1,6 +1,6 @@
 // components/DashboardTable.tsx
 
-import React, { useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -44,7 +44,6 @@ interface Transaction {
   paymentMethod: string;
   status: React.ReactNode;
   isPositiveChange: boolean;
-  // Add other fields if necessary
 }
 
 function createData(
@@ -54,7 +53,7 @@ function createData(
   amount: number,
   paymentMethod: string,
   status: React.ReactNode,
-  isPositiveChange: boolean,
+  isPositiveChange: boolean
 ): Transaction {
   return { id, name, category, amount, paymentMethod, status, isPositiveChange };
 }
@@ -69,11 +68,10 @@ const rows: Transaction[] = [
 
 const DashboardTable: React.FC = () => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage] = useState(5); // Fixed rows per page as per initial code
+  const [rowsPerPage] = useState(5);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
-  // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
 
@@ -83,7 +81,7 @@ const DashboardTable: React.FC = () => {
 
   const totalPages = Math.ceil(rows.length / rowsPerPage);
 
-  const handleDateRangeClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleDateRangeClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -94,7 +92,6 @@ const DashboardTable: React.FC = () => {
   const open = Boolean(anchorEl);
   const id = open ? 'date-picker-popover' : undefined;
 
-  // Handle row click to open modal
   const handleRowClick = (transaction: Transaction) => {
     setSelectedTransaction(transaction);
     setIsModalOpen(true);
@@ -107,49 +104,25 @@ const DashboardTable: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {/* Transaction History Header */}
       <div className={styles.header}>
         <h1>Transaction History</h1>
         <div className={styles.headerActions}>
           <div className={styles.searchBox}>
             <Image src={"/icons/search-icon.svg"} alt="search icon" width={20} height={20} />
-            <input
-              type="text"
-              placeholder="Search for keyword"
-              className={styles.searchInput}
-            />
+            <input type="text" placeholder="Search for keyword" className={styles.searchInput} />
           </div>
-          <button
-            aria-describedby={id}
-            onClick={handleDateRangeClick}
-            className={styles.dateRangeButton}
-          >
+          <button aria-describedby={id} onClick={handleDateRangeClick} className={styles.dateRangeButton}>
             <Image src={"/icons/calendar.svg"} alt="calendar icon" width={20} height={20} />
             <span className={styles.dateRangeText}>Date range</span>
           </button>
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-          >
+          <Popover id={id} open={open} anchorEl={anchorEl} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
             <Box p={2}>
-              {/* <DatePicker
-                label="Select Date"
-                value={selectedDate}
-                onChange={(newValue) => setSelectedDate(newValue)}
-                renderInput={(params) => <TextField {...params} />}
-              /> */}
+              {/* <DatePicker label="Select Date" value={selectedDate} onChange={(newValue) => setSelectedDate(newValue)} renderInput={(params) => <TextField {...params} />} /> */}
             </Box>
           </Popover>
         </div>
       </div>
 
-      {/* Table */}
       <TableContainer component={Paper} className={styles.tableContainer}>
         <Table aria-label="customized table">
           <TableHead>
@@ -167,16 +140,16 @@ const DashboardTable: React.FC = () => {
                 <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
                 <StyledTableCell>{row.category}</StyledTableCell>
                 <StyledTableCell>
-                <Box display="flex" alignItems="center">
-                  ₦{row.amount.toLocaleString()}
-                  <Image
-                    src={row.isPositiveChange ? "/icons/up-rate.svg" : "/icons/down-rate.svg"}
-                    alt={row.isPositiveChange ? "up arrow" : "down arrow"}
-                    width={18}
-                    height={18}
-                    style={{ marginLeft: 8 }}
-                  />
-                </Box>
+                  <Box display="flex" alignItems="center">
+                    ₦{row.amount.toLocaleString()}
+                    <Image
+                      src={row.isPositiveChange ? "/icons/up-rate.svg" : "/icons/down-rate.svg"}
+                      alt={row.isPositiveChange ? "up arrow" : "down arrow"}
+                      width={18}
+                      height={18}
+                      style={{ marginLeft: 8 }}
+                    />
+                  </Box>
                 </StyledTableCell>
                 <StyledTableCell>{row.paymentMethod}</StyledTableCell>
                 <StyledTableCell>{row.status}</StyledTableCell>
@@ -187,13 +160,7 @@ const DashboardTable: React.FC = () => {
             <TableRow>
               <TableCell colSpan={5}>
                 <Box className={styles.tableFooter}>
-                  {/* Pagination Controls */}
-                  <IconButton
-                    onClick={() => handleChangePage(page - 1)}
-                    disabled={page === 0}
-                    aria-label="previous page"
-                    className={`${styles.pageButton} ${page === 0 ? styles.disabled : ''}`}
-                  >
+                  <IconButton onClick={() => handleChangePage(page - 1)} disabled={page === 0} aria-label="previous page" className={`${styles.pageButton} ${page === 0 ? styles.disabled : ''}`}>
                     <KeyboardArrowLeft />
                     <Typography className={styles.paginationText}>Previous</Typography>
                   </IconButton>
@@ -206,12 +173,7 @@ const DashboardTable: React.FC = () => {
                       {index + 1}
                     </Typography>
                   ))}
-                  <IconButton
-                    onClick={() => handleChangePage(page + 1)}
-                    disabled={page >= totalPages - 1}
-                    aria-label="next page"
-                    className={`${styles.pageButton} ${page >= totalPages - 1 ? styles.disabled : ''}`}
-                  >
+                  <IconButton onClick={() => handleChangePage(page + 1)} disabled={page >= totalPages - 1} aria-label="next page" className={`${styles.pageButton} ${page >= totalPages - 1 ? styles.disabled : ''}`}>
                     <Typography className={styles.paginationText}>Next</Typography>
                     <KeyboardArrowRight />
                   </IconButton>
@@ -222,7 +184,6 @@ const DashboardTable: React.FC = () => {
         </Table>
       </TableContainer>
 
-      {/* Transaction Receipt Modal */}
       {selectedTransaction && (
         <TransactionReceiptModal
           isOpen={isModalOpen}
