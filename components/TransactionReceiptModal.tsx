@@ -1,34 +1,14 @@
-// components/TransactionReceiptModal.tsx
+// components/TransactionReceiptModal.js
 
 import React, { useRef } from 'react';
 import Image from 'next/image';
-import styles from '@/styles/TransactionReceiptModal.module.css'; // Import the CSS module
+import styles from '@/styles/TransactionReceiptModal.module.css';
 
-interface Transaction {
-  recipientName: string;
-  amount: number;
-  reference: string;
-  status: string;
-  date: string;
-  method: string;
-  accountCredited: string;
-  sender: string;
-  remark: string;
-  recipientAccount: string;
-  recipientBank: string;
-}
+const TransactionReceiptModal = ({ isOpen, onClose, transaction }) => {
+  const modalRef = useRef(null);
 
-interface TransactionReceiptModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  transaction: Transaction;
-}
-
-const TransactionReceiptModal: React.FC<TransactionReceiptModalProps> = ({ isOpen, onClose, transaction }) => {
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  const handleClickOutside = (event: React.MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+  const handleClickOutside = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
       onClose();
     }
   };
@@ -111,10 +91,11 @@ const TransactionReceiptModal: React.FC<TransactionReceiptModalProps> = ({ isOpe
         <button className={styles.downloadButton}>
           Download Receipt
           <Image
-          src="icons/download-icon.svg"
-          alt=''
-          className={styles.downloadIcon}
-          width={20} height={20}
+            src="icons/download-icon.svg"
+            alt=''
+            className={styles.downloadIcon}
+            width={20}
+            height={20}
           />
         </button>
       </div>

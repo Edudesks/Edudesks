@@ -1,6 +1,6 @@
-// components/DashboardTable.tsx
+// components/DashboardTable.js
 
-import React, { useState, MouseEvent } from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,9 +12,8 @@ import Paper from '@mui/material/Paper';
 import Image from 'next/image';
 import { Box, IconButton, TableFooter, Typography, Popover, TextField } from '@mui/material';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import StatusButton from '../StatusButton';
-import TransactionReceiptModal from '../TransactionReceiptModal'; // Import the modal
+import TransactionReceiptModal from '../TransactionReceiptModal';
 import '@/app/globals.css';
 import styles from '@/styles/DashboardTable.module.css';
 
@@ -36,29 +35,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-interface Transaction {
-  id: string;
-  name: React.ReactNode;
-  category: string;
-  amount: number;
-  paymentMethod: string;
-  status: React.ReactNode;
-  isPositiveChange: boolean;
-}
-
-function createData(
-  id: string,
-  name: React.ReactNode,
-  category: string,
-  amount: number,
-  paymentMethod: string,
-  status: React.ReactNode,
-  isPositiveChange: boolean
-): Transaction {
+function createData(id, name, category, amount, paymentMethod, status, isPositiveChange) {
   return { id, name, category, amount, paymentMethod, status, isPositiveChange };
 }
 
-const rows: Transaction[] = [
+const rows = [
   createData("one", <><h3>Fri, 24th May</h3><p>10:00pm</p></>, 'School fees', 100000, 'Cash', <StatusButton type="Received" />, true),
   createData("two", <><h3>Fri, 24th May</h3><p>10:00pm</p></>, 'Sale of Textbook', 100000, 'Bank transfer', <StatusButton type="Pending" />, true),
   createData("three", <><h3>Fri, 24th May</h3><p>10:00pm</p></>, 'Salary', 100000, 'Bank transfer', <StatusButton type="Paid" />, false),
@@ -66,22 +47,21 @@ const rows: Transaction[] = [
   createData("five", <><h3>Fri, 24th May</h3><p>10:00pm</p></>, 'Sale of Textbook', 100000, 'Bank transfer', <StatusButton type="Pending" />, true),
 ];
 
-const DashboardTable: React.FC = () => {
+const DashboardTable = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage] = useState(5);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
-  const handleChangePage = (newPage: number) => {
+  const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 
   const totalPages = Math.ceil(rows.length / rowsPerPage);
 
-  const handleDateRangeClick = (event: MouseEvent<HTMLElement>) => {
+  const handleDateRangeClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -92,7 +72,7 @@ const DashboardTable: React.FC = () => {
   const open = Boolean(anchorEl);
   const id = open ? 'date-picker-popover' : undefined;
 
-  const handleRowClick = (transaction: Transaction) => {
+  const handleRowClick = (transaction) => {
     setSelectedTransaction(transaction);
     setIsModalOpen(true);
   };
