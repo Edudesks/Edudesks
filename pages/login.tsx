@@ -31,7 +31,8 @@ const Login: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
+    watch,
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     mode: "onSubmit",
@@ -46,20 +47,36 @@ const Login: React.FC = () => {
     setShowPassword(!showPassword);
   };
 
+  // ------ changing button color dependent on form validation ------
+  const schoolEmail = watch("schoolEmail");
+  const password = watch("password");
+  const allFieldsFilled = schoolEmail && password;
+
+  let buttonColor;
+  if (!allFieldsFilled) {
+    buttonColor = "bg-[var(--grey)]";
+  } else if (allFieldsFilled && !isSubmitted) {
+    buttonColor = "bg-[var(--primary)]";
+  } else if (isSubmitted && Object.keys(errors).length > 0) {
+    buttonColor = "bg-[var(--secondary)]";
+  } else if (isSubmitted && Object.keys(errors).length === 0 && isValid) {
+    buttonColor = "bg-[var(--primary)]";
+  }
+
   return (
     <>
       <div
         className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[8.5625rem] h-screen whitespace-nowrap`}
       >
         {/* -------- left half of signup page -------- */}
-        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[8.9375rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-[44.875rem]">
+        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[1.9375rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-[44.875rem]">
           <AuthentificationLogo />
           <div className="w-[16.625rem] lg:w-[33.6875rem] self-center">
             <Image
               src={"/loginIcon.svg"}
               alt="login image"
-              width={539}
-              height={539}
+              width={470}
+              height={470}
             />
           </div>
         </div>
@@ -203,15 +220,18 @@ const Login: React.FC = () => {
                   />
                   <label htmlFor="save-details">Save details</label>
                 </div>
-                <Link href={"/forgot-password"} className="text-sm leading-5 text-[var(--secondary)]">Forgot password</Link>
+                <Link
+                  href={"/forgot-password"}
+                  className="text-sm leading-5 text-[var(--secondary)]"
+                >
+                  Forgot password
+                </Link>
               </div>
             </div>
             <button
-              className={`${
-                isValid ? "bg-[var(--primary)]" : "bg-[var(--grey)]"
-              } px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
+              className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
               type="submit"
-              disabled={!isValid}
+              // disabled={!isValid}
             >
               Sign In
             </button>

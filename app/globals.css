@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
 :root {
+    /* Color Variables */
     --primary: #002F49;
     --secondary: #4b8bbe;
     --success: #08c074;
@@ -13,6 +17,9 @@
     --secondary-text-color: #F8FBFD;
     --border: #E2E9F6;
     --grey: #59676e;
+    --landing-page-background-color: #e2e9f6;
+
+
     --background: #DDE4F2;
 }
 
@@ -20,7 +27,11 @@
 body {
     margin: 0;
     padding: 0;
-    /* height: 100vh; */
+
+
+    /* Font Family */
+    font-family: 'Open Sans', sans-serif;
+    overflow-x: hidden;
 }
 
 /* Target autofilled input fields */
