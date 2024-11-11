@@ -1,7 +1,7 @@
 // components/RevenueAnalytics.tsx
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend, ChartOptions } from 'chart.js';
 import { MenuItem, Select } from '@mui/material';
 import styles from '@/styles/RevenueAnalytics.module.css';
 
@@ -30,7 +30,7 @@ const RevenueAnalytics: React.FC = () => {
     ],
   };
 
-  const options = {
+  const options: ChartOptions<'bar'> = {
     responsive: true,
     plugins: {
       legend: {
@@ -47,7 +47,7 @@ const RevenueAnalytics: React.FC = () => {
       tooltip: {
         enabled: true,
         callbacks: {
-          label: (context: any) => `${context.dataset.label}: ₦${context.raw.toLocaleString()}.00`,
+          label: (context) => `${context.dataset.label}: ₦${context.toLocaleString()}.00`,
         },
       },
     },
@@ -60,16 +60,15 @@ const RevenueAnalytics: React.FC = () => {
       },
       y: {
         ticks: {
-          callback: (value: number) => `₦${value / 1000}k`,
+          callback: (value) => `₦${value}k`,
         },
         grid: {
           color: '#E5E7EB',
-          drawBorder: false,
+          // drawBorder: false,
         },
       },
     },
   };
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
