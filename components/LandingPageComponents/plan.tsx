@@ -14,22 +14,22 @@ const PricingPlan = () => {
       </p>
 
       <div className={`${styles.toggleWrapper}`}>
-        <span 
-          className={`${!isAnnually ? styles.activeToggleText : styles.inactiveToggleText}`} 
+        <span
+          className={`${!isAnnually ? styles.activeToggleText : styles.inactiveToggleText}`}
           onClick={() => setIsAnnually(false)}
         >
           Monthly
         </span>
-        <div 
+        <div
           onClick={() => setIsAnnually(!isAnnually)}
           className={`${styles.toggleSwitch}`}
         >
-          <span 
+          <span
             className={`${styles.toggleBall} ${isAnnually ? styles.translateRight : styles.translateLeft}`}
           />
         </div>
-        <span 
-          className={`${isAnnually ? styles.activeToggleText : styles.inactiveToggleText}`} 
+        <span
+          className={`${isAnnually ? styles.activeToggleText : styles.inactiveToggleText}`}
           onClick={() => setIsAnnually(true)}
         >
           Annually
@@ -48,7 +48,7 @@ const PricingPlan = () => {
               <p className={styles.price}>₦ {isAnnually ? "60000" : "5000"}</p>
               <p className={styles.priceLabel}>{isAnnually ? "Annually" : "Per Month"}</p>
             </div>
-            <ButtonTrial url="/signup" variant={"dark"} text={"Start 30 days free trial"}/>
+            <ButtonTrial url="/pricing-payment" variant={"dark"} text={"Start 30 days free trial"}/>
           </div>
           <div className={styles.lineDivider}></div>
           <h4 className={styles.featuresTitle}>Features</h4>
@@ -72,7 +72,7 @@ const PricingPlan = () => {
           </div>
           <div className={styles.premiumBottom}>
 
-            <ButtonTrial url="/signup" variant={"dark"} text={"Start 30 days free trial"}/>
+            <ButtonTrial url="/pricing-payment" variant={"dark"} text={"Start 30 days free trial"}/>
             <div className={styles.lineDivider}></div>
             <h4 className={styles.featuresTitle}>Features</h4>
             <ul className={`${styles.featureList} ${styles.textWhite}`}>
@@ -96,7 +96,7 @@ const PricingPlan = () => {
             <p className={styles.price}>₦ {isAnnually ? "180000" : "15000"}</p>
             <p className={styles.priceLabel}>{isAnnually ? "Annually" : "Per Month"}</p>
           </div>
-          <ButtonTrial url="/signup" variant={"dark"} text={"Start 30 days free trial"}/>
+          <ButtonTrial url="/pricing-payment" variant={"dark"} text={"Start 30 days free trial"}/>
           </div>
           <div className={styles.lineDivider}></div>
           <h4 className={styles.featuresTitle}>Features</h4>
