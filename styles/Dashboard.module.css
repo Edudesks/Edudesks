@@ -2,8 +2,21 @@
     display: flex;
     justify-content: space-between;
     padding: 1.5rem;
-    gap: 20px;
+    gap: 0;
+    height: 430px;
     margin-top: 1.5rem; /* equivalent to mt-6 */
+  }
+  .flexRevenue {
+    flex: 1;
+    transform: scale(1, .9);
+    transform-origin: top left;
+  }
+
+  .flexChart {
+    width: 400px; 
+    height: 100%;
+    transform: scale(.9);
+    transform-origin: top right;
   }
   
   

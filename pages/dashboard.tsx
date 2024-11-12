@@ -28,7 +28,7 @@ const Dashboard = () => {
 
   
   return (
-    <div className="flex">
+    <div className="flex bg-[var(--secondary-text-color)]">
       <Sidebar />
       <div className="h-screen flex-1 overflow-y-scroll overflow-x-hidden">
         <Navbar />
@@ -53,7 +53,7 @@ const Dashboard = () => {
             changeLabel="last year"
             data={[5, 15, 25, 20, 30]}
             backgroundColors={['#E2F9E1', '#E2F9E1', '#E2F9E1', '#E2F9E1', '#48bb78']}
-            icon="/icons/income-icon.svg"
+            icon="/icons/income-icon-dark.svg"
             barColor="#48bb78"
             size="large"
           />
@@ -64,7 +64,7 @@ const Dashboard = () => {
             changeLabel="last year"
             data={[15, 25, 20, 30, 35]}
             backgroundColors={['#FDEAEA', '#FDEAEA', '#FDEAEA', '#FDEAEA', '#F87171']}
-            icon="/icons/expenses-icon.svg"
+            icon="/icons/expenses-icon-dark.svg"
             barColor="#F87171"
             size="medium"
           />
@@ -75,7 +75,7 @@ const Dashboard = () => {
             changeLabel="last year"
             data={[8, 12, 15, 20, 22]}
             backgroundColors={['#FFF7ED', '#FFF7ED', '#FFF7ED', '#FFF7ED', '#F97316']}
-            icon="/icons/employees-icon.svg"
+            icon="/icons/employees-icon-dark.svg"
             barColor="#F97316"
             size="medium"
           />
@@ -83,13 +83,13 @@ const Dashboard = () => {
         
         {/* Analytics and Circular Chart Row */}
         <div className={styles.flexContainer}>
-        <RevenueAnalytics />
-        <CircularChart />
-      {/* <div className={styles.revenueAnalytics}>
-      </div> */}
-      {/* <div className={styles.circularChart}>
-      </div> */}
-    </div>
+          <div className={styles.flexRevenue}>
+            <RevenueAnalytics />
+          </div>
+          <div className={styles.flexChart}>
+            <CircularChart />
+          </div>
+        </div>
 
         
         {/* Transaction History Table */}

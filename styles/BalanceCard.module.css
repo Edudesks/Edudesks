@@ -7,6 +7,7 @@
     padding: 0.5rem;
     flex: 1 1 100%;
     max-width: 320px;
+    background-color: white;
   }
   
 
@@ -19,7 +20,7 @@
   
   .iconContainer {
     padding: 0.5rem; /* p-2 */
-    background-color: #ebf8ff; /* bg-blue-100 */
+    background-color: #f6fafc; /* bg-blue-100 */
     border-radius: 9999px; /* rounded-full */
   }
   
