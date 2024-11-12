@@ -44,10 +44,10 @@ export default function ForgottenPassword() {
   return (
     <>
       <div
-        className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[4rem] h-screen whitespace-nowrap pb-[4.1875rem] lg:pb-0 bg-white w-full overflow-x-auto lg:overflow-hidden`}
+        className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[5rem] h-screen whitespace-nowrap pb-[4.1875rem] lg:pb-0 bg-white w-full overflow-x-auto lg:overflow-hidden`}
       >
         {/* -------- left half of signup page -------- */}
-        <section className="flex flex-col align-top gap-[1.34125rem] lg:gap-[1.9375rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-full">
+        <section className="flex flex-col align-top gap-[1.34125rem] lg:gap-[2rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-full">
           <AuthentificationLogo />
           <div className="w-[16.625rem] lg:w-full self-center">
             <Image
@@ -57,6 +57,7 @@ export default function ForgottenPassword() {
               height={1000}
               loading="lazy"
               quality={75}
+              className="lg:ml-[-3rem]"
             />
           </div>
         </section>
