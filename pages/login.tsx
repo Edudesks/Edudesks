@@ -221,7 +221,7 @@ const Login: React.FC = () => {
                   <label htmlFor="save-details">Save details</label>
                 </div>
                 <Link
-                  href={"/forgot-password"}
+                  href={"/forgotton-password"}
                   className="text-sm leading-5 text-[var(--secondary)]"
                 >
                   Forgot password
