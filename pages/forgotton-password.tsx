@@ -106,7 +106,7 @@ export default function ForgottenPassword() {
                     type="email"
                     id="school-email"
                     placeholder="Enter your school email"
-                    required
+                    // required
                     aria-label="Enter your school email"
                     {...register("schoolEmail")}
                   />
@@ -132,8 +132,6 @@ export default function ForgottenPassword() {
               <button
                 className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
                 type="submit"
-                onClick={() => router.push("/forgotton-verification-page")}
-               
               >
                 {isValidating ? <Loading01Icon /> : (
                   "Send Code"
