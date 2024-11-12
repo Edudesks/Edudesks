@@ -6,6 +6,7 @@ import { openSans } from "@/app/fonts/fonts";
 import { CheckmarkCircle04Icon, ArrowRight02Icon } from "hugeicons-react";
 import { useMediaQuery } from "@mui/material";
 import Router from "next/router";
+import Link from "next/link";
 
 /**
  *
@@ -75,14 +76,14 @@ const PricingConfirmation = () => {
           </div>
           {/* -------- buttons -------- */}
           <div className="flex flex-col items-center justify-center lg:flex-row gap-[1.32rem] lg:gap-[2.375rem] w-full mt-[3.5625rem] lg:mt-16">
-            <button
+            <Link href="/dashboard"
               className={`flex items-center justify-center gap-2.5 bg-[var(--primary)]
               px-2.5 py-4 rounded-[33px] leading-5 text-[var(--secondary-text-color)] w-full max-w-[25.25rem]`}
               type="button"
             >
               Go to Dashboard
               <ArrowRight02Icon size={24} color="#fff" />
-            </button>
+            </Link>
             <button
               className={`bg-[var(--secondary-text-color)] text-[var(--primary)] border border-solid border-[#BBC0CA] hover:text-[var(--secondary-text-color)] hover:bg-[var(--primary)] px-2.5 py-4 rounded-[33px] leading-5 w-full shadow-custom-lg max-w-[25.25rem]`}
               type="button"

@@ -1,0 +1,69 @@
+/* components/RevenueAnalytics.module.css */
+
+.container {
+    padding: 0.5rem;
+    border: 1px solid #e5e7eb; /* border-gray-200 */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* shadow-sm */
+    width: 100%;
+    height: 100%;
+    background-color: white;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.25rem; /* mb-1 */
+  }
+  
+  .title {
+    font-size: 1.125rem;
+    font-weight: 600; 
+    color: #4b5563; 
+  }
+  
+  .subtitle {
+    color: #6b7280;
+    font-size: 0.875rem; 
+  }
+  
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .legendItem {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem; /* text-sm */
+    color: #4b5563; /* text-gray-600 */
+  }
+  
+  .expensesDot {
+    height: 0.5rem; /* h-2 */
+    width: 0.5rem; /* w-2 */
+    background-color: #4b8bbe;
+    border-radius: 9999px; /* rounded-full */
+  }
+  
+  .incomeDot {
+    height: 0.5rem; /* h-2 */
+    width: 0.5rem; /* w-2 */
+    background-color: #e2e9f6;
+    border-radius: 9999px; /* rounded-full */
+    margin-left: 1rem; /* ml-4 */
+  }
+  
+  .selectBox {
+    background-color: white; /* bg-gray-50 */
+    border: 1px solid var(--border); /* border-gray-200 */
+    font-size: 0.875rem; /* text-sm */
+  }
+  
+  .chartContainer {
+    margin-top: 0.5rem; /* mt-2 */
+  }
+  
