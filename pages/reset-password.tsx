@@ -14,12 +14,11 @@ import {
 } from "hugeicons-react";
 import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ForgotPasswordFormData, forgotPasswordSchema} from "@/features/auth/forgottenPassword";
-import Router from "next/router";
-
+import { ResetPasswordForm, resetPassword} from "@/features/auth/resetPassword";
+import { useRouter } from 'next/router';
 
 const ResetPassword: React.FC = () => {
-    const router = Router;
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -28,11 +27,11 @@ const ResetPassword: React.FC = () => {
     handleSubmit,
     formState: { errors, isValid, isSubmitted },
     watch
-  } = useForm<ForgotPasswordFormData>({ resolver: zodResolver(forgotPasswordSchema), mode: "onSubmit" });
+  } = useForm<ResetPasswordForm>({ resolver: zodResolver(resetPassword), mode: "onSubmit" });
 
-  const submitData = (data: ForgotPasswordFormData) => {
+  const submitData = (data: ResetPasswordForm) => {
     console.log("Password Reset Successful", data);
-    router.push('/forgotton-verification-success')
+    router.push('/forgot-verification-success')
   };
 
   // show/hide password
@@ -217,7 +216,7 @@ const ResetPassword: React.FC = () => {
             <button
               className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
               type="submit"
-              onClick={() => router.push("/forgotton-verification-success")}
+             
             >
               Reset password
             </button>

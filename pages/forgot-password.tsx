@@ -6,17 +6,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ForgotPasswordFormData, forgotPasswordSchema} from "@/features/auth/forgottenPassword";
 import { Mail01Icon, InformationCircleIcon, Loading01Icon} from "hugeicons-react";
-
-import { useState } from "react";
-import Router from "next/router";
+import { useRouter } from 'next/router';
 export default function ForgottenPassword() {
-  const router = Router;
+  const router = useRouter();
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isValid, isSubmitted, isValidating},
-    watch
   } = useForm<ForgotPasswordFormData>({
     resolver: zodResolver(forgotPasswordSchema),
     mode: "onSubmit",
@@ -24,21 +22,21 @@ export default function ForgottenPassword() {
 
   const submitData = (data: ForgotPasswordFormData) => {
     console.log("Code Successfully Sent", data);
-      router.push("/forgotton-verification-page");
+      router.push('/forgot-verification-page');
   };
 
     const schoolEmail = watch("schoolEmail");
     const allFieldsFilled = schoolEmail
 
     let buttonColor;
-    if (!allFieldsFilled) {
-      buttonColor = "bg-[var(--grey)]";
-    } else if (allFieldsFilled && !isSubmitted) {
-      buttonColor = "bg-[var(--primary)]";
-    } else if (isSubmitted && Object.keys(errors).length > 0) {
-      buttonColor = "bg-[var(--secondary)]";
-    } else if (isSubmitted && Object.keys(errors).length === 0 && isValid) {
-      buttonColor = "bg-[var(--primary)]";
+  if (!allFieldsFilled) {
+    buttonColor = "bg-[var(--grey)]";
+  } else if (allFieldsFilled && !isSubmitted) {
+    buttonColor = "bg-[var(--primary)]";
+  } else if (isSubmitted && Object.keys(errors).length > 0) {
+    buttonColor = "bg-[var(--secondary)]";
+  } else if (isSubmitted && Object.keys(errors).length === 0 && isValid) {
+    buttonColor = "bg-[var(--primary)]";
     }
 
   return (
@@ -80,7 +78,6 @@ export default function ForgottenPassword() {
           {/* -------- form details and input -------- */}
           <form
             className="w-full flex flex-col gap-9 lg:max-w-[26.625rem] self-start"
-            action=""
             onSubmit={handleSubmit(submitData)}
           >
             {/* -------- form details only -------- */}
