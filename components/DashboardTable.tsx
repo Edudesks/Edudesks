@@ -10,8 +10,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Image from 'next/image';
-import { Box, IconButton, TableFooter, Typography, Popover, TextField } from '@mui/material';
-import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import { Box, IconButton, TableFooter, Typography, Popover, TextField, MenuItem } from '@mui/material';
+import { KeyboardArrowLeft, KeyboardArrowRight, MoreVert as MoreVertIcon } from '@mui/icons-material';
 import StatusButton from './StatusButton';
 import TransactionReceiptModal from './TransactionReceiptModal';
 import '@/app/globals.css';
@@ -102,7 +105,9 @@ const DashboardTable: React.FC = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage] = useState(5); // Fixed rows per page as per initial code
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [currentRow, setCurrentRow] = useState<Transaction | null>(null);
 
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -134,6 +139,28 @@ const DashboardTable: React.FC = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
     setSelectedTransaction(null);
+  };
+  const handleMenuClick = (event: React.MouseEvent<HTMLElement>, row: Transaction) => {
+    setMenuAnchorEl(event.currentTarget);
+    setCurrentRow(row);
+  };
+
+  const handleMenuClose = () => {
+    setMenuAnchorEl(null);
+    setCurrentRow(null);
+  };
+
+  const handleViewReceipt = () => {
+    if (currentRow) {
+      setSelectedTransaction(currentRow);
+      setIsModalOpen(true);
+    }
+    handleMenuClose();
+  };
+
+  const handleCancelTransaction = () => {
+    console.log(`Cancel transaction: ${currentRow?.id}`);
+    handleMenuClose();
   };
 
   return (
@@ -194,7 +221,7 @@ const DashboardTable: React.FC = () => {
           </TableHead>
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <StyledTableRow key={row.id} onClick={() => handleRowClick(row)} className={styles.tableRow}>
+              <StyledTableRow key={row.id} className={styles.tableRow}>
                 <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
                 <StyledTableCell>{row.category}</StyledTableCell>
                 <StyledTableCell>
@@ -211,6 +238,37 @@ const DashboardTable: React.FC = () => {
                 </StyledTableCell>
                 <StyledTableCell>{row.paymentMethod}</StyledTableCell>
                 <StyledTableCell>{row.status}</StyledTableCell>
+                <StyledTableCell>
+                  <IconButton onClick={(e) => handleMenuClick(e, row)}>
+                    <MoreVertIcon />
+                  </IconButton>
+                  {menuAnchorEl && (
+  <ClickAwayListener onClickAway={handleMenuClose}>
+    <Card
+      sx={{
+        position: 'absolute',
+        top: menuAnchorEl.getBoundingClientRect().bottom -10,
+        left: menuAnchorEl.getBoundingClientRect().left -80,
+        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', // Adjust shadow as needed
+        zIndex: 1300, // Same as MUI's Popover to ensure it appears on top
+      }}
+    >
+      <CardContent>
+        <MenuItem 
+        sx={{
+        fontSize: "15px",
+        }}
+        onClick={handleViewReceipt}>View Receipt</MenuItem>
+        <MenuItem 
+        sx={{
+        fontSize: "15px",
+        }}
+        onClick={handleCancelTransaction}>Cancel</MenuItem>
+      </CardContent>
+    </Card>
+  </ClickAwayListener>
+)}
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

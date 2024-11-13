@@ -31,3 +31,24 @@
       flex: 1;
       max-width: 32rem; /* equivalent to max-w-lg */
     }
+
+    @media (max-width: 768px) {
+      .flexContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        height: fit-content;
+      }
+      .flexRevenue {
+        flex: 1;
+        transform: scale(1);
+        transform-origin: none;
+      }
+    
+      .flexChart {
+        width: 100%; 
+        height: 100%;
+        transform: scale(1);
+        transform-origin: none;
+      }
+    }
