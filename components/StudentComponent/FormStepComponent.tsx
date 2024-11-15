@@ -3,6 +3,7 @@ import React from "react";
 import "../../app/globals.css";
 import ImageDialogComponenet from "./ImageDialogComponenet";
 import { UserAccountIcon, UserIcon } from "hugeicons-react";
+import Calender from "../Calender";
 
 /**
  *
@@ -182,6 +183,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
               </div>
             </div>
           </form>
+          {/* <Calender /> */}
         </div>
       );
   }
