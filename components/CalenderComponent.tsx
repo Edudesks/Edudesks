@@ -2,34 +2,9 @@ import React, { useState } from "react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
-import { CalendarMonthOutlined } from "@mui/icons-material";
-import { TextFieldProps } from "@mui/material";
-import '../styles/CalenderComponent.module.css'
-
-interface CustomInputProps {
-  value?: string;
-  onClick?: () => void;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-const CustomInput: React.FC<CustomInputProps> = ({ value, onClick, onChange }) => {
-    return (
-      <input
-        type="text"
-        value={value}
-        onClick={onClick} // Opens the DatePicker dialog
-        onChange={onChange} // Allows for typing or any additional behavior
-        style={{
-          padding: '10px',
-          fontSize: '16px',
-          borderRadius: '8px',
-          border: '1px solid #ccc',
-          width: '100%',
-        }}
-        placeholder="Select a date"
-      />
-    );
-  };
+import { CalendarMonthOutlined, KeyboardArrowDown } from "@mui/icons-material";
+import { format } from "date-fns";
+import { enGB } from "date-fns/locale";
 
 /**
  * CalendarComponent is a React functional component that renders a date picker
@@ -48,7 +23,11 @@ const CustomInput: React.FC<CustomInputProps> = ({ value, onClick, onChange }) =
  * @returns {JSX.Element} The rendered date picker component.
  */
 
-const CalendarComponent: React.FC = () => {
+interface CalendarComponentProps {
+  variant: "dashboard" | "form";
+}
+
+const CalendarComponent: React.FC<CalendarComponentProps> = ({ variant }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const today = new Date();
 
@@ -57,23 +36,85 @@ const CalendarComponent: React.FC = () => {
   };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enGB}>
       <DatePicker
         value={selectedDate}
         onChange={(newValue) => handleDateChange(newValue)}
         maxDate={today}
         views={["year", "month", "day"]}
+        dayOfWeekFormatter={(date) => format(date, "EEE").toUpperCase()}
         slots={{
-            openPickerIcon: CalendarMonthOutlined,
+          openPickerIcon: CalendarMonthOutlined,
+          switchViewButton: KeyboardArrowDown,
         }}
         slotProps={{
-            textField: {sx: {"& .MuiSvgIcon-root": {color: 'red'}}}, popper: {sx: {'.MuiDateCalendar-root': {fontFamily: 'Open-Sans', }, '.MuiPickersCalendarHeader-label': {fontSize: '2rem', color: 'red'}},}
+          // -------- text field or input box for date picker --------
+          textField: {
+            placeholder: variant === "dashboard" ? "Date Range" : "DD/MM/YYYY",
+            sx: {
+              // -------- custom styles for the text field --------
+              // -------- calender icon --------
+              "& .MuiSvgIcon-root": { color: "#59676E" },
+              // -------- input box without icon --------
+              ".MuiInputBase-input": {
+                fontFamily: "Open Sans",
+                ":focus": { outline: "none" },
+                padding: variant === "dashboard" ? "0.5625rem" : "0.625rem",
+              },
+              // -------- text field container (input + icon) --------
+              ".MuiOutlinedInput-root, .MuiTextField-root": {
+                borderRadius: variant === "dashboard" ? "1.375rem" : "0.625rem",
+                display: variant === "dashboard" ? "flex" : "",
+                flexDirection: variant === "dashboard" ? "row-reverse" : "",
+                marginX: variant === "dashboard" ? "auto" : "",
+              },
+              ".MuiOutlinedInput-notchedOutline": {
+                borderColor: "#E2E9F6", // Default border color
+              },
+              // -------- Removes the border on hover --------
+              ".MuiOutlinedInput-root": {
+                "&:hover .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#E2E9F6",
+                },
+                // -------- Removes the border on active (focus) --------
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#E2E9F6",
+                  borderWidth: "1px",
+                },
+              },
+            },
+          },
+          // -------- actual calendar container --------
+          popper: {
+            // -------- custom styles for the calendar container --------
+            sx: {
+              // -------- calendar container --------
+              ".MuiPickersPopper-paper": {
+                fontFamily: "Open Sans",
+                borderRadius: "20px",
+              },
+              // -------- calendar header, year and month on expand --------
+              ".MuiPickersCalendarHeader-label, .MuiPickersYear-yearButton, .MuiPickersMonth-monthButton":
+                {
+                  fontFamily: "Open Sans",
+                  color: "#041822",
+                },
+              // -------- calendar weekdays --------
+              ".MuiDayCalendar-weekDayLabel": {
+                fontFamily: "Open Sans",
+                color: "#59676E",
+              },
+              // -------- calendar days --------
+              ".MuiPickersDay-dayWithMargin": {
+                fontFamily: "Open Sans",
+                fontSize: "1rem",
+                color: "#041822",
+              },
+              // -------- calendar year and month buttons --------
+              ".MuiSvgIcon-root": { color: "#041822" },
+            },
+          },
         }}
-        // slots={{
-        //   openPickerIcon: CalendarMonthOutlined,
-        // }}
-        // slots={{ textField: CustomInput, openPickerIcon: CalendarMonthOutlined }}
-        // slotProps={{ textField: { value: selectedDate ? selectedDate.toDateString(): '', onClick: () => {} } }}
       />
     </LocalizationProvider>
   );

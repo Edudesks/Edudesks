@@ -183,7 +183,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
               </div>
             </div>
           </form>
-          <Calender />
+          <Calender variant="dashboard" />
+          <Calender variant="form" />
         </div>
       );
   }
