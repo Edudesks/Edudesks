@@ -44,7 +44,7 @@ export default function StudentProfile() {
 
   const isBelow1220 = windowWidth < 1227;
   const isBelow1041 = windowWidth < 1041;
-  const isBelow768 = windowWidth < 768;
+  const isBelow760 = windowWidth < 760;
 
   return (
     <>
@@ -52,12 +52,12 @@ export default function StudentProfile() {
       <Sidebar />
 
       <div className={classNames("md:left-[20rem] flex flex-col gap-[31px] absolute top-[6rem] left-0 md:px-0 px-5", {
-            "w-[100%]": isBelow768,
-            "w-[70%]": isBelow1220,
-            "w-[77%]": !isBelow1220,
+            "w-[100%]": isBelow760,
+      "w-[70%]": !isBelow760 && isBelow1220,
+      "w-[80%]": !isBelow1220,
           })}>
-        {/* Button Container */}
-        <section className={classNames("flex items-center justify-between md:w-[90%] w-full lg:w-full lg:pr-[5%]", {
+        {/* Button Container Header*/}
+        <section className={classNames("flex items-center justify-between w-full lg:w-full lg:pr-[5%]", {
             "flex-wrap gap-3": isBelow1041,
             "no-wrap": !isBelow1041,
           })}>
@@ -92,7 +92,7 @@ export default function StudentProfile() {
 
         {/* Student Profile Container */}
         <section className="flex items-center gap-[18px] ">
-          <div className="w-[100px] h-[100px]">
+          <div className="sm:w-[100px] sm:h-[100px] w-[85.1px] h-[85.1px]">
             <Image src="/student_profile_icon.svg" alt="Student Profile" width={1000} height={1000} loading="lazy" />
           </div>
           <div>
@@ -103,7 +103,7 @@ export default function StudentProfile() {
 
         {/* Registration Cards */}
         <section
-          className={classNames("flex items-center gap-[30px] w-full md:w-[80%] lg:w-full pr-0 md:pr-[5%]", {
+          className={classNames("flex items-center gap-[30px] w-full lg:w-full pr-0 md:pr-[5%]", {
             "flex-wrap": isBelow1220,
             "no-wrap": !isBelow1220,
           })}
@@ -115,17 +115,17 @@ export default function StudentProfile() {
         </section>
 
           {/* register container */}
-          <section className="flex xl:flex-row flex-col justify-between w-full md:w-[80%] lg:w-full xl:w-[95%] h-auto mb-3">
+          <section className="flex xl:flex-row flex-col justify-between w-full xl:w-[95%] h-auto mb-3">
 
         {/* Registration  profile */}
-        <section className=" w-[95%] xl:w-[62%] flex flex-col gap-y-6 gap-x-0">
+        <section className=" w-full md:w-[95%] xl:w-[62%] flex flex-col gap-y-6 gap-x-0">
 
         <div className="block xl:hidden">
         <StudentRegisterDetails/>
         </div>
-            <div className="flex items-center gap-5 xl:gap-0 xl:justify-between w-full">
+            <div className="flex md:flex-row flex-col items-center gap-5 xl:gap-0 xl:justify-between w-full">
               {/* general profile */}
-            <div className="bg-[#FFFFFF] w-full xl:w-[275px] h-[324px] rounded-[15px] border border-[var(--border)] px-[15px] py-[16px] flex flex-col gap-[24px]">
+            <div className="bg-[#FFFFFF] w-full xl:w-[275px] h-auto sm:h-[324px] rounded-[15px] border border-[var(--border)] px-[15px] py-[16px] flex flex-col gap-[24px]">
               <h3 className="font-[600] text-[24px] leading-[38px] text-[var(--primary-text-color)]">General</h3>
               <section className="flex flex-col gap-[26px]">
               <div className="flex items-center gap-[16px]">
@@ -148,7 +148,7 @@ export default function StudentProfile() {
                 <p className="font-[400] text-[18px] leading-[20px] text-[var(--primary-text-color)]">Female</p>
               </div>
 
-              <div className="flex items-center gap-[16px]">
+              <div className="flex items-start sm:items-center sm:flex-row flex-col gap-y-2 gap-[10px]">
                 <h6 className="font-[400] text-[18px] leading-[20px] text-[var(--grey)]">Date of Birth:</h6>
                 <p className="font-[400] text-[18px] leading-[20px] text-[var(--primary-text-color)]">7th June 2000</p>
               </div>
@@ -156,30 +156,30 @@ export default function StudentProfile() {
             </div>
 
             {/* Address profile */}
-            <div className="bg-[#FFFFFF] w-full xl:w-[327px] h-[324px] rounded-[15px] border border-[var(--border)] px-[15px]  py-[16px] flex flex-col gap-[24px]">
+            <div className="bg-[#FFFFFF] w-full xl:w-[327px] h-full sm:h-[324px] rounded-[15px] border border-[var(--border)] px-[15px]  py-[16px] flex flex-col gap-[24px]">
               <h3 className="font-[600] text-[24px] leading-[38px] text-[var(--primary-text-color)]">Address</h3>
               <section className="flex flex-col gap-[24px]">
-              <div className="flex items-center gap-[12px]">
+              <div className="flex items-start sm:items-center sm:flex-row flex-col gap-y-2 gap-[10px]">
                 <h6 className="text-[18px] leading-[20px] font-[400] text-[var(--grey)]">Residential Address:</h6>
                 <p className="text-[18px] font-400 leading-[20px] text-[var(--primary-text-color)]">5 divine street, G.R.A, Lagos state.</p>
               </div>
 
-              <div className="flex items-center gap-[22px]">
+              <div className="flex items-center gap-[10px] sm:gap-[22px]">
                 <h6 className="text-[18px] leading-[20px] font-[400] text-[var(--grey)]">Nationality:</h6>
                 <p className="text-[18px] font-400 leading-[20px] text-[var(--primary-text-color)]">Nigerian</p>
               </div>
 
-              <div className="flex items-center gap-[28px]">
+              <div className="flex items-center gap-[5px] sm:gap-[28px]">
                 <h6 className="text-[18px] leading-[20px] font-[400] text-[var(--grey)]">State of Origin:</h6>
                 <p className="text-[18px] font-400 leading-[20px] text-[var(--primary-text-color)]">Lagos State</p>
               </div>
 
-              <div className="flex items-center gap-[24px]">
+              <div className="flex items-start sm:items-center sm:flex-row flex-col gap-y-2 gap-[24px]">
                 <h6 className="text-[18px] leading-[20px] font-[400] text-[var(--grey)]">Local Government:</h6>
                 <p className="text-[18px] font-400 leading-[20px] text-[var(--primary-text-color)]">Badagry</p>
               </div>
 
-              <div className="flex items-center gap-[24px]">
+              <div className="flex items-center gap-2 sm:gap-[24px]">
                 <h6 className="text-[18px] leading-[20px] font-[400] text-[var(--grey)]">Town:</h6>
                 <p className="text-[18px] font-400 leading-[20px] text-[var(--primary-text-color)]">Isale-eko</p>
               </div>
@@ -197,12 +197,12 @@ export default function StudentProfile() {
                 <p className="text-[18px] font-400 leading-[20px] text-[var(--primary-text-color)]">A. Nwosu</p>
               </div>
 
-              <div className="flex items-center gap-[16px]">
+              <div className="flex items-start sm:items-center sm:flex-row flex-col gap-y-2 gap-[16px]">
                 <h6 className="text-[18px] leading-[20px] font-[400] text-[var(--grey)]">Email:</h6>
                 <p className="text-[18px] font-400 leading-[20px] text-[var(--primary-text-color)]">a.nwosu101@gmail.com</p>
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-start gap-y-3 sm:items-center sm:flex-row flex-col justify-between">
                 <div className="flex items-center gap-[16px]">
                 <h6 className="text-[18px] leading-[20px] font-[400] text-[var(--grey)]">Phone number:</h6>
                 <p className="text-[18px] font-400 leading-[20px] text-[var(--primary-text-color)]">+2348097657897</p>
@@ -215,12 +215,12 @@ export default function StudentProfile() {
                 <p className="text-[18px] font-400 leading-[20px] text-[var(--primary-text-color)]">A. Nwosu</p>
               </div>
 
-              <div className="flex items-center gap-[16px]">
+              <div className="flex items-start sm:items-center sm:flex-row flex-col gap-y-2 gap-[16px]">
                 <h6 className="text-[18px] leading-[20px] font-[400] text-[var(--grey)]">Email:</h6>
                 <p className="text-[18px] font-400 leading-[20px] text-[var(--primary-text-color)]">a.nwosu101@gmail.com</p>
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-start gap-y-3 sm:items-center sm:flex-row flex-col justify-between">
                 <div className="flex items-center gap-[16px]">
                 <h6 className="text-[18px] leading-[20px] font-[400] text-[var(--grey)]">Phone number:</h6>
                 <p className="text-[18px] font-400 leading-[20px] text-[var(--primary-text-color)]">+2348097657897</p>
