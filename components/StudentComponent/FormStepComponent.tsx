@@ -1,9 +1,9 @@
 import React from "react";
-// import { openSans } from '@/app/fonts/fonts'
 import "../../app/globals.css";
 import ImageDialogComponenet from "./ImageDialogComponenet";
-import { UserAccountIcon, UserIcon } from "hugeicons-react";
-import Calender from "../CalenderComponent";
+import { UserIcon } from "hugeicons-react";
+import CalenderComponent from "../CalenderComponent";
+import { Checkbox, FormControlLabel } from "@mui/material";
 
 /**
  *
@@ -81,13 +81,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                   Date of birth*
                 </label>
                 <div className="w-full flex relative items-center text-[var(--grey)]">
-                  <input
-                    type="text"
-                    id="date-of-birth"
-                    name="date-of-birth"
-                    placeholder="DD/MM/YYYY"
-                    className="border p-2.5 border-solid border-[var(--border)] placeholder:text-[var(--grey] placeholder:opacity-60 placeholder:text-sm placeholder:lg:text-normal rounded-[0.625rem] w-full focus:outline-none autofill:bg-none"
-                  />
+                  <CalenderComponent variant="form" />
                 </div>
               </div>
               {/* -------- age -------- */}
@@ -118,7 +112,9 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 </label>
                 <div className="w-full flex items-center text-[var(--grey)]">
                   {/* -------- male gender -------- */}
-                  <div className="flex items-center justify-center">
+                <FormControlLabel control={<Checkbox className="text-[#D0D5DD] rounded-lg" />} label='Male' />
+                <FormControlLabel control={<Checkbox className="text-[#D0D5DD] rounded-lg" />} label='Female' />
+                  {/* <div className="flex items-center justify-center">
                     <input
                       type="checkbox"
                       id="male"
@@ -126,9 +122,9 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                       className="border p-2.5 border-solid border-[var(--border)] rounded-[0.625rem] w-full focus:outline-none autofill:bg-none"
                     />
                     <label htmlFor="male">Male</label>
-                  </div>
+                  </div> */}
                   {/* -------- female gender -------- */}
-                  <div className="w-full flex items-center text-[var(--grey)]">
+                  {/* <div className="w-full flex items-center text-[var(--grey)]">
                     <input
                       type="checkbox"
                       id="female"
@@ -136,7 +132,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                       className="border p-2.5 border-solid border-[var(--border)] rounded-[0.625rem] w-full focus:outline-none autofill:bg-none"
                     />
                     <label htmlFor="female">Female</label>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {/* -------- last name -------- */}
@@ -183,8 +179,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
               </div>
             </div>
           </form>
-          <Calender variant="dashboard" />
-          <Calender variant="form" />
         </div>
       );
   }

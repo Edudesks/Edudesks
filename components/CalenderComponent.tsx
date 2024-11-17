@@ -51,6 +51,7 @@ const CalendarComponent: React.FC<CalendarComponentProps> = ({ variant }) => {
           // -------- text field or input box for date picker --------
           textField: {
             placeholder: variant === "dashboard" ? "Date Range" : "DD/MM/YYYY",
+            fullWidth: true,
             sx: {
               // -------- custom styles for the text field --------
               // -------- calender icon --------
@@ -68,6 +69,9 @@ const CalendarComponent: React.FC<CalendarComponentProps> = ({ variant }) => {
                 flexDirection: variant === "dashboard" ? "row-reverse" : "",
                 marginX: variant === "dashboard" ? "auto" : "",
               },
+              // ".MuiTextField-root, .MuiFormControl-root": {
+              //   width: "100%",
+              // },
               ".MuiOutlinedInput-notchedOutline": {
                 borderColor: "#E2E9F6", // Default border color
               },
