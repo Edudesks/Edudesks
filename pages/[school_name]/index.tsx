@@ -1,16 +1,13 @@
-// components/Dashboard.js
-import { Card, Typography, CircularProgress, Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@mui/material';
-import Sidebar from '@/components/Sidebar';
 import DashboardTable from '@/components/DashboardTable';
 import BalanceCard from '@/components/BalancedCard';
 import RevenueAnalytics from '@/components/RevenueAnalysis';
-import Navbar from '@/components/NavBar';
 import CircularChart from '@/components/CircularChart';
 import { useState } from 'react';
 import styles from '@/styles/Dashboard.module.css';
 
 
 const Dashboard = () => {
+
   const [isModalOpen, setModalOpen] = useState(false);
   const [transaction, setTransaction] = useState({
     reference: '1234567890984789',
@@ -28,12 +25,7 @@ const Dashboard = () => {
 
   
   return (
-    <div className="flex bg-[var(--secondary-text-color)]">
-      <Sidebar />
-      <div className="h-screen flex-1 overflow-y-scroll overflow-x-hidden">
-        <Navbar />
-        
-        {/* Balance Cards Row */}
+        <>
         <div className="flex flex-wrap justify-between gap-1 px-6 mt-4">
           <BalanceCard
             title="Total Balance"
@@ -96,8 +88,8 @@ const Dashboard = () => {
         <div className="px-6 mt-6">
           <DashboardTable />
         </div>
-      </div>
-    </div>
+        </>
+
   );
 };
 

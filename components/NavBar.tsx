@@ -1,16 +1,24 @@
-// components/Navbar.js
 import { useState } from 'react';
 import Image from 'next/image';
-import '@/app/globals.css'
+import '@/app/globals.css';
 import styles from '@/styles/Navbar.module.css';
+import Sidebar from '@/components/Sidebar';
 
-const Navbar = () => {
+
+interface NavbarProp {
+  setIsMobileSidebarOpen:Function;
+}
+
+const Navbar:React.FC<NavbarProp> = ({setIsMobileSidebarOpen}) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // New state for sidebar
 
   return (
     <div className={styles.navbarContainer}>
+      <Image src="/icons/logo.svg" className={styles.navLogo} alt="logo" width={300} height={45} />
+
       {isSearchOpen ? (
-        <div className={`${styles.searchContainer} `}>
+        <div className={`${styles.searchContainer}`}>
           <Image
             src="/icons/search-icon.svg"
             alt="search icon"
@@ -45,34 +53,42 @@ const Navbar = () => {
               className={styles.searchInput}
             />
           </div>
-          <button
-            className={` ${styles.mobileSearchContainer}`}
-            onClick={() => setIsSearchOpen(true)}
+
+          <div
+            className={`${styles.mobileSearchContainer}`}
+            
           > 
-          <div className={styles.menuBar}>
-          <Image
-              src="/icons/menu.svg"
-              alt="search icon"
-              width={30}
-              height={30}
-              className={styles.searchIcon}
-            />
-          </div>
-            <Image
+            <div className={styles.menuBar} onClick={() => setIsMobileSidebarOpen((state:boolean) => !state )}>
+              <Image
+                src="/icons/menu.svg"
+                alt="menu icon"
+                width={30}
+                height={30}
+                className={styles.searchIcon}
+              />
+            </div>
+            <div className="searchIcon" 
+            
+            onClick={() => setIsSearchOpen(true)}
+            >
+              <Image
                 src="/icons/search-icon.svg"
                 alt="search icon"
                 width={30}
                 height={30}
                 className={styles.searchIconDark}
               />
+
+            </div>
             <Image
+            onClick={() => setIsSearchOpen(true)}
               src="/icons/search-light-icon.svg"
               alt="search icon"
               width={30}
               height={30}
               className={styles.searchIconLight}
             />
-          </button>
+          </div>
 
           {!isSearchOpen && (
             <div className={styles.freeTrialContainer}>
@@ -89,19 +105,19 @@ const Navbar = () => {
           {!isSearchOpen && (
             <div className={styles.rightIconsContainer}>
               <Image
-              src="/icons/notification-icon.svg"
-              alt="search icon"
-              width={35}
-              height={35}
-              className={styles.imageIcon}
-            />
+                src="/icons/notification-icon.svg"
+                alt="notification icon"
+                width={35}
+                height={35}
+                className={styles.imageIcon}
+              />
               <Image
-              src="/icons/avatar-icon.svg"
-              alt="search icon"
-              width={35}
-              height={35}
-              className={styles.imageIcon}
-            />
+                src="/icons/avatar-icon.svg"
+                alt="avatar icon"
+                width={35}
+                height={35}
+                className={styles.imageIcon}
+              />
             </div>
           )}
         </>

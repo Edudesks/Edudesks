@@ -1,49 +1,60 @@
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styles from '@/styles/Sidebar.module.css';
 
-type Section = "Dashboard" | "Student" | "Class" | "Employees" | "Add Employee" | "View Employees" | 
-               "Wallet" | "Remit Payment" | "Salary" | "Income" | "Monthly Income" | 
-               "Annual Income" | "Expenses" | "Analytics" | "Settings";
+type Section = "dashboard" | "student" | "class" | "employees" | "add-employee" | "view-employees" | 
+               "wallet" | "remit-payment" | "salary" | "income" | "monthly-income" | 
+               "annual-income" | "expenses" | "analytics" | "settings";
 
-const Sidebar: React.FC = () => {
+interface SidebarProp {
+  activeSection: string;
+  isMobileSidebarOpen: boolean;
+  setIsMobileSidebarOpen: Function;
+}
+
+const Sidebar: React.FC<SidebarProp> = ({ activeSection, isMobileSidebarOpen, setIsMobileSidebarOpen }) => {
+  const router = useRouter();
+  const { school_name } = router.query; // Extract school_name from the URL
+
   const [isEmployeeOpen, setIsEmployeeOpen] = useState<boolean>(false);
   const [isIncomeOpen, setIsIncomeOpen] = useState<boolean>(false);
-  const [activeSection, setActiveSection] = useState<Section>("Dashboard");
 
   const menuItemClasses = (section: Section): string =>
     `${styles.menuItem} ${activeSection === section ? styles.menuItemActive : ""} ${styles.menuItemHover}`;
 
   return (
-    <div className={styles.sidebar}>
-      {/* Logo */}
+    <div className={`${styles.sidebar} ${styles.sidebarMobile} ${isMobileSidebarOpen ? styles.sidebarMobileOpen : styles.sidebarMobileClose}`}>
+      <button onClick={() => setIsMobileSidebarOpen(false)} className={styles.closeButton}>
+        &times;
+      </button>
       <div className={styles.logo}>
-        <Image src="/icons/iconLogo.svg" alt="logo" width={40} height={40} />
-        <div className={styles.dot}></div>
+        <Image src="/icons/logo.svg" alt="logo" width={350} height={50} />
       </div>
 
       {/* Menu Items */}
       <nav className={styles.nav}>
-        <a href="#" onClick={() => setActiveSection("Dashboard")} className={menuItemClasses("Dashboard")}>
+        <Link href={`/${school_name}/`} className={menuItemClasses("dashboard")}>
           <Image src="/icons/dashboard-icon.svg" alt="Dashboard" width={20} height={20} className={styles.icon} />
           Dashboard
-        </a>
+        </Link>
 
-        <a href="#" onClick={() => setActiveSection("Student")} className={menuItemClasses("Student")}>
+        <Link href={`/${school_name}/student`} className={menuItemClasses("student")}>
           <Image src="/icons/student-icon.svg" alt="Student" width={20} height={20} className={styles.icon} />
           Student
-        </a>
+        </Link>
 
-        <a href="#" onClick={() => setActiveSection("Class")} className={menuItemClasses("Class")}>
+        <Link href={`/${school_name}/class`} className={menuItemClasses("class")}>
           <Image src="/icons/class-icon.svg" alt="Class" width={20} height={20} className={styles.icon} />
           Class
-        </a>
+        </Link>
 
         {/* Employees Dropdown */}
         <div className="flex flex-col">
           <button
             onClick={() => setIsEmployeeOpen(!isEmployeeOpen)}
-            className={`${styles.dropdownButton} ${activeSection === "Employees" ? styles.dropdownButtonActive : ""} ${styles.dropdownButtonHover}`}
+            className={`${styles.dropdownButton} ${activeSection === "employees" ? styles.dropdownButtonActive : ""} ${styles.dropdownButtonHover}`}
           >
             <div>
               <Image src="/icons/employees-icon.svg" alt="Employees" width={20} height={20} className={styles.icon} />
@@ -59,36 +70,36 @@ const Sidebar: React.FC = () => {
           </button>
           {isEmployeeOpen && (
             <div className={styles.dropdownContent}>
-              <a href="#" onClick={() => setActiveSection("Add Employee")} className={menuItemClasses("Add Employee")}>
+              <Link href={`/${school_name}/add-employee`} className={`${styles.dropdownContentText} ${menuItemClasses("add-employee")}`}>
                 Add Employee
-              </a>
-              <a href="#" onClick={() => setActiveSection("View Employees")} className={menuItemClasses("View Employees")}>
+              </Link>
+              <Link href={`/${school_name}/view-employees`} className={`${styles.dropdownContentText} ${menuItemClasses("view-employees")}`}>
                 View Employees
-              </a>
+              </Link>
             </div>
           )}
         </div>
 
-        <a href="#" onClick={() => setActiveSection("Wallet")} className={menuItemClasses("Wallet")}>
+        <Link href={`/${school_name}/wallet`} className={menuItemClasses("wallet")}>
           <Image src="/icons/wallet-icon.svg" alt="Wallet" width={20} height={20} className={styles.icon} />
           Wallet
-        </a>
+        </Link>
 
-        <a href="#" onClick={() => setActiveSection("Remit Payment")} className={menuItemClasses("Remit Payment")}>
+        <Link href={`/${school_name}/remit-payment`} className={menuItemClasses("remit-payment")}>
           <Image src="/icons/remit-icon.svg" alt="Remit Payment" width={20} height={20} className={styles.icon} />
           Remit Payment
-        </a>
+        </Link>
 
-        <a href="#" onClick={() => setActiveSection("Salary")} className={menuItemClasses("Salary")}>
+        <Link href={`/${school_name}/salary`} className={menuItemClasses("salary")}>
           <Image src="/icons/salary-icon.svg" alt="Salary" width={20} height={20} className={styles.icon} />
           Salary
-        </a>
+        </Link>
 
         {/* Income Dropdown */}
         <div className="flex flex-col">
           <button
             onClick={() => setIsIncomeOpen(!isIncomeOpen)}
-            className={`${styles.dropdownButton} ${activeSection === "Income" ? styles.dropdownButtonActive : ""} ${styles.dropdownButtonHover}`}
+            className={`${styles.dropdownButton} ${activeSection === "income" ? styles.dropdownButtonActive : ""} ${styles.dropdownButtonHover}`}
           >
             <div>
               <Image src="/icons/income-icon.svg" alt="Income" width={20} height={20} className={styles.icon} />
@@ -104,38 +115,38 @@ const Sidebar: React.FC = () => {
           </button>
           {isIncomeOpen && (
             <div className={styles.dropdownContent}>
-              <a href="#" onClick={() => setActiveSection("Monthly Income")} className={menuItemClasses("Monthly Income")}>
+              <Link href={`/${school_name}/monthly-income`} className={`${styles.dropdownContentText} ${menuItemClasses("monthly-income")}`}>
                 Monthly Income
-              </a>
-              <a href="#" onClick={() => setActiveSection("Annual Income")} className={menuItemClasses("Annual Income")}>
+              </Link>
+              <Link href={`/${school_name}/annual-income`} className={`${styles.dropdownContentText} ${menuItemClasses("annual-income")}`}>
                 Annual Income
-              </a>
+              </Link>
             </div>
           )}
         </div>
 
-        <a href="#" onClick={() => setActiveSection("Expenses")} className={menuItemClasses("Expenses")}>
+        <Link href={`/${school_name}/expenses`} className={menuItemClasses("expenses")}>
           <Image src="/icons/expenses-icon.svg" alt="Expenses" width={20} height={20} className={styles.icon} />
           Expenses
-        </a>
+        </Link>
 
-        <a href="#" onClick={() => setActiveSection("Analytics")} className={menuItemClasses("Analytics")}>
+        <Link href={`/${school_name}/analytics`} className={menuItemClasses("analytics")}>
           <Image src="/icons/analytics-icon.svg" alt="Analytics" width={20} height={20} className={styles.icon} />
           Analytics
-        </a>
+        </Link>
       </nav>
 
       {/* Bottom Settings and Logout */}
       <div className={styles.footer}>
-        <a href="#" onClick={() => setActiveSection("Settings")} className={menuItemClasses("Settings")}>
+        <Link href={`/${school_name}/settings`} className={menuItemClasses("settings")}>
           <Image src="/icons/settings-icon.svg" alt="Settings" width={20} height={20} className={styles.icon} />
           Settings
-        </a>
+        </Link>
 
-        <a href="#" className={`${styles.logout} ${styles.logoutHover}`}>
+        <Link href="/logout" className={`${styles.logout} ${styles.logoutHover}`}>
           <Image src="/icons/logout-icon.svg" alt="Log-out" width={20} height={20} className={styles.icon} />
           Log out
-        </a>
+        </Link>
       </div>
     </div>
   );

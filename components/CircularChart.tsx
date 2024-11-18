@@ -32,7 +32,7 @@ const CircularChart: React.FC = () => {
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>Number of students</h3>
-      <div className={styles.chartContainer} style={{ width: '300px', height: '300px' }}> {/* Adjust size here */}
+      <div className={styles.chartContainer} style={{ width: '250px', height: '250px' }}> {/* Adjust size here */}
         <Doughnut data={data} options={options}  />
         <div className={styles.overlayText}>
           <p className={styles.overlayLabel}>Total</p>

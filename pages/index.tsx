@@ -13,15 +13,23 @@ import FaqSection from '@/components/LandingPageComponents/FaqSection';
 import Footer from '@/components/LandingPageComponents/Footer';
 import TakeControl from '@/components/LandingPageComponents/TakeControl';
 import styles from '@/styles/LandingPage.module.css';
-// import Image from 'next/image';
-
 
 const LandingPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 7000);
-    return () => clearTimeout(timer);
+    const hasLoadedBefore = sessionStorage.getItem('landingPageLoaded');
+
+    if (hasLoadedBefore) {
+      setIsLoading(false);
+    } else {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+        sessionStorage.setItem('landingPageLoaded', 'true');
+      }, 7000);
+
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   if (isLoading) return <Loader />;
@@ -34,7 +42,6 @@ const LandingPage: React.FC = () => {
       <CallActionOne />
       <Features />
       <CallActionTwo />
-      {/* <Plans /> */}
       <HowItWorks />
       <FaqSection />
       <TakeControl />

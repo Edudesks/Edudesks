@@ -77,17 +77,21 @@
     color: white;
   }
   
-  .dropdownButtonHover:hover {
+  .dropdownButtonHover:hover, .menuItem:hover {
     background-color: var(--secondary); /* Tailwind hover:bg-blue-800 */
     color: white;
   }
   
   .dropdownContent {
-    margin-left: 1rem;
+    margin-left: 2.2rem;
     margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+  }
+  .dropdownContentText {
+    font-size: 15px;
+    color: #ebebeb;
   }
   .footer {
     margin-top: 6em;
@@ -108,9 +112,28 @@
   .logoutHover:hover {
     background-color: #dc2626; /* Tailwind hover:bg-red-700 */
   }
+  .closeButton {
+    display: none;
+  }
   
   @media (max-width: 768px) {
-    .sidebar {
+    .sidebarMobile {
+      position: fixed;
+      top: 0;
+      z-index: 9999;
+    }
+    .sidebarMobileClose {
       display: none;
     }
+    .sidebarMobileOpen {
+      display: block;
+      max-width: 18rem;
+      width: 100%;
+      }
+      .closeButton {
+        display: block;
+        font-size: 2em;
+        width: 100%;
+        text-align: right;
+      }
     }
