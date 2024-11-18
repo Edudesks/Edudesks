@@ -25,7 +25,7 @@ interface SchoolState {
 
 const initialState: SchoolState = {
   schoolName: null,
-  status: 'idle',
+  status: 'loading',
 };
 
 const schoolSlice = createSlice({

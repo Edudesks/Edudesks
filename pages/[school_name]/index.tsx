@@ -1,7 +1,7 @@
-import DashboardTable from '@/components/DashboardTable';
-import BalanceCard from '@/components/BalancedCard';
-import RevenueAnalytics from '@/components/RevenueAnalysis';
-import CircularChart from '@/components/CircularChart';
+import DashboardTable from '@/components/DashboardComponent/DashboardTable';
+import BalanceCard from '@/components/DashboardComponent/BalancedCard';
+import RevenueAnalytics from '@/components/DashboardComponent/RevenueAnalysis';
+import CircularChart from '@/components/DashboardComponent/CircularChart';
 import { useState } from 'react';
 import styles from '@/styles/Dashboard.module.css';
 

@@ -14,6 +14,7 @@ import {
 import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormData, loginSchema } from "@/features/auth/loginSchema";
+import { useRouter } from "next/router";
 
 /**
  *
@@ -27,6 +28,7 @@ import { LoginFormData, loginSchema } from "@/features/auth/loginSchema";
 
 const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -39,7 +41,8 @@ const Login: React.FC = () => {
   });
 
   const submitData = (data: LoginFormData) => {
-    console.log("Registration Successful", data);
+    router.push("/Edudesk")
+    // console.log("Registration Successful", data);
   };
 
   // show/hide password

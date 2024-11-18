@@ -3,7 +3,7 @@ import React from "react";
 import "../../app/globals.css";
 import ImageDialogComponenet from "./ImageDialogComponenet";
 import { UserAccountIcon, UserIcon } from "hugeicons-react";
-import Calender from "../Calender";
+import Calender from "../DashboardComponent/Calender";
 
 /**
  *

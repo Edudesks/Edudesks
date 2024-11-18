@@ -19,6 +19,7 @@ import StatusButton from './StatusButton';
 import TransactionReceiptModal from './TransactionReceiptModal';
 import '@/app/globals.css';
 import styles from '@/styles/DashboardTable.module.css';
+import CalendarComponent from './Calender';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -183,6 +184,8 @@ const DashboardTable: React.FC = () => {
             className={styles.dateRangeButton}
           >
             <Image src={"/icons/calendar.svg"} alt="calendar icon" width={20} height={20} />
+            {/* <CalendarComponent /> */}
+
             <span className={styles.dateRangeText}>Date range</span>
           </button>
           <Popover
@@ -196,12 +199,6 @@ const DashboardTable: React.FC = () => {
             }}
           >
             <Box p={2}>
-              {/* <DatePicker
-                label="Select Date"
-                value={selectedDate}
-                onChange={(newValue) => setSelectedDate(newValue)}
-                renderInput={(params) => <TextField {...params} />}
-              /> */}
             </Box>
           </Popover>
         </div>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import '@/app/globals.css';
 import styles from '@/styles/Navbar.module.css';
-import Sidebar from '@/components/Sidebar';
+import Sidebar from '@/components/DashboardComponent/Sidebar';
 
 
 interface NavbarProp {

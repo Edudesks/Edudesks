@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import Sidebar from '@/components/Sidebar';
-import Navbar from '@/components/NavBar';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Sidebar from '@/components/DashboardComponent/Sidebar';
+import Navbar from '@/components/DashboardComponent/NavBar';
 import { useRouter } from 'next/router';
+import { CircularProgress } from '@mui/material'; // Import CircularProgress from Material UI
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { fetchSchoolName, selectSchoolName, selectSchoolStatus } from '@/store/slices/schoolSlice';
 
@@ -29,10 +29,24 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   if (status === 'loading') {
-    return <p>Loading school details...</p>;
+    return (
+      <div className="flex bg-[var(--secondary-text-color)]">
+        <Sidebar 
+          activeSection={router.pathname.split("/")[1]} 
+          isMobileSidebarOpen={isMobileSidebarOpen} 
+          setIsMobileSidebarOpen={setIsMobileSidebarOpen} 
+        />
+        <div className="h-screen flex-1 overflow-y-scroll overflow-x-hidden">
+          <Navbar setIsMobileSidebarOpen={setIsMobileSidebarOpen} />
+          <div className="flex justify-center items-center w-full h-full"> {/* Center the loader */}
+            <CircularProgress color="primary" /> 
+          </div>
+        </div>
+      </div>
+    );
   }
 
-  return (
+  else {return (
     <div className="flex bg-[var(--secondary-text-color)]">
       <Sidebar 
         activeSection={router.pathname.split("/")[1]} 
@@ -44,7 +58,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         {children}
       </div>
     </div>
-  );
+  );}
 };
 
 export default MainLayout;

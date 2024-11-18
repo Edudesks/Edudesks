@@ -166,3 +166,25 @@
         }
       }
 }
+
+.logo2Wrapper {
+  font-size: 30px;
+  animation: blink 2s infinite ease-in-out forwards;
+  opacity: 0;
+}
+
+.text2LogoWrapper {
+  font-size: 50px;
+  opacity: 0;
+  margin-left: .8em;
+  animation: blink 2s infinite ease-in-out forwards;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
