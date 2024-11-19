@@ -21,18 +21,19 @@ const CircularChart: React.FC = () => {
   };
 
   const options = {
-    responsive: true,
+    responsive: true, // Disable responsiveness
+    maintainAspectRatio: false, // Disable aspect ratio to control exact dimensions
     plugins: {
       legend: { display: false },
       tooltip: { enabled: false },
     },
   };
-
+  
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>Number of students</h3>
-      <div className={styles.chartContainer}>
-        <Doughnut data={data} options={options} width={100} height={100} />
+      <div className={styles.chartContainer} style={{ width: '250px', height: '250px' }}> {/* Adjust size here */}
+        <Doughnut data={data} options={options}  />
         <div className={styles.overlayText}>
           <p className={styles.overlayLabel}>Total</p>
           <p className={styles.overlayValue}>1500</p>

@@ -8,7 +8,7 @@ const TakeControl = () => (
       Join hundreds of schools already benefiting from our financial management
       platform
     </p>
-    <ButtonTrial url="/pricing-plan" variant="light" text="Get started for free now" />
+    <ButtonTrial url="/signup" variant="light" text="Get started for free now" />
   </section>
 );
 

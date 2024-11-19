@@ -11,6 +11,9 @@
     background-color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
+  .navLogo {
+    display: none;
+  }
   
   .searchContainer {
     display: flex;
@@ -123,6 +126,10 @@
   }
 }
 @media (max-width: 768px) {
+  .navLogo {
+    display: block;
+  }
+
   .rightIconsContainer {
     display: none;
   }

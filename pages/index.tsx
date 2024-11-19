@@ -1,46 +1,66 @@
-// pages/index.tsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import Loader from '@/components/Loader';
-import Navbar from '@/components/LandingPageComponents/NavBar';
-import Hero from '@/components/LandingPageComponents/Hero';
-import TrustedSection from '@/components/LandingPageComponents/TrustedSection';
-import CallActionOne from '@/components/LandingPageComponents/CallActionOne';
-import Features from '@/components/LandingPageComponents/Features';
-import CallActionTwo from '@/components/LandingPageComponents/CallActionTwo';
-// import Plans from '@/components/LandingPageComponents/Plans';
-import HowItWorks from '@/components/LandingPageComponents/HowItWorks';
-import FaqSection from '@/components/LandingPageComponents/FaqSection';
-import Footer from '@/components/LandingPageComponents/Footer';
-import TakeControl from '@/components/LandingPageComponents/TakeControl';
+import Loader2 from '@/components/Loader2';
 import styles from '@/styles/LandingPage.module.css';
-// import Image from 'next/image';
 
+const Navbar = lazy(() => import('@/components/LandingPageComponents/NavBar'));
+const Hero = lazy(() => import('@/components/LandingPageComponents/Hero'));
+const TrustedSection = lazy(() => import('@/components/LandingPageComponents/TrustedSection'));
+const CallActionOne = lazy(() => import('@/components/LandingPageComponents/CallActionOne'));
+const Features = lazy(() => import('@/components/LandingPageComponents/Features'));
+const CallActionTwo = lazy(() => import('@/components/LandingPageComponents/CallActionTwo'));
+const HowItWorks = lazy(() => import('@/components/LandingPageComponents/HowItWorks'));
+const FaqSection = lazy(() => import('@/components/LandingPageComponents/FaqSection'));
+const Footer = lazy(() => import('@/components/LandingPageComponents/Footer'));
+const TakeControl = lazy(() => import('@/components/LandingPageComponents/TakeControl'));
 
 const LandingPage: React.FC = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
+  const [isLoaderVisible, setIsLoaderVisible] = useState<boolean>(true);
+  
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 7000);
-    return () => clearTimeout(timer);
+    
+    const hasLoadedBefore = sessionStorage.getItem('landingPageLoaded') || false;
+    if (hasLoadedBefore) {
+      setIsLoaderVisible(false);
+    } else {
+      setIsLoaderVisible(true);
+      const minimumLoadDuration = 7000;
+      const loaderTimer = setTimeout(() => {
+        setIsLoaderVisible(false);
+        sessionStorage.setItem('landingPageLoaded', 'true');
+      }, minimumLoadDuration);
+
+      return () => {
+        clearTimeout(loaderTimer);
+      };
+    }
   }, []);
 
-  if (isLoading) return <Loader />;
-
-  return (
-    <div className={styles.landingPage}>
-      <Navbar />
-      <Hero />
-      <TrustedSection />
-      <CallActionOne />
-      <Features />
-      <CallActionTwo />
-      {/* <Plans /> */}
-      <HowItWorks />
-      <FaqSection />
-      <TakeControl />
-      <Footer />
+  if (isLoaderVisible){
+    return (
+      <div className={styles.landingPage}>
+        <Loader />
     </div>
-  );
+    )
+  }
+  else {
+    return (
+      <div className={styles.landingPage}>
+          <Suspense fallback={<Loader2 />}>
+            <Navbar />
+            <Hero />
+            <TrustedSection />
+            <CallActionOne />
+            <Features />
+            <CallActionTwo />
+            <HowItWorks />
+            <FaqSection />
+            <TakeControl />
+            <Footer />
+          </Suspense>
+      </div>
+    );
+  }
 };
 
 export default LandingPage;

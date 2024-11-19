@@ -3,57 +3,49 @@ import "../app/globals.css";
 import React, { useState } from "react";
 import Image from "next/image";
 import { inter, openSans } from "@/app/fonts/fonts";
-import Link from "next/link";
 import {
+  SchoolIcon,
   Mail01Icon,
   LockPasswordIcon,
   ViewIcon,
+  DangerIcon,
   ViewOffSlashIcon,
   InformationCircleIcon,
 } from "hugeicons-react";
 import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginFormData, loginSchema } from "@/features/auth/loginSchema";
-import { useRouter } from "next/router";
+import { ResetPasswordForm, resetPassword} from "@/features/auth/resetPassword";
+import { useRouter } from 'next/router';
 
-/**
- *
- * TODO: For backend, functionality for save details
- * TODO: Form validation
- * TODO: Ask about password icon
- * TODO: Ask about the checkbox
- * TODO: Minimum requirements for password
- * TODO: hover state?
- */
-
-const Login: React.FC = () => {
-  const [showPassword, setShowPassword] = useState(false);
+const ResetPassword: React.FC = () => {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitted },
-    watch,
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
-    mode: "onSubmit",
-  });
+    watch
+  } = useForm<ResetPasswordForm>({ resolver: zodResolver(resetPassword), mode: "onSubmit" });
 
-  const submitData = (data: LoginFormData) => {
-    router.push("/Edudesk")
-    // console.log("Registration Successful", data);
+  const submitData = (data: ResetPasswordForm) => {
+    console.log("Password Reset Successful", data);
+    router.push('/forgot-verification-success')
   };
 
   // show/hide password
   const handleShowPassword = () => {
-    setShowPassword(!showPassword);
+    setShowPassword(prev =>!prev);
   };
 
-  // ------ changing button color dependent on form validation ------
-  const schoolEmail = watch("schoolEmail");
+  const handleShowConfirmPassword = () => {
+    setShowConfirmPassword(prev =>!prev);
+  };
+
   const password = watch("password");
-  const allFieldsFilled = schoolEmail && password;
+  const confirmPassword = watch("confirmPassword");
+  const allFieldsFilled = password && confirmPassword;
 
   let buttonColor;
   if (!allFieldsFilled) {
@@ -69,37 +61,34 @@ const Login: React.FC = () => {
   return (
     <>
       <div
-        className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[8.5625rem] h-screen whitespace-nowrap`}
+        className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[5rem] h-screen whitespace-nowrap pb-[4.1875rem] lg:pb-0 bg-white w-full overflow-x-auto lg:overflow-hidden`}
       >
         {/* -------- left half of signup page -------- */}
-        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[1.9375rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-e-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-[44.875rem]">
+        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[2rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-full">
           <AuthentificationLogo />
-          <div className="w-[16.625rem] lg:w-[33.6875rem] self-center">
-            <Image
-              src={"/loginIcon.svg"}
-              alt="login image"
-              width={470}
-              height={470}
+          <div className="w-[16.625rem] lg:w-full self-center">
+          <Image
+              src={"/forgottenPasswordIcon.svg"}
+              alt="forgotton password image"
+              width={1000}
+              height={1000}
+              loading="lazy"
+              quality={75}
+              className="lg:ml-[-3rem]"
             />
           </div>
         </div>
         {/* -------- form input of signup page -------- */}
-        <div className="flex flex-col gap-9 items-center justify-start lg:justify-center h-full px-[1.125rem] lg:p-0 lg:w-[35.9375rem] lg:mr-2.5">
+        <div className="flex flex-col gap-9 items-center justify-start lg:justify-center h-full px-[1.125rem] lg:p-0 lg:w-full lg:mr-2.5 ">
           {/* -------- form heading -------- */}
-          <div className="flex flex-col gap-[0.6875rem] self-start">
+          <div className="flex flex-col gap-[0.6875rem] w-full lg:w-[80%] whitespace-normal self-start">
             <h2
               className={`text-[var(--primary-text-color)] text-4xl lg:text-[2.5rem] font-bold leading-snug tracking-[0.1px]`}
             >
-              Hi,Welcome back
+              Reset Password
             </h2>
-            <p className="text-xl leading-5">
-              Don’t have an account?&nbsp;&nbsp;
-              <Link
-                href={"/signup"}
-                className={`${inter.className} text-[var(--secondary)] font-semibold`}
-              >
-                Sign Up
-              </Link>
+            <p className="text-[15px] sm:text-[18px] leading-8">
+            choose a new password for your account
             </p>
           </div>
           {/* -------- form details and input -------- */}
@@ -112,49 +101,8 @@ const Login: React.FC = () => {
             <div className="flex flex-col gap-9">
               {/* -------- form details only -------- */}
               <div className="flex flex-col gap-5 ">
-                {/* -------- school email -------- */}
-                <div className="flex flex-col gap-[0.4375rem]">
-                  <label
-                    htmlFor="school-email"
-                    className="text-sm text-[var(--primary-text-color)]"
-                  >
-                    School Email
-                  </label>
-                  <div className="w-full flex relative items-center text-[var(--grey)]">
-                    <input
-                      className={`border ${
-                        errors.schoolEmail
-                          ? "border-[var(--danger)]"
-                          : "border-[var(--border)]"
-                      } rounded-[10px] py-2.5 px-9 w-full placeholder:text-[var(--grey)] ${
-                        errors.schoolEmail
-                          ? "text-[var(--danger)]"
-                          : "text-[var(--primary-text-color)]"
-                      } focus:outline-none autofill:bg-none`}
-                      type="email"
-                      id="school-email"
-                      placeholder="Enter your school email"
-                      required
-                      {...register("schoolEmail")}
-                    />
-                    <span className="absolute left-2.5">
-                      <Mail01Icon
-                        color={errors.schoolEmail ? "#f65252" : "#59676e"}
-                        size={18}
-                      />
-                    </span>
-                  </div>
-                  {errors.schoolEmail && (
-                    <div className="flex gap-[7px] text-[var(--danger)] items-center">
-                      <InformationCircleIcon size={"18px"} />
-                      <p className="text-sm leading-normal">
-                        {errors.schoolEmail.message}
-                      </p>
-                    </div>
-                  )}
-                </div>
                 {/* -------- password -------- */}
-                <div className="flex flex-col gap-[0.4375rem]">
+                <div className="flex flex-col gap-[0.5rem]">
                   <label
                     htmlFor="password"
                     className="text-sm text-[var(--primary-text-color)]"
@@ -188,10 +136,10 @@ const Login: React.FC = () => {
                           ? "text-[var(--danger)]"
                           : "text-[var(--primary-text-color)]"
                       } focus:outline-none autofill:bg-none`}
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? 'text' : 'password'}
                       id="password"
                       placeholder="Enter your password"
-                      // required
+                      required
                       {...register("password")}
                     />
                     <span className="absolute left-2.5">
@@ -210,34 +158,76 @@ const Login: React.FC = () => {
                     </div>
                   )}
                 </div>
-                {/* -------- remeber me and forgot password -------- */}
-              </div>
-              {/* -------- remember checkbox -------- */}
-              <div className="flex justify-between">
-                <div className="flex items-center gap-2 border-[#D0D5DD]">
-                  <input
-                    type="checkbox"
-                    name="save-details"
-                    id="save-details"
-                    className="w-4 h-4 rounded border appearance-none"
-                  />
-                  <label htmlFor="save-details">Save details</label>
+                {/* -------- confirm password -------- */}
+                <div className="flex flex-col gap-[0.5rem]">
+                  <label
+                    htmlFor="confirm-password"
+                    className="text-sm text-[var(--primary-text-color)]"
+                  >
+                    Confirm Password
+                  </label>
+                  <div className="w-full flex relative items-center text-[var(--grey)]">
+                    <button className="absolute right-2.5" onClick={handleShowConfirmPassword}>
+                    {showConfirmPassword ? (
+                        <ViewOffSlashIcon
+                          color={errors.password ? "#f65252" : "#59676e"}
+                          size={18}
+                        />
+                      ) : (
+                        <ViewIcon
+                          color={errors.password ? "#f65252" : "#59676e"}
+                          size={18}
+                        />
+                      )}
+                    </button>
+                    <input
+                      className={`border ${
+                        errors.confirmPassword
+                          ? "border-[var(--danger)]"
+                          : "border-[var(--border)]"
+                      } rounded-[10px] py-2.5 px-9 w-full placeholder:text-[var(--grey)] ${
+                        errors.confirmPassword
+                          ? "text-[var(--danger)]"
+                          : "text-[var(--primary-text-color)]"
+                      } focus:outline-none autofill:bg-none`}
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      id="confirm-password"
+                      placeholder="Enter your password"
+                      required
+                      {...register("confirmPassword")}
+                    />
+                    <span className="absolute left-2.5">
+                      <LockPasswordIcon
+                        color={errors.confirmPassword ? "#f65252" : "#59676e"}
+                        size={18}
+                      />
+                    </span>
+                  </div>
+                  {errors.confirmPassword && (
+                    <div className="flex gap-[7px] text-[var(--danger)] items-center">
+                      <InformationCircleIcon size={"18px"} />
+                      <p className="text-sm leading-normal">
+                        {errors.confirmPassword.message}
+                      </p>
+                    </div>
+                  )}
                 </div>
-                <Link
-                  href={"/forgot-password"}
-                  className="text-sm leading-5 text-[var(--secondary)]"
-                >
-                  Forgot password
-                </Link>
-              </div>
             </div>
             <button
               className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
               type="submit"
-              // disabled={!isValid}
+             
             >
-              Sign In
+              Reset password
             </button>
+
+            <button
+                className={`border border-[var(--primary)] px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 w-full text-[var(--primary)] bg-[var(--secondary-text-color)]`}
+                type="button"
+                onClick={() => router.push("/login")} 
+              >
+                Back to login
+              </button></div>
           </form>
         </div>
       </div>
@@ -245,4 +235,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default ResetPassword;

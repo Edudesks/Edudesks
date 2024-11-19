@@ -1,11 +1,13 @@
 /* components/RevenueAnalytics.module.css */
 
 .container {
-    padding: 0.5rem; /* p-2 */
+    padding: 0.5rem;
     border: 1px solid #e5e7eb; /* border-gray-200 */
     border-radius: 0.5rem; /* rounded-lg */
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* shadow-sm */
-    width: 100%; /* w-full */
+    width: 100%;
+    height: 100%;
+    background-color: white;
   }
   
   .header {
@@ -16,14 +18,14 @@
   }
   
   .title {
-    font-size: 1.125rem; /* text-lg */
-    font-weight: 600; /* font-semibold */
-    color: #4b5563; /* text-gray-700 */
+    font-size: 1.125rem;
+    font-weight: 600; 
+    color: #4b5563; 
   }
   
   .subtitle {
-    color: #6b7280; /* text-gray-500 */
-    font-size: 0.875rem; /* text-sm */
+    color: #6b7280;
+    font-size: 0.875rem; 
   }
   
   .legend {
@@ -65,3 +67,20 @@
     margin-top: 0.5rem; /* mt-2 */
   }
   
+  @media (max-width: 768px) {
+    .container {
+      padding: 1.5rem;
+    }
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .subtitle {
+      margin-bottom: 1.5em;
+    }
+    .legend {
+      width: 100%;
+      justify-content: space-between;
+      margin-bottom: 1em;
+    }
+  }

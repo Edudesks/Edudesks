@@ -1,14 +1,37 @@
-// components/TransactionReceiptModal.js
-
 import React, { useRef } from 'react';
 import Image from 'next/image';
-import styles from '@/styles/TransactionReceiptModal.module.css';
+import styles from '@/styles/TransactionReceiptModal.module.css'; // Import the CSS module
 
-const TransactionReceiptModal = ({ isOpen, onClose, transaction }) => {
-  const modalRef = useRef(null);
+interface Transaction {
+  id: string;
+  name: React.ReactNode;
+  category: string;
+  amount: number;
+  paymentMethod: string;
+  status: React.ReactNode;
+  isPositiveChange: boolean;
+  recipientName: string;
+  reference: string;
+  date: string;
+  method: string;
+  accountCredited: string;
+  sender: string;
+  remark: string;
+  recipientAccount: string;
+  recipientBank: string;
+}
 
-  const handleClickOutside = (event) => {
-    if (modalRef.current && !modalRef.current.contains(event.target)) {
+interface TransactionReceiptModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  transaction: Transaction;
+}
+
+const TransactionReceiptModal: React.FC<TransactionReceiptModalProps> = ({ isOpen, onClose, transaction }) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: React.MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       onClose();
     }
   };
@@ -24,16 +47,33 @@ const TransactionReceiptModal = ({ isOpen, onClose, transaction }) => {
         <button onClick={onClose} className={styles.closeButton}>
           &times;
         </button>
-
+        <Image 
+          src="/icons/school-icon.svg"
+          alt="search icon"
+          width={100}
+          height={100}
+          className={styles.receiptIcon}
+        />
         <h2 className={styles.modalTitle}>Transaction Receipt</h2>
         <p className={styles.modalSubtitle}>Thank you for your payment! Below are the details of your transaction.</p>
         
+
         <div className={styles.transactionSummary}>
+            
+          <Image 
+          src="/icons/transfer-icon.svg"
+          alt="search icon"
+          width={45}
+          height={45}
+          className={styles.transactionIcon}
+        />
+          <div className={styles.transactionBody}>
           <div className={styles.transactionHeader}>
             <p className={styles.transactionText}>Received money to {transaction.recipientName}...</p>
             <p className={styles.transactionAmount}>+₦{transaction.amount.toLocaleString()}</p>
           </div>
           <p className={styles.transactionType}>Transfer</p>
+          </div>
         </div>
 
         <div className={styles.transactionDetails}>
@@ -91,11 +131,10 @@ const TransactionReceiptModal = ({ isOpen, onClose, transaction }) => {
         <button className={styles.downloadButton}>
           Download Receipt
           <Image
-            src="icons/download-icon.svg"
-            alt=''
-            className={styles.downloadIcon}
-            width={20}
-            height={20}
+          src="icons/download-icon.svg"
+          alt=''
+          className={styles.downloadIcon}
+          width={20} height={20}
           />
         </button>
       </div>

@@ -1,17 +1,13 @@
-// components/Dashboard.js
-import { Card, Typography, CircularProgress, Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@mui/material';
-import Sidebar from '../components/Sidebar';
-import DashboardTable from '@/components/DashboardTable/DashboardTable';
-import BalanceCard from '@/components/BalancedCard';
-import RevenueAnalytics from '@/components/RevenueAnalysis';
-import Navbar from '@/components/NavBar';
-import CircularChart from '@/components/CircularChart';
-import TransactionReceiptModal from '../components/TransactionReceiptModal';
+import DashboardTable from '@/components/DashboardComponent/DashboardTable';
+import BalanceCard from '@/components/DashboardComponent/BalancedCard';
+import RevenueAnalytics from '@/components/DashboardComponent/RevenueAnalysis';
+import CircularChart from '@/components/DashboardComponent/CircularChart';
 import { useState } from 'react';
 import styles from '@/styles/Dashboard.module.css';
 
 
 const Dashboard = () => {
+
   const [isModalOpen, setModalOpen] = useState(false);
   const [transaction, setTransaction] = useState({
     reference: '1234567890984789',
@@ -29,12 +25,7 @@ const Dashboard = () => {
 
   
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="h-screen flex-1 overflow-y-scroll overflow-x-hidden">
-        <Navbar />
-        
-        {/* Balance Cards Row */}
+        <>
         <div className="flex flex-wrap justify-between gap-1 px-6 mt-4">
           <BalanceCard
             title="Total Balance"
@@ -42,7 +33,7 @@ const Dashboard = () => {
             percentageChange={16.78}
             changeLabel="last year"
             data={[10, 20, 15, 30, 25]}
-            backgroundColors={['#E2E9F6', '#E2E9F6', '#E2E9F6', '#E2E9F6', '#4b8bbe']}
+            backgroundColors={['#4b8bbe33', '#4b8bbe33', '#4b8bbe33', '#4b8bbe33', '#4b8bbe']}
             icon="/icons/balance-icon.svg"
             barColor="#4b8bbe"
             size="medium"
@@ -53,8 +44,8 @@ const Dashboard = () => {
             percentageChange={10.78}
             changeLabel="last year"
             data={[5, 15, 25, 20, 30]}
-            backgroundColors={['#E2F9E1', '#E2F9E1', '#E2F9E1', '#E2F9E1', '#48bb78']}
-            icon="/icons/income-icon.svg"
+            backgroundColors={['#08c07433', '#08c07433', '#08c07433', '#08c07433', '#08c074']}
+            icon="/icons/income-icon-dark.svg"
             barColor="#48bb78"
             size="large"
           />
@@ -64,8 +55,8 @@ const Dashboard = () => {
             percentageChange={-10.78}
             changeLabel="last year"
             data={[15, 25, 20, 30, 35]}
-            backgroundColors={['#FDEAEA', '#FDEAEA', '#FDEAEA', '#FDEAEA', '#F87171']}
-            icon="/icons/expenses-icon.svg"
+            backgroundColors={['#f6525233', '#f6525233', '#f6525233', '#f6525233', '#f65252']}
+            icon="/icons/expenses-icon-dark.svg"
             barColor="#F87171"
             size="medium"
           />
@@ -75,8 +66,8 @@ const Dashboard = () => {
             percentageChange={10}
             changeLabel="last year"
             data={[8, 12, 15, 20, 22]}
-            backgroundColors={['#FFF7ED', '#FFF7ED', '#FFF7ED', '#FFF7ED', '#F97316']}
-            icon="/icons/employees-icon.svg"
+            backgroundColors={['#ff7d0033', '#ff7d0033', '#ff7d0033', '#ff7d0033', '#ff7d00']}
+            icon="/icons/employees-icon-dark.svg"
             barColor="#F97316"
             size="medium"
           />
@@ -84,21 +75,21 @@ const Dashboard = () => {
         
         {/* Analytics and Circular Chart Row */}
         <div className={styles.flexContainer}>
-        <RevenueAnalytics />
-        <CircularChart />
-      {/* <div className={styles.revenueAnalytics}>
-      </div> */}
-      {/* <div className={styles.circularChart}>
-      </div> */}
-    </div>
+          <div className={styles.flexRevenue}>
+            <RevenueAnalytics />
+          </div>
+          <div className={styles.flexChart}>
+            <CircularChart />
+          </div>
+        </div>
 
         
         {/* Transaction History Table */}
         <div className="px-6 mt-6">
           <DashboardTable />
         </div>
-      </div>
-    </div>
+        </>
+
   );
 };
 

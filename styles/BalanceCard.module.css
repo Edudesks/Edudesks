@@ -5,8 +5,9 @@
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); 
     padding: 0.5rem;
-    flex: 1 1 100%;
-    max-width: 320px;
+    flex: 1;
+    max-width: 500px;
+    background-color: white;
   }
   
 
@@ -19,7 +20,7 @@
   
   .iconContainer {
     padding: 0.5rem; /* p-2 */
-    background-color: #ebf8ff; /* bg-blue-100 */
+    background-color: #f6fafc; /* bg-blue-100 */
     border-radius: 9999px; /* rounded-full */
   }
   
@@ -30,7 +31,7 @@
   }
   .infoContainer {
     display: flex;
-    justify-items: space-between;
+    justify-content: space-between;
   }
   .amountContainer {
     margin-right: 2em;
@@ -71,15 +72,33 @@
   
 
   
-  @media (max-width: 640px) {
-    /* equivalent to Tailwind's sm breakpoint */
-    .card {
-      flex: 1 1 48%; /* 50% width with some gap */
-    }
-  }
+ 
   @media (min-width: 1024px) {
     /* equivalent to Tailwind's lg breakpoint */
     .card {
       flex: 1 1 23%; /* roughly 1/4 width with gap */
+    }
+  }
+  @media (max-width: 768px) {
+    .title {
+      color: #4b5563; /* text-gray-700 */
+      font-weight: 600; /* font-semibold */
+      font-size: 1rem; /* text-sm */
+    }
+    .infoContainer {
+      width: 100%;
+    }
+    .card {
+      padding: 1em;
+    }
+    .amountContainer .amount{
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    /* equivalent to Tailwind's sm breakpoint */
+    .card {
+      flex: 1 1 48%; /* 50% width with some gap */
     }
   }
