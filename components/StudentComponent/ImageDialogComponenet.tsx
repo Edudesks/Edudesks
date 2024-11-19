@@ -13,6 +13,11 @@ import "../../app/globals.css";
 import { CloudUploadIcon } from "hugeicons-react";
 import { useDropzone } from "react-dropzone";
 
+/**
+ * 
+ * TODO: Add change image and trash icon
+ */
+
 const ImageDialogComponenet = () => {
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState<string | null>(null);
