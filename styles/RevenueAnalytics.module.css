@@ -64,7 +64,11 @@
   }
   
   .chartContainer {
-    margin-top: 0.5rem; /* mt-2 */
+    display: flex;
+    margin-top: 2rem; /* mt-2 */
+    height: 310px;
+    width: 100%;
+    justify-content: center;
   }
   
   @media (max-width: 768px) {

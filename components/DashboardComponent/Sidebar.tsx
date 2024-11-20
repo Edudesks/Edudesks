@@ -30,7 +30,9 @@ const Sidebar: React.FC<SidebarProp> = ({ activeSection, isMobileSidebarOpen, se
         &times;
       </button>
       <div className={styles.logo}>
-        <Image src="/icons/logo.svg" alt="logo" width={350} height={50} />
+        <Link href='/'>
+          <Image src="/icons/logo.svg" alt="logo" width={350} height={50} />
+        </Link>
       </div>
 
       {/* Menu Items */}

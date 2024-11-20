@@ -21,6 +21,7 @@ const Navbar: FC = () => {
       </div>
       <div className={styles.navContainer}>
         <nav className={styles.navBar}>
+        <Link href='/'>
           <Image
             src="/icons/logo.svg"
             alt="Edudesk Logo"
@@ -28,7 +29,8 @@ const Navbar: FC = () => {
             width={10}
             height={10}
             priority
-          />
+            />
+        </Link>
           
           {/* Hamburger icon */}
           
