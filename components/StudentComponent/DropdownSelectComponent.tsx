@@ -15,7 +15,7 @@ import { useState } from "react";
 /**
  * * DropdownSelectComponent is a React functional component that renders a dropdown
  * TODO: Make the dropdown select component reusable
- * Fix placeholder
+ * TODO: Fix placeholder
  */
 
 const selectSx: SxProps = {
