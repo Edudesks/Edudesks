@@ -12,6 +12,7 @@ import CalenderComponent from "../CalenderComponent";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import DropdownSelectComponent from "./DropdownSelectComponent";
 import InputField from "./InputField";
+import GeneralButton from "../GeneralButton";
 
 /**
  *
@@ -445,6 +446,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                   className={`border border-solid border-[var(--border)] rounded-[0.625rem] w-full focus:outline-none autofill:bg-none shadow-form-shadow p-2.5`}
                 />
               </div>
+              <GeneralButton buttonText="button" state={"active"} size={"small"} iconPosition="right" />
             </div>
           </form>
         </div>
