@@ -130,7 +130,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
 
   return (
     <button
-      className={`${className} ${borderRadius} ${buttonBGColor} ${buttonTextColor} ${paddingY} ${flexDirection} border border-solid font-bold flex items-center justify-center px-2.5 gap-2.5`}
+      className={`${className} ${buttonBorder} ${borderRadius} ${buttonBGColor} ${buttonTextColor} ${paddingY} ${flexDirection} border border-solid font-bold flex items-center justify-center px-2.5 gap-2.5`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       disabled={state === "disabled"}

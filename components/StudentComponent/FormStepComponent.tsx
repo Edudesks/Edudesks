@@ -446,7 +446,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                   className={`border border-solid border-[var(--border)] rounded-[0.625rem] w-full focus:outline-none autofill:bg-none shadow-form-shadow p-2.5`}
                 />
               </div>
-              <GeneralButton buttonText="button" state={"active"} size={"small"} iconPosition="right" />
+              <GeneralButton buttonText="Get Started" state={"previous"} size={"large"} iconPosition="right" />
             </div>
           </form>
         </div>
