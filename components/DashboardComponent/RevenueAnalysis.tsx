@@ -34,15 +34,7 @@ const RevenueAnalytics: React.FC = () => {
     responsive: true,
     plugins: {
       legend: {
-        display: true,
-        position: 'top',
-        labels: {
-          usePointStyle: true,
-          padding: 10,
-          font: {
-            size: 10,
-          },
-        },
+        display: false,
       },
       tooltip: {
         enabled: true,
@@ -82,13 +74,13 @@ const RevenueAnalytics: React.FC = () => {
             <div className={styles.incomeDot} /> <span>Income</span>
           </div>
           <Select defaultValue="This Year" variant="outlined" size="small" className={styles.selectBox}>
-            <MenuItem value="This Year">This Year</MenuItem>
-            <MenuItem value="Last Year">Last Year</MenuItem>
+            <MenuItem value="This Year">2024</MenuItem>
+            <MenuItem value="Last Year">2023</MenuItem>
           </Select>
         </div>
       </div>
       <div className={styles.chartContainer}>
-        <Bar data={data} options={options} height={150} />
+        <Bar data={data} options={options}/>
       </div>
     </div>
   );

@@ -2,20 +2,27 @@
     display: flex;
     justify-content: space-between;
     padding: 1.5rem;
-    gap: 0;
-    height: 430px;
+    gap: 15px;
+    height: fit-content;
+    justify-items: flex-start;
+    flex-wrap: wrap;
     margin-top: 1.5rem; /* equivalent to mt-6 */
   }
   .flexRevenue {
     flex: 1;
-    transform: scale(1, .9);
+    /* transform: scale(1, .9); */
     transform-origin: top left;
+    height: 400px;
+    width: 50%;
   }
 
   .flexChart {
     width: 400px; 
-    height: 100%;
-    transform: scale(.9);
+    height: 400px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+    border-radius: 0.5rem;
+    /* transform: scale(.9); */
     transform-origin: top right;
   }
   
@@ -30,4 +37,34 @@
     .revenueAnalytics {
       flex: 1;
       max-width: 32rem; /* equivalent to max-w-lg */
+    }
+    @media (max-width: 1200px) {
+      .flexChart {
+        width: 100%; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .flexContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        height: fit-content;
+      }
+      .flexRevenue {
+        flex: 1;
+        transform: scale(1);
+        transform-origin: none;
+        width: 100%;
+      }
+    
+      .flexChart {
+        width: 100%; 
+        height: 100%;
+        transform: scale(1);
+        transform-origin: none;
+      }
     }
