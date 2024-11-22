@@ -1,10 +1,10 @@
-import Navbar from "@/components/NavBar";
-import Sidebar from "@/components/Sidebar";
 import { ArrowLeft01Icon } from "hugeicons-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 import StudentRegisterDetails from "@/components/StudentComponent/StudentRegisterDetails";
+import Sidebar from "@/components/DashboardComponent/Sidebar";
+import Navbar from "@/components/LandingPageComponents/NavBar";
 
 const Card = ({
   iconSrc,
@@ -48,8 +48,8 @@ export default function StudentProfile() {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
+    <Navbar/>
+      <Sidebar/>
 
       <div className={classNames("md:left-[20rem] flex flex-col gap-[31px] absolute top-[6rem] left-0 md:px-0 px-5", {
             "w-[100%]": isBelow760,
