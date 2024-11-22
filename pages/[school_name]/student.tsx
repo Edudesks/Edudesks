@@ -10,6 +10,10 @@ const Student = () => {
   return (
     <div>Student
         <FormStepComponent step={0} />
+        <FormStepComponent step={1} />
+        <FormStepComponent step={2} />
+        <FormStepComponent step={3} />
+        <FormStepComponent step={4} />
     </div>
   )
 }
