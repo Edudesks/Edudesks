@@ -13,12 +13,15 @@
     /* transform: scale(1, .9); */
     transform-origin: top left;
     height: 400px;
-    width: 100%;
+    width: 50%;
   }
 
   .flexChart {
     width: 400px; 
     height: 400px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+    border-radius: 0.5rem;
     /* transform: scale(.9); */
     transform-origin: top right;
   }
@@ -35,6 +38,14 @@
       flex: 1;
       max-width: 32rem; /* equivalent to max-w-lg */
     }
+    @media (max-width: 1200px) {
+      .flexChart {
+        width: 100%; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
 
     @media (max-width: 768px) {
       .flexContainer {
@@ -47,6 +58,7 @@
         flex: 1;
         transform: scale(1);
         transform-origin: none;
+        width: 100%;
       }
     
       .flexChart {

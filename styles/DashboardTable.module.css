@@ -84,3 +84,8 @@
     cursor: not-allowed;
   }
   
+  @media (max-width: 1000px) {
+    .container {
+      display: none
+    }
+  }
