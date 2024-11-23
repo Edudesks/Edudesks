@@ -3,9 +3,6 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 import StudentRegisterDetails from "@/components/StudentComponent/StudentRegisterDetails";
-import Sidebar from "@/components/DashboardComponent/Sidebar";
-import Navbar from "@/components/LandingPageComponents/NavBar";
-
 const Card = ({
   iconSrc,
   title,
@@ -45,19 +42,17 @@ export default function StudentProfile() {
   const isBelow1220 = windowWidth < 1227;
   const isBelow1041 = windowWidth < 1041;
   const isBelow760 = windowWidth < 760;
-
   return (
     <>
-    <Navbar/>
-      <Sidebar/>
+    
 
-      <div className={classNames("md:left-[20rem] flex flex-col gap-[31px] absolute top-[6rem] left-0 md:px-0 px-5", {
+      <div className={classNames("md:left-[20rem] flex flex-col gap-[31px] absolute top-[6rem] left-0 md:px-0 px-5 overflow-x-hidden", {
             "w-[100%]": isBelow760,
       "w-[70%]": !isBelow760 && isBelow1220,
       "w-[80%]": !isBelow1220,
           })}>
         {/* Button Container Header*/}
-        <section className={classNames("flex items-center justify-between w-full lg:w-full lg:pr-[5%]", {
+        <section className={classNames("flex items-center justify-between w-full lg:w-full lg:pr-[5%] overflow-x-hidden", {
             "flex-wrap gap-3": isBelow1041,
             "no-wrap": !isBelow1041,
           })}>
@@ -91,7 +86,7 @@ export default function StudentProfile() {
         </section>
 
         {/* Student Profile Container */}
-        <section className="flex items-center gap-[18px] ">
+        <section className="flex items-center gap-[18px] overflow-x-hidden">
           <div className="sm:w-[100px] sm:h-[100px] w-[85.1px] h-[85.1px]">
             <Image src="/student_profile_icon.svg" alt="Student Profile" width={1000} height={1000} loading="lazy" />
           </div>
