@@ -5,18 +5,18 @@ import Image from 'next/image';
 import styles from '@/styles/MobileTable.module.css'; // Ensure the CSS filename matches
 import StatusButton from './StatusButton';
 
-type TransactionStatus = 'Received' | 'Pending' | 'Paid';
+type TableDataStatus = 'Received' | 'Pending' | 'Paid';
 
-interface Transaction {
+interface TableData {
   id: number;
   title: string;
   date: string;
   amount: number;
   isPositiveChange: boolean;
-  status: TransactionStatus;
+  status: TableDataStatus;
 }
 
-const transactions: Transaction[] = [
+const tabledatas: TableData[] = [
   { id: 1, title: 'School fees', isPositiveChange: true, date: 'Fri, 24th May', amount: 100000, status: 'Received' },
   { id: 2, title: 'Sales of Textbook', isPositiveChange: true, date: 'Fri, 24th May', amount: 100000, status: 'Received' },
   { id: 3, title: 'Salaries', isPositiveChange: false, date: 'Fri, 24th May', amount: 100000, status: 'Pending' },
@@ -25,7 +25,7 @@ const transactions: Transaction[] = [
   { id: 6, title: 'Salaries', isPositiveChange: false, date: 'Fri, 24th May', amount: 100000, status: 'Paid' },
 ];
 
-const TransactionHistory: React.FC = () => {
+const MobileTableHistory: React.FC = () => {
   return (
     <div className={styles.transactionHistory}>
       <h2>Transaction History</h2>
@@ -34,7 +34,7 @@ const TransactionHistory: React.FC = () => {
         <FaSearch className={styles.searchIcon} />
       </div>
       <ul className={styles.transactionList}>
-        {transactions.map((transaction) => (
+        {tabledatas.map((transaction) => (
           <li key={transaction.id} className={`${styles.transactionItem} ${styles[transaction.status.toLowerCase()]}`}>
             <div className={`${styles.iconStatus} ${transaction.status === 'Received' ? styles.received: transaction.status === 'Pending' ? styles.pending: styles.paid}`}>
               {/* {transaction.status === 'Received' ? ( */}
@@ -70,4 +70,4 @@ const TransactionHistory: React.FC = () => {
   );
 };
 
-export default TransactionHistory;
+export default MobileTableHistory;

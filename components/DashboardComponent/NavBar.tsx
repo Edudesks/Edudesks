@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import '@/app/globals.css';
+import Link from 'next/link';
 import styles from '@/styles/Navbar.module.css';
-import Sidebar from '@/components/DashboardComponent/Sidebar';
 
 
 interface NavbarProp {
@@ -11,11 +11,12 @@ interface NavbarProp {
 
 const Navbar:React.FC<NavbarProp> = ({setIsMobileSidebarOpen}) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // New state for sidebar
 
   return (
     <div className={styles.navbarContainer}>
-      <Image src="/icons/logo.svg" className={styles.navLogo} alt="logo" width={300} height={45} />
+      <Link href='/'>
+          <Image src="/icons/logo.svg" className={styles.navLogo} alt="logo" width={300} height={45} />
+      </Link>
 
       {isSearchOpen ? (
         <div className={`${styles.searchContainer}`}>
