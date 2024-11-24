@@ -1,4 +1,3 @@
-// components/RevenueAnalytics.tsx
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend, ChartOptions } from 'chart.js';
@@ -8,24 +7,25 @@ import styles from '@/styles/RevenueAnalytics.module.css';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 const RevenueAnalytics: React.FC = () => {
+  // Modify labels to remove the year
   const data = {
     labels: ['31 Jan', '29 Feb', '30 Mar', '30 Apr', '30 May', '30 Jun', '30 Jul', '30 Aug'],
     datasets: [
       {
         label: 'Expenses',
-        data: [200000, 300000, 150000, 500000, 600000, 400000, 200000, 300000],
+        data: [200, 300, 150, 500, 600, 400, 200, 300],
         backgroundColor: '#4b8bbe',
-        barPercentage: .8,
+        barPercentage: 0.8,
         borderRadius: 10,
-        categoryPercentage: .9,
+        categoryPercentage: 0.9,
       },
       {
         label: 'Income',
-        data: [400000, 500000, 250000, 700000, 900000, 800000, 500000, 600000],
+        data: [400, 500, 250, 700, 900, 800, 500, 600],
         backgroundColor: '#E2E9F6',
-        barPercentage: .8,
+        barPercentage: 0.8,
         borderRadius: 10,
-        categoryPercentage: .9,
+        categoryPercentage: 0.9,
       },
     ],
   };
@@ -38,9 +38,29 @@ const RevenueAnalytics: React.FC = () => {
       },
       tooltip: {
         enabled: true,
+        mode: 'index',
+        intersect: false,
+        backgroundColor: '#002F49',
+        padding: 20,
+        usePointStyle: true,
+        titleSpacing: 10,
+        titleMarginBottom: 10,
+        
         callbacks: {
-          label: (context) => `${context.dataset.label}: ₦${context.toLocaleString()}.00`,
+
+          title: () => '',
+          // Show the full date with year in the tooltip title
+          beforeTitle: (context) => {
+            const fullDates = ['31 Jan, 2024', '29 Feb, 2024', '30 Mar, 2024', '30 Apr, 2024', '30 May, 2024', '30 Jun, 2024', '30 Jul, 2024', '30 Aug, 2024'];
+            return fullDates[context[0].dataIndex];
+          },
+          label: (context) => {
+            const value = context.raw as number;
+            const label = context.dataset.label == "Income"? 'Income generated' : 'Expenses'
+            return [`${label}`, `₦${value.toLocaleString()}.00`, ' '];
+          },
         },
+        bodyColor: '#f9f9f9'
       },
     },
     scales: {
@@ -56,16 +76,16 @@ const RevenueAnalytics: React.FC = () => {
         },
         grid: {
           color: '#E5E7EB',
-          // drawBorder: false,
         },
       },
     },
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div>
-          <h2 className={styles.title}>Revenue Analytics</h2>
+          <h2 className={styles.title}>Analytics</h2>
           <p className={styles.subtitle}>Total revenue analytics for this year</p>
         </div>
         <div className={styles.legend}>
@@ -80,7 +100,7 @@ const RevenueAnalytics: React.FC = () => {
         </div>
       </div>
       <div className={styles.chartContainer}>
-        <Bar data={data} options={options}/>
+        <Bar data={data} options={options} />
       </div>
     </div>
   );

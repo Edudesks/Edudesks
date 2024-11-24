@@ -1,20 +1,37 @@
-// components/Dashboard.js
-import Sidebar from '@/components/DashboardComponent/Sidebar';
-import Navbar from '@/components/DashboardComponent/NavBar';
-import CircularChart from '@/components/DashboardComponent/CircularChart';
-import { useState } from 'react';
-import styles from '@/styles/Dashboard.module.css';
-import ClassTable from '@/components/ClassComponent/ClassTable';
+import React from 'react';
+import styles from '@/styles/Class.module.css';
 
-
-const Class = () => {  
+const ClassPage: React.FC = () => {
   return (
-        <div className="container">
-            <ClassTable/>
-        </div>
+    <div className={styles.pageContainer}>
+      <div className={styles.formContainer}>
+        <h2 className={styles.heading}>Add New Class</h2>
+        <form>
+          <div className={styles.formGroup}>
+            <label>Class*</label>
+            <input type="text" placeholder="Enter name of class" />
+          </div><br></br>
+          <div className={styles.formGroup}>
+            <label>Assigned Teacher*</label>
+            <input type="text" placeholder="Enter class teacher name" />
+          </div>
+          <br></br>
+          <div className={styles.formGroup}>
+            <label>School Fees for Each Student*</label>
+            <input type="number" placeholder="Enter amount of school fees" />
+          </div>
+          <div className={styles.formActions}>
+            <button type="submit" className={styles.saveBtn}>
+              Save
+            </button>
+            <button type="button" className={styles.cancelBtn}>
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 
-export default Class;
-
-
+export default ClassPage;
