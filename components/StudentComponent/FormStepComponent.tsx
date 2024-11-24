@@ -29,7 +29,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
     // -------- personal information --------
     case 0:
       return (
-        <div className="flex flex-col w-full lg:p-[1.875rem] px-[1.125rem] lg:border lg:border-solid lg:border-[var(--border)] lg:rounded-[0.9375rem] gap-6 lg:gap-[2.1875rem]">
+        <div className="flex flex-col w-full lg:p-[1.875rem] px-[1.125rem] lg:border lg:border-solid lg:border-[var(--border)] lg:rounded-[0.9375rem] gap-6 lg:gap-[2.1875rem] bg-white">
           <h3
             className={`font-semibold text-lg lg:text-xl text-[var(--primary)] leading-9 lg:self-center`}
           >
@@ -125,13 +125,13 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
     // -------- contact information --------
     case 1:
       return (
-        <div className="flex flex-col w-full lg:p-[1.875rem] px-[1.125rem] lg:border lg:border-solid lg:border-[var(--border)] lg:rounded-[0.9375rem] gap-6 lg:gap-[2.1875rem]">
+        <div className="flex flex-col w-full lg:p-[1.875rem] px-[1.125rem] lg:border lg:border-solid lg:border-[var(--border)] lg:rounded-[0.9375rem] gap-6 lg:gap-[2.1875rem] bg-white">
           <h3
             className={`font-semibold text-lg lg:text-xl text-[var(--primary)] leading-9 lg:self-center`}
           >
             Contact Information
           </h3>
-          <form action="" className="flex flex-col gap-10 lg:gap-[3.375rem]">
+          <form action="" className="flex flex-col">
             {/* -------- form input section -------- */}
             <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-[1.5625rem] lg:gap-x-[3.375rem] w-full">
               {/* -------- nationality -------- */}
@@ -192,13 +192,13 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
     // -------- parent information --------
     case 2:
       return (
-        <div className="flex flex-col w-full lg:p-[1.875rem] px-[1.125rem] lg:border lg:border-solid lg:border-[var(--border)] lg:rounded-[0.9375rem] gap-6 lg:gap-[2.1875rem]">
+        <div className="flex flex-col w-full lg:p-[1.875rem] px-[1.125rem] lg:border lg:border-solid lg:border-[var(--border)] lg:rounded-[0.9375rem] gap-6 lg:gap-[2.1875rem] bg-white">
           <h3
             className={`font-semibold text-lg lg:text-xl text-[var(--primary)] leading-9 lg:self-center`}
           >
             Parent Information
           </h3>
-          <form action="" className="flex flex-col gap-10 lg:gap-[3.375rem]">
+          <form action="" className="flex flex-col">
             {/* -------- form input section -------- */}
             <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-[1.5625rem] lg:gap-x-[3.375rem] w-full">
               {/* -------- MOTHER INFORMATION -------- */}
@@ -313,13 +313,13 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
     // -------- health information --------
     case 3:
       return (
-        <div className="flex flex-col w-full lg:p-[1.875rem] px-[1.125rem] lg:border lg:border-solid lg:border-[var(--border)] lg:rounded-[0.9375rem] gap-6 lg:gap-[2.1875rem]">
+        <div className="flex flex-col w-full lg:p-[1.875rem] px-[1.125rem] lg:border lg:border-solid lg:border-[var(--border)] lg:rounded-[0.9375rem] gap-6 lg:gap-[2.1875rem] bg-white">
           <h3
             className={`font-semibold text-lg lg:text-xl text-[var(--primary)] leading-9 lg:self-center`}
           >
             Health Information
           </h3>
-          <form action="" className="flex flex-col gap-10 lg:gap-[3.375rem]">
+          <form action="" className="flex flex-col">
             {/* -------- form input section -------- */}
             <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-[1.5625rem] lg:gap-x-[3.375rem] w-full">
               {/* -------- current medication -------- */}
@@ -392,14 +392,17 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
     // -------- school fees details --------
     case 4:
       return (
-        <div className="flex flex-col w-full lg:p-[1.875rem] px-[1.125rem] lg:border lg:border-solid lg:border-[var(--border)] lg:rounded-[0.9375rem] gap-6 lg:gap-[2.1875rem]">
+        <div className="flex flex-col w-full lg:p-[1.875rem] px-[1.125rem] lg:border lg:border-solid lg:border-[var(--border)] lg:rounded-[0.9375rem] gap-6 lg:gap-[2.1875rem] bg-white">
           <h3
             className={`font-semibold text-lg lg:text-xl text-[var(--primary)] leading-9 lg:self-center`}
           >
             School Fees Details
           </h3>
-          <form action="" className="flex flex-col items-center gap-10 lg:gap-[3.375rem]">
-            {/* -------- form input section -------- */}
+          <form
+            action=""
+            className="flex flex-col items-center gap-16 lg:gap-[4.1875rem]"
+          >
+            {/* -------- shcool fees details and buttons -------- */}
             <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-[1.5625rem] lg:gap-x-[2.8125rem] w-full max-w-[34.3125rem]">
               {/* -------- school fees detail -------- */}
               <div className="flex flex-col lg:flex-row gap-2 lg:gap-[0.9375rem] lg:items-center">
@@ -446,7 +449,22 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                   className={`border border-solid border-[var(--border)] rounded-[0.625rem] w-full focus:outline-none autofill:bg-none shadow-form-shadow p-2.5`}
                 />
               </div>
-              <GeneralButton buttonText="Get Started" state={"previous"} size={"large"} iconPosition="right" />
+            </div>
+            {/* -------- edit and submit buttons -------- */}
+            <div className="flex flex-col lg:flex-row w-full gap-6 lg:gap-[3.8125rem] items-center justify-center">
+              <GeneralButton
+                buttonText="Button Text"
+                state={"previous"}
+                size={"large"}
+                className="w-full lg:w-60"
+              />
+              <GeneralButton
+                buttonText="Submit"
+                state={"active"}
+                size={"large"}
+                className="w-full lg:w-[11.5625rem]"
+                type="submit"
+              />
             </div>
           </form>
         </div>

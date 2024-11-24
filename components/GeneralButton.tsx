@@ -1,6 +1,5 @@
 import React, { ElementType, useState } from "react";
 import "../app/globals.css";
-import { ArrowRight02Icon } from "hugeicons-react";
 
 interface GeneralButtonProps {
   buttonText: string;
@@ -10,6 +9,7 @@ interface GeneralButtonProps {
   icon?: ElementType;
   iconPosition?: "left" | "right";
   onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 }
 
 /**
@@ -37,9 +37,10 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
   className,
   size,
   state: initialState,
-  icon: Icon = ArrowRight02Icon,
+  icon: Icon,
   iconPosition,
   onClick,
+  type
 }) => {
   const [state, setState] = useState(initialState);
   // -------- button border --------
@@ -77,13 +78,13 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
     buttonTextColor = "text-[var(--primary]";
   }
 
-  // button border raduis
-  let borderRadius;
-  if (size === "large") {
-    borderRadius = "rounded-[2.0625rem]";
-  } else if (size === "medium" || size === "small") {
-    borderRadius = "rounded-[1.375rem]";
-  }
+  // // button border raduis
+  // let borderRadius;
+  // if (size === "large") {
+  //   borderRadius = "rounded-[2.0625rem]";
+  // } else if (size === "medium" || size === "small") {
+  //   borderRadius = "rounded-[1.375rem]";
+  // }
 
   let buttonTextSize;
   if (size === "large") {
@@ -130,11 +131,12 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
 
   return (
     <button
-      className={`${className} ${buttonBorder} ${borderRadius} ${buttonBGColor} ${buttonTextColor} ${paddingY} ${flexDirection} border border-solid font-bold flex items-center justify-center px-2.5 gap-2.5`}
+      className={`${className} ${buttonBorder} ${buttonBGColor} ${buttonTextColor} ${paddingY} ${flexDirection} border border-solid font-bold flex items-center justify-center px-2.5 gap-2.5 rounded-[2.0625rem]`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       disabled={state === "disabled"}
       onClick={handleClick}
+      type={type}
     >
       {Icon && <Icon size={24} />}
       {buttonText}

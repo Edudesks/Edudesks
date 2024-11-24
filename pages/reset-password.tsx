@@ -64,7 +64,7 @@ const ResetPassword: React.FC = () => {
         className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[5rem] h-screen whitespace-nowrap pb-[4.1875rem] lg:pb-0 bg-white w-full overflow-x-auto lg:overflow-hidden`}
       >
         {/* -------- left half of signup page -------- */}
-        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[2rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-full">
+        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[2rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-e-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-full">
           <AuthentificationLogo />
           <div className="w-[16.625rem] lg:w-full self-center">
           <Image
@@ -216,7 +216,7 @@ const ResetPassword: React.FC = () => {
             <button
               className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
               type="submit"
-             
+
             >
               Reset password
             </button>
@@ -224,7 +224,7 @@ const ResetPassword: React.FC = () => {
             <button
                 className={`border border-[var(--primary)] px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 w-full text-[var(--primary)] bg-[var(--secondary-text-color)]`}
                 type="button"
-                onClick={() => router.push("/login")} 
+                onClick={() => router.push("/login")}
               >
                 Back to login
               </button></div>
