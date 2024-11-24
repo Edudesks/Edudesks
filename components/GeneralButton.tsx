@@ -7,7 +7,7 @@ interface GeneralButtonProps {
   className?: string;
   size: "small" | "medium" | "large";
   state: "active" | "inactive" | "disabled" | "clicked" | "hover" | "previous";
-  icon?: ElementType;
+  icon?: ElementType | null;
   iconPosition?: "left" | "right";
   onClick?: () => void;
 }
