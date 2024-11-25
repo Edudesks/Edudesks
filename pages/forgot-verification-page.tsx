@@ -1,5 +1,5 @@
 import "../app/globals.css";
-import React from "react";
+import React, {useRef} from "react";
 import { openSans } from "@/app/fonts/fonts";
 import { Loading01Icon} from "hugeicons-react";
 import AuthentificationLogo from "@/components/AuthentificationLogo";
@@ -8,6 +8,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { VerificationCodeFormData, verificationCodeSchema} from "@/features/auth/codeVerify";
 import { useRouter } from "next/router";
+import { OTPFormData } from "@/features/auth/otpSchema";
 
 export default function VerifyForgottonPassword() {
   const router = useRouter();
@@ -17,12 +18,14 @@ export default function VerifyForgottonPassword() {
     handleSubmit,
     setValue,
     watch,
+    getValues,
     formState: { errors, isValid, isSubmitted, isValidating },
   } = useForm<VerificationCodeFormData>({
     resolver: zodResolver(verificationCodeSchema),
     mode: "onSubmit",
     defaultValues: { otp1: "", otp2: "", otp3: "", otp4: "" },
   });
+  const inputRefs = useRef<HTMLInputElement[]>([]);
 
   const submitData = (data: VerificationCodeFormData) => {
     const combinedOTP = `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`;
@@ -38,6 +41,22 @@ export default function VerifyForgottonPassword() {
     const { value } = e.target;
     if (/^\d$/.test(value) || value === "") {
       setValue(`otp${index + 1}` as keyof VerificationCodeFormData, value);
+
+      if (value && index < inputRefs.current.length - 1) {
+        inputRefs.current[index + 1].focus();
+      }
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+    if (e.key === "Backspace" || e.key === "Delete") {
+      // Clear the current field
+      setValue(`otp${index + 1}` as keyof OTPFormData, "");
+
+      // Move to the previous input field
+      if (index > 0) {
+        inputRefs.current[index - 1].focus();
+      }
     }
   };
 
@@ -119,7 +138,8 @@ export default function VerifyForgottonPassword() {
                     control={control}
                     render={({ field }) => (
                       <input
-                        {...field}
+                      {...field}
+                        ref={(el) => (inputRefs.current[index] = el!)}
                         type="text"
                         maxLength={1}
                         className={`w-[4.6875rem] h-[4.6875rem] border border-solid border-[var(--border)] rounded-[0.9375rem] bg-[var(--secondary-text-color)] p-2.5 text-center flex justify-center items-center text-2xl leading-[20px] focus:outline-none autofill:bg-none shadow-custom-lg lg:shadow-none ${
@@ -132,7 +152,8 @@ export default function VerifyForgottonPassword() {
                             : "text-[var(--primary-text-color)]"
                         }
                       }`}
-                        onChange={(e) => handleInputChange(e, index)}
+                      onChange={(e) => handleInputChange(e, index)}
+                        onKeyDown={(e) => handleKeyDown(e, index)}
                       />
                     )}
                   />
