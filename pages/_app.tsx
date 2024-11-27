@@ -6,12 +6,12 @@ import MainLayout from '@/components/MainLayout';
 import { NON_MAIN_LAYOUT_LINKS } from '@/utils/constants';
 import React, { Suspense } from 'react';
 
-// Use React.lazy to dynamically load the Component
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
     const useMainLayout = !NON_MAIN_LAYOUT_LINKS.includes(router.pathname);
 
+    
     return (
         <Provider store={store}>
             {useMainLayout ? (

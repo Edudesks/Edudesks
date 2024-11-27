@@ -1,6 +1,6 @@
 import AuthentificationLogo from "@/components/AuthentificationLogo";
 import "../app/globals.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { inter, openSans } from "@/app/fonts/fonts";
 import Link from "next/link";
@@ -15,6 +15,9 @@ import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormData, loginSchema } from "@/features/auth/loginSchema";
 import { useRouter } from "next/router";
+import { useAppDispatch } from "@/store/hooks";
+import { signIn, resetSignin } from "@/store/slices/authSlice";
+
 
 /**
  *
@@ -29,7 +32,13 @@ import { useRouter } from "next/router";
 const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    return ()=> {
+      dispatch(resetSignin())
+    }
+  }, [dispatch])
   const {
     register,
     handleSubmit,
@@ -40,8 +49,16 @@ const Login: React.FC = () => {
     mode: "onSubmit",
   });
 
-  const submitData = (data: LoginFormData) => {
-    router.push("/Edudesk")
+  const submitData = async (data: LoginFormData) => {
+    const response = await dispatch(signIn(data))
+    console.log(response);
+    if(response.type === "auth/signin/fulfilled"){
+      alert(response.payload)
+      router.push("/Edudesk")
+    }else {
+      alert("Can't login: Something went wrong. But we can login for now")
+      router.push("/Edudesk")
+    }
     // console.log("Registration Successful", data);
   };
 
@@ -51,9 +68,9 @@ const Login: React.FC = () => {
   };
 
   // ------ changing button color dependent on form validation ------
-  const schoolEmail = watch("schoolEmail");
+  const email = watch("email");
   const password = watch("password");
-  const allFieldsFilled = schoolEmail && password;
+  const allFieldsFilled = email && password;
 
   let buttonColor;
   if (!allFieldsFilled) {
@@ -123,11 +140,11 @@ const Login: React.FC = () => {
                   <div className="w-full flex relative items-center text-[var(--grey)]">
                     <input
                       className={`border ${
-                        errors.schoolEmail
+                        errors.email
                           ? "border-[var(--danger)]"
                           : "border-[var(--border)]"
                       } rounded-[10px] py-2.5 px-9 w-full placeholder:text-[var(--grey)] ${
-                        errors.schoolEmail
+                        errors.email
                           ? "text-[var(--danger)]"
                           : "text-[var(--primary-text-color)]"
                       } focus:outline-none autofill:bg-none`}
@@ -135,20 +152,20 @@ const Login: React.FC = () => {
                       id="school-email"
                       placeholder="Enter your school email"
                       required
-                      {...register("schoolEmail")}
+                      {...register("email")}
                     />
                     <span className="absolute left-2.5">
                       <Mail01Icon
-                        color={errors.schoolEmail ? "#f65252" : "#59676e"}
+                        color={errors.email ? "#f65252" : "#59676e"}
                         size={18}
                       />
                     </span>
                   </div>
-                  {errors.schoolEmail && (
+                  {errors.email && (
                     <div className="flex gap-[7px] text-[var(--danger)] items-center">
                       <InformationCircleIcon size={"18px"} />
                       <p className="text-sm leading-normal">
-                        {errors.schoolEmail.message}
+                        {errors.email.message}
                       </p>
                     </div>
                   )}
