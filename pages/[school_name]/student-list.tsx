@@ -1,6 +1,7 @@
 import StudentFilterProfile from "@/components/StudentComponent/StudentFilterProfile";
 import StudentTable from "@/components/StudentComponent/StudentTable";
 import StudentTableMedia from "@/components/StudentComponent/StudentTableMedia";
+import { inter, openSans } from "@/app/fonts/fonts";
 import { useState, useEffect } from "react";
 export default function StudentList (){
     const [windowWidth, setWindowWidth] = useState<number>(0);
@@ -17,9 +18,11 @@ export default function StudentList (){
       const isAbove1184 = windowWidth > 1184;
     return(
         <>
+            <div className={`${openSans.className}`}>
             <StudentFilterProfile/>
             {isAbove1184 && (<StudentTable/>)}
             {isBelow1184 && (<StudentTableMedia/>)}
+            </div>
         </>
     )
 }

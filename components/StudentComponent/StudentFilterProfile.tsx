@@ -123,7 +123,7 @@ export default function StudentFilterProfile() {
       Select
       {!selectOpen?<IoIosArrowDown className="text-[28px]" />:<IoIosArrowUp/>}
     </button>
-    <div className={`flex flex-col p-[4px] mt-2 ${selectOpen?'bg-[white]':''}`}>
+    <div className={`flex flex-col p-[4px] mt-2 ${selectOpen?'bg-[white] absolute top-[3rem] shadow-[0px_4px_4px_1px_rgba(138,135,135,0.3)]':''}`}>
     {selectOpen && (
      <div className="flex items-center">
      <button

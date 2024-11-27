@@ -14,16 +14,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { TbSquareDotFilled } from "react-icons/tb";
 import { FaSquareMinus, FaSquareCheck} from "react-icons/fa6";
+import { inter, openSans } from "@/app/fonts/fonts";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     fontWeight: "bold",
     backgroundColor: "#002f49",
     color: "white",
+    fontFamily: openSans.className,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 18,
+    fontFamily: openSans.className,
   },
 }));
+
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -278,7 +282,7 @@ export default function StudentTable() {
       <TableContainer>
         <Table sx={{ minWidth: 650 }} aria-label="customized table">
           <TableHead>
-            <TableRow>
+            <TableRow className={`${openSans.className}`}>
               <StyledTableCell className="text-[18px]">Profile</StyledTableCell>
               <StyledTableCell className="text-[18px]">Student ID</StyledTableCell>
               <StyledTableCell className="text-[18px]">Gender</StyledTableCell>
