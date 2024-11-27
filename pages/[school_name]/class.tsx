@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '@/styles/Class.module.css';
+import withProtectedRoute from '@/hoc/ProtectedRoute';
 
 const ClassPage: React.FC = () => {
   return (
@@ -34,4 +35,4 @@ const ClassPage: React.FC = () => {
   );
 };
 
-export default ClassPage;
+export default withProtectedRoute(ClassPage);

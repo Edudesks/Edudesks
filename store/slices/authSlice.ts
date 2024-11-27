@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { SignUpFormData } from "@/features/auth/signUpSchema";
 import { LoginFormData } from "@/features/auth/loginSchema";
@@ -9,6 +10,7 @@ interface SignupState {
   signinLoading: boolean;
   signinSuccess: boolean;
   signinError: string | null;
+  isAuthenticated: boolean
 }
 
 const initialState: SignupState = {
@@ -18,58 +20,94 @@ const initialState: SignupState = {
   signinLoading: false,
   signinSuccess: false,
   signinError: null,
+  isAuthenticated: false,
 };
 
 // Async thunk for signup
 export const signUp = createAsyncThunk(
-  "auth/signup",
+  'auth/signup',
   async (data: SignUpFormData, { rejectWithValue }) => {
     try {
-      const response = await fetch("https://backend-edudesks.onrender.com/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await axios.post(
+        'https://backend-edudesks.onrender.com/signup',
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          timeout: 60000, // 10 seconds timeout
+        }
+      );
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        return rejectWithValue(errorData.message || "An error occurred during signup");
+      return response.data.message; // Assuming the API returns { message: 'Success' }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        // Handle specific Axios error
+        if (error.response) {
+          // Server responded with a status outside 2xx range
+          return rejectWithValue(error.response.data.message || 'An error occurred during signup');
+        } else if (error.request) {
+          // No response received
+          return rejectWithValue('No response from server. Please try again.');
+        } else if (error.code === 'ECONNABORTED') {
+          // Request timed out
+          return rejectWithValue('Request timed out. Please try again.');
+        }
       }
 
-      const responseData = await response.json();
-      return responseData.message;
-
-    } catch (error) {
-      return rejectWithValue("An error occurred during signup. Please try again.");
+      return rejectWithValue('An error occurred during signup. Please try again.');
     }
   }
 );
 
-// Async thunk for signin
+export const checkAuthToken = createAsyncThunk(
+  "auth/token",
+  async (_, { rejectWithValue }) => {
+    const token = localStorage.getItem("authToken"); // Or use cookies if more secure
+    if (token) {
+      return true;
+    }
+    return rejectWithValue(false);
+  }
+);
+
 export const signIn = createAsyncThunk(
-  "auth/signin",
+  'auth/signin',
   async (data: LoginFormData, { rejectWithValue }) => {
     try {
-      const response = await fetch("https://backend-edudesks.onrender.com/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await axios.post(
+        'https://backend-edudesks.onrender.com/signin',
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          timeout: 60000, // 10 seconds timeout
+        }
+      );
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        return rejectWithValue(errorData.message || "An error occurred during signin");
+      // Assuming the token is in response.data.token
+      const { token } = response.data;
+
+      // Store the JWT token in localStorage
+      localStorage.setItem('authToken', token);
+
+      return token; // Return token or any other required data
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          // Server responded with a non-2xx status code
+          return rejectWithValue(error.response.data.message || 'An error occurred during signin');
+        } else if (error.request) {
+          // Request was made but no response received
+          return rejectWithValue('No response from server. Please try again.');
+        } else if (error.code === 'ECONNABORTED') {
+          // Request timed out
+          return rejectWithValue('Request timed out. Please try again.');
+        }
       }
 
-      const responseData = await response.json();
-      return responseData.message;
-
-    } catch (error) {
-      return rejectWithValue("An error occurred during signin. Please try again.");
+      return rejectWithValue('An error occurred during signin. Please try again.');
     }
   }
 );
@@ -116,9 +154,20 @@ const signupSlice = createSlice({
       .addCase(signIn.rejected, (state, action) => {
         state.signinLoading = false;
         state.signinError = action.payload as string;
+      })
+      .addCase(checkAuthToken.fulfilled, (state) => {
+        state.isAuthenticated = true;
+      })
+      .addCase(checkAuthToken.rejected, (state) => {
+        state.isAuthenticated = false;
       });
   },
 });
+
+
+
+      
+
 
 export const { resetSignup, resetSignin } = signupSlice.actions;
 export default signupSlice.reducer;
