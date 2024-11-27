@@ -24,7 +24,7 @@ const Footer = () => (
         <Link href="/pricing-plan">Pricing</Link>
       </li>
       <li>
-        <Link href="/#faq">Contact us</Link>
+        <Link href="mailto:edudesks@outlook.com">Contact us</Link>
       </li>
       <li>
         <Link href="/terms-of-service">Terms of service</Link>
@@ -37,7 +37,10 @@ const Footer = () => (
     <div className={styles.footerBottom}>
       <p>© 2024 Edudesks. All rights reserved</p>
       <div className={styles.socials}>
-        <div className={styles.socialItem}>
+        <Link target="_blank" 
+          rel="noopener noreferrer"
+          href="https://www.instagram.com/edudesks/profilecard/?igsh=dnZiOWR5ZTNseXl2"
+          className={styles.socialItem}>
           <Image
           src={"/icons/instagram.svg"}
           alt="Arrow Icon"
@@ -46,8 +49,8 @@ const Footer = () => (
           height={10}
         />
           {/* <img src={instagram} alt="" /> */}
-        </div>
-        <div className={styles.socialItem}>
+        </Link>
+        <Link href="" className={styles.socialItem}>
           <Image
             src={"/icons/twitter.svg"}
             alt="Arrow Icon"
@@ -56,8 +59,12 @@ const Footer = () => (
             height={10}
           />
           {/* <img src={twitter} alt="" /> */}
-        </div>
-        <div className={styles.socialItem}>
+        </Link>
+        <Link 
+          target="_blank" 
+          rel="noopener noreferrer"
+          href="https://www.linkedin.com/company/edudesks/"
+          className={styles.socialItem}>
           <Image
             src={"/icons/linkedin.svg"}
             alt="Arrow Icon"
@@ -66,7 +73,7 @@ const Footer = () => (
             height={10}
           />
           {/* <img src={linkedin} alt="" /> */}
-        </div>
+        </Link>
       </div>
     </div>
   </footer>

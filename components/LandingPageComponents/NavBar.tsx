@@ -47,7 +47,7 @@ const Navbar: FC = () => {
               <Link href="/pricing-plan">Pricing</Link>
             </li>
             <li>
-              <Link href="/#faq">Contact us</Link>
+              <Link href="mailto:edudesks@outlook.com">Contact us</Link>
             </li>
           </ul>
 
