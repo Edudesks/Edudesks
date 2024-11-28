@@ -1,5 +1,5 @@
 import AuthentificationLogo from "@/components/AuthentificationLogo";
-import "../app/globals.css";
+import "../app/globals.css"
 import React, { useState } from "react";
 import Image from "next/image";
 import { inter, openSans } from "@/app/fonts/fonts";

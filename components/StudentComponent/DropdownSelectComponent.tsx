@@ -90,12 +90,12 @@ const classes = [
   "Primary 4",
   "Primary 5",
   "Primary 6",
-  "JSS 1",
-  "JSS 2",
-  "JSS 3",
-  "SSS 1",
-  "SSS 2",
-  "SSS 3",
+  "Junior Secondary 1",
+  "Junior Secondary 2",
+  "Junior Secondary 3",
+  "Senior Secondary 1",
+  "Senior Secondary 2",
+  "Senior Secondary 3",
 ];
 
 const DropdownSelectComponent = () => {

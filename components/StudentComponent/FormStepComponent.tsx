@@ -13,6 +13,8 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import DropdownSelectComponent from "./DropdownSelectComponent";
 import InputField from "./InputField";
 import GeneralButton from "../GeneralButton";
+import { useFormContext } from "react-hook-form";
+import { FormData } from "@/pages/[school_name]/student";
 
 /**
  *
@@ -25,6 +27,16 @@ interface FormStepComponentProps {
 }
 
 const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
+  const {
+    register,
+    formState: { errors },
+    getValues
+  } = useFormContext<FormData>();
+
+  // console.log(errors); // Should show field errors if validation is failing
+  // console.log(register("personalInformation.lastName")); // Should log the registration details
+  console.log("Current Step Values:", getValues());
+
   switch (step) {
     // -------- personal information --------
     case 0:
@@ -35,7 +47,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
           >
             Personal Information
           </h3>
-          <form action="" className="flex flex-col gap-10 lg:gap-[3.375rem]">
+          <div className="flex flex-col gap-10 lg:gap-[3.375rem]">
             {/* -------- add student image -------- */}
             <ImageDialogComponenet />
             {/* -------- form input section -------- */}
@@ -46,19 +58,21 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 label="Last Name*"
                 className={"py-2.5 px-9"}
                 placeholder={"Enter student last name"}
-                value={""}
                 type={"text"}
                 icon={UserIcon}
+                {...register("personalInformation.lastName")}
+                error={errors.personalInformation?.lastName?.message}
               />
               {/* -------- other names -------- */}
               <InputField
                 label={"Other Names*"}
                 id={"student-other-names"}
                 placeholder={"Enter student first name / middle name"}
-                value={""}
                 type={"text"}
                 icon={UserIcon}
                 className={"py-2.5 px-9"}
+                {...register("personalInformation.otherNames")}
+                error={errors.personalInformation?.otherNames?.message}
               />
               {/* -------- date of birth -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
@@ -69,7 +83,11 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                   Date of birth*
                 </label>
                 <div className="w-full flex relative items-center text-[var(--grey)]">
-                  <CalenderComponent variant="form" />
+                  <CalenderComponent
+                    variant="form"
+                    {...register("personalInformation.dateOfBirth")}
+                  error={errors.personalInformation?.dateOfBirth?.message}
+                  />
                 </div>
               </div>
               {/* -------- age -------- */}
@@ -77,9 +95,10 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 label={"Age*"}
                 id={"student-age"}
                 placeholder={"Enter student age"}
-                value={""}
                 type={"text"}
                 className="p-2.5"
+                {...register("personalInformation.age")}
+                error={errors.personalInformation?.age?.message}
               />
               {/* -------- gender -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
@@ -94,12 +113,12 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                   <FormControlLabel
                     className=""
                     disableTypography
-                    control={<Checkbox className="text-[#D0D5DD]" />}
+                    control={<Checkbox className="text-[#D0D5DD]" value={'Male'} {...register("personalInformation.gender")} />}
                     label="Male"
                   />
                   <FormControlLabel
                     disableTypography
-                    control={<Checkbox className="text-[#D0D5DD]" />}
+                    control={<Checkbox className="text-[#D0D5DD]" value={'Female'} {...register("personalInformation.gender")} />}
                     label="Female"
                   />
                 </div>
@@ -112,14 +131,14 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 >
                   Admission Date*
                 </label>
-                <CalenderComponent variant="form" />
+                <CalenderComponent variant="form" {...register("personalInformation.admissionDate")}  />
               </div>
               {/* -------- student class -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
-                <DropdownSelectComponent />
+                <DropdownSelectComponent  />
               </div>
             </div>
-          </form>
+          </div>
         </div>
       );
     // -------- contact information --------
@@ -131,7 +150,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
           >
             Contact Information
           </h3>
-          <form action="" className="flex flex-col">
+          <div className="flex flex-col">
             {/* -------- form input section -------- */}
             <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-[1.5625rem] lg:gap-x-[3.375rem] w-full">
               {/* -------- nationality -------- */}
@@ -140,7 +159,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-nationality"}
                 placeholder={"Enter student nationality"}
-                value={""}
                 type={"text"}
                 icon={Location04Icon}
               />
@@ -150,7 +168,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-state-of-origin"}
                 placeholder={"Enter student state of Origin"}
-                value={""}
                 type={"text"}
                 icon={Location04Icon}
               />
@@ -160,7 +177,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-local-government"}
                 placeholder={"Enter student local government of Origin"}
-                value={""}
                 type={"text"}
                 icon={Location04Icon}
               />
@@ -170,7 +186,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-town"}
                 placeholder={"Enter student town"}
-                value={""}
                 type={"text"}
                 icon={Location04Icon}
               />
@@ -181,12 +196,11 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 divClass={"lg:col-span-2"}
                 id={"student-home-address"}
                 placeholder={"Street address/city/state/country"}
-                value={""}
                 type={"text"}
                 icon={Location04Icon}
               />
             </div>
-          </form>
+          </div>
         </div>
       );
     // -------- parent information --------
@@ -198,7 +212,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
           >
             Parent Information
           </h3>
-          <form action="" className="flex flex-col">
+          <div className="flex flex-col">
             {/* -------- form input section -------- */}
             <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-[1.5625rem] lg:gap-x-[3.375rem] w-full">
               {/* -------- MOTHER INFORMATION -------- */}
@@ -208,7 +222,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-mother-guardian-last-name"}
                 placeholder={"Enter last name"}
-                value={""}
                 type={"text"}
                 icon={UserIcon}
               />
@@ -218,7 +231,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-mother-guardian-first-name"}
                 placeholder={"Enter first name"}
-                value={""}
                 type={"text"}
                 icon={UserIcon}
               />
@@ -228,7 +240,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-mother-guardian-email-address"}
                 placeholder={"Enter email address"}
-                value={""}
                 type={"email"}
                 icon={Mail01Icon}
               />
@@ -238,7 +249,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-mother-guardian-phone-number"}
                 placeholder={"000-0000-000"}
-                value={""}
                 type={"text"}
                 icon={Call02Icon}
               />
@@ -248,7 +258,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-mother-guardian-home-address"}
                 placeholder={"Street address/city/state/country"}
-                value={""}
                 type={"text"}
                 icon={Location04Icon}
                 divClass="lg:col-span-2"
@@ -261,7 +270,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-father-guardian-last-name"}
                 placeholder={"Enter last name"}
-                value={""}
                 type={"text"}
                 icon={UserIcon}
               />
@@ -271,7 +279,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-father-guardian-first-name"}
                 placeholder={"Enter first name"}
-                value={""}
                 type={"text"}
                 icon={UserIcon}
               />
@@ -281,7 +288,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-father-guardian-email-address"}
                 placeholder={"Enter email address"}
-                value={""}
                 type={"email"}
                 icon={Mail01Icon}
               />
@@ -291,7 +297,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-father-guardian-phone-number"}
                 placeholder={"0000-0000-0000"}
-                value={""}
                 type={"text"}
                 icon={Call02Icon}
               />
@@ -301,13 +306,12 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-father-guardian-home-address"}
                 placeholder={"Street address/city/state/country"}
-                value={""}
                 type={"text"}
                 icon={Location04Icon}
                 divClass="lg:col-span-2"
               />
             </div>
-          </form>
+          </div>
         </div>
       );
     // -------- health information --------
@@ -319,7 +323,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
           >
             Health Information
           </h3>
-          <form action="" className="flex flex-col">
+          <div className="flex flex-col">
             {/* -------- form input section -------- */}
             <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-[1.5625rem] lg:gap-x-[3.375rem] w-full">
               {/* -------- current medication -------- */}
@@ -328,7 +332,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-current-medication"}
                 placeholder={"Enter student current medication"}
-                value={""}
                 type={"text"}
                 icon={HealthIcon}
               />
@@ -338,7 +341,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-health-condition"}
                 placeholder={"Enter student health condition if any"}
-                value={""}
                 icon={HealthIcon}
                 type={"text"}
               />
@@ -349,7 +351,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-genotype"}
                 placeholder={"Enter student genotype"}
-                value={""}
                 icon={HealthIcon}
                 type={"text"}
               />
@@ -360,7 +361,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-blood-group"}
                 placeholder={"Enter student blood group"}
-                value={""}
                 type={"text"}
                 icon={HealthIcon}
               />
@@ -371,7 +371,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-allergies"}
                 placeholder={"Enter student allergies if any"}
-                value={""}
                 type={"text"}
                 icon={HealthIcon}
               />
@@ -381,12 +380,11 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 className={"py-2.5 px-9"}
                 id={"student-disabilities"}
                 placeholder={"Enter student student disabilities if any"}
-                value={""}
                 type={"text"}
                 icon={HealthIcon}
               />
             </div>
-          </form>
+          </div>
         </div>
       );
     // -------- school fees details --------
@@ -398,10 +396,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
           >
             School Fees Details
           </h3>
-          <form
-            action=""
-            className="flex flex-col items-center gap-16 lg:gap-[4.1875rem]"
-          >
+          <div className="flex flex-col items-center gap-16 lg:gap-[4.1875rem]">
             {/* -------- shcool fees details and buttons -------- */}
             <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-[1.5625rem] lg:gap-x-[2.8125rem] w-full max-w-[34.3125rem]">
               {/* -------- school fees detail -------- */}
@@ -453,7 +448,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
             {/* -------- edit and submit buttons -------- */}
             <div className="flex flex-col lg:flex-row w-full gap-6 lg:gap-[3.8125rem] items-center justify-center">
               <GeneralButton
-                buttonText="Button Text"
+                buttonText="Edit Details"
                 state={"previous"}
                 size={"large"}
                 className="w-full lg:w-60"
@@ -466,10 +461,11 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 type="submit"
               />
             </div>
-          </form>
+          </div>
         </div>
       );
   }
 };
 
 export default FormStepComponent;
+
