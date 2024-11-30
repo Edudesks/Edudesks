@@ -17,7 +17,7 @@ import { LoginFormData, loginSchema } from "@/features/auth/loginSchema";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "@/store/hooks";
 import { signIn, resetSignin } from "@/store/slices/authSlice";
-
+import { FaRegCircle } from "react-icons/fa";
 
 /**
  *
@@ -49,17 +49,25 @@ const Login: React.FC = () => {
     mode: "onSubmit",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const submitData = async (data: LoginFormData) => {
-    const response = await dispatch(signIn(data))
-    console.log(response);
-    if(response.type === "auth/signin/fulfilled"){
-      alert(response.payload)
+    setIsLoading(true);  
+
+    // Simulate the delay for 2 seconds
+    setTimeout(async () => {
+      const response = await dispatch(signIn(data));
+
+      if (response.type === "auth/signin/fulfilled") {
+        alert(response.payload);
+        router.push("/Edudesk");
+      } else {
+        alert("Can't login: Something went wrong. But we can login for now")
       router.push("/Edudesk")
-    }else {
-      alert("Can't login: Something went wrong. But we can login for now")
-      router.push("/Edudesk")
-    }
-    // console.log("Registration Successful", data);
+      }
+
+      setIsLoading(false);  
+    }, 2000); 
   };
 
   // show/hide password
@@ -253,7 +261,14 @@ const Login: React.FC = () => {
               type="submit"
               // disabled={!isValid}
             >
-              Sign In
+              {isLoading ? (
+    <div className="loading-spinner flex items-center justify-center">
+      <FaRegCircle className="text-lg text-[var(--secondary-text-color)]" />
+    </div>
+  ) : (
+    "Sign In"
+  )}
+              
             </button>
           </form>
         </div>

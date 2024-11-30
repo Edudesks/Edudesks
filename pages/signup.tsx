@@ -19,7 +19,7 @@ import { SignUpFormData, signUpSchema } from "@/features/auth/signUpSchema";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "@/store/hooks";
 import { signUp, resetSignup } from "@/store/slices/authSlice";
-
+import { FaRegCircle } from "react-icons/fa";
 /**
  *
  * TODO: Add the router
@@ -43,17 +43,24 @@ const SignUp: React.FC = () => {
     formState: { errors, isValid, isSubmitted },
     watch
   } = useForm<SignUpFormData>({ resolver: zodResolver(signUpSchema), mode: "onSubmit" });
-
+  const [isLoading, setIsLoading] = useState(false);
   const submitData = async (data: SignUpFormData) => {
-    const response = await dispatch(signUp(data));
-    console.log(response);
-    if(response.type === "auth/signup/fulfilled"){
-      alert(response.payload)
-      router.push('pricing-plan')
-    }else {
-      router.push('pricing-plan')
-    }
+    setIsLoading(true);  
+    // Simulate the delay for 2 seconds
+    setTimeout(async () => {
+      const response = await dispatch(signUp(data));
+
+      if (response.type === "auth/signup/fulfilled") {
+        alert(response.payload);
+        router.push("pricing-plan");
+      } else {
+        router.push("pricing-plan");
+      }
+
+      setIsLoading(false); 
+    }, 2000); 
   };
+
 
   // show/hide password
   const handleShowPassword = () => {
@@ -334,11 +341,17 @@ const SignUp: React.FC = () => {
               </div>
             </div>
             <button
-              className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
-              type="submit"
-            >
-              Create account
-            </button>
+  className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
+  type="submit"
+>
+  {isLoading ? (
+    <div className="loading-spinner flex items-center justify-center">
+      <FaRegCircle className="text-lg text-[var(--secondary-text-color)]" />
+    </div>
+  ) : (
+    "Create account"
+  )}
+</button>
           </form>
         </div>
       </div>
