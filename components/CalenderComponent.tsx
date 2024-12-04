@@ -76,7 +76,7 @@ const CalendarComponent = forwardRef<HTMLInputElement, CalendarComponentProps>(
             textField: {
               inputRef: ref,
               name,
-              error: !!error,
+              // error: !!error,
               placeholder:
                 variant === "dashboard" ? "Date Range" : "DD/MM/YYYY",
               fullWidth: true,
@@ -153,5 +153,7 @@ const CalendarComponent = forwardRef<HTMLInputElement, CalendarComponentProps>(
     );
   }
 );
+
+CalendarComponent.displayName = "CalendarComponent";
 
 export default CalendarComponent;

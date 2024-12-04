@@ -39,9 +39,60 @@ export const personalInformationSchema = z.object({
     },
     { message: "Invalid date format" }
   ),
-  classes: z.enum(classes),
+  classes: z.enum(classes, { message: "Invalid class selected" }),
 });
+
+export const contactInformationSchema = z.object({
+  nationality: z.string().min(1, { message: "Enter nationality" }),
+  stateOfOrigin: z.string().min(1, { message: "Enter state of origin" }),
+  localGovernment: z.string().min(1, { message: "Enter local government" }),
+  town: z.string().min(1, { message: "Enter town" }),
+  homeAddress: z.string().min(1, { message: "Enter home address" }),
+});
+
+export const parentInformationSchema = z.object({
+  // -------- mother --------
+  motherLastName: z.string().min(1, { message: "Enter mother's last name" }),
+  motherFirstName: z.string().min(1, { message: "Enter mother's first name" }),
+  motherEmailAddress: z
+    .string()
+    .min(1, { message: "Enter mother's email address" }),
+  motherPhoneNumber: z
+    .string()
+    .length(11, { message: "Enter mother's phone number" })
+    .regex(/^\d{11}$/, "Phone number must contain only digits."),
+  motherHomeAddress: z
+    .string()
+    .min(1, { message: "Enter mother's home address" }),
+  // -------- father --------
+  fatherLastName: z.string().min(1, { message: "Enter father's last name" }),
+  fatherFirstName: z.string().min(1, { message: "Enter father's first name" }),
+  fatherEmailAddress: z
+    .string()
+    .min(1, { message: "Enter father's email address" }),
+  fatherPhoneNumber: z
+    .string()
+    .length(11, { message: "Enter father's phone number" })
+    .regex(/^\d{11}$/, "Phone number must contain only digits."),
+  fatherHomeAddress: z
+    .string()
+    .min(1, { message: "Enter father's home address" }),
+});
+
+export const healthInformationSchema = z.object({
+  currentMedication: z.string().min(1, {message: "What's your medication"}),
+  healthCondition: z.string().min(1, {message: "What's your health condition"}),
+  genotype: z.string().min(1, {message: "What's your genotype"}),
+  bloodGroup: z.string().min(1, {message: "What's your blood group"}),
+  allergies: z.string().min(1, {message: "What's your allergies?"}),
+  disabilities: z.string().min(1, {message: "What's your disablility"}),
+})
 
 export type personalInformationFormData = z.infer<
   typeof personalInformationSchema
 >;
+export type contactInformationFormData = z.infer<
+  typeof contactInformationSchema
+>;
+export type parentInformationFormData = z.infer<typeof parentInformationSchema>;
+export type healthInformationFormData = z.infer<typeof healthInformationSchema>;

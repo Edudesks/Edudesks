@@ -13,9 +13,10 @@ import CustomStepper from "@/components/StudentComponent/CustomStepper";
 import GeneralButton from "@/components/GeneralButton";
 import { ArrowRight01Icon, ArrowLeft01Icon } from "hugeicons-react";
 import { z } from "zod";
-import { personalInformationSchema } from "@/features/auth/studentSchema";
+import { personalInformationSchema, contactInformationSchema, parentInformationSchema, healthInformationSchema } from "@/features/auth/studentSchema";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Notification from "@/components/NotificationComponent";
 
 /**
  *
@@ -25,6 +26,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const formSchema = z.object({
   personalInformation: personalInformationSchema,
+  contactInformation: contactInformationSchema,
+  parentInformation: parentInformationSchema,
+  healthInformation: healthInformationSchema
 });
 
 export type FormData = z.infer<typeof formSchema>;
@@ -41,27 +45,83 @@ const Student = () => {
     { icon: UserAccountIcon, label: "School Fees Details" },
   ];
 
+  const [notification, setNotification] = useState({
+    open: false,
+    type: "error" as "error" | "success",
+    message: "",
+    details: "",
+  });
+
   const methods = useForm<FormData>({
     resolver: zodResolver(formSchema),
     mode: "onSubmit",
   });
 
+  const { isSubmitted, isValid, errors } = methods.formState;
+  const allFieldsFilled = isValid && Object.keys(errors).length === 0;
+
   useEffect(() => {
     console.log("Initial Field Values:", methods.getValues());
   }, []); // Runs when the component first renders
 
+  console.log(activeStep);
   const handleNext = async () => {
-    const isValid = await methods.trigger(`personalInformation`);
-    console.log("Validation Result:", isValid, methods.formState.errors);
-    if (isValid) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      console.log("Field Values after validation:", methods.getValues());
+    const isValid = await methods.trigger();
+    if (!isValid) {
+      setNotification({
+        open: true,
+        type: "error",
+        message: "Empty Required Fields",
+        details: "All required fields must be filled out. Please check and try again.",
+      });
+      return;
     }
+
+    setNotification({
+      open: true,
+      type: "success",
+      message: "Student Added Successfully!",
+      details:
+        "You’ve successfully added the student’s details. Keep going or review the information in the student list.",
+    });
   };
 
-  const handlePrevious = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  const handleCloseNotification = () => {
+    setNotification({ ...notification, open: false });
   };
+
+
+  const handlePrevious = () => {
+    setActiveStep((prevActiveStep) => {
+      return Math.max(prevActiveStep - 1, 0);
+    });
+  };
+
+  // const nextButtonState =
+  //   activeStep === steps.length - 1
+  // ? "disabled"
+  //     : allFieldsFilled
+  //     ? isSubmitted
+  //       ? Object.keys(errors).length > 0
+  //         ? "inactive"
+  //         : "active"
+  //       : "active"
+  //     : "active";
+
+  // const nextButtonState =
+  //   activeStep === steps.length - 1 // Final step
+  //     ? "disabled"
+  //     : methods.formState.isValid // Valid state for current step
+  //     ? "active"
+  //     : "disabled";
+
+  // const previousButtonState = activeStep === 0 ? "disabled" : "active";
+
+  // useEffect(() => {
+  //   console.log("Next Button State:", nextButtonState);
+  //   console.log("Previous Button State:", previousButtonState);
+  //   console.log("Active Step:", activeStep);
+  // }, [nextButtonState, previousButtonState, activeStep]);
 
   const onSubmit = (data: FormData) => {
     console.log("Final form data:", data);
@@ -103,27 +163,27 @@ const Student = () => {
           {/* -------- form step component -------- */}
           <div className="w-full mt-6 lg:mt-[0.8125rem]">
             <form action="" onSubmit={methods.handleSubmit(onSubmit)}>
-              <FormStepComponent step={activeStep} />
+              <FormStepComponent step={activeStep} methods={methods} />
             </form>
           </div>
           {/* -------- step previous and next buttons -------- */}
-          <div className="w-full flex lg:justify-between mt-12 lg:mt-[1.75rem]">
+          <div className="w-full flex gap-5 justify-end lg:justify-between mt-12 lg:mt-[1.75rem]">
             {activeStep >= 0 && (
               <GeneralButton
                 buttonText={"Previous"}
                 size={"small"}
-                state={"previous"}
+                state={'previous'}
                 onClick={handlePrevious}
                 icon={ArrowLeft01Icon}
                 iconPosition="left"
                 className="w-[8.125rem]"
               />
             )}
-            {activeStep < 5 && (
+            {activeStep < 4 && (
               <GeneralButton
                 buttonText={"Next"}
                 size={"small"}
-                state={"active"}
+                state={'active'}
                 onClick={handleNext}
                 icon={ArrowRight01Icon}
                 iconPosition="right"
@@ -132,6 +192,16 @@ const Student = () => {
             )}
           </div>
         </div>
+        {/* Notification */}
+      <Notification
+        open={notification.open}
+        message={notification.message}
+        type={notification.type}
+        details={notification.details}
+        onClose={handleCloseNotification}
+        onPrimaryAction={() => console.log("Continue clicked")}
+        onSecondaryAction={() => console.log("View Profile clicked")}
+      />
       </div>
     </FormProvider>
   );

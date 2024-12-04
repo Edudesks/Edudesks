@@ -50,7 +50,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
   }
 
   // -------- button border color --------
-  let buttonBGColor;
+  let buttonBGColor
   if (state === "active") {
     buttonBGColor = "bg-[var(--primary)]";
   } else if (state === "inactive") {

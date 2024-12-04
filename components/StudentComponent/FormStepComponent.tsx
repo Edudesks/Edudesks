@@ -13,8 +13,9 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import DropdownSelectComponent from "./DropdownSelectComponent";
 import InputField from "./InputField";
 import GeneralButton from "../GeneralButton";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, UseFormReturn } from "react-hook-form";
 import { FormData } from "@/pages/[school_name]/student";
+
 
 /**
  *
@@ -24,18 +25,38 @@ import { FormData } from "@/pages/[school_name]/student";
 
 interface FormStepComponentProps {
   step: number;
+  methods: UseFormReturn<FormData>;
 }
 
-const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
+const FormStepComponent: React.FC<FormStepComponentProps> = ({
+  step,
+  methods,
+}) => {
   const {
     register,
     formState: { errors },
-    getValues
+    getValues,
   } = useFormContext<FormData>();
 
-  // console.log(errors); // Should show field errors if validation is failing
-  // console.log(register("personalInformation.lastName")); // Should log the registration details
   console.log("Current Step Values:", getValues());
+
+  const classes = [
+    "Creche",
+    "Nursery",
+    "Kindergarten",
+    "Primary 1",
+    "Primary 2",
+    "Primary 3",
+    "Primary 4",
+    "Primary 5",
+    "Primary 6",
+    "Junior Secondary 1",
+    "Junior Secondary 2",
+    "Junior Secondary 3",
+    "Senior Secondary 1",
+    "Senior Secondary 2",
+    "Senior Secondary 3",
+  ];
 
   switch (step) {
     // -------- personal information --------
@@ -82,12 +103,16 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 >
                   Date of birth*
                 </label>
-                <div className="w-full flex relative items-center text-[var(--grey)]">
+                <div className="w-full flex flex-col relative items-center text-[var(--grey)]">
                   <CalenderComponent
                     variant="form"
                     {...register("personalInformation.dateOfBirth")}
-                  error={errors.personalInformation?.dateOfBirth?.message}
                   />
+                  {errors.personalInformation?.dateOfBirth?.message && (
+                    <p className="self-start text-sm text-[var(--danger)] mt-1">
+                      {errors.personalInformation?.dateOfBirth?.message}
+                    </p>
+                  )}
                 </div>
               </div>
               {/* -------- age -------- */}
@@ -113,15 +138,32 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                   <FormControlLabel
                     className=""
                     disableTypography
-                    control={<Checkbox className="text-[#D0D5DD]" value={'Male'} {...register("personalInformation.gender")} />}
+                    control={
+                      <Checkbox
+                        className="text-[#D0D5DD]"
+                        value={"Male"}
+                        {...register("personalInformation.gender")}
+                      />
+                    }
                     label="Male"
                   />
                   <FormControlLabel
                     disableTypography
-                    control={<Checkbox className="text-[#D0D5DD]" value={'Female'} {...register("personalInformation.gender")} />}
+                    control={
+                      <Checkbox
+                        className="text-[#D0D5DD]"
+                        value={"Female"}
+                        {...register("personalInformation.gender")}
+                      />
+                    }
                     label="Female"
                   />
                 </div>
+                {errors.personalInformation?.gender?.message && (
+                  <p className="self-start text-sm text-[var(--danger)] mt-1">
+                    {errors.personalInformation?.gender?.message}
+                  </p>
+                )}
               </div>
               {/* -------- admission date -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
@@ -131,11 +173,28 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 >
                   Admission Date*
                 </label>
-                <CalenderComponent variant="form" {...register("personalInformation.admissionDate")}  />
+                <CalenderComponent
+                  variant="form"
+                  {...register("personalInformation.admissionDate")}
+                />
+                {errors.personalInformation?.admissionDate?.message && (
+                  <p className="text-sm text-[var(--danger)] mt-1">
+                    {errors.personalInformation?.admissionDate?.message}
+                  </p>
+                )}
               </div>
               {/* -------- student class -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
-                <DropdownSelectComponent  />
+                <DropdownSelectComponent
+                  {...register("personalInformation.classes")}
+                  options={classes}
+                  value={methods.watch("personalInformation.classes")}
+                />
+                {errors.personalInformation?.classes?.message && (
+                  <p className="text-sm text-[var(--danger)] mt-1">
+                    {errors.personalInformation?.classes?.message}
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -161,6 +220,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter student nationality"}
                 type={"text"}
                 icon={Location04Icon}
+                {...register("contactInformation.nationality")}
+                error={errors.contactInformation?.nationality?.message}
               />
               {/* -------- state of origin -------- */}
               <InputField
@@ -170,6 +231,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter student state of Origin"}
                 type={"text"}
                 icon={Location04Icon}
+                {...register("contactInformation.stateOfOrigin")}
+                error={errors.contactInformation?.stateOfOrigin?.message}
               />
               {/* -------- local government -------- */}
               <InputField
@@ -179,6 +242,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter student local government of Origin"}
                 type={"text"}
                 icon={Location04Icon}
+                {...register("contactInformation.localGovernment")}
+                error={errors.contactInformation?.localGovernment?.message}
               />
               {/* -------- town -------- */}
               <InputField
@@ -188,6 +253,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter student town"}
                 type={"text"}
                 icon={Location04Icon}
+                {...register("contactInformation.town")}
+                error={errors.contactInformation?.town?.message}
               />
               {/* -------- home address -------- */}
               <InputField
@@ -198,6 +265,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Street address/city/state/country"}
                 type={"text"}
                 icon={Location04Icon}
+                {...register("contactInformation.homeAddress")}
+                error={errors.contactInformation?.homeAddress?.message}
               />
             </div>
           </div>
@@ -224,6 +293,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter last name"}
                 type={"text"}
                 icon={UserIcon}
+                {...register("parentInformation.motherLastName")}
+                error={errors.parentInformation?.motherLastName?.message}
               />
               {/* -------- student-mother-guardian-first-name -------- */}
               <InputField
@@ -233,15 +304,19 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter first name"}
                 type={"text"}
                 icon={UserIcon}
+                {...register("parentInformation.motherFirstName")}
+                error={errors.parentInformation?.motherFirstName?.message}
               />
               {/* -------- student-mother-guardian-email-address -------- */}
               <InputField
-                label={"Mother/Guardian First Name*"}
+                label={"Mother/Guardian Email Address*"}
                 className={"py-2.5 px-9"}
                 id={"student-mother-guardian-email-address"}
                 placeholder={"Enter email address"}
                 type={"email"}
                 icon={Mail01Icon}
+                {...register("parentInformation.motherEmailAddress")}
+                error={errors.parentInformation?.motherEmailAddress?.message}
               />
               {/* -------- student-mother-guardian-phone-number -------- */}
               <InputField
@@ -251,6 +326,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"000-0000-000"}
                 type={"text"}
                 icon={Call02Icon}
+                {...register("parentInformation.motherPhoneNumber")}
+                error={errors.parentInformation?.motherPhoneNumber?.message}
               />
               {/* -------- student-mother-guardian-phone-number -------- */}
               <InputField
@@ -261,6 +338,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 type={"text"}
                 icon={Location04Icon}
                 divClass="lg:col-span-2"
+                {...register("parentInformation.motherHomeAddress")}
+                error={errors.parentInformation?.motherHomeAddress?.message}
               />
 
               {/* -------- FATHER INFORMATION -------- */}
@@ -272,6 +351,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter last name"}
                 type={"text"}
                 icon={UserIcon}
+                {...register("parentInformation.fatherLastName")}
+                error={errors.parentInformation?.fatherLastName?.message}
               />
               {/* -------- student-father-guardian-first-name -------- */}
               <InputField
@@ -281,6 +362,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter first name"}
                 type={"text"}
                 icon={UserIcon}
+                {...register("parentInformation.fatherFirstName")}
+                error={errors.parentInformation?.fatherFirstName?.message}
               />
               {/* -------- student-father-guardian-email-address -------- */}
               <InputField
@@ -290,6 +373,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter email address"}
                 type={"email"}
                 icon={Mail01Icon}
+                {...register("parentInformation.fatherEmailAddress")}
+                error={errors.parentInformation?.fatherEmailAddress?.message}
               />
               {/* -------- student-father-guardian-phone-number -------- */}
               <InputField
@@ -299,6 +384,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"0000-0000-0000"}
                 type={"text"}
                 icon={Call02Icon}
+                {...register("parentInformation.fatherPhoneNumber")}
+                error={errors.parentInformation?.fatherPhoneNumber?.message}
               />
               {/* -------- student-father-guardian-phone-number -------- */}
               <InputField
@@ -309,6 +396,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 type={"text"}
                 icon={Location04Icon}
                 divClass="lg:col-span-2"
+                {...register("parentInformation.fatherHomeAddress")}
+                error={errors.parentInformation?.fatherHomeAddress?.message}
               />
             </div>
           </div>
@@ -334,6 +423,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter student current medication"}
                 type={"text"}
                 icon={HealthIcon}
+                {...register("healthInformation.currentMedication")}
+                error={errors.healthInformation?.currentMedication?.message}
               />
               {/* -------- health condition -------- */}
               <InputField
@@ -343,6 +434,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter student health condition if any"}
                 icon={HealthIcon}
                 type={"text"}
+                {...register("healthInformation.healthCondition")}
+                error={errors.healthInformation?.healthCondition?.message}
               />
 
               {/* -------- genotype -------- */}
@@ -353,6 +446,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter student genotype"}
                 icon={HealthIcon}
                 type={"text"}
+                {...register("healthInformation.genotype")}
+                error={errors.healthInformation?.genotype?.message}
               />
 
               {/* -------- blood group -------- */}
@@ -363,6 +458,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter student blood group"}
                 type={"text"}
                 icon={HealthIcon}
+                {...register("healthInformation.bloodGroup")}
+                error={errors.healthInformation?.bloodGroup?.message}
               />
 
               {/* -------- allergies -------- */}
@@ -373,6 +470,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter student allergies if any"}
                 type={"text"}
                 icon={HealthIcon}
+                {...register("healthInformation.allergies")}
+                error={errors.healthInformation?.allergies?.message}
               />
               {/* -------- disabilities -------- */}
               <InputField
@@ -382,6 +481,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
                 placeholder={"Enter student student disabilities if any"}
                 type={"text"}
                 icon={HealthIcon}
+                {...register("healthInformation.disabilities")}
+                error={errors.healthInformation?.disabilities?.message}
               />
             </div>
           </div>
@@ -468,4 +569,3 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({ step }) => {
 };
 
 export default FormStepComponent;
-

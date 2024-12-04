@@ -10,6 +10,7 @@ interface InputFieldProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   divClass?: string;
   error?: string;
+  value?: string;
 }
 
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(

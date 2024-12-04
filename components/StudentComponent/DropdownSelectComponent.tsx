@@ -3,11 +3,10 @@ import {
   MenuItem,
   InputLabel,
   Select,
-  NativeSelect,
   SxProps,
   SelectChangeEvent,
 } from "@mui/material";
-import React from "react";
+import React, { forwardRef } from "react";
 import "../../app/globals.css";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { useState } from "react";
@@ -80,35 +79,36 @@ const menuProps = {
   },
 };
 
-const classes = [
-  "Creche",
-  "Nursery",
-  "Kindergarten",
-  "Primary 1",
-  "Primary 2",
-  "Primary 3",
-  "Primary 4",
-  "Primary 5",
-  "Primary 6",
-  "Junior Secondary 1",
-  "Junior Secondary 2",
-  "Junior Secondary 3",
-  "Senior Secondary 1",
-  "Senior Secondary 2",
-  "Senior Secondary 3",
-];
+interface DropdownSelectComponentProps {
+  name: string;
+  value?: string;
+  onChange?: (event: SelectChangeEvent<string>) => void;
+  error?: string;
+  options: string[];
+}
 
-const DropdownSelectComponent = () => {
-  const [studentClass, setStudentClass] = useState<string>("");
+const DropdownSelectComponent = forwardRef<
+  HTMLInputElement,
+  DropdownSelectComponentProps
+>(({ name, value, onChange, error, options }, ref) => {
 
-  const handleChange = (event: SelectChangeEvent<typeof studentClass>) => {
-    setStudentClass(event.target.value)
+  console.log("Dropdown Props: ", { name, value, error, options });
+  console.log("Dropdown value:", value);
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    if (onChange) {
+      onChange({
+        target: {
+          name: name || "",
+          value: event.target.value,
+        },
+      } as unknown as React.ChangeEvent<HTMLInputElement>);
+    }
   };
 
   return (
     <div className="flex flex-col gap-[0.4375rem]">
       <InputLabel
-        id="student-classes"
+        id={`${name}-label`}
         className="text-sm text-[var(--primary-text-color)]"
         sx={{ fontFamily: "Open Sans" }}
       >
@@ -117,12 +117,14 @@ const DropdownSelectComponent = () => {
       <Select
         placeholder="Select Class"
         labelId="student-classes"
-        id="select"
-        value={studentClass}
+        id={name}
+        name={name}
+        value={value || ""}
         sx={selectSx}
         IconComponent={KeyboardArrowDown}
         MenuProps={menuProps}
         onChange={handleChange}
+        inputRef={ref}
         renderValue={(selected) => {
           if (!selected) {
             return <em>Select class</em>;
@@ -133,12 +135,17 @@ const DropdownSelectComponent = () => {
         <MenuItem disabled value="">
           <em>Select class</em>
         </MenuItem>
-        {classes.map((item) => (
-          <MenuItem key={item} value={item}>{item}</MenuItem>
+        {options.map((item) => (
+          <MenuItem key={item} value={item}>
+            {item}
+          </MenuItem>
         ))}
       </Select>
+      {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
     </div>
   );
-};
+});
+
+DropdownSelectComponent.displayName = "DropdownSelectComponent";
 
 export default DropdownSelectComponent;

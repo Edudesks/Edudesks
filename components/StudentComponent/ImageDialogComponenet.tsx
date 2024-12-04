@@ -14,7 +14,7 @@ import { CloudUploadIcon } from "hugeicons-react";
 import { useDropzone } from "react-dropzone";
 
 /**
- * 
+ *
  * TODO: Add change image and trash icon
  */
 
@@ -91,7 +91,7 @@ const ImageDialogComponenet = () => {
         onClose={handleClose}
         hideBackdrop={isMobile ? false : true}
         aria-labelledby="add-student-image"
-        className={`${isMobile ? "" : "w-[25rem]"} h-[40rem]`}
+        className={`${isMobile ? "" : "w-[60rem]"} h-[40rem]`}
       >
         {/* -------- dialog content -------- */}
         <DialogContent
