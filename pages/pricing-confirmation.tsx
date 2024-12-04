@@ -76,7 +76,7 @@ const PricingConfirmation = () => {
           </div>
           {/* -------- buttons -------- */}
           <div className="flex flex-col items-center justify-center lg:flex-row gap-[1.32rem] lg:gap-[2.375rem] w-full mt-[3.5625rem] lg:mt-16">
-            <Link href="/dashboard"
+            <Link href="/Edudesk"
               className={`flex items-center justify-center gap-2.5 bg-[var(--primary)]
               px-2.5 py-4 rounded-[33px] leading-5 text-[var(--secondary-text-color)] w-full max-w-[25.25rem]`}
               type="button"

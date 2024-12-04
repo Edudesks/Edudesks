@@ -1,8 +1,10 @@
 import Footer from "@/components/LandingPageComponents/Footer";
 import Navbar from "@/components/LandingPageComponents/NavBar";
-import React, { useState } from "react";
+import React from "react";
 import "../app/globals.css";
 import { openSans } from "@/app/fonts/fonts";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 import Image from "next/image";
 import SubscriptionDropdown from "@/components/PricingPaymentComponent/SubscriptionDropdown";
 import ButtonTrial from "@/components/LandingPageComponents/Button";
@@ -14,7 +16,8 @@ import ButtonTrial from "@/components/LandingPageComponents/Button";
  */
 
 const PricingPayment = () => {
-  const [subscriptionPrice, setSubscriptionPrice] = useState<string>("5,000");
+  const { selectedPlan, price } = useSelector((state: RootState) => state.plan);
+
   return (
     <div className={`${openSans.className} flex flex-col`}>
       <Navbar />
@@ -162,16 +165,13 @@ const PricingPayment = () => {
             <div className="flex flex-col border border-solid border-[var(--border)] rounded-[10px] py-[2.75rem] lg:py-[1.625rem] px-[0.8125rem] lg:px-[1.1875rem]">
               <div>
                 <h3 className="text-3xl font-bold text-var(--primary)">
-                  Premium Plan
+                  {selectedPlan} Plan
                 </h3>
                 {/* -------- divider -------- */}
                 <div className="w-full h-[1px] bg-[var(--border)] my-[1.375rem]"></div>
                 {/* -------- monthly subscription -------- */}
                 <div>
-                  <SubscriptionDropdown
-                    subscriptionPrice={subscriptionPrice}
-                    setSubscriptionPrice={setSubscriptionPrice}
-                  />
+                  <SubscriptionDropdown/>
                 </div>
                 {/* -------- divider -------- */}
                 <div className="w-full h-[1px] bg-[var(--border)] my-[1.375rem]"></div>
@@ -183,7 +183,7 @@ const PricingPayment = () => {
                     Total
                   </p>
                   <p className="text-[var(--primary-text-color)] text-xl font-semibold">
-                    ₦&nbsp;{subscriptionPrice}
+                    ₦&nbsp;{price}
                   </p>
                 </div>
               </div>

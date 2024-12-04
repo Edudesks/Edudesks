@@ -2,10 +2,19 @@ import "@/app/globals.css";
 import React, { useState } from 'react';
 import styles from '@/styles/LandingPage.module.css';
 import ButtonTrial from "./Button";
+import { useRouter } from "next/router";
+import { setPlan } from "@/store/slices/planSlice";
+import { useAppDispatch } from "@/store/hooks";
 
 const PricingPlan = () => {
   const [isAnnually, setIsAnnually] = useState(false);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
+  const handlePlanSelect = (plan: string, price: string, subscription: string) => {
+    dispatch(setPlan({ plan, price, subscription }));
+    router.push("/pricing-payment"); // Navigate to the payment page
+  };
   return (
     <div className={`${styles.pricingContainer} ${styles.flexCol} ${styles.itemsCenter}`}>
       <h2 className={`${styles.title} ${styles.textCenter}`}>Select Pricing Plan</h2>
@@ -48,7 +57,7 @@ const PricingPlan = () => {
               <p className={styles.price}>₦ {isAnnually ? "60000" : "5000"}</p>
               <p className={styles.priceLabel}>{isAnnually ? "Annually" : "Per Month"}</p>
             </div>
-            <ButtonTrial url="/pricing-payment" variant={"dark"} text={"Start 30 days free trial"}/>
+            <ButtonTrial onClick={()=>handlePlanSelect("Basic", isAnnually ? "60000" : "5000", isAnnually ? "Annual" : "Monthly")} variant={"dark"} text={"Start 30 days free trial"}/>
           </div>
           <div className={styles.lineDivider}></div>
           <h4 className={styles.featuresTitle}>Features</h4>
@@ -72,7 +81,7 @@ const PricingPlan = () => {
           </div>
           <div className={styles.premiumBottom}>
 
-            <ButtonTrial url="/pricing-payment" variant={"dark"} text={"Start 30 days free trial"}/>
+            <ButtonTrial onClick={()=>handlePlanSelect("Premium", isAnnually ? "120000" : "10000", isAnnually ? "Annual" : "Monthly")} variant={"dark"} text={"Start 30 days free trial"}/>
             <div className={styles.lineDivider}></div>
             <h4 className={styles.featuresTitle}>Features</h4>
             <ul className={`${styles.featureList} ${styles.textWhite}`}>
@@ -96,7 +105,7 @@ const PricingPlan = () => {
             <p className={styles.price}>₦ {isAnnually ? "180000" : "15000"}</p>
             <p className={styles.priceLabel}>{isAnnually ? "Annually" : "Per Month"}</p>
           </div>
-          <ButtonTrial url="/pricing-payment" variant={"dark"} text={"Start 30 days free trial"}/>
+          <ButtonTrial onClick={()=>handlePlanSelect("Advance", isAnnually ? "180000" : "15000", isAnnually ? "Annual" : "Monthly")} variant={"dark"} text={"Start 30 days free trial"}/>
           </div>
           <div className={styles.lineDivider}></div>
           <h4 className={styles.featuresTitle}>Features</h4>

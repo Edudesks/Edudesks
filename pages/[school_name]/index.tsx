@@ -4,6 +4,7 @@ import RevenueAnalytics from '@/components/DashboardComponent/RevenueAnalysis';
 import CircularChart from '@/components/DashboardComponent/CircularChart';
 import { useState } from 'react';
 import styles from '@/styles/Dashboard.module.css';
+import MobileTable from '@/components/DashboardComponent/TransactionHistory';
 
 
 const Dashboard = () => {
@@ -87,6 +88,9 @@ const Dashboard = () => {
         {/* Transaction History Table */}
         <div className="px-6 mt-6">
           <DashboardTable />
+        </div>
+        <div className="px-6 mt-6">
+        <MobileTable/>
         </div>
         </>
 

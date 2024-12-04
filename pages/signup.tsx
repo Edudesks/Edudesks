@@ -1,6 +1,6 @@
 import AuthentificationLogo from "@/components/AuthentificationLogo";
 import "../app/globals.css"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { inter, openSans } from "@/app/fonts/fonts";
 import Link from "next/link";
@@ -16,21 +16,26 @@ import {
 import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormData, signUpSchema } from "@/features/auth/signUpSchema";
-import Router from "next/router";
-
+import { useRouter } from "next/router";
+import { useAppDispatch } from "@/store/hooks";
+import { signUp, resetSignup } from "@/store/slices/authSlice";
+import { FaRegCircle } from "react-icons/fa";
 /**
  *
- * TODO: For backend, functionality for save details
- * TODO: Ask about password icon
- * TODO: Ask about the checkbox
- * TODO: Minimum requirements for password
- *
+ * TODO: Add the router
  */
 
 const SignUp: React.FC = () => {
-    const router = Router
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const dispatch = useAppDispatch();
+
+  useEffect(()=>{
+    return ()=> {
+      dispatch(resetSignup())
+    }
+  }, [dispatch])
 
   const {
     register,
@@ -38,11 +43,24 @@ const SignUp: React.FC = () => {
     formState: { errors, isValid, isSubmitted },
     watch
   } = useForm<SignUpFormData>({ resolver: zodResolver(signUpSchema), mode: "onSubmit" });
+  const [isLoading, setIsLoading] = useState(false);
+  const submitData = async (data: SignUpFormData) => {
+    setIsLoading(true);
+    // Simulate the delay for 2 seconds
+    setTimeout(async () => {
+      const response = await dispatch(signUp(data));
 
-  const submitData = (data: SignUpFormData) => {
-    console.log("Registration Successful", data);
-    router.push('/verification')
+      if (response.type === "auth/signup/fulfilled") {
+        alert(response.payload);
+        router.push("pricing-plan");
+      } else {
+        router.push("pricing-plan");
+      }
+
+      setIsLoading(false);
+    }, 2000);
   };
+
 
   // show/hide password
   const handleShowPassword = () => {
@@ -55,10 +73,10 @@ const SignUp: React.FC = () => {
 
   // ------ changing button color dependent on form validation ------
   const schoolName = watch("schoolName");
-  const schoolEmail = watch("schoolEmail");
+  const email = watch("email");
   const password = watch("password");
   const confirmPassword = watch("confirmPassword");
-  const allFieldsFilled = schoolName && schoolEmail && password && confirmPassword;
+  const allFieldsFilled = schoolName && email && password && confirmPassword;
 
   let buttonColor;
   if (!allFieldsFilled) {
@@ -169,11 +187,11 @@ const SignUp: React.FC = () => {
                   <div className="w-full flex relative items-center text-[var(--grey)]">
                     <input
                       className={`border ${
-                        errors.schoolEmail
+                        errors.email
                           ? "border-[var(--danger)]"
                           : "border-[var(--border)]"
                       } rounded-[10px] py-2.5 px-9 w-full placeholder:text-[var(--grey)] ${
-                        errors.schoolEmail
+                        errors.email
                           ? "text-[var(--danger)]"
                           : "text-[var(--primary-text-color)]"
                       } focus:outline-none autofill:bg-none`}
@@ -181,20 +199,20 @@ const SignUp: React.FC = () => {
                       id="school-email"
                       placeholder="Enter your school email"
                       required
-                      {...register("schoolEmail")}
+                      {...register("email")}
                     />
                     <span className="absolute left-2.5">
                       <Mail01Icon
-                        color={errors.schoolEmail ? "#f65252" : "#59676e"}
+                        color={errors.email ? "#f65252" : "#59676e"}
                         size={18}
                       />
                     </span>
                   </div>
-                  {errors.schoolEmail && (
+                  {errors.email && (
                     <div className="flex gap-[7px] text-[var(--danger)] items-center">
                       <InformationCircleIcon size={"18px"} />
                       <p className="text-sm leading-normal">
-                        {errors.schoolEmail.message}
+                        {errors.email.message}
                       </p>
                     </div>
                   )}
@@ -323,11 +341,17 @@ const SignUp: React.FC = () => {
               </div>
             </div>
             <button
-              className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
-              type="submit"
-            >
-              Create account
-            </button>
+  className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
+  type="submit"
+>
+  {isLoading ? (
+    <div className="loading-spinner flex items-center justify-center">
+      <FaRegCircle className="text-lg text-[var(--secondary-text-color)]" />
+    </div>
+  ) : (
+    "Create account"
+  )}
+</button>
           </form>
         </div>
       </div>

@@ -1,5 +1,8 @@
-const API_ROOT_URL = "http://localhost:5000/" // TO BE UPDATED
+import dotenv from 'dotenv';
 
+dotenv.config();
+
+const API_ROOT_URL = process.env.API_ROOT_URL
 
 const NON_MAIN_LAYOUT_LINKS = [
     '/',

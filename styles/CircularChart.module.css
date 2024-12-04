@@ -5,12 +5,11 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: white;
-    border-radius: 0.5rem; /* rounded-lg */
+     /* rounded-lg */
     padding: 1.7rem;
     width: 100%; 
+    max-width: 500px;
     height: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
     align-self: center;
   }
   
