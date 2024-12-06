@@ -77,7 +77,7 @@ const Notification: React.FC<NotificationProps> = ({
             />
           ) : (
             <Image
-              src="/icons/error-success.svg"
+              src="/icons/success-circle.svg"
               alt="Error"
               width={24}
               height={24}

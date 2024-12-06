@@ -32,12 +32,12 @@ const formSchema = z.object({
 });
 
 export type FormData = z.infer<typeof formSchema>;
+type FormFieldKeys = keyof FormData | `${keyof FormData}.${string}`;
 
 const Student = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [activeStep, setActiveStep] = useState(0);
-  const schemas = [personalInformationSchema, contactInformationSchema, parentInformationSchema, healthInformationSchema];
   const steps = [
     { icon: UserIcon, label: "Personal Information" },
     { icon: CallIcon, label: "Contact Information" },
@@ -45,6 +45,45 @@ const Student = () => {
     { icon: News01Icon, label: "Health Information" },
     { icon: UserAccountIcon, label: "School Fees Details" },
   ];
+  const stepFields: Record<number, FormFieldKeys[]> = {
+    0: [
+      "personalInformation.lastName",
+      "personalInformation.otherNames",
+      "personalInformation.dateOfBirth",
+      "personalInformation.age",
+      "personalInformation.gender",
+      "personalInformation.admissionDate",
+      "personalInformation.classes",
+    ],
+    1: [
+      "contactInformation.nationality",
+      "contactInformation.stateOfOrigin",
+      "contactInformation.localGovernment",
+      "contactInformation.town",
+      "contactInformation.homeAddress",
+    ],
+    2: [
+      "parentInformation.motherLastName",
+      "parentInformation.motherFirstName",
+      "parentInformation.motherEmailAddress",
+      "parentInformation.motherPhoneNumber",
+      "parentInformation.motherHomeAddress",
+      "parentInformation.fatherLastName",
+      "parentInformation.fatherFirstName",
+      "parentInformation.fatherEmailAddress",
+      "parentInformation.fatherPhoneNumber",
+      "parentInformation.fatherHomeAddress",
+    ],
+    3: [
+      "healthInformation.currentMedication",
+      "healthInformation.healthCondition",
+      "healthInformation.genotype",
+      "healthInformation.bloodGroup",
+      "healthInformation.allergies",
+      "healthInformation.disabilities",
+    ],
+    4: []
+  }
 
   const [notification, setNotification] = useState({
     open: false,
@@ -68,11 +107,13 @@ const Student = () => {
   console.log(`Errors`, methods.formState.errors)
   console.log(activeStep);
 
-  const handleNext = async () => {
-    const fieldsToValidate = Object.keys(schemas[activeStep].shape) as Array<keyof FormData>;
-    const isValid = await methods.trigger(fieldsToValidate);
 
-    if(!isValid) {
+
+  const handleNext = async () => {
+    const fieldsToValidate = stepFields[activeStep as keyof typeof stepFields];
+    const isValid = await methods.trigger(fieldsToValidate as (keyof FormData)[]);
+    if (!isValid) {
+      console.log('is not valid')
       setNotification({
         open: true,
         type: "error",
@@ -82,48 +123,16 @@ const Student = () => {
       return;
     }
 
-    try {
-      schemas[activeStep].parse(methods.getValues());
-      setNotification({
-        open: true,
-        type: "success",
-        message: "Student Added Successfully!",
-        details: "You’ve successfully added the student’s details. Keep going or review the information in the student list.",
-      });
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    } catch (error) {
-      setNotification({
-        open: true,
-        type: "error",
-        message: "Invalid Input",
-        details: "Please check the input fields and try again.",
-      })
-    }
-  }
-
-  // const handleNext = async () => {
-  //   const isValid = await methods.trigger();
-  //   if (!isValid) {
-  //     console.log('is not valid')
-  //     setNotification({
-  //       open: true,
-  //       type: "error",
-  //       message: "Empty Required Fields",
-  //       details: "All required fields must be filled out. Please check and try again.",
-  //     });
-  //     return;
-  //   }
-
-  //   setNotification({
-  //     open: true,
-  //     type: "success",
-  //     message: "Student Added Successfully!",
-  //     details:
-  //       "You’ve successfully added the student’s details. Keep going or review the information in the student list.",
-  //   });
-  //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  //   console.log('is Valid')
-  // };
+    setNotification({
+      open: true,
+      type: "success",
+      message: "Student Added Successfully!",
+      details:
+        "You’ve successfully added the student’s details.",
+    });
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    console.log('is Valid')
+  };
 
   const handleCloseNotification = () => {
     setNotification({ ...notification, open: false });
