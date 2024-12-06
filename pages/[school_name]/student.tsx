@@ -16,7 +16,7 @@ import { z } from "zod";
 import { personalInformationSchema, contactInformationSchema, parentInformationSchema, healthInformationSchema } from "@/features/auth/studentSchema";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Notification from "@/components/NotificationComponent";
+import Notification from "@/components/StudentComponent/NotificationComponent";
 
 /**
  *
@@ -64,10 +64,13 @@ const Student = () => {
     console.log("Initial Field Values:", methods.getValues());
   }, []); // Runs when the component first renders
 
+  console.log(`Errors`, methods.formState.errors)
   console.log(activeStep);
+
   const handleNext = async () => {
     const isValid = await methods.trigger();
     if (!isValid) {
+      console.log('is not valid')
       setNotification({
         open: true,
         type: "error",
@@ -84,6 +87,8 @@ const Student = () => {
       details:
         "You’ve successfully added the student’s details. Keep going or review the information in the student list.",
     });
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    console.log('is Valid')
   };
 
   const handleCloseNotification = () => {

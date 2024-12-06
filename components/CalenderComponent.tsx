@@ -5,8 +5,6 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { CalendarMonthOutlined, KeyboardArrowDown } from "@mui/icons-material";
 import { format } from "date-fns";
 import { enGB } from "date-fns/locale";
-import { TextField } from "@mui/material";
-import { date } from "zod";
 
 /**
  * CalendarComponent is a React functional component that renders a date picker
@@ -58,7 +56,6 @@ const CalendarComponent = forwardRef<HTMLInputElement, CalendarComponentProps>(
         });
       }
     };
-    console.log("CalendarComponent name prop:", name);
 
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enGB}>
