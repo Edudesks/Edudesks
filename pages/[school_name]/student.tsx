@@ -14,7 +14,7 @@ import GeneralButton from "@/components/GeneralButton";
 import { ArrowRight01Icon, ArrowLeft01Icon } from "hugeicons-react";
 import { z } from "zod";
 import { personalInformationSchema, contactInformationSchema, parentInformationSchema, healthInformationSchema } from "@/features/auth/studentSchema";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Notification from "@/components/StudentComponent/NotificationComponent";
 
@@ -37,6 +37,7 @@ const Student = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [activeStep, setActiveStep] = useState(0);
+  const schemas = [personalInformationSchema, contactInformationSchema, parentInformationSchema, healthInformationSchema];
   const steps = [
     { icon: UserIcon, label: "Personal Information" },
     { icon: CallIcon, label: "Contact Information" },
@@ -68,9 +69,10 @@ const Student = () => {
   console.log(activeStep);
 
   const handleNext = async () => {
-    const isValid = await methods.trigger();
-    if (!isValid) {
-      console.log('is not valid')
+    const fieldsToValidate = Object.keys(schemas[activeStep].shape) as Array<keyof FormData>;
+    const isValid = await methods.trigger(fieldsToValidate);
+
+    if(!isValid) {
       setNotification({
         open: true,
         type: "error",
@@ -80,16 +82,48 @@ const Student = () => {
       return;
     }
 
-    setNotification({
-      open: true,
-      type: "success",
-      message: "Student Added Successfully!",
-      details:
-        "You’ve successfully added the student’s details. Keep going or review the information in the student list.",
-    });
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    console.log('is Valid')
-  };
+    try {
+      schemas[activeStep].parse(methods.getValues());
+      setNotification({
+        open: true,
+        type: "success",
+        message: "Student Added Successfully!",
+        details: "You’ve successfully added the student’s details. Keep going or review the information in the student list.",
+      });
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    } catch (error) {
+      setNotification({
+        open: true,
+        type: "error",
+        message: "Invalid Input",
+        details: "Please check the input fields and try again.",
+      })
+    }
+  }
+
+  // const handleNext = async () => {
+  //   const isValid = await methods.trigger();
+  //   if (!isValid) {
+  //     console.log('is not valid')
+  //     setNotification({
+  //       open: true,
+  //       type: "error",
+  //       message: "Empty Required Fields",
+  //       details: "All required fields must be filled out. Please check and try again.",
+  //     });
+  //     return;
+  //   }
+
+  //   setNotification({
+  //     open: true,
+  //     type: "success",
+  //     message: "Student Added Successfully!",
+  //     details:
+  //       "You’ve successfully added the student’s details. Keep going or review the information in the student list.",
+  //   });
+  //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  //   console.log('is Valid')
+  // };
 
   const handleCloseNotification = () => {
     setNotification({ ...notification, open: false });
@@ -101,32 +135,6 @@ const Student = () => {
       return Math.max(prevActiveStep - 1, 0);
     });
   };
-
-  // const nextButtonState =
-  //   activeStep === steps.length - 1
-  // ? "disabled"
-  //     : allFieldsFilled
-  //     ? isSubmitted
-  //       ? Object.keys(errors).length > 0
-  //         ? "inactive"
-  //         : "active"
-  //       : "active"
-  //     : "active";
-
-  // const nextButtonState =
-  //   activeStep === steps.length - 1 // Final step
-  //     ? "disabled"
-  //     : methods.formState.isValid // Valid state for current step
-  //     ? "active"
-  //     : "disabled";
-
-  // const previousButtonState = activeStep === 0 ? "disabled" : "active";
-
-  // useEffect(() => {
-  //   console.log("Next Button State:", nextButtonState);
-  //   console.log("Previous Button State:", previousButtonState);
-  //   console.log("Active Step:", activeStep);
-  // }, [nextButtonState, previousButtonState, activeStep]);
 
   const onSubmit = (data: FormData) => {
     console.log("Final form data:", data);

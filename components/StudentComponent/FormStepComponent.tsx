@@ -15,6 +15,7 @@ import InputField from "./InputField";
 import GeneralButton from "../GeneralButton";
 import { useFormContext, UseFormReturn } from "react-hook-form";
 import { FormData } from "@/pages/[school_name]/student";
+import GenderField from "./GenderComponent";
 
 
 /**
@@ -127,38 +128,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
               />
               {/* -------- gender -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
-                <label
-                  htmlFor="gender"
-                  className=" text-sm text-[var(--primary-text-color)]"
-                >
-                  Gender*
-                </label>
-                <div className="w-full flex items-center text-sm text-[var(--primary-text-color)]">
-                  {/* -------- male gender -------- */}
-                  <FormControlLabel
-                    className=""
-                    disableTypography
-                    control={
-                      <Checkbox
-                        className="text-[#D0D5DD]"
-                        value={"Male"}
-                        {...register("personalInformation.gender")}
-                      />
-                    }
-                    label="Male"
-                  />
-                  <FormControlLabel
-                    disableTypography
-                    control={
-                      <Checkbox
-                        className="text-[#D0D5DD]"
-                        value={"Female"}
-                        {...register("personalInformation.gender")}
-                      />
-                    }
-                    label="Female"
-                  />
-                </div>
+                <GenderField />
                 {errors.personalInformation?.gender?.message && (
                   <p className="self-start text-sm text-[var(--danger)] mt-1">
                     {errors.personalInformation?.gender?.message}

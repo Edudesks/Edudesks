@@ -92,8 +92,6 @@ const DropdownSelectComponent = forwardRef<
   DropdownSelectComponentProps
 >(({ name, value, onChange, error, options }, ref) => {
 
-  console.log("Dropdown Props: ", { name, value, error, options });
-  console.log("Dropdown value:", value);
   const handleChange = (event: SelectChangeEvent<string>) => {
     if (onChange) {
       onChange({
