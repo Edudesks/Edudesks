@@ -1,5 +1,5 @@
 import AuthentificationLogo from "@/components/AuthentificationLogo";
-import "../app/globals.css";
+import "../app/globals.css"
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { inter, openSans } from "@/app/fonts/fonts";
@@ -45,7 +45,7 @@ const SignUp: React.FC = () => {
   } = useForm<SignUpFormData>({ resolver: zodResolver(signUpSchema), mode: "onSubmit" });
   const [isLoading, setIsLoading] = useState(false);
   const submitData = async (data: SignUpFormData) => {
-    setIsLoading(true);  
+    setIsLoading(true);
     // Simulate the delay for 2 seconds
     setTimeout(async () => {
       const response = await dispatch(signUp(data));
@@ -57,8 +57,8 @@ const SignUp: React.FC = () => {
         router.push("pricing-plan");
       }
 
-      setIsLoading(false); 
-    }, 2000); 
+      setIsLoading(false);
+    }, 2000);
   };
 
 
