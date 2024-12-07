@@ -93,7 +93,6 @@ const Notification: React.FC<NotificationProps> = ({
         action={
           isError ? (
             <Button
-              //   color="inherit"
               size="small"
               sx={{ textTransform: "capitalize", color: "#041822" }}
               onClick={onClose}

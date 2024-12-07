@@ -27,11 +27,13 @@ import GenderField from "./GenderComponent";
 interface FormStepComponentProps {
   step: number;
   methods: UseFormReturn<FormData>;
+  onEditDetails?: () => void;
 }
 
 const FormStepComponent: React.FC<FormStepComponentProps> = ({
   step,
   methods,
+  onEditDetails
 }) => {
   const {
     register,
@@ -523,6 +525,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 state={"previous"}
                 size={"large"}
                 className="w-full lg:w-60"
+                onClick={onEditDetails}
               />
               <GeneralButton
                 buttonText="Submit"

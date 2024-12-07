@@ -13,7 +13,12 @@ import CustomStepper from "@/components/StudentComponent/CustomStepper";
 import GeneralButton from "@/components/GeneralButton";
 import { ArrowRight01Icon, ArrowLeft01Icon } from "hugeicons-react";
 import { z } from "zod";
-import { personalInformationSchema, contactInformationSchema, parentInformationSchema, healthInformationSchema } from "@/features/auth/studentSchema";
+import {
+  personalInformationSchema,
+  contactInformationSchema,
+  parentInformationSchema,
+  healthInformationSchema,
+} from "@/features/auth/studentSchema";
 import { FormProvider, set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Notification from "@/components/StudentComponent/NotificationComponent";
@@ -28,7 +33,7 @@ const formSchema = z.object({
   personalInformation: personalInformationSchema,
   contactInformation: contactInformationSchema,
   parentInformation: parentInformationSchema,
-  healthInformation: healthInformationSchema
+  healthInformation: healthInformationSchema,
 });
 
 export type FormData = z.infer<typeof formSchema>;
@@ -82,8 +87,8 @@ const Student = () => {
       "healthInformation.allergies",
       "healthInformation.disabilities",
     ],
-    4: []
-  }
+    4: [],
+  };
 
   const [notification, setNotification] = useState({
     open: false,
@@ -104,40 +109,32 @@ const Student = () => {
     console.log("Initial Field Values:", methods.getValues());
   }, []); // Runs when the component first renders
 
-  console.log(`Errors`, methods.formState.errors)
-  console.log(activeStep);
-
-
+  console.log(`Errors`, methods.formState.errors);
 
   const handleNext = async () => {
     const fieldsToValidate = stepFields[activeStep as keyof typeof stepFields];
-    const isValid = await methods.trigger(fieldsToValidate as (keyof FormData)[]);
+    const isValid = await methods.trigger(
+      fieldsToValidate as (keyof FormData)[]
+    );
     if (!isValid) {
-      console.log('is not valid')
+      console.log("is not valid");
       setNotification({
         open: true,
         type: "error",
         message: "Empty Required Fields",
-        details: "All required fields must be filled out. Please check and try again.",
+        details:
+          "All required fields must be filled out. Please check and try again.",
       });
       return;
     }
 
-    setNotification({
-      open: true,
-      type: "success",
-      message: "Student Added Successfully!",
-      details:
-        "You’ve successfully added the student’s details.",
-    });
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    console.log('is Valid')
+    console.log("is Valid");
   };
 
   const handleCloseNotification = () => {
     setNotification({ ...notification, open: false });
   };
-
 
   const handlePrevious = () => {
     setActiveStep((prevActiveStep) => {
@@ -145,8 +142,18 @@ const Student = () => {
     });
   };
 
+  const handleEditDetails = () => {
+    setActiveStep(0);
+  }
+
   const onSubmit = (data: FormData) => {
     console.log("Final form data:", data);
+    setNotification({
+      open: true,
+      type: "success",
+      message: "Student Added Successfully!",
+      details: "You’ve successfully added the student’s details.",
+    });
   };
   return (
     <FormProvider {...methods}>
@@ -185,16 +192,16 @@ const Student = () => {
           {/* -------- form step component -------- */}
           <div className="w-full mt-6 lg:mt-[0.8125rem]">
             <form action="" onSubmit={methods.handleSubmit(onSubmit)}>
-              <FormStepComponent step={activeStep} methods={methods} />
+              <FormStepComponent step={activeStep} methods={methods} onEditDetails={handleEditDetails} />
             </form>
           </div>
           {/* -------- step previous and next buttons -------- */}
           <div className="w-full flex gap-5 justify-end lg:justify-between mt-12 lg:mt-[1.75rem]">
-            {activeStep >= 0 && (
+            {activeStep >= 0 && activeStep < 4 && (
               <GeneralButton
                 buttonText={"Previous"}
                 size={"small"}
-                state={'previous'}
+                state={"previous"}
                 onClick={handlePrevious}
                 icon={ArrowLeft01Icon}
                 iconPosition="left"
@@ -205,7 +212,7 @@ const Student = () => {
               <GeneralButton
                 buttonText={"Next"}
                 size={"small"}
-                state={'active'}
+                state={"active"}
                 onClick={handleNext}
                 icon={ArrowRight01Icon}
                 iconPosition="right"
@@ -215,15 +222,15 @@ const Student = () => {
           </div>
         </div>
         {/* Notification */}
-      <Notification
-        open={notification.open}
-        message={notification.message}
-        type={notification.type}
-        details={notification.details}
-        onClose={handleCloseNotification}
-        onPrimaryAction={() => console.log("Continue clicked")}
-        onSecondaryAction={() => console.log("View Profile clicked")}
-      />
+        <Notification
+          open={notification.open}
+          message={notification.message}
+          type={notification.type}
+          details={notification.details}
+          onClose={handleCloseNotification}
+          onPrimaryAction={() => console.log("Continue clicked")}
+          onSecondaryAction={() => console.log("View Profile clicked")}
+        />
       </div>
     </FormProvider>
   );

@@ -55,7 +55,7 @@ export const parentInformationSchema = z.object({
   motherLastName: z.string().min(1, { message: "Enter mother's last name" }),
   motherFirstName: z.string().min(1, { message: "Enter mother's first name" }),
   motherEmailAddress: z
-    .string()
+    .string().email()
     .min(1, { message: "Enter mother's email address" }),
   motherPhoneNumber: z
     .string()
@@ -68,7 +68,7 @@ export const parentInformationSchema = z.object({
   fatherLastName: z.string().min(1, { message: "Enter father's last name" }),
   fatherFirstName: z.string().min(1, { message: "Enter father's first name" }),
   fatherEmailAddress: z
-    .string()
+    .string().email()
     .min(1, { message: "Enter father's email address" }),
   fatherPhoneNumber: z
     .string()
