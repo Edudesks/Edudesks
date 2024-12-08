@@ -1,5 +1,5 @@
 import AuthentificationLogo from "@/components/AuthentificationLogo";
-import "../app/globals.css";
+import "../app/globals.css"
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { inter, openSans } from "@/app/fonts/fonts";
@@ -58,8 +58,8 @@ const SignUp: React.FC = () => {
         // router.push("pricing-plan");
       }
 
-      setIsLoading(false); 
-    }, 2000); 
+      setIsLoading(false);
+    }, 2000);
   };
 
 
