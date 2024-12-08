@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { SignUpFormData } from "@/features/auth/signUpSchema";
+import { SignUpSubmitFormData } from "@/features/auth/signUpSchema";
 import { LoginFormData } from "@/features/auth/loginSchema";
 
 interface SignupState {
@@ -26,10 +26,10 @@ const initialState: SignupState = {
 // Async thunk for signup
 export const signUp = createAsyncThunk(
   'auth/signup',
-  async (data: SignUpFormData, { rejectWithValue }) => {
+  async (data: SignUpSubmitFormData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        'https://backend-edudesks.onrender.com/signup',
+        'https://backend-edudesks.onrender.com/auth/signup',
         data,
         {
           headers: {
@@ -76,7 +76,7 @@ export const signIn = createAsyncThunk(
   async (data: LoginFormData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        'https://backend-edudesks.onrender.com/signin',
+        'https://backend-edudesks.onrender.com/auth/signin',
         data,
         {
           headers: {
@@ -88,6 +88,7 @@ export const signIn = createAsyncThunk(
 
       // Assuming the token is in response.data.token
       const { token } = response.data;
+      console.log(response.data)
 
       // Store the JWT token in localStorage
       localStorage.setItem('authToken', token);

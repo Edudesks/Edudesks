@@ -1,14 +1,18 @@
 import { z, ZodType } from "zod";
 
-export type SignUpFormData= {
+export type SignUpFormData = {
   schoolName: string;
   email: string;
   password: string;
   confirmPassword: string;
-  saveDetails?: boolean;
+};
+export type SignUpSubmitFormData = {
+  schoolName: string;
+  email: string;
+  password: string;
 };
 
-export const signUpSchema: ZodType<SignUpFormData> = z
+export const signUpSchema: ZodType<SignUpSubmitFormData> = z
   .object({
     schoolName: z.string().min(1, 'School name is required'),
     email: z.string().email('Invalid email address, try again').min(2, 'School email is required'),
@@ -19,4 +23,5 @@ export const signUpSchema: ZodType<SignUpFormData> = z
   .refine((data) => data.password === data.confirmPassword, {
     message: "Re-enter the password correctly",
     path: ["confirmPassword"],
-  });
+  })
+  .transform(({ confirmPassword, saveDetails, ...rest }) => rest);

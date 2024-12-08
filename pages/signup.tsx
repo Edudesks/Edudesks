@@ -15,7 +15,7 @@ import {
 } from "hugeicons-react";
 import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SignUpFormData, signUpSchema } from "@/features/auth/signUpSchema";
+import { SignUpFormData, SignUpSubmitFormData, signUpSchema } from "@/features/auth/signUpSchema";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "@/store/hooks";
 import { signUp, resetSignup } from "@/store/slices/authSlice";
@@ -44,7 +44,7 @@ const SignUp: React.FC = () => {
     watch
   } = useForm<SignUpFormData>({ resolver: zodResolver(signUpSchema), mode: "onSubmit" });
   const [isLoading, setIsLoading] = useState(false);
-  const submitData = async (data: SignUpFormData) => {
+  const submitData = async (data: SignUpSubmitFormData) => {
     setIsLoading(true);  
     // Simulate the delay for 2 seconds
     setTimeout(async () => {
@@ -54,7 +54,8 @@ const SignUp: React.FC = () => {
         alert(response.payload);
         router.push("pricing-plan");
       } else {
-        router.push("pricing-plan");
+        alert(response.payload);
+        // router.push("pricing-plan");
       }
 
       setIsLoading(false); 

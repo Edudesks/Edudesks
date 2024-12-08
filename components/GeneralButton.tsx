@@ -7,7 +7,7 @@ interface GeneralButtonProps {
   className?: string;
   size: "small" | "medium" | "large";
   state: "active" | "inactive" | "disabled" | "clicked" | "hover" | "previous";
-  icon?: ElementType | null;
+  icon?: React.ReactNode;
   iconPosition?: "left" | "right";
   onClick?: () => void;
 }
@@ -37,7 +37,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
   className,
   size,
   state: initialState,
-  icon: Icon = ArrowRight02Icon,
+  icon,
   iconPosition,
   onClick,
 }) => {
@@ -136,7 +136,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
       disabled={state === "disabled"}
       onClick={handleClick}
     >
-      {Icon && <Icon size={24} />}
+      {icon && <span>{icon}</span>}
       {buttonText}
     </button>
   );

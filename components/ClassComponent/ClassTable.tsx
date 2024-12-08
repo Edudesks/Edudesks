@@ -90,7 +90,7 @@ export default function Home() {
   );
 
   return (
-    <Box sx={{ padding: 4 }}>
+    <Box sx={{ paddingRight: 3 }}>
         <div className={styles.tabContainer}
         >
             <div
