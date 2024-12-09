@@ -54,7 +54,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
   if (state === "active") {
     buttonBGColor = "bg-[var(--primary)]";
   } else if (state === "inactive") {
-    buttonBGColor = "bg-[var(--secondary]";
+    buttonBGColor = "bg-[#B3D7FF]";
   } else if (state === "disabled") {
     buttonBGColor = "bg-[var(--grey)]";
   } else if (state === "previous") {
@@ -109,7 +109,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
 
   // -------- Handle Mouse Events --------
   const handleMouseEnter = () => {
-    if (state !== "disabled") {
+    if (state !== "disabled" && state !== "inactive") {
       setState("hover");
     }
   };

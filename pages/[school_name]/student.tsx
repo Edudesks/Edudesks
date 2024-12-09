@@ -22,12 +22,7 @@ import {
 import { FormProvider, set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Notification from "@/components/StudentComponent/NotificationComponent";
-
-/**
- *
- * TODO: Add further functionalities to image component. User should be able to center image.
- * TODO: On click, user should also be able to edit image.
- */
+import { useRouter } from "next/router";
 
 const formSchema = z.object({
   personalInformation: personalInformationSchema,
@@ -43,6 +38,7 @@ const Student = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [activeStep, setActiveStep] = useState(0);
+  const router = useRouter();
   const steps = [
     { icon: UserIcon, label: "Personal Information" },
     { icon: CallIcon, label: "Contact Information" },
@@ -102,14 +98,7 @@ const Student = () => {
     mode: "onSubmit",
   });
 
-  const { isSubmitted, isValid, errors } = methods.formState;
-  const allFieldsFilled = isValid && Object.keys(errors).length === 0;
-
-  useEffect(() => {
-    console.log("Initial Field Values:", methods.getValues());
-  }, []); // Runs when the component first renders
-
-  console.log(`Errors`, methods.formState.errors);
+  const prevButtonState = activeStep > 0 ? "previous" : "disabled";
 
   const handleNext = async () => {
     const fieldsToValidate = stepFields[activeStep as keyof typeof stepFields];
@@ -117,7 +106,6 @@ const Student = () => {
       fieldsToValidate as (keyof FormData)[]
     );
     if (!isValid) {
-      console.log("is not valid");
       setNotification({
         open: true,
         type: "error",
@@ -129,7 +117,6 @@ const Student = () => {
     }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    console.log("is Valid");
   };
 
   const handleCloseNotification = () => {
@@ -144,7 +131,7 @@ const Student = () => {
 
   const handleEditDetails = () => {
     setActiveStep(0);
-  }
+  };
 
   const onSubmit = (data: FormData) => {
     console.log("Final form data:", data);
@@ -152,14 +139,15 @@ const Student = () => {
       open: true,
       type: "success",
       message: "Student Added Successfully!",
-      details: "You’ve successfully added the student’s details.",
+      details:
+        "You’ve successfully added the student’s details. Keep going or review the information in the student list",
     });
   };
   return (
     <FormProvider {...methods}>
-      <div className="w-full flex flex-col items-center lg:pl-[6.4375rem] lg:pr-[5.8125rem] lg:pt-[2.8125rem]">
+      <div className="w-full flex flex-col items-center lg:pl-[6.4375rem] lg:pr-[5.8125rem] lg:pt-[2.8125rem] bg-[#ffffff] lg:bg-[#F9F9F9]">
         {/* -------- main students content -------- */}
-        <div className="w-full flex flex-col items-center pt-9 px-[1.125rem] lg:p-[1.875rem]">
+        <div className="w-full flex flex-col items-center pb-12 pt-9 px-[1.125rem] lg:p-[1.875rem]">
           {/* -------- heading and stepper -------- */}
           <div className="flex flex-col items-center gap-10 w-full">
             {/* -------- heading text -------- */}
@@ -192,16 +180,22 @@ const Student = () => {
           {/* -------- form step component -------- */}
           <div className="w-full mt-6 lg:mt-[0.8125rem]">
             <form action="" onSubmit={methods.handleSubmit(onSubmit)}>
-              <FormStepComponent step={activeStep} methods={methods} onEditDetails={handleEditDetails} />
+              <FormStepComponent
+                step={activeStep}
+                methods={methods}
+                onEditDetails={handleEditDetails}
+                key={activeStep}
+              />
             </form>
           </div>
           {/* -------- step previous and next buttons -------- */}
           <div className="w-full flex gap-5 justify-end lg:justify-between mt-12 lg:mt-[1.75rem]">
             {activeStep >= 0 && activeStep < 4 && (
               <GeneralButton
+                key={`prev-${activeStep}`}
                 buttonText={"Previous"}
                 size={"small"}
-                state={"previous"}
+                state={activeStep > 0 ? "previous" : "disabled"}
                 onClick={handlePrevious}
                 icon={ArrowLeft01Icon}
                 iconPosition="left"
@@ -210,9 +204,10 @@ const Student = () => {
             )}
             {activeStep < 4 && (
               <GeneralButton
+              key={`next-${activeStep}`}
                 buttonText={"Next"}
                 size={"small"}
-                state={"active"}
+                state={'active'}
                 onClick={handleNext}
                 icon={ArrowRight01Icon}
                 iconPosition="right"
@@ -229,7 +224,7 @@ const Student = () => {
           details={notification.details}
           onClose={handleCloseNotification}
           onPrimaryAction={() => console.log("Continue clicked")}
-          onSecondaryAction={() => console.log("View Profile clicked")}
+          onSecondaryAction={() => router.push('/Edudesk/student-profile') }
         />
       </div>
     </FormProvider>

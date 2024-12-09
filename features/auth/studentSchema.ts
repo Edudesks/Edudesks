@@ -80,12 +80,12 @@ export const parentInformationSchema = z.object({
 });
 
 export const healthInformationSchema = z.object({
-  currentMedication: z.string().min(1, {message: "What's your medication"}),
-  healthCondition: z.string().min(1, {message: "What's your health condition"}),
-  genotype: z.string().min(1, {message: "What's your genotype"}),
-  bloodGroup: z.string().min(1, {message: "What's your blood group"}),
-  allergies: z.string().min(1, {message: "What's your allergies?"}),
-  disabilities: z.string().min(1, {message: "What's your disablility"}),
+  currentMedication: z.string().optional(),
+  healthCondition: z.string().optional(),
+  genotype: z.string().optional(),
+  bloodGroup: z.string().optional(),
+  allergies: z.string().optional(),
+  disabilities: z.string().optional(),
 })
 
 export type personalInformationFormData = z.infer<

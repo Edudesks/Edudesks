@@ -10,7 +10,7 @@ import {
   useTheme,
 } from "@mui/material";
 import "../../app/globals.css";
-import { CloudUploadIcon } from "hugeicons-react";
+import { CloudUploadIcon, Delete02Icon } from "hugeicons-react";
 import { useDropzone } from "react-dropzone";
 
 /**
@@ -64,11 +64,13 @@ const ImageDialogComponenet = () => {
     <div>
       <Button className="flex flex-col gap-1.5" onClick={handleClickOpen}>
         {image ? (
-          <img
-            src={image}
-            alt="Uploaded"
-            className="w-[62px] h-[62px] rounded-full object-cover"
-          />
+          <>
+            <img
+              src={image}
+              alt="Uploaded"
+              className="w-[62px] h-[62px] border-[2px] border-solid border-[var(--border)] rounded-full object-cover"
+            />
+          </>
         ) : (
           <>
             <div className="flex items-center justify-center relative w-[62px] h-[62px] bg-[var(--secondary-text-color)] rounded-full stroke-[0.365px] border border-[var(--border)] p-[1.094rem]">
@@ -84,6 +86,22 @@ const ImageDialogComponenet = () => {
           </>
         )}
       </Button>
+      {/* -------- change and delete image -------- */}
+      {image && (
+        <div className="flex items-center cursor-pointer">
+          <Typography
+            className="text-[var(--secondary)] text-xs font-bold underline"
+            sx={{ textTransform: "none"!, fontFamily: "Open Sans" }}
+            onClick={handleClickOpen}
+          >
+            Change Image
+          </Typography>
+          <Delete02Icon
+            className="text-[var(--danger)] w-6 h-6"
+            onClick={() => setImage(null)}
+          />
+        </div>
+      )}
 
       {/* -------- popup dialog -------- */}
       <Dialog

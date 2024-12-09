@@ -44,7 +44,7 @@ export default function StudentProfile() {
   const isBelow760 = windowWidth < 760;
   return (
     <>
-    
+
 
       <div className={classNames("md:left-[20rem] flex flex-col gap-[31px] absolute top-[6rem] left-0 md:px-0 px-5 overflow-x-hidden", {
             "w-[100%]": isBelow760,
@@ -181,7 +181,7 @@ export default function StudentProfile() {
               </section>
             </div>
             </div>
-            
+
            <div className="flex items-center flex-col lg:flex-row gap-x-6 gap-y-6 justify-between w-full">
              {/* Parent Information */}
              <div className="bg-[#FFFFFF] w-full lg:w-[450px] h-auto lg:h-[400px] rounded-[15px] border border-[var(--border)] px-[15px] py-[16px] flex flex-col gap-[24px]">
@@ -263,7 +263,7 @@ export default function StudentProfile() {
             </div>
            </div>
         </section>
-        
+
         <div className="xl:block hidden">
         <StudentRegisterDetails/>
         </div>
