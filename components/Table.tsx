@@ -28,43 +28,42 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-// Generic type for rows
 export interface Column<T> {
   title: string;
   field: keyof T;
-  render?: (row: T) => React.ReactNode; // Custom render function for a column
+  render?: (row: T) => React.ReactNode;
 }
 
 export interface GenericTableProps<T> {
   rows: T[];
   columns: Column<T>[];
   rowsPerPage?: number;
-  headColor : string;
+  headColor: string;
 }
 
-// Generic Table Component
 const GenericTable = <T,>({
   rows,
   columns,
   rowsPerPage = 5,
-  headColor = '#002F49'
+  headColor = '#002F49',
 }: GenericTableProps<T>) => {
   const [page, setPage] = useState(0);
 
   const handleChangePage = (newPage: number) => {
     setPage(newPage);
   };
+
   const StyledHeadCell = styled(StyledTableCell)(({ theme }) => ({
     backgroundColor: headColor,
     fontWeight: 'bold',
     color: theme.palette.common.white,
   }));
+
   const totalPages = Math.ceil(rows.length / rowsPerPage);
 
   return (
     <TableContainer component={Paper}>
       <Table>
-        {/* Table Head */}
         <TableHead>
           <TableRow>
             {columns.map((col) => (
@@ -72,21 +71,17 @@ const GenericTable = <T,>({
             ))}
           </TableRow>
         </TableHead>
-
-        {/* Table Body */}
         <TableBody>
           {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, rowIndex) => (
             <StyledTableRow key={rowIndex}>
               {columns.map((col) => (
                 <StyledTableCell key={col.field.toString()}>
-                  {col.render ? col.render(row) : row[col.field]}
+                  {col.render ? col.render(row) : (row[col.field] as React.ReactNode) || ''}
                 </StyledTableCell>
               ))}
             </StyledTableRow>
           ))}
         </TableBody>
-
-        {/* Table Footer */}
         <TableFooter>
           <TableRow>
             <TableCell colSpan={columns.length}>
