@@ -100,10 +100,6 @@ const Student = () => {
   const { isSubmitted, isValid, errors } = methods.formState;
   const allFieldsFilled = isValid && Object.keys(errors).length === 0;
 
-  useEffect(() => {
-    console.log("Initial Field Values:", methods.getValues());
-  }, []); // Runs when the component first renders
-
   console.log(`Errors`, methods.formState.errors)
   console.log(activeStep);
 
@@ -196,7 +192,7 @@ const Student = () => {
                 size={"small"}
                 state={'previous'}
                 onClick={handlePrevious}
-                icon={ArrowLeft01Icon}
+                icon={<ArrowLeft01Icon/>}
                 iconPosition="left"
                 className="w-[8.125rem]"
               />
@@ -207,7 +203,7 @@ const Student = () => {
                 size={"small"}
                 state={'active'}
                 onClick={handleNext}
-                icon={ArrowRight01Icon}
+                icon={<ArrowRight01Icon/>}
                 iconPosition="right"
                 className="w-[8.125rem]"
               />
