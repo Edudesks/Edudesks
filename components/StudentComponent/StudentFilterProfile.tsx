@@ -196,14 +196,14 @@ export default function StudentFilterProfile() {
           className="w-[202px] h-[50px] p-[12px] hidden xl:flex items-center"
           size="large"
           state="active"
-          icon={BsPersonPlus}
+          icon={<BsPersonPlus/>}
         />
         <GeneralButton
           buttonText=""
           className="w-auto h-[50px] p-[12px] xl:hidden block rounded-[6px]"
           size="large"
           state="active"
-          icon={BsPersonPlus}
+          icon={<BsPersonPlus/>}
         />
       </div>
     </div>
