@@ -1,4 +1,4 @@
-import React, { ElementType, useState } from "react";
+import React, { useState } from "react";
 import "../app/globals.css";
 
 interface GeneralButtonProps {
@@ -6,7 +6,7 @@ interface GeneralButtonProps {
   className?: string;
   size: "small" | "medium" | "large";
   state: "active" | "inactive" | "disabled" | "clicked" | "hover" | "previous";
-  icon?: ElementType | null;
+  icon?: React.ReactNode;
   iconPosition?: "left" | "right";
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
@@ -37,7 +37,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
   className,
   size,
   state: initialState,
-  icon: Icon,
+  icon,
   iconPosition,
   onClick,
   type
@@ -138,7 +138,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
       onClick={handleClick}
       type={type}
     >
-      {Icon && <Icon size={24} />}
+      {icon && <span>{icon}</span>}
       {buttonText}
     </button>
   );

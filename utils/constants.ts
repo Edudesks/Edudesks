@@ -18,7 +18,8 @@ const NON_MAIN_LAYOUT_LINKS = [
     '/privacy-policy',
     '/reset-password',
     '/terms-of-service',
-    '/verification'
+    '/verification',
+    '/page-not-found',
 ]
 
 export {API_ROOT_URL, NON_MAIN_LAYOUT_LINKS }

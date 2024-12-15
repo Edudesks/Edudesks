@@ -197,7 +197,7 @@ const Student = () => {
                 size={"small"}
                 state={activeStep > 0 ? "previous" : "disabled"}
                 onClick={handlePrevious}
-                icon={ArrowLeft01Icon}
+                icon={<ArrowLeft01Icon/>}
                 iconPosition="left"
                 className="w-[8.125rem]"
               />
@@ -209,7 +209,7 @@ const Student = () => {
                 size={"small"}
                 state={'active'}
                 onClick={handleNext}
-                icon={ArrowRight01Icon}
+                icon={<ArrowRight01Icon/>}
                 iconPosition="right"
                 className="w-[8.125rem]"
               />

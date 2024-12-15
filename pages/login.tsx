@@ -59,10 +59,10 @@ const Login: React.FC = () => {
       const response = await dispatch(signIn(data));
 
       if (response.type === "auth/signin/fulfilled") {
-        alert(response.payload);
+        // alert(response.payload);
         router.push("/Edudesk");
       } else {
-        alert("Can't login: Something went wrong. But we can login for now")
+        // alert("Can't login: Something went wrong. But we can login for now")
       router.push("/Edudesk")
       }
 

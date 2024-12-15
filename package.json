@@ -29,6 +29,7 @@
     "hugeicons-react": "^0.3.0",
     "next": "13.5.1",
     "postcss": "8.4.30",
+    "rc-slider": "^11.1.7",
     "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
