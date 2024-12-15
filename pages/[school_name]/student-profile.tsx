@@ -3,6 +3,8 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 import StudentRegisterDetails from "@/components/StudentComponent/StudentRegisterDetails";
+import { useRouter } from "next/router";
+
 const Card = ({
   iconSrc,
   title,
@@ -29,6 +31,7 @@ const Card = ({
 
 export default function StudentProfile() {
   const [windowWidth, setWindowWidth] = useState<number>(0);
+  const router = useRouter();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -57,7 +60,7 @@ export default function StudentProfile() {
             "no-wrap": !isBelow1041,
           })}>
           <div className="">
-          <button className="flex items-center gap-[8px] sm:w-[169px] w-[6rem] rounded-[22px] bg-none sm:bg-[var(--primary)] justify-center h-[42px] text-[16px] text-[var(--primary-text-color)] sm:text-[var(--secondary-text-color)] font-[700]">
+          <button onClick={() => router.push('/Edudesk/student')} className="flex items-center gap-[8px] sm:w-[169px] w-[6rem] rounded-[22px] bg-none sm:bg-[var(--primary)] justify-center h-[42px] text-[16px] text-[var(--primary-text-color)] sm:text-[var(--secondary-text-color)] font-[700]">
             <ArrowLeft01Icon size={18} />
             Back
           </button>

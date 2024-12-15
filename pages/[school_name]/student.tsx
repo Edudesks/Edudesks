@@ -216,7 +216,7 @@ const Student = () => {
             )}
           </div>
         </div>
-        {/* Notification */}
+        {/* -------- notification -------- */}
         <Notification
           open={notification.open}
           message={notification.message}
