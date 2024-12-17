@@ -17,6 +17,9 @@ const config: Config = {
         'custom-lg': '0px 0px 12px 0px rgba(0, 0, 0, 0.10)', // Custom shadow
         'form-shadow': '0px 1px 2px 0px rgba(16, 24, 40, 0.03)',
       },
+      fontFamily: {
+        "Open-Sans": ["Open Sans", "sans-serif"],
+      }
     }
   },
   plugins: [],
