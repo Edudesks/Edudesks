@@ -2,29 +2,18 @@ import DashboardTable from '@/components/DashboardComponent/DashboardTable';
 import BalanceCard from '@/components/DashboardComponent/BalancedCard';
 import RevenueAnalytics from '@/components/DashboardComponent/RevenueAnalysis';
 import CircularChart from '@/components/DashboardComponent/CircularChart';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import styles from '@/styles/Dashboard.module.css';
 import MobileTable from '@/components/DashboardComponent/TransactionHistory';
+import { useAppDispatch } from '@/store/hooks';
+import { setActivePage } from '@/store/slices/sidebarSlice';
 
 
 const Dashboard = () => {
-
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [transaction, setTransaction] = useState({
-    reference: '1234567890984789',
-    status: 'Success',
-    date: 'October 11, 2024 12:20 PM',
-    amount: '100,000',
-    method: 'Transfer',
-    accountCredited: '060603826',
-    sender: 'Anita International College',
-    remark: 'Maintenance',
-    recipientName: 'Adesanya Oluwatumininu',
-    recipientAccount: '1029302899',
-    recipientBank: 'Wema Bank'
-  });
-
-  
+  const dispatch = useAppDispatch();
+  useEffect(()=>{
+    dispatch(setActivePage("dashboard")); 
+  })
   return (
         <>
         <div className="flex flex-wrap justify-between gap-1 px-6 mt-4">

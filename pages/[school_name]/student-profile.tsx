@@ -3,6 +3,8 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 import StudentRegisterDetails from "@/components/StudentComponent/StudentRegisterDetails";
+import { useAppDispatch } from "@/store/hooks";
+import { setActivePage } from "@/store/slices/sidebarSlice";
 const Card = ({
   iconSrc,
   title,
@@ -42,6 +44,10 @@ export default function StudentProfile() {
   const isBelow1220 = windowWidth < 1227;
   const isBelow1041 = windowWidth < 1041;
   const isBelow760 = windowWidth < 760;
+  const dispatch = useAppDispatch();
+      useEffect(()=>{
+        dispatch(setActivePage("student")); 
+      })
   return (
     <>
     

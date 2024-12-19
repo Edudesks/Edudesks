@@ -3,25 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "@/styles/Sidebar.module.css";
+import { Section } from "@/types";
 
-type Section =
-  | "dashboard"
-  | "student"
-  | "add-student"
-  | "view-student"
-  | "class"
-  | "employees"
-  | "add-employee"
-  | "view-employees"
-  | "wallet"
-  | "remit-payment"
-  | "salary"
-  | "income"
-  | "monthly-income"
-  | "annual-income"
-  | "expenses"
-  | "analytics"
-  | "settings";
 
 interface SidebarProp {
   activeSection: string;
@@ -36,9 +19,10 @@ const Sidebar: React.FC<SidebarProp> = ({
 }) => {
   const router = useRouter();
   const { school_name } = router.query; // Extract school_name from the URL
-
+  console.log(activeSection)
   const [isEmployeeOpen, setIsEmployeeOpen] = useState<boolean>(false);
   const [isStudentOpen, setIsStudentOpen] = useState<boolean>(false);
+  const [isClassOpen, setIsClassOpen] = useState<boolean>(false);
   const [isIncomeOpen, setIsIncomeOpen] = useState<boolean>(false);
 
   const menuItemClasses = (section: Section): string =>
@@ -139,16 +123,62 @@ const Sidebar: React.FC<SidebarProp> = ({
             </div>
           )}
         </div>
-
-        {/* <Link href={`/${school_name}/student`} className={menuItemClasses("student")}>
-          <Image src="/icons/student-icon.svg" alt="Student" width={20} height={20} className={styles.icon} />
-          Student
-        </Link>
-
-        <Link href={`/${school_name}/class`} className={menuItemClasses("class")}>
-          <Image src="/icons/class-icon.svg" alt="Class" width={20} height={20} className={styles.icon} />
-          Class
-        </Link> */}
+        <div className="flex flex-col">
+          <button
+            onClick={() => setIsClassOpen(!isClassOpen)}
+            className={`${styles.dropdownButton} ${
+              activeSection === "class" ? styles.dropdownButtonActive : ""
+            } ${styles.dropdownButtonHover}`}
+          >
+            <div>
+              <Image
+                src="/icons/class-icon.svg"
+                alt="Class"
+                width={20}
+                height={20}
+                className={styles.icon}
+              />
+              Class
+            </div>
+            <span>
+              {isClassOpen ? (
+                <Image
+                  src="/icons/arrow-up-dark.svg"
+                  alt="arrow up"
+                  width={10}
+                  height={10}
+                />
+              ) : (
+                <Image
+                  src="/icons/arrow-down-light.svg"
+                  alt="arrow down"
+                  width={10}
+                  height={10}
+                />
+              )}
+            </span>
+          </button>
+          {isClassOpen && (
+            <div className={styles.dropdownContent}>
+              <Link
+                href={`/${school_name}/add-class`}
+                className={`${styles.dropdownContentText} ${menuItemClasses(
+                  "add-class"
+                )}`}
+              >
+                Add Class
+              </Link>
+              <Link
+                href={`/${school_name}/view-class`}
+                className={`${styles.dropdownContentText} ${menuItemClasses(
+                  "view-class"
+                )}`}
+              >
+                View Class
+              </Link>
+            </div>
+          )}
+        </div>
 
         {/* Employees Dropdown */}
         <div className="flex flex-col">

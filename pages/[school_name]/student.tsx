@@ -17,6 +17,8 @@ import { personalInformationSchema, contactInformationSchema, parentInformationS
 import { FormProvider, set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Notification from "@/components/StudentComponent/NotificationComponent";
+import { useAppDispatch } from "@/store/hooks";
+import { setActivePage } from "@/store/slices/sidebarSlice";
 
 /**
  *
@@ -144,6 +146,10 @@ const Student = () => {
   const onSubmit = (data: FormData) => {
     console.log("Final form data:", data);
   };
+  const dispatch = useAppDispatch();
+    useEffect(()=>{
+      dispatch(setActivePage("student")); 
+    })
   return (
     <FormProvider {...methods}>
       <div className="w-full flex flex-col items-center lg:pl-[6.4375rem] lg:pr-[5.8125rem] lg:pt-[2.8125rem]">

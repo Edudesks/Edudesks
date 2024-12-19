@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from '@/styles/Class.module.css';
 import withProtectedRoute from '@/hoc/ProtectedRoute';
 
@@ -6,6 +6,8 @@ import ClassExtraStats from '@/components/ClassComponent/ClassExtraStats';
 import StatusButton from '@/components/DashboardComponent/StatusButton';
 import GenericTable, { Column } from '@/components/Table';
 import Link from 'next/link';
+import { useAppDispatch } from '@/store/hooks';
+import { setActivePage } from '@/store/slices/sidebarSlice';
 
 interface Student {
   studentName: string;
@@ -134,11 +136,17 @@ const ClassTable = () => {
 
 
 
-const ViewClass = () => (
+const ViewClass = () => {
+  const dispatch = useAppDispatch();
+    useEffect(()=>{
+      dispatch(setActivePage("class")); 
+    })
+  return (
+  
     <div className={styles.container}>
     <ClassExtraStats />
         <ClassTable/>
     </div>
-);
+)};
 
 export default ViewClass

@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { CircularProgress } from '@mui/material'; // Import CircularProgress from Material UI
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { fetchSchoolName, selectSchoolName, selectSchoolStatus } from '@/store/slices/schoolSlice';
+import { activePage } from '@/store/slices/sidebarSlice';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState<boolean>(false);
@@ -15,6 +16,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   const schoolName = useAppSelector(selectSchoolName);
   const status = useAppSelector(selectSchoolStatus);
+  const active = useAppSelector(activePage);
 
   useEffect(() => {
     if (school_name && school_name === 'Edudesk') {
@@ -32,7 +34,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     return (
       <div className="flex bg-[var(--secondary-text-color)]">
         <Sidebar 
-          activeSection={router.pathname.split("/")[1]} 
+          activeSection={active.active} 
           isMobileSidebarOpen={isMobileSidebarOpen} 
           setIsMobileSidebarOpen={setIsMobileSidebarOpen} 
         />
@@ -49,7 +51,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   else {return (
     <div className="flex bg-[var(--secondary-text-color)]">
       <Sidebar 
-        activeSection={router.pathname.split("/")[1]} 
+        activeSection={active.active} 
         isMobileSidebarOpen={isMobileSidebarOpen} 
         setIsMobileSidebarOpen={setIsMobileSidebarOpen} 
       />
