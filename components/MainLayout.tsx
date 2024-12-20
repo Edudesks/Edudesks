@@ -18,17 +18,17 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const status = useAppSelector(selectSchoolStatus);
   const active = useAppSelector(activePage);
 
-  useEffect(() => {
-    if (school_name && school_name === 'Edudesk') {
-      dispatch(fetchSchoolName('Edudesk'));
-    } else if (school_name && school_name !== 'Edudesk') {
-      dispatch(fetchSchoolName('Not Found'));
-    }
-  }, [school_name, dispatch]);
+  // useEffect(() => {
+  //   if (school_name && school_name === 'Edudesk') {
+  //     dispatch(fetchSchoolName('Edudesk'));
+  //   } else if (school_name && school_name !== 'Edudesk') {
+  //     dispatch(fetchSchoolName('Not Found'));
+  //   }
+  // }, [school_name, dispatch]);
 
-  if (schoolName === 'Not Found') {
-    return <p>School not found</p>;
-  }
+  // if (schoolName === 'Not Found') {
+  //   return <p>School not found</p>;
+  // }
 
   if (status === 'loading') {
     return (

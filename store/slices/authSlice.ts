@@ -87,13 +87,14 @@ export const signIn = createAsyncThunk(
       );
 
       // Assuming the token is in response.data.token
-      const { token } = response.data;
+      const { token, payload } = response.data;
       console.log(response.data)
 
       // Store the JWT token in localStorage
       localStorage.setItem('authToken', token);
-
-      return token; // Return token or any other required data
+      localStorage.setItem('schoolName', payload.school.schoolName);
+      
+      return payload; // Return token or any other required data
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response) {
