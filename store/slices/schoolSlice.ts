@@ -2,16 +2,21 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 // Async thunk to fetch school name
+
+
 export const fetchSchoolName = createAsyncThunk(
   'school/fetchSchoolName',
-  async (schoolName: string) => {
+  async () => {
     return new Promise<string>((resolve) => {
       setTimeout(() => {
-        // Check if the school name is "Edudesk"
-        if (schoolName === 'Edudesk') {
-          resolve('Edudesk');
+        // Retrieve the school name from localStorage
+        const storedSchoolName = localStorage.getItem('schoolName');
+
+        // Check if the school name matches the one in localStorage
+        if (storedSchoolName) {
+          resolve(storedSchoolName); // Match found
         } else {
-          resolve('Not Found'); // Simulate a "Not Found" result
+          resolve('Not Found'); // No match found
         }
       }, 1000); // Simulate a delay for fetching data
     });
@@ -31,7 +36,12 @@ const initialState: SchoolState = {
 const schoolSlice = createSlice({
   name: 'school',
   initialState,
-  reducers: {},
+  reducers: {
+    // Synchronous action to manually set the schoolName
+    setSchoolName: (state, action) => {
+      state.schoolName = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSchoolName.pending, (state) => {
@@ -48,6 +58,8 @@ const schoolSlice = createSlice({
 });
 
 // Selectors to access school name and status
+export const { setSchoolName } = schoolSlice.actions
+
 export const selectSchoolName = (state: RootState) => state.school.schoolName;
 export const selectSchoolStatus = (state: RootState) => state.school.status;
 

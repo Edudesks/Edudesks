@@ -17,29 +17,27 @@ import { useFormContext, UseFormReturn } from "react-hook-form";
 import { FormData } from "@/pages/[school_name]/student";
 import GenderField from "./GenderComponent";
 
-
 /**
  *
- * * Is there an error state for the forms?
  * TODO: parse input for age to number data type automatically
  */
 
 interface FormStepComponentProps {
   step: number;
   methods: UseFormReturn<FormData>;
+  onEditDetails?: () => void;
 }
 
 const FormStepComponent: React.FC<FormStepComponentProps> = ({
   step,
   methods,
+  onEditDetails,
 }) => {
   const {
     register,
     formState: { errors },
     getValues,
   } = useFormContext<FormData>();
-
-  console.log("Current Step Values:", getValues());
 
   const classes = [
     "Creche",
@@ -83,7 +81,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={UserIcon}
                 {...register("personalInformation.lastName")}
-                error={errors.personalInformation?.lastName?.message}
+                // error={errors.personalInformation?.lastName?.message}
               />
               {/* -------- other names -------- */}
               <InputField
@@ -94,7 +92,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 icon={UserIcon}
                 className={"py-2.5 px-9"}
                 {...register("personalInformation.otherNames")}
-                error={errors.personalInformation?.otherNames?.message}
+                // error={errors.personalInformation?.otherNames?.message}
               />
               {/* -------- date of birth -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
@@ -109,11 +107,11 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                     variant="form"
                     {...register("personalInformation.dateOfBirth")}
                   />
-                  {errors.personalInformation?.dateOfBirth?.message && (
+                  {/* {errors.personalInformation?.dateOfBirth?.message && (
                     <p className="self-start text-sm text-[var(--danger)] mt-1">
                       {errors.personalInformation?.dateOfBirth?.message}
                     </p>
-                  )}
+                  )} */}
                 </div>
               </div>
               {/* -------- age -------- */}
@@ -124,16 +122,16 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 className="p-2.5"
                 {...register("personalInformation.age")}
-                error={errors.personalInformation?.age?.message}
+                // error={errors.personalInformation?.age?.message}
               />
               {/* -------- gender -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
                 <GenderField />
-                {errors.personalInformation?.gender?.message && (
+                {/* {errors.personalInformation?.gender?.message && (
                   <p className="self-start text-sm text-[var(--danger)] mt-1">
                     {errors.personalInformation?.gender?.message}
                   </p>
-                )}
+                )} */}
               </div>
               {/* -------- admission date -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
@@ -147,11 +145,11 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                   variant="form"
                   {...register("personalInformation.admissionDate")}
                 />
-                {errors.personalInformation?.admissionDate?.message && (
+                {/* {errors.personalInformation?.admissionDate?.message && (
                   <p className="text-sm text-[var(--danger)] mt-1">
                     {errors.personalInformation?.admissionDate?.message}
                   </p>
-                )}
+                )} */}
               </div>
               {/* -------- student class -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
@@ -160,11 +158,11 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                   options={classes}
                   value={methods.watch("personalInformation.classes")}
                 />
-                {errors.personalInformation?.classes?.message && (
+                {/* {errors.personalInformation?.classes?.message && (
                   <p className="text-sm text-[var(--danger)] mt-1">
                     {errors.personalInformation?.classes?.message}
                   </p>
-                )}
+                )} */}
               </div>
             </div>
           </div>
@@ -191,7 +189,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={Location04Icon}
                 {...register("contactInformation.nationality")}
-                error={errors.contactInformation?.nationality?.message}
+                // error={errors.contactInformation?.nationality?.message}
               />
               {/* -------- state of origin -------- */}
               <InputField
@@ -202,7 +200,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={Location04Icon}
                 {...register("contactInformation.stateOfOrigin")}
-                error={errors.contactInformation?.stateOfOrigin?.message}
+                // error={errors.contactInformation?.stateOfOrigin?.message}
               />
               {/* -------- local government -------- */}
               <InputField
@@ -213,7 +211,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={Location04Icon}
                 {...register("contactInformation.localGovernment")}
-                error={errors.contactInformation?.localGovernment?.message}
+                // error={errors.contactInformation?.localGovernment?.message}
               />
               {/* -------- town -------- */}
               <InputField
@@ -224,7 +222,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={Location04Icon}
                 {...register("contactInformation.town")}
-                error={errors.contactInformation?.town?.message}
+                // error={errors.contactInformation?.town?.message}
               />
               {/* -------- home address -------- */}
               <InputField
@@ -236,7 +234,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={Location04Icon}
                 {...register("contactInformation.homeAddress")}
-                error={errors.contactInformation?.homeAddress?.message}
+                // error={errors.contactInformation?.homeAddress?.message}
               />
             </div>
           </div>
@@ -264,7 +262,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={UserIcon}
                 {...register("parentInformation.motherLastName")}
-                error={errors.parentInformation?.motherLastName?.message}
+                // error={errors.parentInformation?.motherLastName?.message}
               />
               {/* -------- student-mother-guardian-first-name -------- */}
               <InputField
@@ -275,7 +273,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={UserIcon}
                 {...register("parentInformation.motherFirstName")}
-                error={errors.parentInformation?.motherFirstName?.message}
+                // error={errors.parentInformation?.motherFirstName?.message}
               />
               {/* -------- student-mother-guardian-email-address -------- */}
               <InputField
@@ -286,7 +284,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"email"}
                 icon={Mail01Icon}
                 {...register("parentInformation.motherEmailAddress")}
-                error={errors.parentInformation?.motherEmailAddress?.message}
+                // error={errors.parentInformation?.motherEmailAddress?.message}
               />
               {/* -------- student-mother-guardian-phone-number -------- */}
               <InputField
@@ -297,7 +295,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={Call02Icon}
                 {...register("parentInformation.motherPhoneNumber")}
-                error={errors.parentInformation?.motherPhoneNumber?.message}
+                // error={errors.parentInformation?.motherPhoneNumber?.message}
               />
               {/* -------- student-mother-guardian-phone-number -------- */}
               <InputField
@@ -309,7 +307,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 icon={Location04Icon}
                 divClass="lg:col-span-2"
                 {...register("parentInformation.motherHomeAddress")}
-                error={errors.parentInformation?.motherHomeAddress?.message}
+                // error={errors.parentInformation?.motherHomeAddress?.message}
               />
 
               {/* -------- FATHER INFORMATION -------- */}
@@ -322,7 +320,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={UserIcon}
                 {...register("parentInformation.fatherLastName")}
-                error={errors.parentInformation?.fatherLastName?.message}
+                // error={errors.parentInformation?.fatherLastName?.message}
               />
               {/* -------- student-father-guardian-first-name -------- */}
               <InputField
@@ -333,7 +331,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={UserIcon}
                 {...register("parentInformation.fatherFirstName")}
-                error={errors.parentInformation?.fatherFirstName?.message}
+                // error={errors.parentInformation?.fatherFirstName?.message}
               />
               {/* -------- student-father-guardian-email-address -------- */}
               <InputField
@@ -344,7 +342,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"email"}
                 icon={Mail01Icon}
                 {...register("parentInformation.fatherEmailAddress")}
-                error={errors.parentInformation?.fatherEmailAddress?.message}
+                // error={errors.parentInformation?.fatherEmailAddress?.message}
               />
               {/* -------- student-father-guardian-phone-number -------- */}
               <InputField
@@ -355,7 +353,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={Call02Icon}
                 {...register("parentInformation.fatherPhoneNumber")}
-                error={errors.parentInformation?.fatherPhoneNumber?.message}
+                // error={errors.parentInformation?.fatherPhoneNumber?.message}
               />
               {/* -------- student-father-guardian-phone-number -------- */}
               <InputField
@@ -367,7 +365,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 icon={Location04Icon}
                 divClass="lg:col-span-2"
                 {...register("parentInformation.fatherHomeAddress")}
-                error={errors.parentInformation?.fatherHomeAddress?.message}
+                // error={errors.parentInformation?.fatherHomeAddress?.message}
               />
             </div>
           </div>
@@ -394,7 +392,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={HealthIcon}
                 {...register("healthInformation.currentMedication")}
-                error={errors.healthInformation?.currentMedication?.message}
+                // error={errors.healthInformation?.currentMedication?.message}
               />
               {/* -------- health condition -------- */}
               <InputField
@@ -405,7 +403,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 icon={HealthIcon}
                 type={"text"}
                 {...register("healthInformation.healthCondition")}
-                error={errors.healthInformation?.healthCondition?.message}
+                // error={errors.healthInformation?.healthCondition?.message}
               />
 
               {/* -------- genotype -------- */}
@@ -417,7 +415,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 icon={HealthIcon}
                 type={"text"}
                 {...register("healthInformation.genotype")}
-                error={errors.healthInformation?.genotype?.message}
+                // error={errors.healthInformation?.genotype?.message}
               />
 
               {/* -------- blood group -------- */}
@@ -429,7 +427,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={HealthIcon}
                 {...register("healthInformation.bloodGroup")}
-                error={errors.healthInformation?.bloodGroup?.message}
+                // error={errors.healthInformation?.bloodGroup?.message}
               />
 
               {/* -------- allergies -------- */}
@@ -441,7 +439,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={HealthIcon}
                 {...register("healthInformation.allergies")}
-                error={errors.healthInformation?.allergies?.message}
+                // error={errors.healthInformation?.allergies?.message}
               />
               {/* -------- disabilities -------- */}
               <InputField
@@ -452,7 +450,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={HealthIcon}
                 {...register("healthInformation.disabilities")}
-                error={errors.healthInformation?.disabilities?.message}
+                // error={errors.healthInformation?.disabilities?.message}
               />
             </div>
           </div>
@@ -523,6 +521,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 state={"previous"}
                 size={"large"}
                 className="w-full lg:w-60"
+                onClick={onEditDetails}
               />
               <GeneralButton
                 buttonText="Submit"

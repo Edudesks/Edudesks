@@ -271,7 +271,7 @@ export default function StudentTable() {
       linkIt: <Link href="#" className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
   ];
-  const [tableValues, setTableValues] = useState<any[]>([]); // Initial data
+  const [tableValues, setTableValues] = useState<any[]>([]); 
 
   const reshuffleData = () => {
     setTableValues((prev) => [...prev].sort(() => Math.random() - 0.5)); 

@@ -12,43 +12,45 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const { school_name } = router.query;
-
+  
   const schoolName = useAppSelector(selectSchoolName);
   const status = useAppSelector(selectSchoolStatus);
   const active = useAppSelector(activePage);
-
-  useEffect(() => {
-    if (school_name && school_name === 'Edudesk') {
-      dispatch(fetchSchoolName(school_name));
-    } else if (school_name && school_name !== 'Edudesk') {
-      dispatch(fetchSchoolName('Not Found'));
-    }
-  }, [school_name, dispatch]);
+  
+  // useEffect(() => {
+  //   const { school_name } = router.query;
+  //   const name = localStorage.getItem('schoolName');
+  //   console.log(name, school_name)
+  //   if (school_name === name ) {
+  //     dispatch(fetchSchoolName());
+  //   } else {
+  //     router.push('404')
+  //   }
+  // }, [dispatch, router]);
 
   // if (schoolName === 'Not Found') {
   //   return <p>School not found</p>;
   // }
 
-  if (status === 'loading') {
-    return (
-      <div className="flex bg-[var(--secondary-text-color)]">
-        <Sidebar 
-          activeSection={active.active} 
-          isMobileSidebarOpen={isMobileSidebarOpen} 
-          setIsMobileSidebarOpen={setIsMobileSidebarOpen} 
-        />
-        <div className="h-screen flex-1 overflow-y-scroll overflow-x-hidden">
-          <Navbar setIsMobileSidebarOpen={setIsMobileSidebarOpen} />
-          <div className="flex justify-center items-center w-full h-full"> {/* Center the loader */}
-            <CircularProgress color="primary" /> 
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // if (status === 'loading') {
+  //   return (
+  //     <div className="flex bg-[var(--secondary-text-color)]">
+  //       <Sidebar 
+  //         activeSection={active.active} 
+  //         isMobileSidebarOpen={isMobileSidebarOpen} 
+  //         setIsMobileSidebarOpen={setIsMobileSidebarOpen} 
+  //       />
+  //       <div className="h-screen flex-1 overflow-y-scroll overflow-x-hidden">
+  //         <Navbar setIsMobileSidebarOpen={setIsMobileSidebarOpen} />
+  //         <div className="flex justify-center items-center w-full h-full"> {/* Center the loader */}
+  //           <CircularProgress color="primary" /> 
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
-  else {return (
+  return (
     <div className="flex bg-[var(--secondary-text-color)]">
       <Sidebar 
         activeSection={active.active} 
@@ -60,7 +62,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         {children}
       </div>
     </div>
-  );}
+  )
 };
 
 export default MainLayout;

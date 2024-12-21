@@ -3,8 +3,11 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 import StudentRegisterDetails from "@/components/StudentComponent/StudentRegisterDetails";
+import { useRouter } from "next/router";
+
 import { useAppDispatch } from "@/store/hooks";
 import { setActivePage } from "@/store/slices/sidebarSlice";
+
 const Card = ({
   iconSrc,
   title,
@@ -31,6 +34,7 @@ const Card = ({
 
 export default function StudentProfile() {
   const [windowWidth, setWindowWidth] = useState<number>(0);
+  const router = useRouter();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -50,7 +54,7 @@ export default function StudentProfile() {
       })
   return (
     <>
-    
+
 
       <div className={classNames("md:left-[20rem] flex flex-col gap-[31px] absolute top-[6rem] left-0 md:px-0 px-5 overflow-x-hidden", {
             "w-[100%]": isBelow760,
@@ -63,7 +67,7 @@ export default function StudentProfile() {
             "no-wrap": !isBelow1041,
           })}>
           <div className="">
-          <button className="flex items-center gap-[8px] sm:w-[169px] w-[6rem] rounded-[22px] bg-none sm:bg-[var(--primary)] justify-center h-[42px] text-[16px] text-[var(--primary-text-color)] sm:text-[var(--secondary-text-color)] font-[700]">
+          <button onClick={() => router.push('/Edudesk/student')} className="flex items-center gap-[8px] sm:w-[169px] w-[6rem] rounded-[22px] bg-none sm:bg-[var(--primary)] justify-center h-[42px] text-[16px] text-[var(--primary-text-color)] sm:text-[var(--secondary-text-color)] font-[700]">
             <ArrowLeft01Icon size={18} />
             Back
           </button>
@@ -187,7 +191,7 @@ export default function StudentProfile() {
               </section>
             </div>
             </div>
-            
+
            <div className="flex items-center flex-col lg:flex-row gap-x-6 gap-y-6 justify-between w-full">
              {/* Parent Information */}
              <div className="bg-[#FFFFFF] w-full lg:w-[450px] h-auto lg:h-[400px] rounded-[15px] border border-[var(--border)] px-[15px] py-[16px] flex flex-col gap-[24px]">
@@ -269,7 +273,7 @@ export default function StudentProfile() {
             </div>
            </div>
         </section>
-        
+
         <div className="xl:block hidden">
         <StudentRegisterDetails/>
         </div>
