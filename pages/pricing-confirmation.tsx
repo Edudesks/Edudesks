@@ -1,6 +1,6 @@
 import Footer from "@/components/LandingPageComponents/Footer";
 import Navbar from "@/components/LandingPageComponents/NavBar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../app/globals.css";
 import { openSans } from "@/app/fonts/fonts";
 import { CheckmarkCircle04Icon, ArrowRight02Icon } from "hugeicons-react";
@@ -18,8 +18,13 @@ const PricingConfirmation = () => {
   const router = Router;
   const isSmallScreen = useMediaQuery("(min-width: 385px)"); // sm breakpoint
   const isLargeScreen = useMediaQuery("(min-width: 1024px)"); // lg breakpoint
-
+  const [schoolName, setSchoolName] = useState("")
   const iconSize = isLargeScreen ? 113 : isSmallScreen ? 71.368 : 90;
+
+  useEffect(()=> {
+    const school = localStorage.getItem("schoolName") || '/login'
+    setSchoolName(school)
+  },[])
 
   return (
     <>
@@ -76,7 +81,7 @@ const PricingConfirmation = () => {
           </div>
           {/* -------- buttons -------- */}
           <div className="flex flex-col items-center justify-center lg:flex-row gap-[1.32rem] lg:gap-[2.375rem] w-full mt-[3.5625rem] lg:mt-16">
-            <Link href="/Edudesk"
+            <Link href={schoolName}
               className={`flex items-center justify-center gap-2.5 bg-[var(--primary)]
               px-2.5 py-4 rounded-[33px] leading-5 text-[var(--secondary-text-color)] w-full max-w-[25.25rem]`}
               type="button"

@@ -3,6 +3,8 @@ import StudentTable from "@/components/StudentComponent/StudentTable";
 import StudentTableMedia from "@/components/StudentComponent/StudentTableMedia";
 import { inter, openSans } from "@/app/fonts/fonts";
 import { useState, useEffect } from "react";
+import { setActivePage } from "@/store/slices/sidebarSlice";
+import { useAppDispatch } from "@/store/hooks";
 export default function StudentList (){
     const [windowWidth, setWindowWidth] = useState<number>(0);
 
@@ -14,6 +16,10 @@ export default function StudentList (){
           return () => window.removeEventListener("resize", updateWindowWidth);
         }
       }, []);
+      const dispatch = useAppDispatch();
+          useEffect(()=>{
+            dispatch(setActivePage("student")); 
+          })
       const isBelow1184 = windowWidth <= 1184;
       const isAbove1184 = windowWidth > 1184;
     return(

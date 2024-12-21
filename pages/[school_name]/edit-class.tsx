@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styles from '@/styles/ClassForm.module.css';
 import ClassForm from '@/components/ClassComponent/ClassForm';
+import { useAppDispatch } from '@/store/hooks';
+import { setActivePage } from '@/store/slices/sidebarSlice';
 
 
 const EditClass = () => {
- 
+ const dispatch = useAppDispatch();
+   useEffect(()=>{
+     dispatch(setActivePage("class")); 
+   })
   return (
     <div className={styles.pageContainer}>
     <ClassForm 
