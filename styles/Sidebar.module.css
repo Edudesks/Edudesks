@@ -83,13 +83,13 @@
   }
   
   .dropdownContent {
-    margin-left: 2.2rem;
     margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
   }
   .dropdownContentText {
+    padding-left: 2.87rem;
     font-size: 15px;
     color: #ebebeb;
   }

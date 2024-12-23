@@ -12,6 +12,7 @@ type Section =
   | "view-student"
   | "class"
   | "view-class"
+  | "edit-class"
   | "add-class"
   | "employees"
   | "add-employee"

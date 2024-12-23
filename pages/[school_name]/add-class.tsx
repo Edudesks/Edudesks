@@ -9,7 +9,7 @@ const AddClass = () => {
   const router = useRouter()
   const dispatch = useAppDispatch();
   useEffect(()=>{
-    dispatch(setActivePage("class")); 
+    dispatch(setActivePage({active:"add-class", parentNav: "class"})); 
   })
   return (
     <div className={styles.pageContainer}>

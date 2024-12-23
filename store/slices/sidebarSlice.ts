@@ -4,17 +4,20 @@ import { Section } from "@/types";
 
 interface ActiveState {
     active: Section
+    parentNav: string
 }
 const initialState: ActiveState = {
-    active: 'dashboard'
+    active: 'dashboard',
+    parentNav: '',
 }
 
 const sidebarSlice = createSlice({
   name: "sidebar",
   initialState,
   reducers: {
-    setActivePage: (state, action: PayloadAction<Section>) => {
-      state.active = action.payload; // Return the new state directly
+    setActivePage: (state, action: PayloadAction<ActiveState>) => {
+      state.active = action.payload.active; // Return the new state directly
+      state.parentNav = action.payload.parentNav; // Return the new state directly
     },
   },
 });

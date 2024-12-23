@@ -8,7 +8,8 @@ import { setActivePage } from '@/store/slices/sidebarSlice';
 const EditClass = () => {
  const dispatch = useAppDispatch();
    useEffect(()=>{
-     dispatch(setActivePage("class")); 
+    dispatch(setActivePage({active:"edit-class", parentNav: "class"}));
+     
    })
   return (
     <div className={styles.pageContainer}>

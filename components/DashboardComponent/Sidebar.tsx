@@ -8,11 +8,13 @@ import { Section } from "@/types";
 
 interface SidebarProp {
   activeSection: string;
+  activeParentNav: string;
   isMobileSidebarOpen: boolean;
   setIsMobileSidebarOpen: Function;
 }
 
 const Sidebar: React.FC<SidebarProp> = ({
+  activeParentNav,
   activeSection,
   isMobileSidebarOpen,
   setIsMobileSidebarOpen,
@@ -72,7 +74,7 @@ const Sidebar: React.FC<SidebarProp> = ({
             onClick={() => setIsStudentOpen(!isStudentOpen)}
             className={`${styles.dropdownButton} ${
               activeSection === "student" ? styles.dropdownButtonActive : ""
-            } ${styles.dropdownButtonHover}`}
+            } ${styles.dropdownButtonHover} ${ activeParentNav === "student" && !isStudentOpen ? styles.dropdownButtonActive : "" } `}
           >
             <div>
               <Image
@@ -123,12 +125,14 @@ const Sidebar: React.FC<SidebarProp> = ({
             </div>
           )}
         </div>
+
+        {/* Class Dropdown */}
         <div className="flex flex-col">
           <button
             onClick={() => setIsClassOpen(!isClassOpen)}
             className={`${styles.dropdownButton} ${
               activeSection === "class" ? styles.dropdownButtonActive : ""
-            } ${styles.dropdownButtonHover}`}
+            } ${styles.dropdownButtonHover} ${ activeParentNav === "class" && !isClassOpen ? styles.dropdownButtonActive : "" }`}
           >
             <div>
               <Image
@@ -179,6 +183,20 @@ const Sidebar: React.FC<SidebarProp> = ({
             </div>
           )}
         </div>
+
+        <Link
+          href={`/${school_name}/`}
+          className={menuItemClasses("dashboard")}
+        >
+          <Image
+            src="/icons/dashboard-icon.svg"
+            alt="Dashboard"
+            width={20}
+            height={20}
+            className={styles.icon}
+          />
+          Generate fees
+        </Link>
 
         {/* Employees Dropdown */}
         <div className="flex flex-col">
@@ -250,34 +268,6 @@ const Sidebar: React.FC<SidebarProp> = ({
             className={styles.icon}
           />
           Wallet
-        </Link>
-
-        <Link
-          href={`/${school_name}/remit-payment`}
-          className={menuItemClasses("remit-payment")}
-        >
-          <Image
-            src="/icons/remit-icon.svg"
-            alt="Remit Payment"
-            width={20}
-            height={20}
-            className={styles.icon}
-          />
-          Remit Payment
-        </Link>
-
-        <Link
-          href={`/${school_name}/salary`}
-          className={menuItemClasses("salary")}
-        >
-          <Image
-            src="/icons/salary-icon.svg"
-            alt="Salary"
-            width={20}
-            height={20}
-            className={styles.icon}
-          />
-          Salary
         </Link>
 
         {/* Income Dropdown */}
@@ -364,6 +354,20 @@ const Sidebar: React.FC<SidebarProp> = ({
             className={styles.icon}
           />
           Analytics
+        </Link>
+
+        <Link
+          href={`/${school_name}/remit-payment`}
+          className={menuItemClasses("remit-payment")}
+        >
+          <Image
+            src="/icons/remit-icon.svg"
+            alt="Remit Payment"
+            width={20}
+            height={20}
+            className={styles.icon}
+          />
+          Message
         </Link>
       </nav>
 

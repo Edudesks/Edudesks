@@ -13,7 +13,7 @@ import { setActivePage } from '@/store/slices/sidebarSlice';
 const ClassPage: React.FC = () => {
   const dispatch = useAppDispatch();
     useEffect(()=>{
-      dispatch(setActivePage("class")); 
+      dispatch(setActivePage({active:"class", parentNav: "class"}));
     })
   return (
     <div className={styles.container}>

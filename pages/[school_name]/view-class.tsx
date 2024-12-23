@@ -138,9 +138,10 @@ const ClassTable = () => {
 
 const ViewClass = () => {
   const dispatch = useAppDispatch();
-    useEffect(()=>{
-      dispatch(setActivePage("class")); 
-    })
+     useEffect(()=>{
+      dispatch(setActivePage({active:"view-class", parentNav: "class"}));
+       
+     })
   return (
   
     <div className={styles.container}>

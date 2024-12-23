@@ -54,6 +54,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="flex bg-[var(--secondary-text-color)]">
       <Sidebar 
         activeSection={active.active} 
+        activeParentNav={active.parentNav} 
         isMobileSidebarOpen={isMobileSidebarOpen} 
         setIsMobileSidebarOpen={setIsMobileSidebarOpen} 
       />
