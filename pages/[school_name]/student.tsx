@@ -61,8 +61,8 @@ const Student = () => {
   };
   const dispatch = useAppDispatch();
     useEffect(()=>{
-      dispatch(setActivePage("student")); 
-    })
+        dispatch(setActivePage({active:"student", parentNav: "student"})); 
+      })
   return (
     <>
       <StudentDialog

@@ -50,8 +50,8 @@ export default function StudentProfile() {
   const isBelow760 = windowWidth < 760;
   const dispatch = useAppDispatch();
       useEffect(()=>{
-        dispatch(setActivePage("student")); 
-      })
+          dispatch(setActivePage({active:"student-profile", parentNav: "student"})); 
+        })
   return (
     <>
 

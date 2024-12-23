@@ -16,6 +16,8 @@ import { FaSquareCheck} from "react-icons/fa6";
 import { inter, openSans } from "@/app/fonts/fonts";
 import { IoIosArrowBack, IoIosArrowRoundUp} from "react-icons/io";
 import { GrMoreVertical } from "react-icons/gr";
+import { setActivePage } from "@/store/slices/sidebarSlice";
+import { useAppDispatch } from "@/store/hooks";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       fontWeight: "500",
@@ -59,6 +61,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     verticalIcon: JSX.Element;
   }
   export default function StudentHistory (){
+          const dispatch = useAppDispatch();
+    
+    useEffect(()=>{
+              dispatch(setActivePage({active:"student-history", parentNav: "student"})); 
+            })
     const tableValue: TableValue[] = [
       // one
         { 

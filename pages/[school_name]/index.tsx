@@ -12,7 +12,7 @@ import { setActivePage } from '@/store/slices/sidebarSlice';
 const Dashboard = () => {
   const dispatch = useAppDispatch();
   useEffect(()=>{
-    dispatch(setActivePage("dashboard")); 
+    dispatch(setActivePage({active:"dashboard", parentNav: "dashboard"})); 
   })
   return (
         <>

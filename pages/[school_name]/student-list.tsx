@@ -17,9 +17,9 @@ export default function StudentList (){
         }
       }, []);
       const dispatch = useAppDispatch();
-          useEffect(()=>{
-            dispatch(setActivePage("student")); 
-          })
+      useEffect(()=>{
+        dispatch(setActivePage({active:"student-list", parentNav: "student"})); 
+      })
       const isBelow1184 = windowWidth <= 1184;
       const isAbove1184 = windowWidth > 1184;
     return(
