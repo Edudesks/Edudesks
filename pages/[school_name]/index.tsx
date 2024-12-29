@@ -7,6 +7,7 @@ import styles from '@/styles/Dashboard.module.css';
 import MobileTable from '@/components/DashboardComponent/TransactionHistory';
 import { useAppDispatch } from '@/store/hooks';
 import { setActivePage } from '@/store/slices/sidebarSlice';
+import withProtectedRoute from '@/hoc/ProtectedRoute';
 
 
 const Dashboard = () => {
@@ -86,6 +87,6 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default withProtectedRoute(Dashboard);
 
 

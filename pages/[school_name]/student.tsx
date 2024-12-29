@@ -22,6 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Notification from "@/components/StudentComponent/NotificationComponent";
 import { useAppDispatch } from "@/store/hooks";
 import { setActivePage } from "@/store/slices/sidebarSlice";
+import withProtectedRoute from "@/hoc/ProtectedRoute";
 
 /**
  *
@@ -78,4 +79,4 @@ const Student = () => {
   );
 };
 
-export default Student;
+export default withProtectedRoute(Student);

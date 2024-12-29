@@ -3,6 +3,7 @@ import styles from '@/styles/ClassForm.module.css';
 import ClassForm from '@/components/ClassComponent/ClassForm';
 import { useAppDispatch } from '@/store/hooks';
 import { setActivePage } from '@/store/slices/sidebarSlice';
+import withProtectedRoute from '@/hoc/ProtectedRoute';
 
 
 const EditClass = () => {
@@ -26,4 +27,4 @@ const EditClass = () => {
   );
 };
 
-export default EditClass;
+export default withProtectedRoute(EditClass);

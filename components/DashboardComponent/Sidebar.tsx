@@ -186,7 +186,7 @@ const Sidebar: React.FC<SidebarProp> = ({
 
         <Link
           href={`/${school_name}/`}
-          className={menuItemClasses("dashboard")}
+          className={menuItemClasses("generate")}
         >
           <Image
             src="/icons/dashboard-icon.svg"
