@@ -46,7 +46,6 @@ const Verification: React.FC = () => {
     const otpData = { email: email || "", otp: combinedOTP, isSignup: isSignupBoolean || false };
     const otpResponse = await dispatch(verifyOtp(otpData));
     if (otpResponse.type === "auth/verifyotp/fulfilled") {
-      console.log("OTP sent successfully:", otpResponse.payload);
       if (isSignupBoolean){
         router.push({
           pathname: "/otp-confirmation",

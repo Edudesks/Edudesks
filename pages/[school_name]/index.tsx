@@ -80,13 +80,13 @@ const Dashboard = () => {
           <DashboardTable />
         </div>
         <div className="px-6 mt-6">
-        <MobileTable/>
+          <MobileTable/>
         </div>
         </>
 
   );
 };
 
-export default withProtectedRoute(Dashboard);
+export default Dashboard;
 
 

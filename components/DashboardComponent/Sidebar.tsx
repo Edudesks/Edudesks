@@ -204,8 +204,9 @@ const Sidebar: React.FC<SidebarProp> = ({
             onClick={() => setIsEmployeeOpen(!isEmployeeOpen)}
             className={`${styles.dropdownButton} ${
               activeSection === "employees" ? styles.dropdownButtonActive : ""
-            } ${styles.dropdownButtonHover}`}
-          >
+            } ${styles.dropdownButtonHover} ${ activeParentNav === "employees" && !isEmployeeOpen ? styles.dropdownButtonActive : "" }`}
+            >
+
             <div>
               <Image
                 src="/icons/employees-icon.svg"
