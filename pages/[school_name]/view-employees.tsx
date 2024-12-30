@@ -173,4 +173,4 @@ const ViewEmployee = () => {
     </div>
 )};
 
-export default ViewEmployee;
+export default withProtectedRoute(ViewEmployee);
