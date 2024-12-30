@@ -1,0 +1,33 @@
+.employeeProfileContainer{
+    @apply rounded-[5px] border border-[var(--border)] p-2
+}
+.employeeProfileHeader{
+    @apply flex items-center justify-between
+}
+.employeeProfileHeader h2{
+    @apply text-[24px] font-medium text-[black]
+}
+.employeeProfileHeader .employeeProfilePen{
+    @apply w-[24px] h-[24px] hover:cursor-pointer
+}
+.EmployeeProfileDetails{
+    @apply py-4 flex flex-col gap-3
+}
+.EmployeeProfileDetails .EmployeeProfileDetails2{
+    @apply flex items-center gap-2 flex-wrap
+}
+.EmployeeProfileDetails2 .labelPart, .EmployeeProfileDetails2 label{
+    @apply text-[--grey]
+}
+.EmployeeProfileDetails2 input{
+    @apply bg-transparent border-[var(--grey)] border p-1 rounded-[.5rem]
+}
+.EmployeeProfileDetails2 a{
+    @apply underline text-[var(--primary)]
+}
+.employeeProfileSave{
+    @apply text-[var(--primary)] border-[var(--primary)] border rounded-[14px] hover:cursor-pointer px-[2rem] py-[.5rem]
+}
+.employeeProfileCancel{
+    @apply text-[white] bg-[var(--danger)] border-none rounded-[14px] hover:cursor-pointer px-[2rem] py-[.5rem];
+}
