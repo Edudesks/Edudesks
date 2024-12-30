@@ -186,7 +186,7 @@ const Sidebar: React.FC<SidebarProp> = ({
 
         <Link
           href={`/${school_name}/`}
-          className={menuItemClasses("dashboard")}
+          className={menuItemClasses("generate")}
         >
           <Image
             src="/icons/dashboard-icon.svg"
@@ -204,8 +204,9 @@ const Sidebar: React.FC<SidebarProp> = ({
             onClick={() => setIsEmployeeOpen(!isEmployeeOpen)}
             className={`${styles.dropdownButton} ${
               activeSection === "employees" ? styles.dropdownButtonActive : ""
-            } ${styles.dropdownButtonHover}`}
-          >
+            } ${styles.dropdownButtonHover} ${ activeParentNav === "employees" && !isEmployeeOpen ? styles.dropdownButtonActive : "" }`}
+            >
+
             <div>
               <Image
                 src="/icons/employees-icon.svg"

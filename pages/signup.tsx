@@ -18,7 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormData, SignUpSubmitFormData, signUpSchema } from "@/features/auth/signUpSchema";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "@/store/hooks";
-import { signUp, resetSignup } from "@/store/slices/authSlice";
+import { signUp, resetSignup, createOtp } from "@/store/slices/authSlice";
 import { FaRegCircle } from "react-icons/fa";
 /**
  *
@@ -51,19 +51,21 @@ const SignUp: React.FC = () => {
       const response = await dispatch(signUp(data));
 
       if (response.type === "auth/signup/fulfilled") {
-        alert(response.payload);
-        router.push("pricing-plan");
+        const otpResponse = await dispatch(createOtp(data.email));
+        if (otpResponse.type === "auth/createotp/fulfilled") {
+          router.push({
+            pathname: '/verification',
+            query: { email: data.email, isSignup: true },
+          });
+        } else {
+          console.error("Failed to send OTP");
+        }
       } else {
         alert(response.payload);
-        // router.push("pricing-plan");
       }
-
       setIsLoading(false);
     }, 2000);
   };
-
-
-  // show/hide password
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };

@@ -9,13 +9,15 @@ import React, { Suspense } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
+    const school_name = Array.isArray(router.query.school_name) 
+    ? router.query.school_name[0] 
+    : router.query.school_name;
     const useMainLayout = !NON_MAIN_LAYOUT_LINKS.includes(router.pathname);
 
-    
     return (
         <Provider store={store}>
             {useMainLayout ? (
-                <MainLayout>
+                <MainLayout schoolName={school_name}>
                     {/* Suspense wraps the lazy-loaded Component */}
                     <Suspense fallback={<p>Loading page...</p>}>
                         <Component {...pageProps} />

@@ -7,6 +7,7 @@ import styles from '@/styles/Dashboard.module.css';
 import MobileTable from '@/components/DashboardComponent/TransactionHistory';
 import { useAppDispatch } from '@/store/hooks';
 import { setActivePage } from '@/store/slices/sidebarSlice';
+import withProtectedRoute from '@/hoc/ProtectedRoute';
 
 
 const Dashboard = () => {
@@ -79,7 +80,7 @@ const Dashboard = () => {
           <DashboardTable />
         </div>
         <div className="px-6 mt-6">
-        <MobileTable/>
+          <MobileTable/>
         </div>
         </>
 

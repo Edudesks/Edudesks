@@ -8,6 +8,7 @@ import GenericTable, { Column } from '@/components/Table';
 import Link from 'next/link';
 import { useAppDispatch } from '@/store/hooks';
 import { setActivePage } from '@/store/slices/sidebarSlice';
+import Image from 'next/image';
 
 interface Student {
   studentName: string;
@@ -86,7 +87,19 @@ const students: Student[] = [
 ];
 
 const columns: Column<Student>[] = [
-  { title: 'Student Name', field: 'studentName' },
+  { title: 'Student Name', field: 'studentName',
+    render: (row) =>
+        <div className="flex gap-3 items-center">
+            <Image
+              src="/icons/avatar-icon.svg"
+              alt="Staff 4"
+              width={32}
+              height={32}
+              objectFit="cover"
+            />
+            <div>{row.studentName}</div>
+          </div>
+   },
   { title: 'Gender', field: 'gender' },
   {
     title: 'Sch.fees status',
@@ -150,4 +163,4 @@ const ViewClass = () => {
     </div>
 )};
 
-export default ViewClass
+export default withProtectedRoute(ViewClass);

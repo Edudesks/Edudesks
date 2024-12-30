@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 
 import { useAppDispatch } from "@/store/hooks";
 import { setActivePage } from "@/store/slices/sidebarSlice";
+import withProtectedRoute from "@/hoc/ProtectedRoute";
 
 const Card = ({
   iconSrc,
@@ -32,7 +33,7 @@ const Card = ({
   </div>
 );
 
-export default function StudentProfile() {
+function StudentProfile() {
   const [windowWidth, setWindowWidth] = useState<number>(0);
   const router = useRouter();
 
@@ -282,3 +283,5 @@ export default function StudentProfile() {
     </>
   );
 }
+
+export default withProtectedRoute(StudentProfile)

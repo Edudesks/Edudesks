@@ -14,9 +14,7 @@ const Navbar:React.FC<NavbarProp> = ({setIsMobileSidebarOpen}) => {
 
   return (
     <div className={styles.navbarContainer}>
-      <Link href='/'>
-          <Image src="/icons/logo.svg" className={styles.navLogo} alt="logo" width={300} height={45} />
-      </Link>
+      
 
       {isSearchOpen ? (
         <div className={`${styles.searchContainer}`}>
@@ -59,6 +57,9 @@ const Navbar:React.FC<NavbarProp> = ({setIsMobileSidebarOpen}) => {
             className={`${styles.mobileSearchContainer}`}
             
           > 
+              <Link href='/'>
+              <Image src="/icons/logo.svg" className={styles.navLogo} alt="logo" width={300} height={45} />
+          </Link>
             <div className={styles.menuBar} onClick={() => setIsMobileSidebarOpen((state:boolean) => !state )}>
               <Image
                 src="/icons/menu.svg"

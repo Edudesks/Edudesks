@@ -18,6 +18,7 @@ import { IoIosArrowBack, IoIosArrowRoundUp} from "react-icons/io";
 import { GrMoreVertical } from "react-icons/gr";
 import { setActivePage } from "@/store/slices/sidebarSlice";
 import { useAppDispatch } from "@/store/hooks";
+import withProtectedRoute from "@/hoc/ProtectedRoute";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       fontWeight: "500",
@@ -60,7 +61,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     status: JSX.Element;
     verticalIcon: JSX.Element;
   }
-  export default function StudentHistory (){
+ function StudentHistory (){
           const dispatch = useAppDispatch();
     
     useEffect(()=>{
@@ -431,3 +432,5 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       </>
     );
   }
+
+export default  withProtectedRoute(StudentHistory)

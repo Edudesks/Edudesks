@@ -5,7 +5,8 @@ import { inter, openSans } from "@/app/fonts/fonts";
 import { useState, useEffect } from "react";
 import { setActivePage } from "@/store/slices/sidebarSlice";
 import { useAppDispatch } from "@/store/hooks";
-export default function StudentList (){
+import withProtectedRoute from "@/hoc/ProtectedRoute";
+function StudentList (){
     const [windowWidth, setWindowWidth] = useState<number>(0);
 
     useEffect(() => {
@@ -32,3 +33,5 @@ export default function StudentList (){
         </>
     )
 }
+
+export default withProtectedRoute(StudentList)

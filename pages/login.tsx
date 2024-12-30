@@ -16,7 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormData, loginSchema } from "@/features/auth/loginSchema";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "@/store/hooks";
-import { signIn, resetSignin } from "@/store/slices/authSlice";
+import { signIn, resetSignin, createOtp } from "@/store/slices/authSlice";
 import { FaRegCircle } from "react-icons/fa";
 
 /**
@@ -60,7 +60,17 @@ const Login: React.FC = () => {
 
       if (response.type === "auth/signin/fulfilled") {
         console.log(response.payload);
-        router.push(response.payload.school.schoolName);
+
+        const otpResponse = await dispatch(createOtp(data.email));
+      if (otpResponse.type === "auth/createotp/fulfilled") {
+        router.push({
+          pathname: '/verification',
+          query: { email: data.email, isSignup: false },
+        });
+      } else {
+        console.error("Failed to send OTP");
+      }
+
       } else {
         alert("Can't login: Invalid Login Details")
       // router.push("/Edudesk")

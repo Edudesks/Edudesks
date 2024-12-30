@@ -1,7 +1,19 @@
-import axios from 'axios';
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { SignUpSubmitFormData } from "@/features/auth/signUpSchema";
 import { LoginFormData } from "@/features/auth/loginSchema";
+import { makeApiCall } from '@/utils/api';
+
+interface School {
+  accountHolderName: string;
+  _id: string;
+  schoolName: string;
+  email: string;
+  role: string;
+  plan: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
 
 interface SignupState {
   signupLoading: boolean;
@@ -10,7 +22,11 @@ interface SignupState {
   signinLoading: boolean;
   signinSuccess: boolean;
   signinError: string | null;
-  isAuthenticated: boolean
+  isAuthenticated: boolean;
+  schoolPayload: School | null;
+  otpLoading: boolean;
+  otpSuccess: boolean;
+  otpError: string | null;
 }
 
 const initialState: SignupState = {
@@ -21,96 +37,54 @@ const initialState: SignupState = {
   signinSuccess: false,
   signinError: null,
   isAuthenticated: false,
+  schoolPayload: null,
+  otpLoading: false,
+  otpSuccess: false,
+  otpError: null,
 };
 
-// Async thunk for signup
+// Sign Up School Async Thunk
 export const signUp = createAsyncThunk(
   'auth/signup',
-  async (data: SignUpSubmitFormData, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(
-        'https://backend-edudesks.onrender.com/auth/signup',
-        data,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          timeout: 60000, // 10 seconds timeout
-        }
-      );
-
-      return response.data.message; // Assuming the API returns { message: 'Success' }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        // Handle specific Axios error
-        if (error.response) {
-          // Server responded with a status outside 2xx range
-          return rejectWithValue(error.response.data.message || 'An error occurred during signup');
-        } else if (error.request) {
-          // No response received
-          return rejectWithValue('No response from server. Please try again.');
-        } else if (error.code === 'ECONNABORTED') {
-          // Request timed out
-          return rejectWithValue('Request timed out. Please try again.');
-        }
-      }
-
-      return rejectWithValue('An error occurred during signup. Please try again.');
-    }
+  async (data: SignUpSubmitFormData) => {
+    const response = await makeApiCall('POST', '/auth/signup', data);
+    return response.payload;
   }
 );
 
-export const checkAuthToken = createAsyncThunk(
-  "auth/token",
-  async (_, { rejectWithValue }) => {
-    const token = localStorage.getItem("authToken"); // Or use cookies if more secure
-    if (token) {
-      return true;
-    }
-    return rejectWithValue(false);
-  }
-);
-
+// Sign In School Async Thunk
 export const signIn = createAsyncThunk(
   'auth/signin',
-  async (data: LoginFormData, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(
-        'https://backend-edudesks.onrender.com/auth/signin',
-        data,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          timeout: 60000, // 10 seconds timeout
-        }
-      );
+  async (data: LoginFormData) => {
+    const response = await makeApiCall('POST', '/auth/signin', data);
+    return response.payload;
+  }
+);
 
-      // Assuming the token is in response.data.token
-      const { token, payload } = response.data;
-      console.log(response.data)
+// Check Auth Token Async Thunk
+export const checkAuthToken = createAsyncThunk(
+  "auth/token",
+  async () => {
+    const response = await makeApiCall('GET', '/auth/school-auth');
+    return response.payload;
+  }
+);
 
-      // Store the JWT token in localStorage
-      localStorage.setItem('authToken', token);
-      localStorage.setItem('schoolName', payload.school.schoolName);
-      
-      return payload; // Return token or any other required data
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response) {
-          // Server responded with a non-2xx status code
-          return rejectWithValue(error.response.data.message || 'An error occurred during signin');
-        } else if (error.request) {
-          // Request was made but no response received
-          return rejectWithValue('No response from server. Please try again.');
-        } else if (error.code === 'ECONNABORTED') {
-          // Request timed out
-          return rejectWithValue('Request timed out. Please try again.');
-        }
-      }
+// Create OTP Async Thunk
+export const createOtp = createAsyncThunk(
+  "auth/createotp",
+  async (email: string | string[]) => {
+    const response = await makeApiCall('POST', '/auth/send-otp', { email });
+    return response;
+  }
+);
 
-      return rejectWithValue('An error occurred during signin. Please try again.');
-    }
+// Verify OTP Async Thunk
+export const verifyOtp = createAsyncThunk(
+  "auth/verifyotp",
+  async (data: { email: string | string[]; otp: string, isSignup: boolean }) => {
+    const response = await makeApiCall('POST', '/auth/verify-otp', data);
+    return response.payload;
   }
 );
 
@@ -126,6 +100,10 @@ const signupSlice = createSlice({
       state.signinSuccess = false;
       state.signinError = null;
     },
+    resetOtp: (state) => {
+      state.otpSuccess = false;
+      state.otpError = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -135,13 +113,14 @@ const signupSlice = createSlice({
         state.signupSuccess = false;
         state.signupError = null;
       })
-      .addCase(signUp.fulfilled, (state) => {
+      .addCase(signUp.fulfilled, (state, action) => {
         state.signupLoading = false;
         state.signupSuccess = true;
+        state.schoolPayload = action.payload.school;
       })
       .addCase(signUp.rejected, (state, action) => {
         state.signupLoading = false;
-        state.signupError = action.payload as string;
+        state.signupError = action.error.message || "Failed to sign up.";
       })
       // Signin reducers
       .addCase(signIn.pending, (state) => {
@@ -149,27 +128,55 @@ const signupSlice = createSlice({
         state.signinSuccess = false;
         state.signinError = null;
       })
-      .addCase(signIn.fulfilled, (state) => {
+      .addCase(signIn.fulfilled, (state, action) => {
         state.signinLoading = false;
         state.signinSuccess = true;
+        state.schoolPayload = action.payload.school;
       })
       .addCase(signIn.rejected, (state, action) => {
         state.signinLoading = false;
-        state.signinError = action.payload as string;
+        state.signinError = action.error.message || "Failed to sign in.";
       })
-      .addCase(checkAuthToken.fulfilled, (state) => {
+      // Check Auth Token
+      .addCase(checkAuthToken.fulfilled, (state, action) => {
         state.isAuthenticated = true;
+        state.signinSuccess = true;
+        state.schoolPayload = action.payload.school;
       })
       .addCase(checkAuthToken.rejected, (state) => {
         state.isAuthenticated = false;
+      })
+      // Create OTP reducers
+      .addCase(createOtp.pending, (state) => {
+        state.otpLoading = true;
+        state.otpSuccess = false;
+        state.otpError = null;
+      })
+      .addCase(createOtp.fulfilled, (state) => {
+        state.otpLoading = false;
+        state.otpSuccess = true;
+      })
+      .addCase(createOtp.rejected, (state, action) => {
+        state.otpLoading = false;
+        state.otpError = action.error.message || "Failed to send OTP.";
+      })
+      // Verify OTP reducers
+      .addCase(verifyOtp.pending, (state) => {
+        state.otpLoading = true;
+        state.otpSuccess = false;
+        state.otpError = null;
+      })
+      .addCase(verifyOtp.fulfilled, (state, action) => {
+        state.otpLoading = false;
+        state.otpSuccess = true;
+        state.schoolPayload = action.payload.school;
+      })
+      .addCase(verifyOtp.rejected, (state, action) => {
+        state.otpLoading = false;
+        state.otpError = action.error.message || "Invalid OTP.";
       });
   },
 });
 
-
-
-      
-
-
-export const { resetSignup, resetSignin } = signupSlice.actions;
+export const { resetSignup, resetSignin, resetOtp } = signupSlice.actions;
 export default signupSlice.reducer;

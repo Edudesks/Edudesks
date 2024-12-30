@@ -23,6 +23,7 @@ type Section =
   | "wallet"
   | "remit-payment"
   | "salary"
+  | "generate"
   | "income"
   | "monthly-income"
   | "annual-income"
