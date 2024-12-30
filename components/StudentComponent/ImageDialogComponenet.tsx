@@ -12,7 +12,7 @@ import {
 import "../../app/globals.css";
 import { CloudUploadIcon, Delete02Icon } from "hugeicons-react";
 import { useDropzone } from "react-dropzone";
-
+import Image from "next/image";
 /**
  *
  * TODO: Add change image and trash icon
@@ -65,7 +65,7 @@ const ImageDialogComponenet = () => {
       <Button className="flex flex-col gap-1.5" onClick={handleClickOpen}>
         {image ? (
           <>
-            <img
+            <Image
               src={image}
               alt="Uploaded"
               className="w-[62px] h-[62px] border-[2px] border-solid border-[var(--border)] rounded-full object-cover"
@@ -159,7 +159,7 @@ const ImageDialogComponenet = () => {
                 </Button>
               </>
             ) : (
-              <img
+              <Image
                 src={image}
                 alt="Uploaded"
                 className="w-full h-auto max-h-60 object-cover rounded-md"

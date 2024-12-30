@@ -194,40 +194,41 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
           {/* table history */}
           <Box sx={{ width: "100%", marginTop: "3rem" }}>
-            <TableContainer className={'md:block hidden'}>
-              <Table sx={{ width: "100%" }} aria-label="customized table">
-                <TableHead>
-                  <StyledTableCell
-                    colSpan={6}
-                    className={`${openSans.className} text-[24px] leading-[28px]`}
-                  >
-                    Payment History
-                  </StyledTableCell>
-                </TableHead>
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell2>Date</StyledTableCell2>
-                    <StyledTableCell2>Category</StyledTableCell2>
-                    <StyledTableCell2>Amount</StyledTableCell2>
-                    <StyledTableCell2>Payment Method</StyledTableCell2>
-                    <StyledTableCell2>Status</StyledTableCell2>
-                    <StyledTableCell2></StyledTableCell2>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {tableValue.map((row, index) => (
-                    <StyledTableRow key={index}>
-                      <StyledTableCell>{row.date}</StyledTableCell>
-                      <StyledTableCell>{row.category}</StyledTableCell>
-                      <StyledTableCell>{row.amount}</StyledTableCell>
-                      <StyledTableCell>{row.paymentMethod}</StyledTableCell>
-                      <StyledTableCell>{row.status}</StyledTableCell>
-                      <StyledTableCell>{row.verticalIcon}</StyledTableCell>
-                    </StyledTableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+          <TableContainer className={'md:block hidden'}>
+  <Table sx={{ width: "100%" }} aria-label="customized table">
+    <TableHead>
+      <TableRow>
+        <StyledTableCell
+          colSpan={6}
+          className={`${openSans.className} text-[24px] leading-[28px]`}
+        >
+          Payment History
+        </StyledTableCell>
+      </TableRow>
+      <TableRow>
+        <StyledTableCell2>Date</StyledTableCell2>
+        <StyledTableCell2>Category</StyledTableCell2>
+        <StyledTableCell2>Amount</StyledTableCell2>
+        <StyledTableCell2>Payment Method</StyledTableCell2>
+        <StyledTableCell2>Status</StyledTableCell2>
+        <StyledTableCell2></StyledTableCell2>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {tableValue.map((row, index) => (
+        <StyledTableRow key={index}>
+          <StyledTableCell>{row.date}</StyledTableCell>
+          <StyledTableCell>{row.category}</StyledTableCell>
+          <StyledTableCell>{row.amount}</StyledTableCell>
+          <StyledTableCell>{row.paymentMethod}</StyledTableCell>
+          <StyledTableCell>{row.status}</StyledTableCell>
+          <StyledTableCell>{row.verticalIcon}</StyledTableCell>
+        </StyledTableRow>
+      ))}
+    </TableBody>
+  </Table>
+</TableContainer>
+
 
             <div className="md:hidden flex flex-col">
               <h2 className="text-[24px] leading-[28px] font-[500]">Payment history</h2>
