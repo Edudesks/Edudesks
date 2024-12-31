@@ -83,6 +83,7 @@ export const createOtp = createAsyncThunk(
 export const verifyOtp = createAsyncThunk(
   "auth/verifyotp",
   async (data: { email: string | string[]; otp: string, isSignup: boolean }) => {
+    console.log(data)
     const response = await makeApiCall('POST', '/auth/verify-otp', data);
     return response.payload;
   }

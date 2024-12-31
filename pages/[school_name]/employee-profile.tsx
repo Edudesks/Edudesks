@@ -8,7 +8,8 @@ import EmployeeProfileButtonComponent from "@/components/EmployeeComponent/Emplo
 import { GoArrowLeft } from "react-icons/go";
 import { inter, openSans } from "@/app/fonts/fonts";
 import '@/styles/EmployeeProfileStyle/EmployeeProfile.css';
-export default function EmployeeProfile (){
+import withProtectedRoute from "@/hoc/ProtectedRoute";
+function EmployeeProfile (){
     return(
         <>
         <div className={`${openSans.className} bg-[white] rounded-[12px] w-[95%] p-3 m-2 sm:m-8 flex flex-col gap-8`}>
@@ -39,3 +40,5 @@ export default function EmployeeProfile (){
         </>
     )
 }
+
+export default withProtectedRoute(EmployeeProfile)

@@ -4,7 +4,8 @@ import { inter, openSans } from "@/app/fonts/fonts";
 import { useState, useEffect } from "react";
 import GeneralButton from "@/components/GeneralButton";
 import { useRouter } from "next/router";
-export default function PageNotFound (){
+import withProtectedRoute from "@/hoc/ProtectedRoute";
+function PageNotFound (){
     const [windowWidth, setWindowWidth] = useState<number>(0);
     const router = useRouter();
 
@@ -70,3 +71,5 @@ export default function PageNotFound (){
         </>
     )
 }
+
+export default withProtectedRoute(PageNotFound)

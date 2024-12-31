@@ -58,6 +58,7 @@ const Verification: React.FC = () => {
         })
       }
     } else {
+      console.log(otpResponse.type)
       console.error("Failed to send OTP");
     }
   };

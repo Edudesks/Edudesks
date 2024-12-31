@@ -6,6 +6,7 @@ import { makeApiCall } from '@/utils/api';
 export const checkSchoolExist = createAsyncThunk(
   'school/checkSchoolExist',
   async (schoolName: string) => {
+    console.log(schoolName)
     const response = await makeApiCall('POST', '/school/check-school-exist', { schoolName })
     return response.exists;
   }

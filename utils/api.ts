@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiRootUrl = process.env.REACT_APP_API_ROOT_URL || 'https://backend-edudesks.onrender.com';
+const apiRootUrl = process.env.REACT_APP_API_ROOT_URL || 'https://backend-edudesks-vgj7.onrender.com';
 
 export interface ApiRequestHeaders {
   [key: string]: string | number | boolean;
@@ -12,6 +12,7 @@ export const makeApiCall = async (
   data: any = {},
   headers: ApiRequestHeaders = {},
 ) => {
+  console.log("Something is going on")
   try {
     const config: any = {
       method,
@@ -37,6 +38,7 @@ export const makeApiCall = async (
     // Return the response data
     return response.data;
   } catch (error) {
+    console.log(error)
     // Handle Axios errors
     if (axios.isAxiosError(error)) {
       if (error.response) {

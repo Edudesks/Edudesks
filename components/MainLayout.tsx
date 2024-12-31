@@ -36,18 +36,7 @@ const MainLayout = ({ children, schoolName }: { children: React.ReactNode, schoo
   if (schoolExists === false) {
     // Show a message if the school doesn't exist
     return (
-      <div className="flex bg-[var(--secondary-text-color)]">
-      <Sidebar 
-        activeSection={active.active} 
-        activeParentNav={active.parentNav} 
-        isMobileSidebarOpen={isMobileSidebarOpen} 
-        setIsMobileSidebarOpen={setIsMobileSidebarOpen} 
-      />
-      <div className="h-screen flex-1 overflow-y-scroll overflow-x-hidden">
-        <Navbar setIsMobileSidebarOpen={setIsMobileSidebarOpen} />
-        {children}
-      </div>
-    </div>
+      <Page404 />
     );
   }
 

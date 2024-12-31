@@ -68,6 +68,7 @@ const Login: React.FC = () => {
           query: { email: data.email, isSignup: false },
         });
       } else {
+        console.log(otpResponse.payload)
         console.error("Failed to send OTP");
       }
 
