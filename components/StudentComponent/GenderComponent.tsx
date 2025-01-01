@@ -1,15 +1,20 @@
 import { FormControlLabel, Checkbox } from "@mui/material";
+import React from "react";
 import { useFormContext } from "react-hook-form";
 
-const GenderField = () => {
+interface GenderFieldProps {
+  fieldName: string;
+}
+
+const GenderField: React.FC<GenderFieldProps> = ({fieldName}) => {
   const { register, setValue, watch } = useFormContext();
-  const selectedGenders = watch("personalInformation.gender") || [];
+  const selectedGenders = watch(fieldName) || [];
 
   const handleGenderChange = (value: string) => {
     const updatedGenders = selectedGenders.includes(value)
       ? selectedGenders.filter((gender: string) => gender !== value)
       : [value];
-    setValue("personalInformation.gender", updatedGenders);
+    setValue(fieldName, updatedGenders);
   };
 
   return (

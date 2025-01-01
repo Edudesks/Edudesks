@@ -1,5 +1,5 @@
 import FormStepComponent from "@/components/StudentComponent/FormStepComponent";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../../app/globals.css";
 import {
   UserIcon,
