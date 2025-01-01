@@ -42,7 +42,7 @@ export const employeeSchema = z.object({
     .min(1, { message: "Enter employee's role" }),
     employeeBankAccountDetails: z
     .string()
-    .regex(/^[0-9]*$/, "Bank account details must contain only digits."),
+    .regex(/^\d{8,12}$/, "Bank account details must contain only digits."),
     employeeBankAccountHolder: z
     .string()
     .min(1, { message: "Enter bank account holder" }), employeeNameOfBank: z
@@ -50,7 +50,7 @@ export const employeeSchema = z.object({
     .min(1, { message: "Enter employee's bank name" }),
     employeeExpectedSalary: z
     .string()
-    .regex(/^\d{1,3}(,\d{3})*(\.\d+)?$/, "Bank account details must contain only digits."),
+    .regex(/^\d*$/, "Bank account details must contain only digits."),
 });
 
 export type employeeFormData = z.infer<typeof employeeSchema>;
