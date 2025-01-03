@@ -23,10 +23,10 @@ import {
   employeeFormData,
 } from "@/features/auth/employeeSchema";
 
-const AddEmployee = () => {
+const EditEmployee = () => {
    const dispatch = useAppDispatch();
        useEffect(()=>{
-        dispatch(setActivePage({active:"add-employee", parentNav: "employees"}));
+        dispatch(setActivePage({active:"edit-employee", parentNav: "employees"}));
          
        })
   const methods = useForm<employeeFormData>({
@@ -270,4 +270,4 @@ const AddEmployee = () => {
   );
 };
 
-export default withProtectedRoute(AddEmployee);
+export default withProtectedRoute(EditEmployee);

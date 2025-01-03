@@ -19,6 +19,7 @@ type Section =
   | "add-class"
   | "employees"
   | "add-employee"
+  | "edit-employee"
   | "view-employees"
   | "wallet"
   | "remit-payment"
