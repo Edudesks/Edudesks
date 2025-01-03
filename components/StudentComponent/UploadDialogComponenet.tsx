@@ -13,14 +13,14 @@ import "../../app/globals.css";
 import { CloudUploadIcon, Delete02Icon } from "hugeicons-react";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
-/**
- *
- * TODO: Add change image and trash icon
- */
 
-const ImageDialogComponenet = () => {
+interface UploadDialogProps {
+  uploadType: "image" | "file";
+}
+
+const UploadDialogComponenet: React.FC<UploadDialogProps> = ({uploadType}) => {
   const [open, setOpen] = useState(false);
-  const [image, setImage] = useState<string | null>(null);
+  const [uploadedData, setUploadedData] = useState<string | null>(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -39,10 +39,10 @@ const ImageDialogComponenet = () => {
     }
   };
 
-  const handleImageUpload = (file: File) => {
+  const handleUpload = (file: File) => {
     const reader = new FileReader();
     reader.onload = () => {
-      setImage(reader.result as string);
+      setUploadedData(reader.result as string);
       handleClose();
     };
     reader.readAsDataURL(file);
@@ -50,12 +50,12 @@ const ImageDialogComponenet = () => {
 
   const onDrop = (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
-      handleImageUpload(acceptedFiles[0]);
+      handleUpload(acceptedFiles[0]);
     }
   };
 
   const { getInputProps, getRootProps } = useDropzone({
-    accept: { "image/*": [] },
+    accept: uploadType === "image" ? { "image/*": [] } : undefined,
     onDrop,
     multiple: false,
   });
@@ -63,17 +63,17 @@ const ImageDialogComponenet = () => {
   return (
     <div>
       <Button className="flex flex-col gap-1.5" onClick={handleClickOpen}>
-        {image ? (
+        {uploadedData ? (
           <>
-            <Image
-              src={image}
+            <img
+              src={uploadedData}
               alt="Uploaded"
               className="w-[62px] h-[62px] border-[2px] border-solid border-[var(--border)] rounded-full object-cover"
             />
           </>
         ) : (
           <>
-            <div className="flex items-center justify-center relative w-[62px] h-[62px] bg-[var(--secondary-text-color)] rounded-full stroke-[0.365px] border border-[var(--border)] p-[1.094rem]">
+            <div className="flex items-center justify-center relative w-[62px] h-[62px] bg-[var(--secondary-text-color)] rounded-full stroke-[0.365px] border border-[var(--border)] p-[1.094rem] self-start">
               <PersonOutline className="text-black w-[32px] h-[32px]" />
               <AddCircle className="text-[#2196F3] absolute bottom-0.5 -right-1" />
             </div>
@@ -81,13 +81,13 @@ const ImageDialogComponenet = () => {
               className="text-[var(--primary-text-color)] text-xs font-bold"
               sx={{ textTransform: "none"!, fontFamily: "Open Sans" }}
             >
-              Add Image
+              {uploadType === "image" ? "Add Image" : "Upload supporting document"}
             </Typography>
           </>
         )}
       </Button>
       {/* -------- change and delete image -------- */}
-      {image && (
+      {uploadedData && (
         <div className="flex items-center cursor-pointer">
           <Typography
             className="text-[var(--secondary)] text-xs font-bold underline"
@@ -98,7 +98,7 @@ const ImageDialogComponenet = () => {
           </Typography>
           <Delete02Icon
             className="text-[var(--danger)] w-6 h-6"
-            onClick={() => setImage(null)}
+            onClick={() => setUploadedData(null)}
           />
         </div>
       )}
@@ -119,7 +119,7 @@ const ImageDialogComponenet = () => {
           <input {...getInputProps()} hidden />
           {/* -------- box container -------- */}
           <Box className="flex flex-col gap-4 items-center justify-center">
-            {!image ? (
+            {!uploadedData ? (
               <>
                 {" "}
                 <Box className="w-14 h-14 rounded-full bg-[var(--border)] flex items-center justify-center p-3.5">
@@ -147,20 +147,20 @@ const ImageDialogComponenet = () => {
                   Browse Files
                   <input
                     type="file"
-                    accept="image/*"
+                    accept={uploadType === "image" ? "image/*" : "*"}
                     hidden
                     ref={fileInputRef}
                     onChange={(e) => {
                       if (e.target.files && e.target.files[0]) {
-                        handleImageUpload(e.target.files[0]);
+                        handleUpload(e.target.files[0]);
                       }
                     }}
                   />
                 </Button>
               </>
             ) : (
-              <Image
-                src={image}
+              <img
+                src={uploadedData}
                 alt="Uploaded"
                 className="w-full h-auto max-h-60 object-cover rounded-md"
               />
@@ -172,4 +172,4 @@ const ImageDialogComponenet = () => {
   );
 };
 
-export default ImageDialogComponenet;
+export default UploadDialogComponenet;

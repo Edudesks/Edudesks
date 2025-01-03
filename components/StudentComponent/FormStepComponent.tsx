@@ -1,6 +1,6 @@
 import React from "react";
 import "../../app/globals.css";
-import ImageDialogComponenet from "./ImageDialogComponenet";
+import UploadDialogComponenet from "./UploadDialogComponenet";
 import {
   UserIcon,
   Location04Icon,
@@ -69,7 +69,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
           </h3>
           <div className="flex flex-col gap-10 lg:gap-[3.375rem]">
             {/* -------- add student image -------- */}
-            <ImageDialogComponenet />
+            <UploadDialogComponenet uploadType={"image"} />
             {/* -------- form input section -------- */}
             <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-[1.5625rem] lg:gap-x-[3.375rem] w-full">
               {/* -------- last name -------- */}
@@ -126,7 +126,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
               />
               {/* -------- gender -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
-                <GenderField />
+                <GenderField fieldName={"personalInformation.gender"} />
                 {/* {errors.personalInformation?.gender?.message && (
                   <p className="self-start text-sm text-[var(--danger)] mt-1">
                     {errors.personalInformation?.gender?.message}

@@ -10,6 +10,7 @@ interface GeneralButtonProps {
   iconPosition?: "left" | "right";
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
+  form?: string;
 }
 
 /**
@@ -40,7 +41,8 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
   icon,
   iconPosition,
   onClick,
-  type
+  type,
+  form
 }) => {
   const [state, setState] = useState(initialState);
   // -------- button border --------
@@ -137,6 +139,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
       disabled={state === "disabled"}
       onClick={handleClick}
       type={type}
+      form={form}
     >
       {icon && <span>{icon}</span>}
       {buttonText}
