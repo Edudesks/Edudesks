@@ -21,7 +21,7 @@ const MainLayout = ({ children, schoolName }: { children: React.ReactNode, schoo
 
     if (schoolName) {
       dispatch(checkSchoolExist(schoolName as string)); // Check if the school exists
-    } 
+    }
   }, [dispatch, schoolName]);
 
   if (schoolExists === null) {
@@ -33,20 +33,20 @@ const MainLayout = ({ children, schoolName }: { children: React.ReactNode, schoo
     );
   }
 
-  if (schoolExists === false) {
-    // Show a message if the school doesn't exist
-    return (
-      <Page404 />
-    );
-  }
+  // if (schoolExists === false) {
+  //   // Show a message if the school doesn't exist
+  //   return (
+  //     <Page404 />
+  //   );
+  // }
 
   return (
     <div className="flex bg-[var(--secondary-text-color)]">
-      <Sidebar 
-        activeSection={active.active} 
-        activeParentNav={active.parentNav} 
-        isMobileSidebarOpen={isMobileSidebarOpen} 
-        setIsMobileSidebarOpen={setIsMobileSidebarOpen} 
+      <Sidebar
+        activeSection={active.active}
+        activeParentNav={active.parentNav}
+        isMobileSidebarOpen={isMobileSidebarOpen}
+        setIsMobileSidebarOpen={setIsMobileSidebarOpen}
       />
       <div className="h-screen flex-1 overflow-y-scroll overflow-x-hidden">
         <Navbar setIsMobileSidebarOpen={setIsMobileSidebarOpen} />
