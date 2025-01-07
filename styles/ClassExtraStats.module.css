@@ -1,0 +1,141 @@
+
+.container {
+    width: 100%;
+    margin-top: 2em; 
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .title {
+    font-size: 22px; 
+    font-weight: 600; 
+    color: var(--secondary); 
+  }
+  
+  .buttonGroup {
+    display: flex;
+    gap: 0.5rem; 
+  }
+  
+  .primaryButton {
+    background-color: #1e3a8a; 
+    color: white;
+    padding: 0.5rem 1rem; 
+    font-size: 0.875rem; 
+    border-radius: 0.5rem; 
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; 
+  }
+  
+  .secondaryButton {
+    border: 1px solid #d1d5db; 
+    background-color: white;
+    padding: 0.5rem 1rem; 
+    font-size: 0.875rem; 
+    border-radius: 0.5rem; 
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; 
+  }
+  
+  .description {
+    color: #718096; 
+    margin-bottom: 1.5rem; 
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 1rem; 
+    margin-bottom: 2em;
+  }
+  
+  .statCard {
+    padding: 0 .8em; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    border-radius: .8em; 
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); 
+  }
+  
+  .bgPrimary {
+    background-color: var(--primary); 
+  }
+  
+  .bgSecondary {
+    border: 1px solid #dfdfdf;
+    background-color: #FDFDFD; 
+  }
+  
+
+  .iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem; 
+    height: 2.5rem; 
+    margin-bottom: 0.5rem; 
+    border-radius: 0.5rem; 
+  }
+  
+  .iconWhite {
+    background-color: #1e40af; 
+    color: white;
+  }
+  
+  .iconBlue {
+    color: #1e3a8a; 
+  }
+  
+  .statLabel {
+    font-size: 14px; 
+  }
+  .labelGray {
+    color: #8c8c8c;
+    
+  }
+  .labelWhite {
+    color: #E1E1E1; 
+  }
+  
+  .valueGray {
+    color: #1A1A1A;
+    
+  }
+  .valueWhite {
+    color: #FDFDFD; 
+  }
+  
+  .statValue {
+    font-size: 18px; 
+    font-weight: 600; 
+  }
+
+  .editButton {
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 1.5em;
+    font-size: 0.875rem;
+  }
+  .addButton {
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 1.5em;
+    font-size: 0.875rem;
+    background-color: #ffffff;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+  }
+  
