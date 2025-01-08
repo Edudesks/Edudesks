@@ -6,8 +6,9 @@ import EmployeeProfileEducationDetailsComponent from "@/components/EmployeeCompo
 import EmployeeProfileSupportDetailsComponent from "@/components/EmployeeComponent/EmployeeProfileSupportDetailsComponent";
 import EmployeeProfileButtonComponent from "@/components/EmployeeComponent/EmployeeProfileButton";
 import { GoArrowLeft } from "react-icons/go";
-import { inter, openSans } from "@/app/fonts/fonts";
+import { openSans } from "@/app/fonts/fonts";
 import '@/styles/EmployeeProfileStyle/EmployeeProfile.css';
+import { useRouter } from 'next/router'
 import withProtectedRoute from "@/hoc/ProtectedRoute";
 function EmployeeProfile (){
     return(
@@ -41,4 +42,4 @@ function EmployeeProfile (){
     )
 }
 
-export default withProtectedRoute(EmployeeProfile)
+export default EmployeeProfile

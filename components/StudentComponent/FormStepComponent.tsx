@@ -14,7 +14,7 @@ import DropdownSelectComponent from "./DropdownSelectComponent";
 import InputField from "./InputField";
 import GeneralButton from "../GeneralButton";
 import { useFormContext, UseFormReturn } from "react-hook-form";
-import { FormData } from "@/pages/[school_name]/student";
+import { FormData } from "@/pages/[school_name]/add-student";
 import GenderField from "./GenderComponent";
 
 /**

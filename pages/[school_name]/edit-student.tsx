@@ -66,17 +66,9 @@ const Student = () => {
       })
   return (
     <>
-      <StudentDialog
-        open={open}
-        selectedOption={selectedOption}
-        onClose={handleClose}
-        onOptionChange={handleOptionChange}
-        onContinue={handleContinue}
-      />
-
-      {selectedOption === "manual" && <StudentManualEntry />}
+      <StudentManualEntry />
     </>
   );
 };
 
-export default withProtectedRoute(Student);
+export default Student

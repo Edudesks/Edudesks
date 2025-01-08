@@ -47,7 +47,7 @@ const EditEmployee = () => {
         <div className="w-full flex flex-col items-center pb-12 pt-9 px-[1.125rem] lg:p-12 gap-7 lg:gap-[2.0625rem] bg-[#ffffff]">
           {/* -------- heading -------- */}
           <h1 className="text-[var(--secondary)] font-bold text-xl lg:text-4xl leading-10">
-            Add Employee
+            Edit Employee
           </h1>
           {/* -------- uploads and form -------- */}
           <div className="flex flex-col gap-[1.5625rem] w-full">
@@ -270,4 +270,4 @@ const EditEmployee = () => {
   );
 };
 
-export default withProtectedRoute(EditEmployee);
+export default EditEmployee

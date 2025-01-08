@@ -5,7 +5,7 @@ import "../app/globals.css";
 import { openSans } from "@/app/fonts/fonts";
 import { CheckmarkCircle04Icon, ArrowRight02Icon } from "hugeicons-react";
 import { useMediaQuery } from "@mui/material";
-import Router from "next/router";
+import {useRouter} from "next/router";
 import Link from "next/link";
 
 /**
@@ -15,7 +15,7 @@ import Link from "next/link";
  */
 
 const PricingConfirmation = () => {
-  const router = Router;
+  const router = useRouter();
   const isSmallScreen = useMediaQuery("(min-width: 385px)"); // sm breakpoint
   const isLargeScreen = useMediaQuery("(min-width: 1024px)"); // lg breakpoint
   const [schoolName, setSchoolName] = useState("")

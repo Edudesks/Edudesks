@@ -163,4 +163,4 @@ const ViewClass = () => {
     </div>
 )};
 
-export default withProtectedRoute(ViewClass);
+export default ViewClass

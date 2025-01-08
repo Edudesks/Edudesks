@@ -26,4 +26,4 @@ const ClassPage: React.FC = () => {
   );
 };
 
-export default withProtectedRoute(ClassPage);
+export default ClassPage

@@ -36,6 +36,7 @@ const Card = ({
 function StudentProfile() {
   const [windowWidth, setWindowWidth] = useState<number>(0);
   const router = useRouter();
+  const { school_name } = router.query; 
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -57,10 +58,10 @@ function StudentProfile() {
     <>
 
 
-      <div className={classNames("md:left-[20rem] flex flex-col gap-[31px] absolute top-[6rem] left-0 md:px-0 px-5 overflow-x-hidden", {
-            "w-[100%]": isBelow760,
-      "w-[70%]": !isBelow760 && isBelow1220,
-      "w-[80%]": !isBelow1220,
+      <div className={classNames("flex flex-col gap-[31px] pt-4 w-[100%] px-5 overflow-x-hidden", {
+      //       "w-[100%]": isBelow760,
+      // "w-[70%]": !isBelow760 && isBelow1220,
+      // "w-[80%]": !isBelow1220,
           })}>
         {/* Button Container Header*/}
         <section className={classNames("flex items-center justify-between w-full lg:w-full lg:pr-[5%] overflow-x-hidden", {
@@ -87,7 +88,9 @@ function StudentProfile() {
             "flex-wrap": isBelow1041,
             "no-wrap": !isBelow1041,
           })}>
-            <button className="rounded-[22px] bg-[var(--primary)] w-[169px] h-[42px] text-[var(--secondary-text-color)] font-[700]">
+            <button className="rounded-[22px] bg-[var(--primary)] w-[169px] h-[42px] text-[var(--secondary-text-color)] font-[700]"
+            onClick={()=> router.push(`/${school_name}/edit-student`)}
+            >
               Edit profile
             </button>
             <button className="rounded-[22px] bg-[var(--danger)] w-[169px] h-[42px] text-[var(--secondary-text-color)] font-[700]">
@@ -284,4 +287,4 @@ function StudentProfile() {
   );
 }
 
-export default withProtectedRoute(StudentProfile)
+export default StudentProfile

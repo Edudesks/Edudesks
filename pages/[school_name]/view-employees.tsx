@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Class.module.css';
 import withProtectedRoute from '@/hoc/ProtectedRoute';
 import { MoreVert } from "@mui/icons-material";
@@ -10,6 +10,12 @@ import { useAppDispatch } from '@/store/hooks';
 import { setActivePage } from '@/store/slices/sidebarSlice';
 import EmployeeSearchFilter from '@/components/EmploComponent/EmployeeSearchFilter';
 import Image from 'next/image';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import { useRouter } from 'next/router';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import { IconButton, MenuItem } from '@mui/material';
+
 
 interface Employee {
   employeeName: string;
@@ -87,6 +93,61 @@ const employees: Employee[] = [
   },
 ];
 
+
+const DropDown: React.FC<{row: Employee}> = ({row}) => {
+  const [page, setPage] = useState(0);
+  const router = useRouter();
+  const { school_name } = router.query; // Extract school_name from the URL
+    const [rowsPerPage] = useState(5); // Fixed rows per page as per initial code
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
+    const [currentRow, setCurrentRow] = useState<Employee | null>(null);
+  
+    
+    const handleMenuClick = (event: React.MouseEvent<HTMLElement>, row:Employee) => {
+        setMenuAnchorEl(event.currentTarget);
+        setCurrentRow(row);
+      };
+    
+      const handleMenuClose = () => {
+        setMenuAnchorEl(null);
+        setCurrentRow(null);
+      };
+  return (
+    <div>
+       <><IconButton onClick={(e) => handleMenuClick(e, row)}>
+                    <MoreVert/>
+                  </IconButton>
+                  {menuAnchorEl && (
+  <ClickAwayListener onClickAway={handleMenuClose}>
+    <Card
+      sx={{
+        position: 'absolute',
+        top: menuAnchorEl.getBoundingClientRect().bottom -10,
+        left: menuAnchorEl.getBoundingClientRect().left -80,
+        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', // Adjust shadow as needed
+        zIndex: 1300, // Same as MUI's Popover to ensure it appears on top
+      }}
+    >
+      <CardContent>
+        <MenuItem 
+        sx={{
+        fontSize: "15px",
+        }}
+        onClick={()=> router.push(`/${school_name}/employee-profile`)}>View Employee</MenuItem>
+        <MenuItem 
+        sx={{
+        fontSize: "15px",
+        }}
+        onClick={()=> router.push(`/${school_name}/edit-employee`)}>Edit Employee</MenuItem>
+      </CardContent>
+    </Card>
+  </ClickAwayListener>
+)}</>
+    </div>
+  )
+}
+
 const columns: Column<Employee>[] = [
   { 
     title: 'Name', 
@@ -116,7 +177,8 @@ const columns: Column<Employee>[] = [
   { title: ' ',
     field: 'dot',
     render: (row) => (
-      <MoreVert/>
+      
+     <DropDown row={row}/>
     )
   },
 ];
@@ -173,4 +235,4 @@ const ViewEmployee = () => {
     </div>
 )};
 
-export default withProtectedRoute(ViewEmployee);
+export default ViewEmployee

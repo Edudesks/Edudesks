@@ -4,7 +4,6 @@ import ClassForm from '@/components/ClassComponent/ClassForm';
 import { useRouter } from 'next/router'
 import { setActivePage } from '@/store/slices/sidebarSlice';
 import { useAppDispatch } from '@/store/hooks';
-import withProtectedRoute from '@/hoc/ProtectedRoute';
 
 const AddClass = () => {
   const router = useRouter()
@@ -22,4 +21,4 @@ const AddClass = () => {
   );
 };
 
-export default withProtectedRoute(AddClass);
+export default AddClass

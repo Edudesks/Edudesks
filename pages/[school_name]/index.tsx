@@ -87,6 +87,6 @@ const Dashboard = () => {
   );
 };
 
-export default withProtectedRoute(Dashboard);
+export default Dashboard
 
 

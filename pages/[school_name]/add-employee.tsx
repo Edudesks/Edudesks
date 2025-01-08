@@ -29,16 +29,24 @@ const AddEmployee = () => {
         dispatch(setActivePage({active:"add-employee", parentNav: "employees"}));
          
        })
-  const methods = useForm<employeeFormData>({
-    resolver: zodResolver(employeeSchema),
-    mode: "onSubmit",
-  });
-
-  const { register, formState: {errors}, } = methods;
-
-  const onSubmit = (data: employeeFormData) => {
-    console.log(data);
-  }
+       const methods = useForm<employeeFormData>({
+        resolver: zodResolver(employeeSchema),
+        mode: "onSubmit",
+      });
+    
+      const {
+        register,
+        formState: { errors },
+      } = methods;
+    
+      const onSubmit = async (data: employeeFormData) => {
+        try {
+          // const response = await axios.post("/api/employees", data);
+          console.log("Employee added successfully:", data);
+        } catch (error) {
+          console.error("Error adding employee:", error);
+        }
+      };
 
   return (
     <FormProvider {...methods}>
@@ -270,4 +278,4 @@ const AddEmployee = () => {
   );
 };
 
-export default withProtectedRoute(AddEmployee);
+export default AddEmployee
