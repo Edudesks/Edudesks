@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FaArrowUpLong, FaArrowDownLong } from "react-icons/fa6";
 import { DateTime } from 'luxon';
 import { LuDot } from "react-icons/lu";
+import CreatePinComponent from "./WalletModal/CreatePin";
 export default function WalletBalanceComponent() {
   const [showBalance, setShowBalance] = useState(false);
   const [currentBalance, setCurrentBalance] = useState(1000000);
@@ -59,9 +60,15 @@ export default function WalletBalanceComponent() {
       setLocalTime(time);
     }
   }, []);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const HandleSubmit = ()=>{
+    setIsModalOpen(true);
+    console.log('it printing');    
+  }
 
   return (
-    <div className="flex flex-col gap-2 w-[100%]">
+    <>
+    <div className="flex flex-col gap-2 w-[100%] relative">
       <div className="flex justify-between items-start bg-[white] border border-[var(--border)] w-full px-[15px] py-[25px] rounded-[10px]">
         {/* Balance Section */}
       <div className="flex flex-col gap-2">
@@ -95,7 +102,7 @@ export default function WalletBalanceComponent() {
       </div>
       {/* Button Section */}
       <div className="flex items-center gap-2 mt-4">
-        <button className="flex items-center bg-[var(--secondary)] text-[white] justify-center w-full h-[43px] p-[15px] gap-4 text-[17px] rounded-[5px]">
+        <button className="flex items-center bg-[var(--secondary)] text-[white] justify-center w-full h-[43px] p-[15px] gap-4 text-[17px] rounded-[5px]" onClick={HandleSubmit}>
           <Image src={"/icons/money_receive.svg"} alt="money receive" width={24} height={24} />
           Deposit Fund
         </button>
@@ -104,6 +111,16 @@ export default function WalletBalanceComponent() {
           Withdraw
         </button>
       </div>
+
+      {
+            isModalOpen && (
+              <CreatePinComponent handleCancel={() => setIsModalOpen(false)}/>
+            )
+          }
+          
     </div>
+
+          
+    </>
   );
 }
