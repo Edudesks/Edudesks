@@ -61,8 +61,8 @@ export default function WalletBalanceComponent() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-2 w-[521px]">
-      <div className="flex justify-between items-start bg-[white] border border-[var(--border)] w-[521px] px-[15px] py-[25px] rounded-[10px]">
+    <div className="flex flex-col gap-2 w-[100%]">
+      <div className="flex justify-between items-start bg-[white] border border-[var(--border)] w-full px-[15px] py-[25px] rounded-[10px]">
         {/* Balance Section */}
       <div className="flex flex-col gap-2">
         <h4 className="text-[14px] font-[500]">Current Account Balance</h4>
@@ -100,7 +100,7 @@ export default function WalletBalanceComponent() {
           Deposit Fund
         </button>
         <button className="flex items-center w-full h-[43px] p-[15px] gap-4 text-[17px] rounded-[5px] bg-[var(--secondary)] text-[white] justify-center">
-          <Image src={"/icons/money_receive.svg"} alt="money receive" width={24} height={24} />
+          <Image src={"/icons/withdraw.svg"} alt="money receive" width={24} height={24} />
           Withdraw
         </button>
       </div>

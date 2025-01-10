@@ -102,7 +102,7 @@ const WalletChartComponent = () => {
         align: 'start',
         // position: 'right',
         padding: {
-          bottom: 10,
+          // bottom: 10,
         },
       },
       legend: {
@@ -144,8 +144,8 @@ const WalletChartComponent = () => {
 
   return (
     <>
-      <div className='bg-[white] border border-[var(--border)] w-[521px] px-[15px] py-[45px] rounded-[10px] relative'>
-      <FormControl className='w-[121px] h-[22px] absolute right-3 mb-3'>
+      <div className='bg-[white] border border-[var(--border)] w-[100%] px-[15px] h-auto py-[45px] rounded-[10px] relative'>
+      <FormControl className=' h-[22px] absolute right-3 top-4'>
         <Select
           labelId="month-select-label"
           value={selectedMonth}
@@ -158,7 +158,7 @@ const WalletChartComponent = () => {
           ))}
         </Select>
       </FormControl>
-      <Bar data={data} options={options} className='flex flex-col gap-4 ' />
+      <Bar data={data} options={options} height={200} className=''/>
       </div>
     </>
   );
