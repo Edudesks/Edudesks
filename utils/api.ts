@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-const apiRootUrl = process.env.REACT_APP_API_ROOT_URL || 'https://backend-edudesks-vgj7.onrender.com';
-// 
+const apiRootUrl = process.env.REACT_APP_API_ROOT_URL || "http://localhost:8000"
+// 'https://backend-edudesks-vgj7.onrender.com';
+
 export interface ApiRequestHeaders {
   [key: string]: string | number | boolean;
 }

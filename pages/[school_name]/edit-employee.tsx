@@ -1,4 +1,4 @@
-import UploadDialogComponenet from "@/components/StudentComponent/UploadDialogComponenet";
+import UploadDialogComponenet from "@/components/StudentComponent/UploadDialogComponent";
 import React, { useEffect } from "react";
 import withProtectedRoute from '@/hoc/ProtectedRoute';
 import { FormProvider, useForm } from "react-hook-form";

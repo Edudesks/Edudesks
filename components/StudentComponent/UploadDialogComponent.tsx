@@ -1,4 +1,4 @@
-import React, { useReducer, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { PersonOutline, AddCircle } from "@mui/icons-material";
 import {
   Box,
@@ -12,13 +12,13 @@ import {
 import "../../app/globals.css";
 import { CloudUploadIcon, Delete02Icon } from "hugeicons-react";
 import { useDropzone } from "react-dropzone";
-import Image from "next/image";
 
 interface UploadDialogProps {
   uploadType: "image" | "file";
+  onFileUpload: (file: File) => void; // Updated to specify the file type
 }
 
-const UploadDialogComponenet: React.FC<UploadDialogProps> = ({uploadType}) => {
+const UploadDialogComponent: React.FC<UploadDialogProps> = ({ uploadType, onFileUpload }) => {
   const [open, setOpen] = useState(false);
   const [uploadedData, setUploadedData] = useState<string | null>(null);
   const theme = useTheme();
@@ -43,6 +43,7 @@ const UploadDialogComponenet: React.FC<UploadDialogProps> = ({uploadType}) => {
     const reader = new FileReader();
     reader.onload = () => {
       setUploadedData(reader.result as string);
+      onFileUpload(file); // Call onFileUpload with the uploaded file
       handleClose();
     };
     reader.readAsDataURL(file);
@@ -86,7 +87,7 @@ const UploadDialogComponenet: React.FC<UploadDialogProps> = ({uploadType}) => {
           </>
         )}
       </Button>
-      {/* -------- change and delete image -------- */}
+
       {uploadedData && (
         <div className="flex items-center cursor-pointer">
           <Typography
@@ -94,7 +95,7 @@ const UploadDialogComponenet: React.FC<UploadDialogProps> = ({uploadType}) => {
             sx={{ textTransform: "none"!, fontFamily: "Open Sans" }}
             onClick={handleClickOpen}
           >
-            Change Image
+            Change {uploadType === "image" ? "Image" : "File"}
           </Typography>
           <Delete02Icon
             className="text-[var(--danger)] w-6 h-6"
@@ -103,25 +104,21 @@ const UploadDialogComponenet: React.FC<UploadDialogProps> = ({uploadType}) => {
         </div>
       )}
 
-      {/* -------- popup dialog -------- */}
       <Dialog
         open={open}
         onClose={handleClose}
-        hideBackdrop={isMobile ? false : true}
-        aria-labelledby="add-student-image"
+        hideBackdrop={!isMobile}
+        aria-labelledby="upload-dialog"
         className={`${isMobile ? "" : "w-[60rem]"} h-[40rem]`}
       >
-        {/* -------- dialog content -------- */}
         <DialogContent
           {...getRootProps()}
           className="py-7 px-6 border-2 border-dashed border-[var(--border)] bg-[var(--secondary-text-color)] cursor-pointer"
         >
           <input {...getInputProps()} hidden />
-          {/* -------- box container -------- */}
           <Box className="flex flex-col gap-4 items-center justify-center">
             {!uploadedData ? (
               <>
-                {" "}
                 <Box className="w-14 h-14 rounded-full bg-[var(--border)] flex items-center justify-center p-3.5">
                   <CloudUploadIcon className="w-7 h-7 text-[var(--primary-text-color)]" />
                 </Box>
@@ -139,7 +136,6 @@ const UploadDialogComponenet: React.FC<UploadDialogProps> = ({uploadType}) => {
                 <Typography className="text-[var(--grey)] text-sm font-semibold font-['Open_Sans']">
                   OR
                 </Typography>
-                {/* ------- button to upload image -------- */}
                 <Button
                   className="normal-case font-['Open_Sans'] py-2 px-4 bg-[var(--primary)] text-[var(--secondary-text-color)] text-sm font-semibold rounded-md"
                   onClick={handleButtonClick}
@@ -172,4 +168,4 @@ const UploadDialogComponenet: React.FC<UploadDialogProps> = ({uploadType}) => {
   );
 };
 
-export default UploadDialogComponenet;
+export default UploadDialogComponent;

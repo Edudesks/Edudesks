@@ -1,7 +1,9 @@
-import UploadDialogComponenet from "@/components/StudentComponent/UploadDialogComponenet";
-import React, { useEffect } from "react";
+import UploadDialogComponent from "@/components/StudentComponent/UploadDialogComponent";
+import React, { useEffect, useState } from "react";
 import withProtectedRoute from '@/hoc/ProtectedRoute';
 import { FormProvider, useForm } from "react-hook-form";
+import { makeApiCall } from '@/utils/api';
+
 import {
   UserIcon,
   Location04Icon,
@@ -24,6 +26,8 @@ import {
 } from "@/features/auth/employeeSchema";
 
 const AddEmployee = () => {
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
    const dispatch = useAppDispatch();
        useEffect(()=>{
         dispatch(setActivePage({active:"add-employee", parentNav: "employees"}));
@@ -38,15 +42,59 @@ const AddEmployee = () => {
         register,
         formState: { errors },
       } = methods;
+      const handleImageUpload = (file: File) => setUploadedImage(file);
+      const handleFileUpload = (file: File) => setUploadedFile(file);
     
       const onSubmit = async (data: employeeFormData) => {
+        console.log(data);
         try {
-          // const response = await axios.post("/api/employees", data);
-          console.log("Employee added successfully:", data);
+          // Create a new FormData instance
+          const formData = new FormData();
+      
+          // Append the regular form fields
+          console.log("Last Name", data.personal.lastName)
+          formData.append("personal[otherName]", data.personal.otherName);
+          formData.append("personal[lastName]", data.personal.lastName);
+          formData.append("personal[email]", data.personal.email);
+          formData.append("personal[gender]", data.personal.gender.join(","));
+          formData.append("personal[dateOfBirth]", data.personal.dateOfBirth);
+          formData.append("personal[nationalId]", data.personal.nationalId);
+          formData.append("personal[bankAccountNumber]", data.personal.bankAccountNumber);
+          formData.append("personal[bankAccountHolder]", data.personal.bankAccountHolder);
+          formData.append("personal[bankName]", data.personal.bankName);
+          formData.append("personal[expectedSalary]", data.personal.expectedSalary);
+      
+          formData.append("position[department]", data.position.department);
+          formData.append("position[role]", data.position.role);
+      
+          formData.append("contact[phoneNumber]", data.contact.phoneNumber);
+          formData.append("contact[residentialAddress]", data.contact.residentialAddress);
+      
+          formData.append("education[levelOfEducation]", data.education.levelOfEducation);
+          formData.append("education[institution]", data.education.institution);
+      
+          // Append files if available
+          if (uploadedImage) {
+            formData.append("uploadedImage", uploadedImage, uploadedImage.name);
+          }
+          if (uploadedFile) {
+            formData.append("uploadedFile", uploadedFile, uploadedFile.name);
+          }
+          console.log(formData)
+      
+          // Log the formData in development mode (this won't show the file contents)
+         
+      
+          // Make the API call using the makeApiCall function with FormData
+          const response = await makeApiCall('POST', '/employee/add-employee', formData);
+      
+          console.log("Employee added successfully:", response.data);
         } catch (error) {
           console.error("Error adding employee:", error);
         }
       };
+      
+      
 
   return (
     <FormProvider {...methods}>
@@ -60,16 +108,16 @@ const AddEmployee = () => {
           {/* -------- uploads and form -------- */}
           <div className="flex flex-col gap-[1.5625rem] w-full">
             {/* -------- image and file upload -------- */}
-            <div className="flex gap-[1.5625rem] self-start justify-start">
-              <UploadDialogComponenet uploadType={"image"} />
-              <UploadDialogComponenet uploadType={"file"} />
-            </div>
             <form
               id="employeeForm"
               action=""
               className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-[1.5625rem] lg:gap-x-[3.375rem] w-full"
               onSubmit={methods.handleSubmit(onSubmit)}
             >
+            <div className="flex gap-[1.5625rem] self-start justify-start">
+              <UploadDialogComponent uploadType="image" onFileUpload={handleImageUpload} />
+              <UploadDialogComponent uploadType="file" onFileUpload={handleFileUpload} />
+            </div>
               {/* -------- last name -------- */}
               <InputField
                 id="employee-last-name"
@@ -78,8 +126,8 @@ const AddEmployee = () => {
                 placeholder={"Enter employee last name"}
                 type={"text"}
                 icon={UserIcon}
-                {...register("employeeLastName")}
-                error={errors.employeeLastName?.message}
+                {...register("personal.lastName")}
+                error={errors.personal?.lastName?.message}
               />
               {/* -------- other names -------- */}
               <InputField
@@ -89,8 +137,8 @@ const AddEmployee = () => {
                 type={"text"}
                 icon={UserIcon}
                 className={"py-2.5 px-9"}
-                {...register("employeeOtherNames")}
-                error={errors.employeeOtherNames?.message}
+                {...register("personal.otherName")}
+                error={errors.personal?.otherName?.message}
               />
               {/* -------- email-address -------- */}
               <InputField
@@ -100,8 +148,8 @@ const AddEmployee = () => {
                 placeholder={"Enter email address"}
                 type={"email"}
                 icon={Mail01Icon}
-                {...register("employeeEmailAddress")}
-                error={errors.employeeEmailAddress?.message}
+                {...register("personal.email")}
+                error={errors.personal?.email?.message}
               />
               {/* -------- employee-phone-number -------- */}
               <InputField
@@ -111,15 +159,15 @@ const AddEmployee = () => {
                 placeholder={"000-0000-000"}
                 type={"text"}
                 icon={Call02Icon}
-                {...register("employeePhoneNumber")}
-                error={errors.employeePhoneNumber?.message}
+                {...register("contact.phoneNumber")}
+                error={errors.contact?.phoneNumber?.message}
               />
               {/* -------- gender -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
-                <GenderField fieldName={"employeeGender"} />
-                {errors.employeeGender?.message && (
+                <GenderField fieldName={"personal.gender"} />
+                {errors.personal?.gender?.message && (
                   <p className="self-start text-sm text-[var(--danger)] mt-1">
-                    {errors.employeeGender?.message}
+                    {errors.personal?.gender?.message}
                   </p>
                 )}
               </div>
@@ -134,11 +182,11 @@ const AddEmployee = () => {
                 <div className="w-full flex flex-col relative items-center text-[var(--grey)]">
                   <CalenderComponent
                     variant="form"
-                    {...register("employeeDateOfBirth")}
+                    {...register("personal.dateOfBirth")}
                   />
-                  {errors.employeeDateOfBirth?.message && (
+                  {errors.personal?.dateOfBirth?.message && (
                     <p className="self-start text-sm text-[var(--danger)] mt-1">
-                      {errors.employeeDateOfBirth?.message}
+                      {errors.personal?.dateOfBirth?.message}
                     </p>
                   )}
                 </div>
@@ -151,8 +199,8 @@ const AddEmployee = () => {
                 placeholder={"Enter employee's residential address"}
                 type={"text"}
                 icon={Location04Icon}
-                {...register("employeeResidentialAddress")}
-                error={errors.employeeResidentialAddress?.message}
+                {...register("contact.residentialAddress")}
+                error={errors.contact?.residentialAddress?.message}
               />
               {/* -------- national id number -------- */}
               <InputField
@@ -162,8 +210,8 @@ const AddEmployee = () => {
                 placeholder={"Enter national ID number"}
                 type={"text"}
                 icon={Mail01Icon}
-                {...register("employeeNationalIdentificationNumber")}
-                error={errors.employeeNationalIdentificationNumber?.message}
+                {...register("personal.nationalId")}
+                error={errors.personal?.nationalId?.message}
               />
               {/* -------- institution -------- */}
               <InputField
@@ -173,8 +221,8 @@ const AddEmployee = () => {
                 placeholder={"Enter employee's institution"}
                 type={"text"}
                 icon={Location04Icon}
-                {...register("employeeInstitution")}
-                error={errors.employeeInstitution?.message}
+                {...register("education.institution")}
+                error={errors.education?.institution?.message}
               />
               {/* -------- degree program/qualification -------- */}
               <InputField
@@ -184,8 +232,8 @@ const AddEmployee = () => {
                 placeholder={"Enter qualification"}
                 type={"text"}
                 icon={Mail01Icon}
-                {...register("employeeDegreeProgram")}
-                error={errors.employeeDegreeProgram?.message}
+                {...register("education.levelOfEducation")}
+                error={errors.education?.levelOfEducation?.message}
               />
               {/* -------- department -------- */}
               <InputField
@@ -195,8 +243,8 @@ const AddEmployee = () => {
                 placeholder={"Enter employee's department"}
                 type={"text"}
                 icon={UserIcon}
-                {...register("employeeDepartment")}
-                error={errors.employeeDepartment?.message}
+                {...register("position.department")}
+                error={errors.position?.department?.message}
               />
               {/* -------- role -------- */}
               <InputField
@@ -206,8 +254,8 @@ const AddEmployee = () => {
                 placeholder={"Enter employee's role"}
                 type={"text"}
                 icon={UserIcon}
-                {...register("employeeRole")}
-                error={errors.employeeRole?.message}
+                {...register("position.role")}
+                error={errors.position?.role?.message}
               />
               {/* -------- bank account number -------- */}
               <InputField
@@ -217,8 +265,8 @@ const AddEmployee = () => {
                 placeholder={"Enter employee's bank account number"}
                 type={"text"}
                 icon={UserIcon}
-                {...register("employeeBankAccountDetails")}
-                error={errors.employeeBankAccountDetails?.message}
+                {...register("personal.bankAccountNumber")}
+                error={errors.personal?.bankAccountNumber?.message}
               />
               {/* -------- bank account holder -------- */}
               <InputField
@@ -228,8 +276,8 @@ const AddEmployee = () => {
                 placeholder={"Enter employee's bank account holder's name"}
                 type={"text"}
                 icon={UserIcon}
-                {...register("employeeBankAccountHolder")}
-                error={errors.employeeBankAccountHolder?.message}
+                {...register("personal.bankAccountHolder")}
+                error={errors.personal?.bankAccountHolder?.message}
               />
               {/* -------- bank name -------- */}
               <InputField
@@ -239,8 +287,8 @@ const AddEmployee = () => {
                 placeholder={"Enter employee's bank account number"}
                 type={"text"}
                 icon={UserIcon}
-                {...register("employeeNameOfBank")}
-                error={errors.employeeNameOfBank?.message}
+                {...register("personal.bankName")}
+                error={errors.personal?.bankName?.message}
               />
               {/* -------- expected salary -------- */}
               <InputField
@@ -250,8 +298,8 @@ const AddEmployee = () => {
                 placeholder={"Enter employee's salary"}
                 type={"text"}
                 icon={MoneyAdd02Icon}
-                {...register("employeeExpectedSalary")}
-                error={errors.employeeExpectedSalary?.message}
+                {...register("personal.expectedSalary")}
+                error={errors.personal?.expectedSalary?.message}
               />
             </form>
             {/* -------- submit and cancel buttons -------- */}

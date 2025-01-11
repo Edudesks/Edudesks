@@ -1,6 +1,6 @@
 import React from "react";
 import "../../app/globals.css";
-import UploadDialogComponenet from "./UploadDialogComponenet";
+import UploadDialogComponenet from "./UploadDialogComponent";
 import {
   UserIcon,
   Location04Icon,
