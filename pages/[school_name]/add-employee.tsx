@@ -46,13 +46,9 @@ const AddEmployee = () => {
       const handleFileUpload = (file: File) => setUploadedFile(file);
     
       const onSubmit = async (data: employeeFormData) => {
-        console.log(data);
         try {
-          // Create a new FormData instance
-          const formData = new FormData();
+          let formData = new FormData();
       
-          // Append the regular form fields
-          console.log("Last Name", data.personal.lastName)
           formData.append("personal[otherName]", data.personal.otherName);
           formData.append("personal[lastName]", data.personal.lastName);
           formData.append("personal[email]", data.personal.email);
@@ -73,26 +69,30 @@ const AddEmployee = () => {
           formData.append("education[levelOfEducation]", data.education.levelOfEducation);
           formData.append("education[institution]", data.education.institution);
       
-          // Append files if available
           if (uploadedImage) {
-            formData.append("uploadedImage", uploadedImage, uploadedImage.name);
+            formData.append("profilePicture", uploadedImage, uploadedImage.name);
           }
           if (uploadedFile) {
-            formData.append("uploadedFile", uploadedFile, uploadedFile.name);
+            formData.append("cv", uploadedFile, uploadedFile.name);
+            formData.append("transcript", uploadedFile, uploadedFile.name);
           }
-          console.log(formData)
       
-          // Log the formData in development mode (this won't show the file contents)
-         
+          console.log("Form Data Here you go:\n");
+          formData.forEach((value, key) => console.log(key, value));
       
-          // Make the API call using the makeApiCall function with FormData
-          const response = await makeApiCall('POST', '/employee/add-employee', formData);
+          const response = await makeApiCall('POST','/employee/add-employee', formData);
+          console.log(response)
+          // if (!response.ok) {
+          //   throw new Error(`HTTP error! status: ${response.status}`);
+          // }
       
-          console.log("Employee added successfully:", response.data);
+          // const responseData = await response.json();
+          console.log("Employee added successfully:", response.payload);
         } catch (error) {
           console.error("Error adding employee:", error);
         }
       };
+      
       
       
 

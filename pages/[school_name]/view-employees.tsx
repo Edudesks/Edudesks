@@ -15,83 +15,9 @@ import CardContent from '@mui/material/CardContent';
 import { useRouter } from 'next/router';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { IconButton, MenuItem } from '@mui/material';
+import { makeApiCall } from '@/utils/api';
 
 
-interface Employee {
-  employeeName: string;
-  gender: string;
-  role: string;
-  phoneNumber: string;
-  salary: string;
-  dot: string;
-}
-
-const employees: Employee[] = [
-  {
-    employeeName: 'Paul',
-    gender: 'Male',
-    role: 'Male',
-    phoneNumber: '091234545O',
-    salary: '50000',
-    dot: '...',
-  },
-  {
-    employeeName: 'Mary',
-    gender: 'Female',
-    role: 'Female',
-    phoneNumber: '091234545O',
-    salary: '50000',
-    dot: '...',
-  },
-  {
-    employeeName: 'Paul',
-    gender: 'Male',
-    role: 'Male',
-    phoneNumber: '091234545O',
-    salary: '50000',
-    dot: '...',
-  },
-  {
-    employeeName: 'Mary',
-    gender: 'Female',
-    role: 'Female',
-    phoneNumber: '091234545O',
-    salary: '50000',
-    dot: '...',
-  },
-  {
-    employeeName: 'Paul',
-    gender: 'Male',
-    role: 'Male',
-    phoneNumber: '091234545O',
-    salary: '50000',
-    dot: '...',
-  },
-  {
-    employeeName: 'Mary',
-    gender: 'Female',
-    role: 'Female',
-    phoneNumber: '091234545O',
-    salary: '50000',
-    dot: '...',
-  },
-  {
-    employeeName: 'Paul',
-    gender: 'Male',
-    role: 'Male',
-    phoneNumber: '091234545O',
-    salary: '50000',
-    dot: '...',
-  },
-  {
-    employeeName: 'Mary',
-    gender: 'Female',
-    role: 'Female',
-    phoneNumber: '091234545O',
-    salary: '50000',
-    dot: '...',
-  },
-];
 
 
 const DropDown: React.FC<{row: Employee}> = ({row}) => {
@@ -103,10 +29,9 @@ const DropDown: React.FC<{row: Employee}> = ({row}) => {
     const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
     const [currentRow, setCurrentRow] = useState<Employee | null>(null);
   
-    
     const handleMenuClick = (event: React.MouseEvent<HTMLElement>, row:Employee) => {
-        setMenuAnchorEl(event.currentTarget);
-        setCurrentRow(row);
+      setMenuAnchorEl(event.currentTarget);
+      setCurrentRow(row);
       };
     
       const handleMenuClose = () => {
@@ -148,6 +73,104 @@ const DropDown: React.FC<{row: Employee}> = ({row}) => {
   )
 }
 
+
+type EmployeeData = {
+  _id: string;
+  personal: {
+      otherName: string;
+      lastName: string;
+      gender: ("Male" | "Female")[];
+      expectedSalary: string
+  };
+  position: {
+      role: string
+  };
+  contact: {
+      phoneNumber: number
+  };
+  supportingDocuments: {
+      profilePicture: string;
+  };
+  category: string
+}
+
+interface Employee {
+  employeeName: string;
+  gender: string;
+  role: string;
+  phoneNumber: string;
+  salary: string;
+  dot: string;
+}
+
+// const employees: Employee[] = [
+//   {
+//     employeeName: 'Paul',
+//     gender: 'Male',
+//     role: 'Male',
+//     phoneNumber: '091234545O',
+//     salary: '50000',
+//     dot: '...',
+//   },
+//   {
+//     employeeName: 'Mary',
+//     gender: 'Female',
+//     role: 'Female',
+//     phoneNumber: '091234545O',
+//     salary: '50000',
+//     dot: '...',
+//   },
+//   {
+//     employeeName: 'Paul',
+//     gender: 'Male',
+//     role: 'Male',
+//     phoneNumber: '091234545O',
+//     salary: '50000',
+//     dot: '...',
+//   },
+//   {
+//     employeeName: 'Mary',
+//     gender: 'Female',
+//     role: 'Female',
+//     phoneNumber: '091234545O',
+//     salary: '50000',
+//     dot: '...',
+//   },
+//   {
+//     employeeName: 'Paul',
+//     gender: 'Male',
+//     role: 'Male',
+//     phoneNumber: '091234545O',
+//     salary: '50000',
+//     dot: '...',
+//   },
+//   {
+//     employeeName: 'Mary',
+//     gender: 'Female',
+//     role: 'Female',
+//     phoneNumber: '091234545O',
+//     salary: '50000',
+//     dot: '...',
+//   },
+//   {
+//     employeeName: 'Paul',
+//     gender: 'Male',
+//     role: 'Male',
+//     phoneNumber: '091234545O',
+//     salary: '50000',
+//     dot: '...',
+//   },
+//   {
+//     employeeName: 'Mary',
+//     gender: 'Female',
+//     role: 'Female',
+//     phoneNumber: '091234545O',
+//     salary: '50000',
+//     dot: '...',
+//   },
+// ];
+
+
 const columns: Column<Employee>[] = [
   { 
     title: 'Name', 
@@ -184,25 +207,51 @@ const columns: Column<Employee>[] = [
 ];
 
 
-const Header = () => {
-  return (
-    <div className={styles.header}>
-        <EmployeeSearchFilter />
-        
-    </div>
-  );
-};
-
 
 
 const EmployeeTable = () => {
+  const [employees, setEmployees] = useState<Employee[]>([]);
+
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const response = await makeApiCall("GET", "/employee");
+
+        // Assuming response.payload.employee.employees contains the array of EmployeeData
+        const apiEmployees: EmployeeData[] = response.payload.employee.employees;
+
+        // Map API data to the Employee format
+        const transformedEmployees: Employee[] = apiEmployees.map((emp) => ({
+          employeeName: `${emp.personal.otherName} ${emp.personal.lastName}`,
+          gender: emp.personal.gender[0], // Assuming the first gender entry is relevant
+          role: emp.position.role,
+          phoneNumber: emp.contact.phoneNumber.toString(), // Convert to string
+          salary: emp.personal.expectedSalary,
+          dot: "", // Placeholder if `dot` is not part of API data
+        }));
+
+        setEmployees(transformedEmployees);
+      } catch (error) {
+        console.error("Error fetching employees:", error);
+      }
+    };
+
+    fetchEmployees();
+  }, []);
+
   return (
     <>
-        <EmployeeSearchFilter />
-    <GenericTable rows={employees} columns={columns} rowsPerPage={5} headColor = '#002F49'/>
+      <EmployeeSearchFilter />
+      <GenericTable
+        rows={employees}
+        columns={columns}
+        rowsPerPage={5}
+        headColor="#002F49"
+      />
     </>
   );
 };
+
 
 
 
