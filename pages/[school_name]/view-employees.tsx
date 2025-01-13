@@ -3,12 +3,12 @@ import styles from '@/styles/Class.module.css';
 import withProtectedRoute from '@/hoc/ProtectedRoute';
 import { MoreVert } from "@mui/icons-material";
 
-import EmployeeCard from '@/components/EmploComponent/EmployeeCard';
+import EmployeeCard from '@/components/EmployeeComponent/EmployeeCard';
 import GenericTable, { Column } from '@/components/Table';
 import Link from 'next/link';
 import { useAppDispatch } from '@/store/hooks';
 import { setActivePage } from '@/store/slices/sidebarSlice';
-import EmployeeSearchFilter from '@/components/EmploComponent/EmployeeSearchFilter';
+import EmployeeSearchFilter from '@/components/EmployeeComponent/EmployeeSearchFilter';
 import Image from 'next/image';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';

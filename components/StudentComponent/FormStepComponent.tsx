@@ -69,7 +69,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
           </h3>
           <div className="flex flex-col gap-10 lg:gap-[3.375rem]">
             {/* -------- add student image -------- */}
-            <UploadDialogComponenet uploadType={"image"} />
+            <UploadDialogComponenet uploadType={"image"} onFileUpload={()=>{}}/>
             {/* -------- form input section -------- */}
             <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-[1.5625rem] lg:gap-x-[3.375rem] w-full">
               {/* -------- last name -------- */}
