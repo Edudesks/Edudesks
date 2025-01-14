@@ -5,11 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import { openSans } from "@/app/fonts/fonts";
 import { HiXMark } from "react-icons/hi2";
-import SuccessfulCreatePinComponent from './SuccessFulCreatePin';
+import EnterPinComponent from "./EnterPin";
 type ConfirmPinModalProps = {
-  open: boolean;
   handleClose: () => void;
-  pin: string;
 };
 export type VerificationCodeFormData = {
     otp1: string;
@@ -17,11 +15,11 @@ export type VerificationCodeFormData = {
     otp3: string;
     otp4: string;
   };
-  
-const ConfirmPinModal: React.FC<ConfirmPinModalProps> = ({
-  open,
+  // The test OTP value for validation
+const testOTP = "1111";
+
+const ForgotPinModal: React.FC<ConfirmPinModalProps> = ({
   handleClose,
-  pin,
 }) => {
   const verificationCodeSchema = z
     .object({
@@ -33,7 +31,7 @@ const ConfirmPinModal: React.FC<ConfirmPinModalProps> = ({
     .refine(
       (data) => {
         const combinedOTP = `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`;
-        return combinedOTP === pin;
+      return combinedOTP === testOTP;
       },
       {
         message: "Invalid OTP",
@@ -97,7 +95,7 @@ const ConfirmPinModal: React.FC<ConfirmPinModalProps> = ({
     
   return (
     <>
-    <Modal open={open} aria-labelledby="Confirm PIN">
+    <Modal open={true} aria-labelledby="Confirm PIN">
       <Box
         sx={{
           transform: 'translate(-50%, -50%)',
@@ -105,15 +103,16 @@ const ConfirmPinModal: React.FC<ConfirmPinModalProps> = ({
           boxShadow: 24,
           borderRadius: 2,
         }}
-        className={`${openSans.className} absolute top-[50%] left-[50%] w-[90%] sm:w-[415px] bg-[white] p-4 h-[360px] flex flex-col gap-2`}
+        className={`${openSans.className} absolute top-[50%] left-[50%] w-[90%] sm:w-[415px] bg-[white] p-4 h-auto sm:h-[360px] flex flex-col gap-2`}
       >
         <div className="flex justify-end font-medium">
           <HiXMark onClick={handleClose} className='text-[35px] hover:cursor-pointer'/>
         </div>
-        <h2 className="font-[600] text-[25px] sm:text-[32px] text-center">Confirm Pin</h2>
-        <p className='font-normal text-[14px] tracking-[0.15px] text-[#808283] mt-0 text-center'>Enter 4-digit pin to secure your account</p>
+        <h2 className="font-[600] text-[24px] sm:text-[27px] text-center text-[var(--primary)]">Forgot Pin</h2>
+        <p className='font-normal text-[14px] tracking-[0.15px] text-[var(--primary)] mt-0 text-center'>An OTP has been sent to *******@gmail.com. Enter the code below</p>
                   <form onSubmit={handleSubmit(handleConfirm)} className="w-full sm:w-[350px]">
-                    <div className="flex m-5 items-center justify-between gap-3 h-auto pb-4">
+                  <div className="flex flex-col gap-3">
+                    <div className="flex mt-5 items-center justify-between gap-3 h-auto">
                       {[0, 1, 2, 3].map((index) => (
                         <Controller
                           key={index}
@@ -143,6 +142,11 @@ const ConfirmPinModal: React.FC<ConfirmPinModalProps> = ({
                         />
                       ))}
                     </div>
+                    <div className="flex items-center gap-1 mb-4 justify-center">
+                    <p className='text-[var(--grey)] text-[12px] sm:text-[14px]'>Didn’t receive any code?</p>
+                    <p className="text-[var(--secondary)] text-[14px] sm:text-[16px] font-[600]">Resend code</p>
+                    </div>
+                    </div>
                     <div className="w-full text-center">
                        <button
                                     className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] w-[80%] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
@@ -155,11 +159,14 @@ const ConfirmPinModal: React.FC<ConfirmPinModalProps> = ({
       </Box>
     </Modal>
     
-    {isModalOpen && (
-        <SuccessfulCreatePinComponent open={isModalOpen}  handleClose={() => setIsModalOpen(false)}/>
-    )}
+    {
+  isModalOpen && (
+    <EnterPinComponent 
+    handleCancel={() => setIsModalOpen(false)}/>
+  )
+}
 </>
   );
 };
 
-export default ConfirmPinModal;
+export default ForgotPinModal;
