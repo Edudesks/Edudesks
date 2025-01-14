@@ -11,6 +11,11 @@ export default function WalletBalanceComponent() {
   const [localDate, setLocalDate] = useState('');
   const [localTime, setLocalTime] = useState('');
   const [timezone, setTimezone] = useState('Africa/Lagos'); // Default to 'Africa/Lagos'
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const HandleSubmit = ()=>{
+    setIsModalOpen(true);
+    console.log('it printing');    
+  }
 
   const handleShowBalance = () => {
     setShowBalance(!showBalance);
@@ -60,11 +65,6 @@ export default function WalletBalanceComponent() {
       setLocalTime(time);
     }
   }, []);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const HandleSubmit = ()=>{
-    setIsModalOpen(true);
-    console.log('it printing');    
-  }
 
   return (
     <>
@@ -102,11 +102,11 @@ export default function WalletBalanceComponent() {
       </div>
       {/* Button Section */}
       <div className="flex items-center gap-2 mt-4">
-        <button className="flex items-center bg-[var(--secondary)] text-[white] justify-center w-full h-[43px] p-[15px] gap-4 text-[17px] rounded-[5px]" onClick={HandleSubmit}>
+        <button className="flex items-center bg-[var(--secondary)] text-[white] justify-center w-full h-[46px] sm:h-[43px] p-[15px] gap-4 text-[14px] sm:text-[17px] rounded-[5px]" onClick={HandleSubmit}>
           <Image src={"/icons/money_receive.svg"} alt="money receive" width={24} height={24} />
           Deposit Fund
         </button>
-        <button className="flex items-center w-full h-[43px] p-[15px] gap-4 text-[17px] rounded-[5px] bg-[var(--secondary)] text-[white] justify-center">
+        <button className="flex items-center w-full h-[46px] sm:h-[43px] p-[15px] gap-4 text-[14px] sm:text-[17px] rounded-[5px] bg-[var(--secondary)] text-[white] justify-center">
           <Image src={"/icons/withdraw.svg"} alt="money receive" width={24} height={24} />
           Withdraw
         </button>
