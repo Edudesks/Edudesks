@@ -13,7 +13,7 @@ import withProtectedRoute from '@/hoc/ProtectedRoute';
 const Dashboard = () => {
   const dispatch = useAppDispatch();
   useEffect(()=>{
-    dispatch(setActivePage({active:"dashboard", parentNav: "dashboard"})); 
+    dispatch(setActivePage({active:"dashboard", parentNav: "dashboard"}));
   })
   return (
         <>
@@ -63,7 +63,7 @@ const Dashboard = () => {
             size="medium"
           />
         </div>
-        
+
         {/* Analytics and Circular Chart Row */}
         <div className={styles.flexContainer}>
           <div className={styles.flexRevenue}>
@@ -74,7 +74,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        
+
         {/* Transaction History Table */}
         <div className="px-6 mt-6">
           <DashboardTable />
@@ -87,6 +87,6 @@ const Dashboard = () => {
   );
 };
 
-export default withProtectedRoute(Dashboard);
+export default Dashboard;
 
 
