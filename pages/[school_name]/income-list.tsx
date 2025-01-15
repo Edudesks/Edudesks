@@ -15,6 +15,11 @@ interface Income {
   status: "Pending" | "Received" | "Paid";
 }
 
+const data = [
+    329034, 101162, 325001, 428094, 317322, 247398, 362087, 297364,
+    416401, 349249, 43280, 281720,
+  ] // Y-axis data for Line 2
+
 const income: Income[] = [
   {
     date: "Fri 24th May",
@@ -105,7 +110,9 @@ const columns: Column<Income>[] = [
     field: "date",
     render: (row) => (
       <div className="flex flex-col items-start">
-        <p className="text-[var(--primary-text-color)] font-normal text-lg">{row.date}</p>
+        <p className="text-[var(--primary-text-color)] font-normal text-lg">
+          {row.date}
+        </p>
         <p className="text-[var(--grey)]">{row.time}</p>
       </div>
     ),
@@ -114,10 +121,26 @@ const columns: Column<Income>[] = [
 
 const IncomeList = () => {
   return (
-    <div>
-      <CircularChart />
-      <DashboardTable />
-      <LineGraphCard />
+    <div className="w-full px-[18px] py-[30px] lg:pl-[31px] lg:pt-[29px] lg:pr-[85px] lg:pb-8 lg:bg-[#F9F9F9]">
+      {/* -------- main content -------- */}
+      <div className="flex flex-col gap-8 lg:gap-[18px]">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-[30px]">
+          <div className="lg:w-[60%]">
+            <LineGraphCard
+              title={"Total Income"}
+              amount={""}
+              percentageChange={0}
+              changeLabel={""}
+              data={data}
+              backgroundColors={[]}
+              icon={""}
+              barColor={""}
+            />
+          </div>
+          <CircularChart />
+        </div>
+        <DashboardTable />
+      </div>
     </div>
   );
 };

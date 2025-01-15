@@ -156,6 +156,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 <DropdownSelectComponent
                   {...register("personalInformation.classes")}
                   options={classes}
+                  label="Classes*"
+                  placeholder="select class"
                   value={methods.watch("personalInformation.classes")}
                 />
                 {/* {errors.personalInformation?.classes?.message && (
