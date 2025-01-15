@@ -27,10 +27,8 @@ interface LineGraphCardProps {
   title: string;
   amount: string;
   percentageChange: number;
-  changeLabel: string;
   data: number[];
   backgroundColors: string[];
-  icon: string;
   barColor: string;
   size?: "small" | "medium" | "large";
 }
@@ -39,10 +37,8 @@ const LineGraphCard: React.FC<LineGraphCardProps> = ({
   title,
   amount,
   percentageChange,
-  changeLabel,
   data,
   backgroundColors,
-  icon,
   barColor,
   size,
 }) => {
@@ -67,8 +63,8 @@ const LineGraphCard: React.FC<LineGraphCardProps> = ({
         label: "Income", // Line 2 label
         data: data,
 
-        borderColor: "#4B8BBE", // Line color
-        backgroundColor: "#4B8BBE", // Fill color
+        borderColor: barColor, // Line color
+        backgroundColor: barColor, // Fill color
         tension: 0.7, // Smooth curve
         borderWidth: 2.982,
       },
@@ -107,7 +103,7 @@ const LineGraphCard: React.FC<LineGraphCardProps> = ({
           title: (context) => {
             if (context[0]?.chart) {
               const index = context[0].dataIndex;
-              const label = context[0].chart.data.labels[index];
+              const label = context[0]?.chart?.data?.labels?.[index];
               return `${label}, ${year}`;
             }
             return "";
@@ -168,39 +164,56 @@ const LineGraphCard: React.FC<LineGraphCardProps> = ({
 
   return (
     <div className="flex flex-col gap-[30px] border border-solid border-[var(--border)] bg-white w-full pl-5 pt-[18px] lg:pb-[10px] lg:pr-[53px] rounded-lg">
-        {/* -------- legend -------- */}
+      {/* -------- legend -------- */}
       <div className="flex justify-between items-center flex-col lg:flex-row gap-3">
         {/* -------- total income -------- */}
         <div className="flex flex-col gap-2 self-start lg:self-auto">
-          <p className="text-sm text-[var(--primary-text-color)]">
-            {title}
-          </p>
+          <p className="text-sm text-[var(--primary-text-color)]">{title}</p>
           <div className="flex gap-[6px] items-center">
             <p className="text-2xl text-[var(--primary-text-color)]">
-              ₦1,000,000
+              {amount}
             </p>
             <div className="flex gap-[6px] items-center">
               {/* -------- green circle -------- */}
-              <div className="w-[9px] h-[9px] rounded-full bg-[#00B87C] flex items-center justify-center">
+              <div
+                className={`w-[9px] h-[9px] rounded-full ${
+                  percentageChange < 0
+                    ? "bg-[var(--danger)]"
+                    : "bg-[var(--success)]"
+                } flex items-center justify-center`}
+              >
                 <div className="w-[5px] h-[5px] rounded-full bg-white"></div>
               </div>
               {/* -------- percentage change -------- */}
-              <p className="text-xs">
-                <span>+</span>
-                <span>20%</span>
+              <p
+                className={`text-xs ${
+                  percentageChange < 0
+                    ? "text-[var(--danger)]"
+                    : "text-[var(--success)]"
+                }`}
+              >
+                <span>{percentageChange < 0 ? "" : "+"}</span>
+                <span>{percentageChange.toFixed(2)}%</span>
               </p>
             </div>
           </div>
         </div>
         {/* -------- income and monthly dropdown -------- */}
         <div className="flex items-center gap-[35px] justify-between w-full lg:w-auto">
-            {/* -------- income -------- */}
-            <div className="flex items-center gap-[7px]">
-                <p className="text-xs text-[var(--primary-text-color)] leading-[30px]">Income</p>
-                <div className="w-[9px] h-[9px] bg-[var(--secondary)] rounded-full"></div>
-            </div>
-            {/* -------- dropdown -------- */}
-            <DropdownSelectComponent name={""} options={['Monthly', 'Annual']} />
+          {/* -------- income -------- */}
+          <div className="flex items-center gap-[7px]">
+            <p className="text-xs text-[var(--primary-text-color)] leading-[30px]">
+              Income
+            </p>
+            <div className="w-[9px] h-[9px] bg-[var(--secondary)] rounded-full"></div>
+          </div>
+          {/* -------- dropdown -------- */}
+          <div className="mr-[26px] lg:m-0">
+            <DropdownSelectComponent
+              name={""}
+              options={["Monthly", "Annual"]}
+            />
+          </div>
         </div>
       </div>
       <Line data={dataSet} options={options} />
@@ -209,4 +222,3 @@ const LineGraphCard: React.FC<LineGraphCardProps> = ({
 };
 
 export default LineGraphCard;
-

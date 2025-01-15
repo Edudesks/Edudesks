@@ -15,11 +15,6 @@ interface Income {
   status: "Pending" | "Received" | "Paid";
 }
 
-const data = [
-    329034, 101162, 325001, 428094, 317322, 247398, 362087, 297364,
-    416401, 349249, 43280, 281720,
-  ] // Y-axis data for Line 2
-
 const income: Income[] = [
   {
     date: "Fri 24th May",
@@ -120,6 +115,16 @@ const columns: Column<Income>[] = [
 ];
 
 const IncomeList = () => {
+  const data = [
+    329034, 101162, 325001, 428094, 317322, 247398, 362087, 297364, 416401,
+    349249, 443280, 281720,
+  ];
+  const percentageDifference = data[data.length - 1] - data[data.length - 2]
+  const percentageChange = (percentageDifference / data[data.length - 2]) * 100;
+
+  const initialAmount = 0;
+  const totalAmount = data.reduce((acc, curr) => acc + curr, initialAmount);
+
   return (
     <div className="w-full px-[18px] py-[30px] lg:pl-[31px] lg:pt-[29px] lg:pr-[85px] lg:pb-8 lg:bg-[#F9F9F9]">
       {/* -------- main content -------- */}
@@ -128,13 +133,11 @@ const IncomeList = () => {
           <div className="lg:w-[60%]">
             <LineGraphCard
               title={"Total Income"}
-              amount={""}
-              percentageChange={0}
-              changeLabel={""}
+              amount={`₦${totalAmount.toLocaleString()}`}
+              percentageChange={percentageChange}
               data={data}
               backgroundColors={[]}
-              icon={""}
-              barColor={""}
+              barColor={"#4B8BBE"}
             />
           </div>
           <CircularChart />
