@@ -1,7 +1,10 @@
 import WalletBalanceComponent from "@/components/WalletComponent/WalletBalance";
-import { inter, openSans } from "@/app/fonts/fonts";
+import { openSans } from "@/app/fonts/fonts";
 import WalletChartComponent from "@/components/WalletComponent/WalletChart";
 import TransactionComponentHistory from "@/components/WalletComponent/WalletTransactionHistory";
+// import React, { useEffect, useState } from "react";
+// import CreatePinComponent from "@/components/WalletComponent/WalletModal/CreatePin";
+// import CreatePinComponent from "./WalletModal/CreatePin";
 export default function WalletComponent (){
     return(
         <>

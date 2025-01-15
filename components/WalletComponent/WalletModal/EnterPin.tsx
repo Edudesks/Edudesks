@@ -6,6 +6,8 @@ import { useForm, Controller } from "react-hook-form";
 import { openSans } from "@/app/fonts/fonts";
 import ConfirmPinModal from './ConfirmCreatePin';
 import { HiXMark } from "react-icons/hi2";
+import ForgotPinModal from './ForgotPin';
+import FinalVerifyComponent from './FinalVerify';
 // Define the type for the OTP form data
 export type VerificationCodeFormData = {
   otp1: string;
@@ -40,7 +42,7 @@ const verificationCodeSchema = z
     }
   );
 
-const CreatePinComponent: React.FC<VerifyModalProps> = ({ handleCancel }) => {
+const EnterPinComponent: React.FC<VerifyModalProps> = ({ handleCancel }) => {
   const inputRefs = useRef<HTMLInputElement[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   // UseForm hook with zodResolver for validation
@@ -81,12 +83,13 @@ const CreatePinComponent: React.FC<VerifyModalProps> = ({ handleCancel }) => {
     }
   };
 
-    const [createdPin, setCreatedPin] = useState<string>("");
+    const [forgotPin, setForgotPin]=useState(false)
+    const handleForgotPin = () =>{
+        setForgotPin(true)
+    }
   // Handle form submission
   const onSubmit = (data: VerificationCodeFormData) => {
-    setIsModalOpen(true);
-    const combinedPin = `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`;
-    setCreatedPin(combinedPin);  
+    setIsModalOpen(true);  
   };
 
   const allFieldsFilled = Object.values(watch()).every((val) => val);
@@ -105,7 +108,7 @@ const CreatePinComponent: React.FC<VerifyModalProps> = ({ handleCancel }) => {
     <>
       <Modal
         open={true}
-        aria-labelledby="Create Pin"
+        aria-labelledby="Enter Pin"
       >
         <Box
   sx={{
@@ -119,10 +122,11 @@ const CreatePinComponent: React.FC<VerifyModalProps> = ({ handleCancel }) => {
 <div className="flex justify-end font-medium">
   <HiXMark onClick={handleCancel} className='text-[35px] hover:cursor-pointer'/>
 </div>
-          <h2 className='font-[600] text-[25px] sm:text-[32px] mb-0 text-[var(--primary)] text-center'>Create Pin</h2>
-          <p className='font-normal text-[14px] tracking-[0.15px] text-[#808283] mt-0 text-center'>Enter 4-digit pin to secure your account</p>
+          <h2 className='font-[600] text-[25px] sm:text-[32px] mb-0 text-[var(--primary)] text-center'>Enter Your Pin</h2>
+          <p className='font-normal text-[14px] tracking-[0.15px] text-[#808283] mt-0 text-center'>Enter 4-digit pin to proceed with payment</p>
           <form onSubmit={handleSubmit(onSubmit)} className="w-full sm:w-[350px]">
-            <div className="flex m-5 items-center justify-between gap-3 h-auto pb-4">
+            <div className="flex flex-col">
+            <div className="flex m-5 items-center justify-between gap-3 h-auto ">
               {[0, 1, 2, 3].map((index) => (
                 <Controller
                   key={index}
@@ -152,12 +156,13 @@ const CreatePinComponent: React.FC<VerifyModalProps> = ({ handleCancel }) => {
                 />
               ))}
             </div>
+            <p className='text-[var(--redColor2)] text-[14px] flex justify-end mb-5 mr-4 hover:cursor-pointer' onClick={handleForgotPin}>Forgot pin?</p></div>
             <div className="w-full text-center">
                <button
                             className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] w-[80%] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
                             type="submit"
                           >
-                            Create Pin
+                            Confirm Pin
                           </button>
             </div>
           </form>
@@ -165,13 +170,18 @@ const CreatePinComponent: React.FC<VerifyModalProps> = ({ handleCancel }) => {
       </Modal>
 
 {isModalOpen && (
-  <ConfirmPinModal  open={isModalOpen}
-  handleClose={() => setIsModalOpen(false)}
-  pin={createdPin}/>
+  <FinalVerifyComponent  open={isModalOpen}
+  handleClose={() => setIsModalOpen(false)}/>
+)}
+
+
+{forgotPin && (
+    <ForgotPinModal
+    handleClose={() => setForgotPin(false)}/>
 )}
       
     </>
   );
 };
 
-export default CreatePinComponent;
+export default EnterPinComponent;
