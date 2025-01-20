@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Sidebar from '@/components/DashboardComponent/Sidebar';
-import Navbar from '@/components/DashboardComponent/NavBar';
+import Sidebar from '@/components/Sidebar'
+import Navbar from '@/components/NavBar'
 import { useRouter } from 'next/router';
 import { CircularProgress } from '@mui/material'; // Import CircularProgress from Material UI
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { checkAuthToken } from '@/store/slices/authSlice';
-import { checkSchoolExist } from '@/store/slices/schoolSlice'; // Action to check if school exists
 import { activePage } from '@/store/slices/sidebarSlice';
 
 

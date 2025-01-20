@@ -1,10 +1,6 @@
 import Image from "next/image";
 import { PersonOutline } from "@mui/icons-material";
-
-interface EmployeeCardProps {
-  title: string; 
-  value: number; 
-}
+import { EmployeeCardProps } from "@/types/employee";
 
 const EmployeeCard: React.FC<EmployeeCardProps> = ({ title, value }) => {
   return (

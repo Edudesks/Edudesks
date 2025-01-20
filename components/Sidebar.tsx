@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "@/styles/Sidebar.module.css";
-import { Section } from "@/types";
+import { SidebarSection } from "@/types";
 
 
 interface SidebarProp {
@@ -27,7 +27,7 @@ const Sidebar: React.FC<SidebarProp> = ({
   const [isClassOpen, setIsClassOpen] = useState<boolean>(false);
   const [isIncomeOpen, setIsIncomeOpen] = useState<boolean>(false);
 
-  const menuItemClasses = (section: Section): string =>
+  const menuItemClasses = (section: SidebarSection): string =>
     `${styles.menuItem} ${
       activeSection === section ? styles.menuItemActive : ""
     } ${styles.menuItemHover}`;

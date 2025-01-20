@@ -54,7 +54,6 @@ interface Transaction {
   remark: string;
   recipientAccount: string;
   recipientBank: string;
-  // Add other fields if necessary
 }
 
 function createData(
@@ -100,6 +99,37 @@ const rows: Transaction[] = [
   ),
 ];
 
+// const columns: Column<Student>[] = [
+//   { title: 'Student Name', field: 'studentName',
+//     render: (row) =>
+//         <div className="flex gap-3 items-center">
+//             <Image
+//               src="/icons/avatar-icon.svg"
+//               alt="Staff 4"
+//               width={32}
+//               height={32}
+//               objectFit="cover"
+//             />
+//             <div>{row.studentName}</div>
+//           </div>
+//    },
+//   { title: 'Gender', field: 'gender' },
+//   {
+//     title: 'Sch.fees status',
+//     field: 'schoolFeesStatus',
+//     render: (row) => <StatusButton type={row.schoolFeesStatus} />,
+//   },
+//   {
+//     title: 'Amount due',
+//     field: 'amountDue',
+//     render: (row) => `₦${row.amountDue.toLocaleString()}`,
+//   },
+//   { title: 'Guardian Mobile No.', field: 'guardianNumber' },
+//   { title: ' ',
+//     field: 'viewProfile',
+//     render: (row) => <Link className={styles.viewProfile} href="#profile">{row.viewProfile}</Link>
+//   },
+// ];
 const DashboardTable: React.FC = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage] = useState(5); // Fixed rows per page as per initial code

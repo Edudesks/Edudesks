@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 import styles from '@/styles/Class.module.css';
+import mobileTableStyle from '@/styles/MobileTable.module.css';
+
 import withProtectedRoute from '@/hoc/ProtectedRoute';
+import tableStyle from '@/styles/DashboardTable.module.css';
+// import MobileTable from '@/components/DashboardComponent/TransactionHistory';
+import MobileTableHistory from '@/components/MobileTable';
 
 import ClassExtraStats from '@/components/ClassComponent/ClassExtraStats';
 import StatusButton from '@/components/DashboardComponent/StatusButton';
@@ -135,14 +140,60 @@ const Header = () => {
   );
 };
 
-
+const MobileTable = () => {
+  return (
+    <MobileTableHistory
+      data={students}
+      renderRow={(student) => (
+        <li className={`${mobileTableStyle.transactionItem} ${mobileTableStyle["Pending"]}`}>
+          <div
+            className={`${mobileTableStyle.iconStatus} ${
+              
+              mobileTableStyle.paid
+            }`}
+          >
+            <Image
+              src={'/icons/transaction-icon.svg'}
+              alt={'transaction-icon'}
+              width={18}
+              height={18}
+            />
+          </div>
+          <div className={mobileTableStyle.transactionDetails}>
+            <span className={mobileTableStyle.transactionTitle}>{student.studentName}</span>
+            <span className={mobileTableStyle.transactionDate}>{student.studentName}</span>
+          </div>
+          <div className={mobileTableStyle.transactionAmount}>
+            <div className={mobileTableStyle.transactionAmountText}>
+              <span>₦{student.studentName}</span>
+              <Image
+                src={
+                  student.studentName
+                    ? '/icons/up-rate.svg'
+                    : '/icons/down-rate.svg'
+                }
+                alt={
+                  student.studentName ? 'up arrow' : 'down arrow'
+                }
+                width={18}
+                height={18}
+                style={{ marginLeft: 8 }}
+              />
+            </div>
+            <StatusButton type={"Pending"} />
+          </div>
+        </li>
+      )}
+    />
+  );
+};
 
 const ClassTable = () => {
   return (
-    <>
+    <div className={tableStyle.container}>
     <Header/>
     <GenericTable rows={students} columns={columns} rowsPerPage={5} headColor = '#002F49'/>
-    </>
+    </div>
   );
 };
 
@@ -160,6 +211,8 @@ const ViewClass = () => {
     <div className={styles.container}>
     <ClassExtraStats />
         <ClassTable/>
+        <MobileTable/>
+
     </div>
 )};
 

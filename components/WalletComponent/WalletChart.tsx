@@ -1,3 +1,4 @@
+import { ChartOptions } from 'chart.js';
 import React, { useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
@@ -73,7 +74,7 @@ const monthData: MonthData = {
   
 
 const WalletChartComponent = () => {
-  const [selectedMonth, setSelectedMonth] = useState<keyof MonthData>('January');
+  const [selectedMonth, setSelectedMonth] = useState<string>('January');
 
   const data = {
     labels: ['Jan 2', 'Jan 6', 'Jan 9', 'Jan 18', 'Jan 20'],
@@ -91,55 +92,55 @@ const WalletChartComponent = () => {
     ],
   };
 
-  const options = {
-    plugins: {
-      title: {
-        display: true,
-        text: 'Wallet Activity',
-        font: {
-          size: 18,
-        },
-        align: 'start',
-        // position: 'right',
-        padding: {
-          // bottom: 10,
-        },
+
+const options: ChartOptions<'bar'> = {
+  plugins: {
+    title: {
+      display: true,
+      text: 'Wallet Activity',
+      font: {
+        size: 18,
       },
-      legend: {
-        // position: 'right',
-        align: 'start',
-        labels: {
-          boxWidth: 20,
-        },
+      align: 'start',
+      padding: {},
+    },
+    legend: {
+      align: 'start',
+      labels: {
+        boxWidth: 20,
       },
     },
-    layout: {
-      padding: {
-        bottom: 0, // Add some space between the chart and the legend/title
+  },
+  layout: {
+    padding: {
+      bottom: 0,
+    },
+  },
+  scales: {
+    x: {
+      stacked: false,
+      grid: {
+        display: false,
       },
     },
-    scales: {
-      x: {
-        stacked: false,
-        grid: {
-          display: false,
-        },
+    y: {
+      stacked: false,
+      grid: {
+        display: false,
       },
-      y: {
-        stacked: false,
-        grid: {
-          display: false,
-        },
-        ticks: {
-          callback: (value) => `N${value / 1000}K`,
-        },
+      ticks: {
+        callback: (value) => `N${value}K`,
       },
     },
-  };
+  },
+};
+
+  
+  
   
 
   const handleChange = (event: SelectChangeEvent<string>) => {
-    setSelectedMonth(event.target.value as keyof MonthData);
+    setSelectedMonth(event.target.value);
   };
 
   return (
