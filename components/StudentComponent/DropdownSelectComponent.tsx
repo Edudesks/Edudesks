@@ -85,12 +85,14 @@ interface DropdownSelectComponentProps {
   onChange?: (event: SelectChangeEvent<string>) => void;
   error?: string;
   options: string[];
+  label?: string;
+  placeholder?: string;
 }
 
 const DropdownSelectComponent = forwardRef<
   HTMLInputElement,
   DropdownSelectComponentProps
->(({ name, value, onChange, error, options }, ref) => {
+>(({ name, value, onChange, error, options, label, placeholder }, ref) => {
 
   const handleChange = (event: SelectChangeEvent<string>) => {
     if (onChange) {
@@ -110,7 +112,7 @@ const DropdownSelectComponent = forwardRef<
         className="text-sm text-[var(--primary-text-color)]"
         sx={{ fontFamily: "Open Sans" }}
       >
-        Classes*
+        {label}
       </InputLabel>
       <Select
         placeholder="Select Class"
@@ -125,13 +127,13 @@ const DropdownSelectComponent = forwardRef<
         inputRef={ref}
         renderValue={(selected) => {
           if (!selected) {
-            return <em>Select class</em>;
+            return <em>{placeholder}</em>;
           }
           return selected;
         }}
       >
         <MenuItem disabled value="">
-          <em>Select class</em>
+          <em>{placeholder}</em>
         </MenuItem>
         {options.map((item) => (
           <MenuItem key={item} value={item}>

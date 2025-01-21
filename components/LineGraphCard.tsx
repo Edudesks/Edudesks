@@ -9,7 +9,9 @@ import {
   Tooltip,
   Legend,
   LegendItem,
+  ChartOptions,
 } from "chart.js";
+import DropdownSelectComponent from "./StudentComponent/DropdownSelectComponent";
 
 // Register the required Chart.js components
 ChartJS.register(
@@ -21,98 +23,27 @@ ChartJS.register(
   Legend
 );
 
-// Custom HTML Legend Plugin
-const htmlLegendPlugin = {
-  id: "htmlLegend",
-  afterUpdate(chart: ChartJS) {
-    const legendContainer = document.getElementById("legend-container");
-    if (!legendContainer) return;
+interface LineGraphCardProps {
+  title: string;
+  amount: string;
+  percentageChange: number;
+  data: number[];
+  backgroundColors: string[];
+  barColor: string;
+  size?: "small" | "medium" | "large";
+}
 
-    // Clear previous legend content
-    legendContainer.innerHTML = "";
-
-    // Create Total Income Section
-    const totalIncomeDiv = document.createElement("div");
-    totalIncomeDiv.style.marginRight = "231px";
-    totalIncomeDiv.style.flex = "1";
-    totalIncomeDiv.innerHTML = `
-      <div style="font-size: 0.875rem; color: #041822;">Total Income</div>
-      <div style="display: flex; align-items: center; gap: 6px;">
-      <span style="font-size: 1.5rem; color: #041822;">₦1,000,000</span>
-      <div style="width: 9px; height: 9px; background-color: #08C074; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
-      <div style="width: 4px; height: 4px; background-color: #F8FBFD; border-radius: 50%;"></div>
-      </div>
-      <span style="color: #08C074; font-size: 0.75rem;">+20%</span>
-      </div>
-    `;
-    legendContainer.appendChild(totalIncomeDiv);
-
-    // Generate legend items
-    const legendList = document.createElement("ul");
-    legendList.style.listStyle = "none";
-    legendList.style.padding = "0";
-    legendList.style.display = "flex";
-    legendList.style.justifyContent = "flex-end";
-    legendList.style.gap = "32px";
-    legendList.style.justifyItems = "flex-end";
-
-    chart.legend?.legendItems?.forEach((item: LegendItem, index: number) => {
-      const li = document.createElement("li");
-      li.style.display = "flex";
-      li.style.flexDirection = "row-reverse";
-      li.style.gap = "7px";
-      li.style.alignItems = "center";
-      li.style.cursor = "pointer";
-      li.style.marginBottom = "10px";
-
-      // Color box
-      const box = document.createElement("span");
-      box.style.display = "inline-block";
-      box.style.width = "9px";
-      box.style.height = "9px";
-      box.style.backgroundColor = (item.fillStyle as string) || "transparent";
-      box.style.borderRadius = "50%";
-      // box.style.marginRight = "8px";
-
-      // Label text
-      const text = document.createElement("span");
-      text.style.fontSize = "12px";
-      text.style.color = "#041822";
-      text.innerText = item.text;
-      text.style.lineHeight = "30px";
-
-      li.appendChild(box);
-      li.appendChild(text);
-
-      // Toggle dataset visibility on click
-      li.onclick = () => {
-        chart.setDatasetVisibility(index, !chart.isDatasetVisible(index));
-        chart.update();
-      };
-
-      legendList.appendChild(li);
-    });
-
-    legendContainer.appendChild(legendList);
-
-    // Dropdown
-    const dropdownDiv = document.createElement("div");
-    dropdownDiv.style.marginLeft = "35px";
-    dropdownDiv.innerHTML = `
-      <select style="padding: 5px; font-size: 14px; border: 1px solid #ccc; border-radius: 5px;">
-        <option value="monthly">Monthly</option>
-        <option value="weekly">Weekly</option>
-        <option value="yearly">Yearly</option>
-      </select>
-    `;
-    legendContainer.appendChild(dropdownDiv);
-  },
-};
-
-ChartJS.register(htmlLegendPlugin);
-
-const LineGraphCard = () => {
-  const data = {
+const LineGraphCard: React.FC<LineGraphCardProps> = ({
+  title,
+  amount,
+  percentageChange,
+  data,
+  backgroundColors,
+  barColor,
+  size,
+}) => {
+  const year = new Date().getFullYear();
+  const dataSet = {
     labels: [
       "Jan",
       "Feb",
@@ -129,53 +60,102 @@ const LineGraphCard = () => {
     ], // X-axis labels
     datasets: [
       {
-        label: "Expenses", // Line 1 label
-        data: [220, 1, 127, 100, 282, 14, 21, 260, 406, 50, 264, 324], // Y-axis data for Line 1
-        borderColor: "#F65252", // Line color
-        backgroundColor: "#F65252", // Fill color
-        tension: 0.7, // Smooth curve
-        borderWidth: 2.982,
-      },
-      {
         label: "Income", // Line 2 label
-        data: [430, 37, 56, 78, 172, 11, 458, 210, 15, 183, 58, 16], // Y-axis data for Line 2
+        data: data,
 
-        borderColor: "#4B8BBE", // Line color
-        backgroundColor: "#4B8BBE", // Fill color
+        borderColor: barColor, // Line color
+        backgroundColor: barColor, // Fill color
         tension: 0.7, // Smooth curve
         borderWidth: 2.982,
       },
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
     plugins: {
       legend: {
-        display: false, // Hide the legend
-        // position: "top", // Position of the legend
-        // align: "end",
-        // pointStyle: "circle", // Point style
-      },
-      htmlLegend: {
-        containerID: "legend-container",
+        display: false,
       },
       tooltip: {
-        enabled: true, // Show tooltips
+        enabled: true,
+        mode: "index",
+        backgroundColor: "#ffffff",
+        bodyColor: "#041822",
+        borderColor: "#E2E9F6",
+        borderWidth: 2,
+        cornerRadius: 6,
+        displayColors: false,
+        padding: 10,
+        titleColor: "#041822",
+        titleMarginBottom: 8,
+        titleFont: {
+          size: 12,
+          family: "Inter",
+          weight: 500,
+        },
+        bodyFont: {
+          size: 15,
+          family: "Inter",
+          weight: 400,
+        },
+        callbacks: {
+          title: (context) => {
+            if (context[0]?.chart) {
+              const index = context[0].dataIndex;
+              const label = context[0]?.chart?.data?.labels?.[index];
+              return `${label}, ${year}`;
+            }
+            return "";
+          },
+          label: (context) => {
+            const value = context.raw as number;
+            return `₦${value.toLocaleString()}`;
+          },
+        },
       },
     },
     scales: {
       x: {
         title: {
-          display: true,
+          display: false,
           text: "Months",
+        },
+        ticks: {
+          font: {
+            family: "Open Sans",
+          },
+          color: "#59676E",
+        },
+        grid: {
+          display: false,
         },
         beginAtZero: true, // Start Y-axis at 0
       },
       y: {
         title: {
-          display: true,
+          display: false,
           text: "Values",
+        },
+        ticks: {
+          callback: (tickValue: string | number) => {
+            const value =
+              typeof tickValue === "number" ? tickValue : parseFloat(tickValue);
+            if (value === 0) {
+              return value;
+            }
+            return `${value / 1000}K`;
+          },
+          stepSize: 100000,
+          font: {
+            family: "Open Sans",
+          },
+          color: "#59676E",
+        },
+        grid: {
+          color: "#E2E9F6",
+          drawTicks: false,
+          tickBorderDash: [10, 5],
         },
         beginAtZero: true, // Start Y-axis at 0
       },
@@ -183,21 +163,62 @@ const LineGraphCard = () => {
   };
 
   return (
-    <div>
-      <h2>Two Line Plot</h2>
-      <div id="legend-container" className="flex items-center justify-between">
-        <div id="dataset1">
-          {/* <div className="w-[9px] h-[9px] bg-[var(--danger)] rounded-full"></div> */}
+    <div className="flex flex-col gap-[30px] border border-solid border-[var(--border)] bg-white w-full pl-5 pt-[18px] lg:pb-[10px] lg:pr-[53px] rounded-lg">
+      {/* -------- legend -------- */}
+      <div className="flex justify-between items-center flex-col lg:flex-row gap-3">
+        {/* -------- total income -------- */}
+        <div className="flex flex-col gap-2 self-start lg:self-auto">
+          <p className="text-sm text-[var(--primary-text-color)]">{title}</p>
+          <div className="flex gap-[6px] items-center">
+            <p className="text-2xl text-[var(--primary-text-color)]">
+              {amount}
+            </p>
+            <div className="flex gap-[6px] items-center">
+              {/* -------- green circle -------- */}
+              <div
+                className={`w-[9px] h-[9px] rounded-full ${
+                  percentageChange < 0
+                    ? "bg-[var(--danger)]"
+                    : "bg-[var(--success)]"
+                } flex items-center justify-center`}
+              >
+                <div className="w-[5px] h-[5px] rounded-full bg-white"></div>
+              </div>
+              {/* -------- percentage change -------- */}
+              <p
+                className={`text-xs ${
+                  percentageChange < 0
+                    ? "text-[var(--danger)]"
+                    : "text-[var(--success)]"
+                }`}
+              >
+                <span>{percentageChange < 0 ? "" : "+"}</span>
+                <span>{percentageChange.toFixed(2)}%</span>
+              </p>
+            </div>
+          </div>
         </div>
-        <div id="dataset2">
-          {/* <div className="w-[9px] h-[9px] bg-[var(--secondary-text-color)] rounded-full"></div> */}
+        {/* -------- income and monthly dropdown -------- */}
+        <div className="flex items-center gap-[35px] justify-between w-full lg:w-auto">
+          {/* -------- income -------- */}
+          <div className="flex items-center gap-[7px]">
+            <p className="text-xs text-[var(--primary-text-color)] leading-[30px]">
+              Income
+            </p>
+            <div className="w-[9px] h-[9px] bg-[var(--secondary)] rounded-full"></div>
+          </div>
+          {/* -------- dropdown -------- */}
+          <div className="mr-[26px] lg:m-0">
+            <DropdownSelectComponent
+              name={""}
+              options={["Monthly", "Annual"]}
+            />
+          </div>
         </div>
       </div>
-      <Line data={data} options={options} />
+      <Line data={dataSet} options={options} />
     </div>
   );
 };
 
 export default LineGraphCard;
-
-//this is what I got from ai you can follow it

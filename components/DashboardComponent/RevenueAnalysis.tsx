@@ -45,7 +45,7 @@ const RevenueAnalytics: React.FC = () => {
         usePointStyle: true,
         titleSpacing: 10,
         titleMarginBottom: 10,
-        
+
         callbacks: {
 
           title: () => '',
