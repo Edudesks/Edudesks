@@ -83,7 +83,9 @@
     align-items: center;
   }
   
-  .navActions a {
+  .navActions > .logIn > div {
+    color: white;
+    cursor: pointer;
     font-weight: 700;
     margin-right: 10px;
     font-size: 18px;
@@ -118,7 +120,7 @@
       align-items: center;
     }
     
-    .navActions a {
+    .navActions > .logIn > div {
       font-weight: 700;
       margin-right: 10px;
       font-size: 18px;

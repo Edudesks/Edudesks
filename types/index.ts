@@ -1,11 +1,4 @@
-
-interface UserState {
-    name: string
-    email: string
-    role: string
-}
-
-type Section =
+type SidebarSection =
   | "dashboard"
   | "student"
   | "add-student"
@@ -19,6 +12,7 @@ type Section =
   | "add-class"
   | "employees"
   | "add-employee"
+  | "edit-employee"
   | "view-employees"
   | "wallet"
   | "remit-payment"
@@ -31,4 +25,4 @@ type Section =
   | "analytics"
   | "settings";
 
-export type { Section }
+export type { SidebarSection }

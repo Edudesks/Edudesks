@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 import Link from "next/link";
 import { inter, openSans } from "@/app/fonts/fonts";
 import { useState, useEffect } from "react";
@@ -28,12 +28,12 @@ function PageNotFound (){
                 <section className={` ${isBelow1328?'w-[400px]':'w-[300px] sm:w-[565.94px]'} h-[350px]  flex justify-center  lg:hidden`}>
                 <div className='h-full'>
                   <Image
-                    src={"/icons/page_not_found_2.svg"}
-                    alt="employees icon"
+                    src={"/page_not_found_1.svg"}
+                    alt="page not found"
                     width={1000}
                     height={1000}
-                    loading="lazy"
-                    quality={75}
+                    // loading="lazy"
+                    // quality={75}
                   />
                 </div>
                 </section>
@@ -58,12 +58,12 @@ function PageNotFound (){
                 <section className="h-[350px] w-full lg:block hidden">
                 <div className={`${isBelow1328?'w-[400px]':'w-[565.94px]'} h-full`}>
                   <Image
-                    src={"/icons/page_not_found_2.svg"}
-                    alt="employees icon"
+                    src="/icons/page_not_found_1.svg"
+                    alt="page not found"
                     width={1000}
                     height={1000}
-                    loading="lazy"
-                    quality={75}
+                    // loading="lazy"
+                    // quality={75}
                   />
                 </div>
                 </section></div>
@@ -72,4 +72,4 @@ function PageNotFound (){
     )
 }
 
-export default withProtectedRoute(PageNotFound)
+export default PageNotFound

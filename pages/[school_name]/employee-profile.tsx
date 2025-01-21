@@ -6,9 +6,8 @@ import EmployeeProfileEducationDetailsComponent from "@/components/EmployeeCompo
 import EmployeeProfileSupportDetailsComponent from "@/components/EmployeeComponent/EmployeeProfileSupportDetailsComponent";
 import EmployeeProfileButtonComponent from "@/components/EmployeeComponent/EmployeeProfileButton";
 import { GoArrowLeft } from "react-icons/go";
-import { inter, openSans } from "@/app/fonts/fonts";
+import { openSans } from "@/app/fonts/fonts";
 import '@/styles/EmployeeProfileStyle/EmployeeProfile.css';
-import withProtectedRoute from "@/hoc/ProtectedRoute";
 function EmployeeProfile (){
     return(
         <>
@@ -20,10 +19,10 @@ function EmployeeProfile (){
 
             <div className="flex justify-between gap-5 md:flex-nowrap flex-wrap">
             
-<div className="flex flex-col gap-5">
-<EmployeeProfileImg/>
-<EmployeeProfileButtonComponent/>
-</div>
+            <div className="flex flex-col gap-5">
+            <EmployeeProfileImg/>
+            <EmployeeProfileButtonComponent/>
+            </div>
             <div className="w-full grid grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-2">
             <div className="flex flex-col gap-3 w-full">
             <EmployeeProfilePersonalDetailsComponent/>
@@ -31,7 +30,7 @@ function EmployeeProfile (){
             </div>
             <div className="flex flex-col gap-10 w-full">
             <EmployeeProfileContactDetailsComponent/>
-            <EmployeeProfileEducationDetailsComponent/>
+            <EmployeeProfileEducationDetailsComponent education="B.SC in English" institution="University of Lagos"/>
             <EmployeeProfileSupportDetailsComponent/>
             </div>
             </div>
@@ -41,4 +40,4 @@ function EmployeeProfile (){
     )
 }
 
-export default withProtectedRoute(EmployeeProfile)
+export default EmployeeProfile

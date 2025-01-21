@@ -433,4 +433,4 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     );
   }
 
-export default  withProtectedRoute(StudentHistory)
+export default  StudentHistory

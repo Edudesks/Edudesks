@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 export default function PageNotFound (){
     const [windowWidth, setWindowWidth] = useState<number>(0);
     const router = useRouter();
+    const { dashboard } = router.query
+    const dashboardString = Array.isArray(dashboard) ? dashboard[0] : dashboard
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -46,8 +48,8 @@ export default function PageNotFound (){
                     <p className="text-[14px] sm:text-[20px] text-center">The page you are looking for is temporarily unavailable </p>
                     <button
                     onClick={()=>{
-                      if (document.referrer) {
-                        router.back(); // Navigate to the previous page
+                      if (dashboardString) {
+                        router.push(dashboardString); // Navigate to the previous page
                     } else {
                         router.push("/"); // Navigate to the dashboard if no referrer exists
                     }
@@ -59,8 +61,8 @@ export default function PageNotFound (){
                 <section className="h-full w-full lg:block hidden">
                 <div className={`${isBelow1328?'w-[600px]':'w-[765.94px]'} h-full`}>
                   <Image
-                    src={"/icons/page_not_found_2.svg"}
-                    alt="employees icon"
+                    src="/icons/page_not_found_1.svg"
+                    alt="page not found"
                     width={1000}
                     height={1000}
                     loading="lazy"

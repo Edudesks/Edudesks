@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from '../store';
-import { Section } from "@/types";
+import { SidebarSection } from "@/types";
 
 interface ActiveState {
-    active: Section
+    active: SidebarSection
     parentNav: string
 }
 const initialState: ActiveState = {

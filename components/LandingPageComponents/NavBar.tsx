@@ -3,13 +3,30 @@ import styles from '../../styles/LandingPage.module.css';
 import ButtonTrial from './Button';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useAppDispatch } from '@/store/hooks';
+import { checkAuthToken } from '@/store/slices/authSlice';
+
 
 const Navbar: FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter();  const dispatch = useAppDispatch();
+  
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  const handleLogin = async () => {
+     try {
+      const payload = await dispatch(checkAuthToken()).unwrap();
+      if (payload.school.schoolName) {
+        router.push(payload.school.schoolName);
+      }
+    } catch (error) {
+      router.push('/login');
+    }
+  }
 
   return (
     <div className={styles.navWrapper}>
@@ -53,7 +70,7 @@ const Navbar: FC = () => {
 
           <div className={styles.navActions}>
             <div className={styles.logIn}>
-              <a href="login">Log in</a>
+              <div onClick={handleLogin} >Log in</div>
               <Image
                 src="/icons/arrow-right-dark.svg"
                 alt="Edudesk Logo"

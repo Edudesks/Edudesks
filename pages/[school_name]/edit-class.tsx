@@ -27,4 +27,4 @@ const EditClass = () => {
   );
 };
 
-export default withProtectedRoute(EditClass);
+export default EditClass

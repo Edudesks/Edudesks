@@ -15,6 +15,9 @@ import Image from "next/image";
 import { TbSquareDotFilled } from "react-icons/tb";
 import { FaSquareMinus, FaSquareCheck} from "react-icons/fa6";
 import { inter, openSans } from "@/app/fonts/fonts";
+import { useRouter } from 'next/router'
+
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     fontWeight: "bold",
@@ -49,6 +52,8 @@ interface TableValue {
 }
 
 export default function StudentTable() {
+  const router = useRouter();
+    const { school_name } = router.query;
   const tableValue: TableValue[] = [
     { 
       profile: (
@@ -64,7 +69,7 @@ export default function StudentTable() {
       idClass: <p>JSS 1A</p>,
       schStatus: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
       guardianNum: <p>08145678930</p>,
-      linkIt: <Link href="#" className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
+      linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
     { 
       profile: (
@@ -81,7 +86,7 @@ export default function StudentTable() {
       idClass: <p>JSS 1A</p>,
       schStatus: <button className="border border-[var(--success)] text-[var(--success)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
       guardianNum: <p>08012345678</p>,
-      linkIt: <Link href="#" className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
+      linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
     { 
       profile: (
@@ -98,7 +103,7 @@ export default function StudentTable() {
       idClass: <p>JSS 1A</p>,
       schStatus: <button className="border border-[var(--redColor2)] text-[var(--redColor2)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#fd9b9bc7]"><FaSquareMinus /> Not paid</button>,
       guardianNum: <p>08123456789</p>,
-      linkIt: <Link href="#" className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
+      linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
     { 
       profile: (
@@ -115,7 +120,7 @@ export default function StudentTable() {
       idClass: <p>JSS 1A</p>,
       schStatus: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
       guardianNum: <p>08098765432</p>,
-      linkIt: <Link href="#" className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
+      linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
     { 
       profile: (
@@ -132,7 +137,7 @@ export default function StudentTable() {
       idClass: <p>JSS 1B</p>,
       schStatus: <button className="border border-[var(--success)] text-[var(--success)]  flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
       guardianNum: <p>08111223344</p>,
-      linkIt: <Link href="#" className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
+      linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
     { 
       profile: (
@@ -149,7 +154,7 @@ export default function StudentTable() {
       idClass: <p>JSS 1B</p>,
       schStatus: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
       guardianNum: <p>08012340987</p>,
-      linkIt: <Link href="#" className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
+      linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
     { 
       profile: (
@@ -166,7 +171,7 @@ export default function StudentTable() {
       idClass: <p>JSS 1B</p>,
       schStatus: <button className="border border-[var(--redColor2)] text-[var(--redColor2)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#fd9b9bc7]"><FaSquareMinus /> Not paid</button>,
       guardianNum: <p>08055667788</p>,
-      linkIt: <Link href="#" className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
+      linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
     { 
       profile: (
@@ -183,7 +188,7 @@ export default function StudentTable() {
       idClass: <p>JSS 1B</p>,
       schStatus: <button className="border border-[var(--success)] text-[var(--success)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
       guardianNum: <p>08122334455</p>,
-      linkIt: <Link href="#" className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
+      linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
     { 
       profile: (
@@ -200,7 +205,7 @@ export default function StudentTable() {
       idClass: <p>JSS 2A</p>,
       schStatus: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
       guardianNum: <p>08099887766</p>,
-      linkIt: <Link href="#" className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
+      linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
     { 
       profile: (
@@ -217,7 +222,7 @@ export default function StudentTable() {
       idClass: <p>JSS 2A</p>,
       schStatus: <button className="border border-[var(--redColor2)] text-[var(--redColor2)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#fd9b9bc7]"><FaSquareMinus /> Not paid</button>,
       guardianNum: <p>08012309098</p>,
-      linkIt: <Link href="#" className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
+      linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
     { 
       profile: (
@@ -234,7 +239,7 @@ export default function StudentTable() {
       idClass: <p>JSS 2A</p>,
       schStatus: <button className="border border-[var(--success)] text-[var(--success)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
       guardianNum: <p>08123232323</p>,
-      linkIt: <Link href="#" className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
+      linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
     { 
       profile: (
@@ -251,7 +256,7 @@ export default function StudentTable() {
       idClass: <p>JSS 2B</p>,
       schStatus: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
       guardianNum: <p>08123450376</p>,
-      linkIt: <Link href="#" className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
+      linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
     { 
       profile: (
@@ -268,7 +273,7 @@ export default function StudentTable() {
       idClass: <p>JSS 2B</p>,
       schStatus: <button className="border border-[var(--success)] text-[var(--success)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
       guardianNum: <p>08034567891</p>,
-      linkIt: <Link href="#" className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
+      linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
   ];
   const [tableValues, setTableValues] = useState<any[]>([]); 

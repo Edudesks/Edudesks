@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { TfiPencil } from "react-icons/tfi";
 import Image from "next/image";
-export default function EmployeeProfileEducationDetailsComponent() {
+import { EducationDetailsProps } from "@/types/employee";
+
+export default function EmployeeProfileEducationDetailsComponent({
+  education,
+  institution,
+}: EducationDetailsProps) {
   const [isEditingPersonalDetails, setIsEditingPersonalDetails] = useState(false);
   const [personalDetails, setPersonalDetails] = useState({
-    Education:"B.SC in English",
-    Institution: "University of Lagos",
+    Education: education,
+    Institution: institution,
   });
 
   const handleEditClick = () => {

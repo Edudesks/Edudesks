@@ -4,8 +4,11 @@ import React, { useState } from "react";
 import { Modal, Box, Button, Typography } from '@mui/material';
 import { GoCheckCircleFill } from "react-icons/go";
 import { FaXmark } from "react-icons/fa6";
+import { useRouter } from "next/router"
 
 export default function EmployeeProfileButtonComponent () {
+    const router = useRouter();
+    const { school_name } = router.query; 
     const [open, setOpen] = useState(false);
     const [isEditingPersonalDetails, setIsEditingPersonalDetails] = useState(false);
     const [personalDetails, setPersonalDetails] = useState({
@@ -30,7 +33,7 @@ export default function EmployeeProfileButtonComponent () {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const handleEditClick = () => setIsEditingPersonalDetails(true);
+    const handleEditClick = () => router.push(`/${school_name}/edit-employee`);
     const handleSaveClick = () => setIsEditingPersonalDetails(false);
     const handleCancelClick = () => setIsEditingPersonalDetails(false);
 

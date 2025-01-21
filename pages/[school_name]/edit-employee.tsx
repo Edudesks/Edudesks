@@ -25,7 +25,7 @@ import {
   employeeFormData,
 } from "@/features/auth/employeeSchema";
 
-const AddEmployee = () => {
+const EditEmployee = () => {
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
    const dispatch = useAppDispatch();
@@ -80,7 +80,7 @@ const AddEmployee = () => {
           console.log("Form Data Here you go:\n");
           formData.forEach((value, key) => console.log(key, value));
       
-          const response = await makeApiCall('POST','/employee/add-employee', formData);
+          const response = await makeApiCall('POST','/employee/edit-employee', formData);
           console.log(response)
           // if (!response.ok) {
           //   throw new Error(`HTTP error! status: ${response.status}`);
@@ -100,10 +100,10 @@ const AddEmployee = () => {
     <FormProvider {...methods}>
       <div className="w-full flex flex-col items-center lg:mx-auto lg:pt-[1.375rem]">
         {/* -------- main employees content -------- */}
-        <div className="w-full flex flex-col items-center pb-12 pt-9 px-[1.125rem] lg:p-12 gap-7 lg:gap-[2.0625rem] bg-[#ffffff] max-w-[72.125rem] lg:rounded-[0.8125rem] lg:border lg:border-solid lg:border-[var(--border)]">
+        <div className="w-full flex flex-col items-center pb-12 pt-9 px-[1.125rem] lg:p-12 gap-7 lg:gap-[2.0625rem] bg-[#ffffff]">
           {/* -------- heading -------- */}
           <h1 className="text-[var(--secondary)] font-bold text-xl lg:text-4xl leading-10">
-            Add Employee
+            Edit Employee
           </h1>
           {/* -------- uploads and form -------- */}
           <div className="flex flex-col gap-[1.5625rem] w-full">
@@ -326,4 +326,4 @@ const AddEmployee = () => {
   );
 };
 
-export default AddEmployee
+export default EditEmployee

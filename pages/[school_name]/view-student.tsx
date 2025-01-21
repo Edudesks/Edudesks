@@ -34,4 +34,4 @@ function StudentList (){
     )
 }
 
-export default withProtectedRoute(StudentList)
+export default StudentList
