@@ -100,7 +100,7 @@ const AddEmployee = () => {
     <FormProvider {...methods}>
       <div className="w-full flex flex-col items-center lg:mx-auto lg:pt-[1.375rem]">
         {/* -------- main employees content -------- */}
-        <div className="w-full flex flex-col items-center pb-12 pt-9 px-[1.125rem] lg:p-12 gap-7 lg:gap-[2.0625rem] bg-[#ffffff]">
+        <div className="w-full flex flex-col items-center pb-12 pt-9 px-[1.125rem] lg:p-12 gap-7 lg:gap-[2.0625rem] bg-[#ffffff] max-w-[72.125rem] lg:rounded-[0.8125rem] lg:border lg:border-solid lg:border-[var(--border)]">
           {/* -------- heading -------- */}
           <h1 className="text-[var(--secondary)] font-bold text-xl lg:text-4xl leading-10">
             Add Employee
