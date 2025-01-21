@@ -1,4 +1,4 @@
-import UploadDialogComponenet from "@/components/StudentComponent/UploadDialogComponenet";
+// import UploadDialogComponenet from "@/components/StudentComponent/UploadDialogComponenet";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { MoneyAdd02Icon } from "hugeicons-react";

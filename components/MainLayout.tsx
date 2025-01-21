@@ -17,14 +17,6 @@ const MainLayout = ({ children, schoolName }: { children: React.ReactNode, schoo
   const active = useAppSelector(activePage);
 
   useEffect(() => {
-
-    if (schoolName) {
-      dispatch(checkSchoolExist(schoolName as string)); // Check if the school exists
-    }
-  }, [dispatch, schoolName]);
-
-  if (schoolExists === null) {
-    // Show loading spinner while checking
     const verifyToken = async () => {
       try {
         const payload = await dispatch(checkAuthToken()).unwrap();
@@ -40,10 +32,10 @@ const MainLayout = ({ children, schoolName }: { children: React.ReactNode, schoo
         setLoading(false);
       }
     };
-
+  
     verifyToken();
   }, [dispatch, router, schoolName]);
-
+  
 
   if (loading) {
     return (
@@ -52,14 +44,14 @@ const MainLayout = ({ children, schoolName }: { children: React.ReactNode, schoo
       </div>
     );
   }else {
-
+   
     return (
     <div className="flex bg-[var(--secondary-text-color)]">
-      <Sidebar
-        activeSection={active.active}
-        activeParentNav={active.parentNav}
-        isMobileSidebarOpen={isMobileSidebarOpen}
-        setIsMobileSidebarOpen={setIsMobileSidebarOpen}
+      <Sidebar 
+        activeSection={active.active} 
+        activeParentNav={active.parentNav} 
+        isMobileSidebarOpen={isMobileSidebarOpen} 
+        setIsMobileSidebarOpen={setIsMobileSidebarOpen} 
       />
       <div className="h-screen flex-1 overflow-y-scroll overflow-x-hidden">
         <Navbar setIsMobileSidebarOpen={setIsMobileSidebarOpen} />
