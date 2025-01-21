@@ -1,16 +1,7 @@
+import { SignUpSubmitFormData } from "@/types/school";
 import { z, ZodType } from "zod";
 
-export type SignUpFormData = {
-  schoolName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
-export type SignUpSubmitFormData = {
-  schoolName: string;
-  email: string;
-  password: string;
-};
+
 
 export const signUpSchema: ZodType<SignUpSubmitFormData> = z
   .object({

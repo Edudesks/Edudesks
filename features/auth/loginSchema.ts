@@ -1,10 +1,6 @@
+import { LoginFormData } from "@/types/school";
 import { z, ZodType } from "zod";
 
-export type LoginFormData= {
-  email: string;
-  password: string;
-  rememberMe?: boolean;
-};
 
 export const loginSchema: ZodType<LoginFormData> = z
   .object({

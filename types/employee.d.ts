@@ -7,7 +7,36 @@ interface EducationDetailsProps {
     education: string;
     institution: string;
 }
+interface EmployeeData {
+    _id: string;
+    personal: {
+        otherName: string;
+        lastName: string;
+        gender: ("Male" | "Female")[];
+        expectedSalary: string
+    };
+    position: {
+        role: string
+    };
+    contact: {
+        phoneNumber: number
+    };
+    supportingDocuments: {
+        profilePicture: string;
+    };
+    category: string
+}
+
+interface ViewEmployee {
+    employeeName: string;
+    gender: string;
+    role: string;
+    phoneNumber: string;
+    salary: string;
+    dot: string;
+}
 
 export type {
-    EmployeeCardProps, EducationDetailsProps
+    EmployeeCardProps, EducationDetailsProps,
+    ViewEmployee, EmployeeData
 }

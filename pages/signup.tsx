@@ -15,7 +15,8 @@ import {
 } from "hugeicons-react";
 import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SignUpFormData, SignUpSubmitFormData, signUpSchema } from "@/features/auth/signUpSchema";
+import { SignUpFormData, SignUpSubmitFormData } from "@/types/school";
+import {  signUpSchema } from "@/features/auth/signUpSchema";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "@/store/hooks";
 import { signUp, resetSignup, createOtp } from "@/store/slices/authSlice";

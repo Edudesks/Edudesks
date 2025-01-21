@@ -1,46 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { SignUpSubmitFormData } from "@/features/auth/signUpSchema";
-import { LoginFormData } from "@/features/auth/loginSchema";
+import { SignUpSubmitFormData } from "@/types/school";
+import { LoginFormData } from "@/types/school";
 import { makeApiCall } from '@/utils/api';
-
-interface School {
-  accountHolderName: string;
-  _id: string;
-  schoolName: string;
-  email: string;
-  role: string;
-  plan: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
-
-interface SignupState {
-  signupLoading: boolean;
-  signupSuccess: boolean;
-  signupError: string | null;
-  signinLoading: boolean;
-  signinSuccess: boolean;
-  signinError: string | null;
-  isAuthenticated: boolean;
-  schoolPayload: School | null;
-  otpLoading: boolean;
-  otpSuccess: boolean;
-  otpError: string | null;
-}
+import { SignupState } from "@/types/school";
 
 const initialState: SignupState = {
-  signupLoading: false,
-  signupSuccess: false,
-  signupError: null,
-  signinLoading: false,
-  signinSuccess: false,
-  signinError: null,
-  isAuthenticated: false,
-  schoolPayload: null,
-  otpLoading: false,
-  otpSuccess: false,
-  otpError: null,
+    signupLoading: false,
+    signupSuccess: false,
+    signupError: null,
+    signinLoading: false,
+    signinSuccess: false,
+    signinError: null,
+    isAuthenticated: false,
+    schoolPayload: null,
+    otpLoading: false,
+    otpSuccess: false,
+    otpError: null,
 };
 
 // Sign Up School Async Thunk

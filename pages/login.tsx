@@ -13,7 +13,8 @@ import {
 } from "hugeicons-react";
 import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginFormData, loginSchema } from "@/features/auth/loginSchema";
+import { LoginFormData } from "@/types/school";
+import { loginSchema } from "@/features/auth/loginSchema";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "@/store/hooks";
 import { signIn, resetSignin, createOtp } from "@/store/slices/authSlice";
