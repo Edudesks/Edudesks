@@ -73,6 +73,8 @@ const incomes: ViewIncome[] = [
     amount: 100000,
     paymentMethod: "Cash",
     status: "Paid",
+    dot: ""
+
   },
   {
     date: "Fri 24th May",
@@ -82,6 +84,7 @@ const incomes: ViewIncome[] = [
     amount: 100000,
     paymentMethod: "Bank transfer",
     status: "Paid",
+    dot: ""
   },
   {
     date: "Fri 24th May",
@@ -91,6 +94,7 @@ const incomes: ViewIncome[] = [
     amount: 100000,
     paymentMethod: "Bank transfer",
     status: "Paid",
+    dot: ""
   },
   {
     date: "Fri 24th May",
@@ -100,6 +104,7 @@ const incomes: ViewIncome[] = [
     amount: 100000,
     paymentMethod: "Cash",
     status: "Paid",
+    dot: ""
   },
   {
     date: "Fri 24th May",
@@ -109,6 +114,7 @@ const incomes: ViewIncome[] = [
     amount: 100000,
     paymentMethod: "Bank transfer",
     status: "Paid",
+    dot: ""
   },
   {
     date: "Fri 24th May",
@@ -118,6 +124,7 @@ const incomes: ViewIncome[] = [
     amount: 100000,
     paymentMethod: "Bank transfer",
     status: "Paid",
+    dot: ""
   },
   {
     date: "Fri 24th May",
@@ -127,6 +134,7 @@ const incomes: ViewIncome[] = [
     amount: 100000,
     paymentMethod: "Bank Transfer",
     status: "Paid",
+    dot: ""
   },
   {
     date: "Fri 24th May",
@@ -136,6 +144,7 @@ const incomes: ViewIncome[] = [
     amount: 100000,
     paymentMethod: "Cash",
     status: "Paid",
+    dot: ""
   },
   {
     date: "Fri 24th May",
@@ -145,6 +154,7 @@ const incomes: ViewIncome[] = [
     amount: 100000,
     paymentMethod: "Bank Transfer",
     status: "Paid",
+    dot: ""
   },
 ];
 

@@ -1,5 +1,6 @@
 interface ViewIncome {
     date: string;
+    time: string;
     description: string;
     requestee: string;
     amount: number;
