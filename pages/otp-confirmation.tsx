@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
  */
 
 const OtpConfirmation: React.FC = () => {
-    const schoolName = useAppSelector((state) => state.auth.schoolPayload?.schoolName); // Selector for school existence
+    const schoolName = useAppSelector((state) => state?.auth.schoolPayload?.schoolName); // Selector for school existence
     const router = useRouter();
     const { reason } = router.query
 

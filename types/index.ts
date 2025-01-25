@@ -21,6 +21,7 @@ type SidebarSection =
   | "income"
   | "monthly-income"
   | "annual-income"
+  | "message"
   | "expenses"
   | "analytics"
   | "settings";

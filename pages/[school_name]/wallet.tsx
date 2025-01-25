@@ -1,11 +1,18 @@
 import WalletBalanceComponent from "@/components/WalletComponent/WalletBalance";
+import { useEffect } from "react";
 import { openSans } from "@/app/fonts/fonts";
 import WalletChartComponent from "@/components/WalletComponent/WalletChart";
+import { useAppDispatch } from "@/store/hooks";
+import { setActivePage } from "@/store/slices/sidebarSlice";
 import TransactionComponentHistory from "@/components/WalletComponent/WalletTransactionHistory";
 // import React, { useEffect, useState } from "react";
 // import CreatePinComponent from "@/components/WalletComponent/WalletModal/CreatePin";
 // import CreatePinComponent from "./WalletModal/CreatePin";
 export default function WalletComponent() {
+    const dispatch = useAppDispatch();
+    useEffect(()=>{
+        dispatch(setActivePage({active:"wallet", parentNav: "wallet"})); 
+    })
     return (
         <>
             <div className={`${openSans.className} my-5 mx-3`}>

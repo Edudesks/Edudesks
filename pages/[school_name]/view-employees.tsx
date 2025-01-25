@@ -187,6 +187,7 @@ const EmployeeTable: React.FC<{employees: ViewEmployee[]}> = ({employees}) => {
         columns={columns}
         rowsPerPage={5}
         headColor="#002F49"
+        color="white"
       />
     </>
   );

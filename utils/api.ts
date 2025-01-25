@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const apiRootUrl = process.env.REACT_APP_API_ROOT_URL || 'https://backend-edudesks-vgj7.onrender.com'
-// 'https://backend-edudesks-vgj7.onrender.com';
+
+const apiRootUrl = 'https://backend-edudesks-vgj7.onrender.com'
 
 export interface ApiRequestHeaders {
   [key: string]: string | number | boolean;
@@ -15,11 +15,15 @@ export const makeApiCall = async (
 ) => {
   console.log("Something is going on")
   try {
+    const isLocalhost = window.location.hostname === 'localhost'
     const config: any = {
       method,
       url: `${apiRootUrl}${url}`,
-      headers,
-      withCredentials: true,
+      headers: {
+        ...headers,
+        ...(isLocalhost && { Authorization: `Bearer ${localStorage.getItem('token')}` }), // Add Authorization header for localhost
+      },
+      withCredentials: !isLocalhost,
       timeout: 60000,
     };
 

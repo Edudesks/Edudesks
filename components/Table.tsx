@@ -120,6 +120,7 @@ export interface GenericTableProps<T> {
   columns: Column<T>[];
   rowsPerPage?: number;
   headColor: string;
+  color?: string;
 }
 
 const GenericTable = <T,>({
@@ -127,6 +128,7 @@ const GenericTable = <T,>({
   columns,
   rowsPerPage = 5,
   headColor = '#002F49',
+  color = "white"
 }: GenericTableProps<T>) => {
   const [page, setPage] = useState(0);
 
@@ -137,7 +139,7 @@ const GenericTable = <T,>({
   const StyledHeadCell = styled(StyledTableCell)(({ theme }) => ({
     backgroundColor: headColor,
     fontWeight: 'bold',
-    color: theme.palette.common.white,
+    color: color,
   }));
 
   const totalPages = Math.ceil(rows.length / rowsPerPage);

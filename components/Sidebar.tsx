@@ -68,6 +68,64 @@ const Sidebar: React.FC<SidebarProp> = ({
           Dashboard
         </Link>
 
+         {/* Class Dropdown */}
+         <div className="flex flex-col">
+          <button
+            onClick={() => setIsClassOpen(!isClassOpen)}
+            className={`${styles.dropdownButton} ${
+              activeSection === "class" ? styles.dropdownButtonActive : ""
+            } ${styles.dropdownButtonHover} ${ activeParentNav === "class" && !isClassOpen ? styles.dropdownButtonActive : "" }`}
+          >
+            <div>
+              <Image
+                src="/icons/class-icon.svg"
+                alt="Class"
+                width={20}
+                height={20}
+                className={styles.icon}
+              />
+              Class
+            </div>
+            <span>
+              {isClassOpen ? (
+                <Image
+                  src="/icons/arrow-up-dark.svg"
+                  alt="arrow up"
+                  width={10}
+                  height={10}
+                />
+              ) : (
+                <Image
+                  src="/icons/arrow-down-light.svg"
+                  alt="arrow down"
+                  width={10}
+                  height={10}
+                />
+              )}
+            </span>
+          </button>
+          {isClassOpen && (
+            <div className={styles.dropdownContent}>
+              <Link
+                href={`/${school_name}/add-class`}
+                className={`${styles.dropdownContentText} ${menuItemClasses(
+                  "add-class"
+                )}`}
+              >
+                Add Class
+              </Link>
+              <Link
+                href={`/${school_name}/view-class`}
+                className={`${styles.dropdownContentText} ${menuItemClasses(
+                  "view-class"
+                )}`}
+              >
+                View Class
+              </Link>
+            </div>
+          )}
+        </div>
+
         {/* Students Dropdown */}
         <div className="flex flex-col">
           <button
@@ -125,78 +183,6 @@ const Sidebar: React.FC<SidebarProp> = ({
             </div>
           )}
         </div>
-
-        {/* Class Dropdown */}
-        <div className="flex flex-col">
-          <button
-            onClick={() => setIsClassOpen(!isClassOpen)}
-            className={`${styles.dropdownButton} ${
-              activeSection === "class" ? styles.dropdownButtonActive : ""
-            } ${styles.dropdownButtonHover} ${ activeParentNav === "class" && !isClassOpen ? styles.dropdownButtonActive : "" }`}
-          >
-            <div>
-              <Image
-                src="/icons/class-icon.svg"
-                alt="Class"
-                width={20}
-                height={20}
-                className={styles.icon}
-              />
-              Class
-            </div>
-            <span>
-              {isClassOpen ? (
-                <Image
-                  src="/icons/arrow-up-dark.svg"
-                  alt="arrow up"
-                  width={10}
-                  height={10}
-                />
-              ) : (
-                <Image
-                  src="/icons/arrow-down-light.svg"
-                  alt="arrow down"
-                  width={10}
-                  height={10}
-                />
-              )}
-            </span>
-          </button>
-          {isClassOpen && (
-            <div className={styles.dropdownContent}>
-              <Link
-                href={`/${school_name}/add-class`}
-                className={`${styles.dropdownContentText} ${menuItemClasses(
-                  "add-class"
-                )}`}
-              >
-                Add Class
-              </Link>
-              <Link
-                href={`/${school_name}/view-class`}
-                className={`${styles.dropdownContentText} ${menuItemClasses(
-                  "view-class"
-                )}`}
-              >
-                View Class
-              </Link>
-            </div>
-          )}
-        </div>
-
-        <Link
-          href={`/${school_name}/`}
-          className={menuItemClasses("generate")}
-        >
-          <Image
-            src="/icons/dashboard-icon.svg"
-            alt="Dashboard"
-            width={20}
-            height={20}
-            className={styles.icon}
-          />
-          Generate fees
-        </Link>
 
         {/* Employees Dropdown */}
         <div className="flex flex-col">
@@ -257,28 +243,14 @@ const Sidebar: React.FC<SidebarProp> = ({
           )}
         </div>
 
-        <Link
-          href={`/${school_name}/wallet`}
-          className={menuItemClasses("wallet")}
-        >
-          <Image
-            src="/icons/wallet-icon.svg"
-            alt="Wallet"
-            width={20}
-            height={20}
-            className={styles.icon}
-          />
-          Wallet
-        </Link>
-
         {/* Income Dropdown */}
         <div className="flex flex-col">
           <button
             onClick={() => setIsIncomeOpen(!isIncomeOpen)}
             className={`${styles.dropdownButton} ${
               activeSection === "income" ? styles.dropdownButtonActive : ""
-            } ${styles.dropdownButtonHover}`}
-          >
+            } ${styles.dropdownButtonHover} ${ activeParentNav === "income" && !isIncomeOpen ? styles.dropdownButtonActive : "" }`}
+            >
             <div>
               <Image
                 src="/icons/income-icon.svg"
@@ -310,7 +282,7 @@ const Sidebar: React.FC<SidebarProp> = ({
           {isIncomeOpen && (
             <div className={styles.dropdownContent}>
               <Link
-                href={`/${school_name}/monthly-income`}
+                href={`/${school_name}/income-list`}
                 className={`${styles.dropdownContentText} ${menuItemClasses(
                   "monthly-income"
                 )}`}
@@ -318,7 +290,7 @@ const Sidebar: React.FC<SidebarProp> = ({
                 Monthly Income
               </Link>
               <Link
-                href={`/${school_name}/annual-income`}
+                href={`/${school_name}/income-list`}
                 className={`${styles.dropdownContentText} ${menuItemClasses(
                   "annual-income"
                 )}`}
@@ -330,36 +302,22 @@ const Sidebar: React.FC<SidebarProp> = ({
         </div>
 
         <Link
-          href={`/${school_name}/expenses`}
-          className={menuItemClasses("expenses")}
+          href={`/${school_name}/wallet`}
+          className={menuItemClasses("wallet")}
         >
           <Image
-            src="/icons/expenses-icon.svg"
-            alt="Expenses"
+            src="/icons/wallet-icon.svg"
+            alt="Wallet"
             width={20}
             height={20}
             className={styles.icon}
           />
-          Expenses
+          Wallet
         </Link>
 
         <Link
-          href={`/${school_name}/analytics`}
-          className={menuItemClasses("analytics")}
-        >
-          <Image
-            src="/icons/analytics-icon.svg"
-            alt="Analytics"
-            width={20}
-            height={20}
-            className={styles.icon}
-          />
-          Analytics
-        </Link>
-
-        <Link
-          href={`/${school_name}/remit-payment`}
-          className={menuItemClasses("remit-payment")}
+          href={`/${school_name}/message`}
+          className={menuItemClasses("message")}
         >
           <Image
             src="/icons/remit-icon.svg"

@@ -41,6 +41,7 @@ export const checkAuthToken = createAsyncThunk(
   "auth/token",
   async () => {
     const response = await makeApiCall('GET', '/auth/school-auth');
+    console.log(response.payload);
     return response.payload;
   }
 );

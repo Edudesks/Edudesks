@@ -1,6 +1,5 @@
 import UploadDialogComponent from "@/components/StudentComponent/UploadDialogComponent";
 import React, { useEffect, useState } from "react";
-import withProtectedRoute from '@/hoc/ProtectedRoute';
 import { FormProvider, useForm } from "react-hook-form";
 import { makeApiCall } from '@/utils/api';
 

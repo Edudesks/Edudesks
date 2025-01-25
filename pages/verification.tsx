@@ -52,6 +52,8 @@ const Verification: React.FC = () => {
           query: { reason: 'signup'},
         })
       }else {
+        console.log(otpResponse.payload)
+        localStorage.setItem('token', otpResponse.payload.token)
         router.push({
           pathname: "/otp-confirmation",
           query: { reason: 'login'},
