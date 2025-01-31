@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { TfiPencil } from "react-icons/tfi";
 import Image from "next/image";
-
-export default function EmployeeProfileContactDetailsComponent() {
+import { EmployeeCardProps } from "@/types/employee";
+const EmployeeProfileContactDetailsComponent: React.FC<EmployeeCardProps> = ({ title, value }) => {
   const [isEditingPersonalDetails, setIsEditingPersonalDetails] = useState(false);
   const [personalDetails, setPersonalDetails] = useState({
     PhoneNumber:"08187643222",
@@ -85,3 +85,4 @@ export default function EmployeeProfileContactDetailsComponent() {
     </div>
   );
 }
+export default EmployeeProfileContactDetailsComponent

@@ -5,8 +5,8 @@ import { Modal, Box, Button, Typography } from '@mui/material';
 import { GoCheckCircleFill } from "react-icons/go";
 import { FaXmark } from "react-icons/fa6";
 import { useRouter } from "next/router"
-
-export default function EmployeeProfileButtonComponent () {
+import { EmployeeCardProps } from "@/types/employee";
+const EmployeeProfileButtonComponent: React.FC<EmployeeCardProps> = ({ title, value }) =>{
     const router = useRouter();
     const { school_name } = router.query; 
     const [open, setOpen] = useState(false);
@@ -152,3 +152,4 @@ export default function EmployeeProfileButtonComponent () {
         </>
     );
 }
+export default EmployeeProfileButtonComponent
