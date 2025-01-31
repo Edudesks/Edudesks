@@ -7,7 +7,7 @@ interface PersonalDetails {
   UniversityTranscriptPdf: string;
 }
 
-export default function EmployeeProfileSupportDetailsComponent({ title, value }:EmployeeCardProps) {
+export default function EmployeeProfileSupportDetailsComponent() {
   const [isEditingPersonalDetails, setIsEditingPersonalDetails] = useState<boolean>(false);
 
   // Use the PersonalDetails type for the state

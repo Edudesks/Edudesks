@@ -29,7 +29,7 @@ function EmployeeProfile() {
                             <EmployeeProfilePositionDetailsComponent />
                         </div>
                         <div className="flex flex-col gap-10 w-full">
-                            <EmployeeProfileContactDetailsComponent />
+                            <EmployeeProfileContactDetailsComponent phoneNumber="08187643222" address="5, Joseph street, Yaba, Akoka, Lagos state" />
                             <EmployeeProfileEducationDetailsComponent education="B.SC in English" institution="University of Lagos" />
                             <EmployeeProfileSupportDetailsComponent />
                         </div>

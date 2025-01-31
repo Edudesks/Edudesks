@@ -7,6 +7,10 @@ interface EducationDetailsProps {
     education: string;
     institution: string;
 }
+interface ProfileContactProps {
+    phoneNumber: string;
+    address: string;
+}
 interface EmployeeData {
     _id: string;
     personal: {
@@ -38,5 +42,5 @@ interface ViewEmployee {
 
 export type {
     EmployeeCardProps, EducationDetailsProps,
-    ViewEmployee, EmployeeData
+    ViewEmployee, EmployeeData, ProfileContactProps
 }

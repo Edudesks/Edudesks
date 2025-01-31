@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import styles from '@/styles/Class.module.css';
 import mobileTableStyle from '@/styles/MobileTable.module.css';
 
-import withProtectedRoute from '@/hoc/ProtectedRoute';
 import tableStyle from '@/styles/DashboardTable.module.css';
 // import MobileTable from '@/components/DashboardComponent/TransactionHistory';
 import MobileTableHistory from '@/components/MobileTable';

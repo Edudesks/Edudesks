@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { TfiPencil } from "react-icons/tfi";
 import Image from "next/image";
-import { EmployeeCardProps } from "@/types/employee";
-const EmployeeProfileContactDetailsComponent: React.FC<EmployeeCardProps> = ({ title, value }) => {
+import { ProfileContactProps } from "@/types/employee";
+const EmployeeProfileContactDetailsComponent: React.FC<ProfileContactProps> = ({ phoneNumber, address }) => {
   const [isEditingPersonalDetails, setIsEditingPersonalDetails] = useState(false);
   const [personalDetails, setPersonalDetails] = useState({
-    PhoneNumber:"08187643222",
-    ResidentialAddress: "5, Joseph street, Yaba, Akoka, Lagos state",
+    PhoneNumber: phoneNumber,
+    ResidentialAddress: address,
   });
 
   const handleEditClick = () => {

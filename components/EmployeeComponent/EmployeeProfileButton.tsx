@@ -5,30 +5,29 @@ import { Modal, Box, Button, Typography } from '@mui/material';
 import { GoCheckCircleFill } from "react-icons/go";
 import { FaXmark } from "react-icons/fa6";
 import { useRouter } from "next/router"
-import { EmployeeCardProps } from "@/types/employee";
-const EmployeeProfileButtonComponent: React.FC<EmployeeCardProps> = ({ title, value }) =>{
+const EmployeeProfileButtonComponent: React.FC = () =>{
     const router = useRouter();
     const { school_name } = router.query; 
     const [open, setOpen] = useState(false);
     const [isEditingPersonalDetails, setIsEditingPersonalDetails] = useState(false);
-    const [personalDetails, setPersonalDetails] = useState({
-        firstName: "Joseph",
-        middleName: "Olawole",
-        lastName: "Ernest",
-        gender: "Male",
-        dob: "7th June 2000",
-        email: "josephernest109@gmail.com",
-        nationalId: "10101010101001",
-        bankAccount: "10101010101001 (Gt Bank)",
-        department: "Teaching",
-        role: "SSS1A English Teacher",
-        phoneNumber: "08187643222",
-        residentialAddress: "5, Joseph street, Yaba, Akoka, Lagos state",
-        education: "B.SC in English",
-        institution: "University of Lagos",
-        CVpdf: "/documents/CV.pdf",
-        universityTranscriptPdf: "/documents/UniversityTranscript.pdf",
-    });
+    // const [personalDetails, setPersonalDetails] = useState({
+    //     firstName: "Joseph",
+    //     middleName: "Olawole",
+    //     lastName: "Ernest",
+    //     gender: "Male",
+    //     dob: "7th June 2000",
+    //     email: "josephernest109@gmail.com",
+    //     nationalId: "10101010101001",
+    //     bankAccount: "10101010101001 (Gt Bank)",
+    //     department: "Teaching",
+    //     role: "SSS1A English Teacher",
+    //     phoneNumber: "08187643222",
+    //     residentialAddress: "5, Joseph street, Yaba, Akoka, Lagos state",
+    //     education: "B.SC in English",
+    //     institution: "University of Lagos",
+    //     CVpdf: "/documents/CV.pdf",
+    //     universityTranscriptPdf: "/documents/UniversityTranscript.pdf",
+    // });
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -37,34 +36,34 @@ const EmployeeProfileButtonComponent: React.FC<EmployeeCardProps> = ({ title, va
     const handleSaveClick = () => setIsEditingPersonalDetails(false);
     const handleCancelClick = () => setIsEditingPersonalDetails(false);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setPersonalDetails((prevDetails) => ({
-            ...prevDetails,
-            [name]: value,
-        }));
-    };
+    // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const { name, value } = e.target;
+    //     setPersonalDetails((prevDetails) => ({
+    //         ...prevDetails,
+    //         [name]: value,
+    //     }));
+    // };
 
-    const handleClearPersonalDetails = () => {
-        setPersonalDetails({
-            firstName: "",
-            middleName: "",
-            lastName: "",
-            gender: "",
-            dob: "",
-            email: "",
-            nationalId: "",
-            bankAccount: "",
-            department: "",
-            role: "",
-            phoneNumber: "",
-            residentialAddress: "",
-            education: "",
-            institution: "",
-            CVpdf: "",
-            universityTranscriptPdf: "",
-        });
-    };
+    // const handleClearPersonalDetails = () => {
+    //     setPersonalDetails({
+    //         firstName: "",
+    //         middleName: "",
+    //         lastName: "",
+    //         gender: "",
+    //         dob: "",
+    //         email: "",
+    //         nationalId: "",
+    //         bankAccount: "",
+    //         department: "",
+    //         role: "",
+    //         phoneNumber: "",
+    //         residentialAddress: "",
+    //         education: "",
+    //         institution: "",
+    //         CVpdf: "",
+    //         universityTranscriptPdf: "",
+    //     });
+    // };
 
     const handleDeleteProfile = () => {
         console.log("Profile Deleted");

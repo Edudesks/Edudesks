@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useState, useRef } from "react";
 import { inter, openSans } from "@/app/fonts/fonts";
 import { EmployeeCardProps } from "@/types/employee";
-export default function EmployeeProfileImg({ title, value }:EmployeeCardProps) {
+export default function EmployeeProfileImg() {
   const [profileImage, setProfileImage] = useState(
     "/images/ProfileRectangle.svg"
   );

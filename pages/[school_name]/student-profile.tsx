@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 
 import { useAppDispatch } from "@/store/hooks";
 import { setActivePage } from "@/store/slices/sidebarSlice";
-import withProtectedRoute from "@/hoc/ProtectedRoute";
 
 const Card = ({
   iconSrc,

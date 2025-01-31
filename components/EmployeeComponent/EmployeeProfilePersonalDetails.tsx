@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { TfiPencil } from "react-icons/tfi";
 import Image from "next/image";
-import { EmployeeCardProps } from "@/types/employee";
-export default function EmployeeProfilePersonalDetailsComponent({ title, value }:EmployeeCardProps) {
+export default function EmployeeProfilePersonalDetailsComponent() {
   const [isEditingPersonalDetails, setIsEditingPersonalDetails] = useState(false);
   const [personalDetails, setPersonalDetails] = useState({
     firstName: "Joseph",
