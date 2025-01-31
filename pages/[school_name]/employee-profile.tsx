@@ -25,13 +25,13 @@ function EmployeeProfile() {
                     </div>
                     <div className="w-full grid grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-2">
                         <div className="flex flex-col gap-3 w-full">
-                            <EmployeeProfilePersonalDetailsComponent />
-                            <EmployeeProfilePositionDetailsComponent />
+                            <EmployeeProfilePersonalDetailsComponent  firstName="Joseph" middleName="Olawole" lastName="Ernest" gender="Male" dob="7th June 2000" email="josephernest109@gmail.com" nationalId="10101010101001" bankAccount="10101010101001 (Gt Bank)"/>
+                            <EmployeeProfilePositionDetailsComponent Department="Teaching" Role="SSS1A English Teacher"/>
                         </div>
                         <div className="flex flex-col gap-10 w-full">
                             <EmployeeProfileContactDetailsComponent phoneNumber="08187643222" address="5, Joseph street, Yaba, Akoka, Lagos state" />
                             <EmployeeProfileEducationDetailsComponent education="B.SC in English" institution="University of Lagos" />
-                            <EmployeeProfileSupportDetailsComponent />
+                            <EmployeeProfileSupportDetailsComponent CVpdf="/documents/CV.pdf" UniversityTranscriptPdf="/documents/UniversityTranscript.pdf"/>
                         </div>
                     </div>
                 </div>

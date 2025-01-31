@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { TfiPencil } from "react-icons/tfi";
 import Image from "next/image";
-export default function EmployeeProfilePersonalDetailsComponent() {
+import { ProfilePersonalDetails } from "@/types/employee";
+export default function EmployeeProfilePersonalDetailsComponent({firstName, middleName, lastName, gender, dob, email, nationalId, bankAccount}: ProfilePersonalDetails) {
   const [isEditingPersonalDetails, setIsEditingPersonalDetails] = useState(false);
   const [personalDetails, setPersonalDetails] = useState({
-    firstName: "Joseph",
-    middleName: "Olawole",
-    lastName: "Ernest",
-    gender: "Male",
-    dob: "7th June 2000",
-    email: "josephernest109@gmail.com",
-    nationalId: "10101010101001",
-    bankAccount: "10101010101001 (Gt Bank)",
+    firstName: firstName,
+    middleName: middleName,
+    lastName: lastName,
+    gender: gender,
+    dob: dob,
+    email: email,
+    nationalId: nationalId,
+    bankAccount: bankAccount,
   });
 
   const handleEditClick = () => {
