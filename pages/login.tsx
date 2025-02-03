@@ -53,7 +53,7 @@ const Login: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const submitData = async (data: LoginFormData) => {
-    setIsLoading(true);  
+    setIsLoading(true);
 
     // Simulate the delay for 2 seconds
     setTimeout(async () => {
@@ -78,8 +78,8 @@ const Login: React.FC = () => {
       // router.push("/Edudesk")
       }
 
-      setIsLoading(false);  
-    }, 2000); 
+      setIsLoading(false);
+    }, 2000);
   };
 
   // show/hide password
@@ -109,7 +109,7 @@ const Login: React.FC = () => {
         className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[8.5625rem] h-screen whitespace-nowrap`}
       >
         {/* -------- left half of signup page -------- */}
-        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[1.9375rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-e-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-[44.875rem]">
+        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[1.9375rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-e-[30px] lg:rounded-bl-none max-h-[24.5625rem] lg:max-h-full lg:w-[44.875rem]">
           <AuthentificationLogo />
           <div className="w-[16.625rem] lg:w-[33.6875rem] self-center">
             <Image
@@ -280,7 +280,7 @@ const Login: React.FC = () => {
   ) : (
     "Sign In"
   )}
-              
+
             </button>
           </form>
         </div>

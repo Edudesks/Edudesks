@@ -19,27 +19,32 @@ const classes = [
 ] as const;
 
 export const personalInformationSchema = z.object({
-  lastName: z.string().min(1, { message: "Last name bawo" }),
-  otherNames: z.string().min(1),
-  dateOfBirth: z.string().refine(
-    (value) => {
-      const date = new Date(value);
-      return !isNaN(date.getTime());
-    },
-    { message: "Invalid date format" }
-  ),
-  age: z.number().min(1).or(z.string().regex(/^\d+$/, "Age must be a number")),
-  gender: z
-    .array(z.enum(["Male", "Female"]))
-    .min(1, { message: "Please select at least one gender" }),
-  admissionDate: z.string().refine(
-    (value) => {
-      const date = new Date(value);
-      return !isNaN(date.getTime());
-    },
-    { message: "Invalid date format" }
-  ),
-  classes: z.enum(classes, { message: "Invalid class selected" }),
+  personal: z.object({
+    lastName: z.string().min(1, { message: "Last name bawo" }), //done
+    otherNames: z.string().min(1), //done
+    dateOfBirth: z.string().refine(
+      (value) => {
+        const date = new Date(value);
+        return !isNaN(date.getTime());
+      },
+      { message: "Invalid date format" }
+    ),
+    age: z
+      .number()
+      .min(1)
+      .or(z.string().regex(/^\d+$/, "Age must be a number")),
+    gender: z
+      .array(z.enum(["Male", "Female"]))
+      .min(1, { message: "Please select at least one gender" }),
+    admissionDate: z.string().refine(
+      (value) => {
+        const date = new Date(value);
+        return !isNaN(date.getTime());
+      },
+      { message: "Invalid date format" }
+    ),
+    classes: z.enum(classes, { message: "Invalid class selected" }),
+  }),
 });
 
 export const contactInformationSchema = z.object({
@@ -55,7 +60,8 @@ export const parentInformationSchema = z.object({
   motherLastName: z.string().min(1, { message: "Enter mother's last name" }),
   motherFirstName: z.string().min(1, { message: "Enter mother's first name" }),
   motherEmailAddress: z
-    .string().email()
+    .string()
+    .email()
     .min(1, { message: "Enter mother's email address" }),
   motherPhoneNumber: z
     .string()
@@ -68,7 +74,8 @@ export const parentInformationSchema = z.object({
   fatherLastName: z.string().min(1, { message: "Enter father's last name" }),
   fatherFirstName: z.string().min(1, { message: "Enter father's first name" }),
   fatherEmailAddress: z
-    .string().email()
+    .string()
+    .email()
     .min(1, { message: "Enter father's email address" }),
   fatherPhoneNumber: z
     .string()
@@ -86,7 +93,7 @@ export const healthInformationSchema = z.object({
   bloodGroup: z.string().optional(),
   allergies: z.string().optional(),
   disabilities: z.string().optional(),
-})
+});
 
 export type personalInformationFormData = z.infer<
   typeof personalInformationSchema
