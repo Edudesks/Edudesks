@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styles from '@/styles/Class.module.css';
-import withProtectedRoute from '@/hoc/ProtectedRoute';
 import ClassTable from '@/components/ClassComponent/ClassTable';
 
 import ClassStats from '@/components/ClassComponent/ClassStats';
