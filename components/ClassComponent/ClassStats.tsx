@@ -16,11 +16,11 @@ const StatCard: React.FC<StatCardProps> = ({ src, count, label, className = '' }
     <div className={styles.iconContainer}>
       
     <Image 
-          src={src}
-          alt="Teacher" 
-          width={30} 
-          height={30} 
-          className={styles.icon}
+      src={src}
+      alt="Teacher" 
+      width={15} 
+      height={15} 
+      className={styles.icon}
         />
     </div>
     <div className={styles.cardText}>
@@ -44,8 +44,8 @@ const ClassStats = () => {
           icon={<Image 
             src="/icons/plus-user.svg"
             alt="Teacher" 
-            width={30} 
-            height={30} 
+            width={20} 
+            height={20} 
             className={styles.icon}
           />}
           className={styles.button}

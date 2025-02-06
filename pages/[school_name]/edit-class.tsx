@@ -7,6 +7,8 @@ import withProtectedRoute from '@/hoc/ProtectedRoute';
 
 
 const EditClass = () => {
+  const teachersList = ["Mr. John", "Ms. Jane", "Dr. Smith"];
+const classCategoriesList = ["Kindergaten", "Primary", "Secondary"];
  const dispatch = useAppDispatch();
    useEffect(()=>{
     dispatch(setActivePage({active:"edit-class", parentNav: "class"}));
@@ -15,11 +17,14 @@ const EditClass = () => {
   return (
     <div className={styles.pageContainer}>
     <ClassForm 
-    initialData={{
+      initialData={{
       className: 'JSS1',
       teacherName: 'John Doe',
       schoolFees: 50000,
+      classCategory: "Primary"
     }}
+    teachers={teachersList}
+    classCategories={classCategoriesList}
     onSave={(data) => console.log('Edit Class Data:', data)} 
     onCancel={() => console.log('Cancel Edit')} 
   />

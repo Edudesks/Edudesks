@@ -112,7 +112,7 @@ const Sidebar: React.FC<SidebarProp> = ({
                   "add-class"
                 )}`}
               >
-                Add Class
+                Add new class
               </Link>
               <Link
                 href={`/${school_name}/view-class`}
@@ -120,7 +120,7 @@ const Sidebar: React.FC<SidebarProp> = ({
                   "view-class"
                 )}`}
               >
-                View Class
+                View all classes
               </Link>
             </div>
           )}
@@ -170,7 +170,7 @@ const Sidebar: React.FC<SidebarProp> = ({
                   "add-student"
                 )}`}
               >
-                Add Student
+                Add new student
               </Link>
               <Link
                 href={`/${school_name}/view-student`}
@@ -178,7 +178,7 @@ const Sidebar: React.FC<SidebarProp> = ({
                   "view-student"
                 )}`}
               >
-                View Student
+                View all students
               </Link>
             </div>
           )}
@@ -229,7 +229,7 @@ const Sidebar: React.FC<SidebarProp> = ({
                   "add-employee"
                 )}`}
               >
-                Add Employee
+                Add new employee
               </Link>
               <Link
                 href={`/${school_name}/view-employees`}
@@ -237,7 +237,7 @@ const Sidebar: React.FC<SidebarProp> = ({
                   "view-employees"
                 )}`}
               >
-                View Employees
+                View all employees
               </Link>
             </div>
           )}
@@ -287,7 +287,7 @@ const Sidebar: React.FC<SidebarProp> = ({
                   "monthly-income"
                 )}`}
               >
-                Monthly Income
+                Add new income
               </Link>
               <Link
                 href={`/${school_name}/income-list`}
@@ -295,7 +295,7 @@ const Sidebar: React.FC<SidebarProp> = ({
                   "annual-income"
                 )}`}
               >
-                Annual Income
+                View all incomes
               </Link>
             </div>
           )}
