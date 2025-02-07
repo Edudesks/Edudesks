@@ -11,6 +11,16 @@ interface ProfileContactProps {
     phoneNumber: string;
     address: string;
 }
+interface ProfilePersonalDetails{
+    firstName:string;
+    middleName:string;
+    lastName:string;
+    gender:string;
+    dob:string;
+    email:string;
+    nationalId:string;
+    bankAccount:string;
+}
 interface EmployeeData {
     _id: string;
     personal: {
@@ -40,7 +50,12 @@ interface ViewEmployee {
     dot: string;
 }
 
+interface EmployeePositionProps{
+    Department:string;
+    Role:string;
+}
+
 export type {
     EmployeeCardProps, EducationDetailsProps,
-    ViewEmployee, EmployeeData, ProfileContactProps
+    ViewEmployee, EmployeeData, ProfileContactProps, ProfilePersonalDetails, EmployeePositionProps,
 }

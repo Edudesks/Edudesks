@@ -46,7 +46,7 @@ interface TableValue {
   studentID: JSX.Element;
   gender: JSX.Element;
   idClass: JSX.Element;
-  schStatus: JSX.Element;
+  Status: JSX.Element;
   guardianNum: JSX.Element;
   linkIt: JSX.Element;
 }
@@ -67,7 +67,7 @@ export default function StudentTable() {
       studentID: <p>A2-001</p>,
       gender: <p>Female</p>,
       idClass: <p>JSS 1A</p>,
-      schStatus: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
+      Status: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
       guardianNum: <p>08145678930</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
@@ -84,7 +84,7 @@ export default function StudentTable() {
       studentID: <p>A2-002</p>,
       gender: <p>Male</p>,
       idClass: <p>JSS 1A</p>,
-      schStatus: <button className="border border-[var(--success)] text-[var(--success)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
+      Status: <button className="border border-[var(--success)] text-[var(--success)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
       guardianNum: <p>08012345678</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
@@ -101,7 +101,7 @@ export default function StudentTable() {
       studentID: <p>A2-003</p>,
       gender: <p>Female</p>,
       idClass: <p>JSS 1A</p>,
-      schStatus: <button className="border border-[var(--redColor2)] text-[var(--redColor2)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#fd9b9bc7]"><FaSquareMinus /> Not paid</button>,
+      Status: <button className="border border-[var(--redColor2)] text-[var(--redColor2)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#fd9b9bc7]"><FaSquareMinus /> Not paid</button>,
       guardianNum: <p>08123456789</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
@@ -118,7 +118,7 @@ export default function StudentTable() {
       studentID: <p>A2-004</p>,
       gender: <p>Male</p>,
       idClass: <p>JSS 1A</p>,
-      schStatus: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
+      Status: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
       guardianNum: <p>08098765432</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
@@ -135,7 +135,7 @@ export default function StudentTable() {
       studentID: <p>A2-005</p>,
       gender: <p>Female</p>,
       idClass: <p>JSS 1B</p>,
-      schStatus: <button className="border border-[var(--success)] text-[var(--success)]  flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
+      Status: <button className="border border-[var(--success)] text-[var(--success)]  flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
       guardianNum: <p>08111223344</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
@@ -152,7 +152,7 @@ export default function StudentTable() {
       studentID: <p>A2-006</p>,
       gender: <p>Male</p>,
       idClass: <p>JSS 1B</p>,
-      schStatus: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
+      Status: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
       guardianNum: <p>08012340987</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
@@ -169,7 +169,7 @@ export default function StudentTable() {
       studentID: <p>A2-007</p>,
       gender: <p>Female</p>,
       idClass: <p>JSS 1B</p>,
-      schStatus: <button className="border border-[var(--redColor2)] text-[var(--redColor2)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#fd9b9bc7]"><FaSquareMinus /> Not paid</button>,
+      Status: <button className="border border-[var(--redColor2)] text-[var(--redColor2)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#fd9b9bc7]"><FaSquareMinus /> Not paid</button>,
       guardianNum: <p>08055667788</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
@@ -186,7 +186,7 @@ export default function StudentTable() {
       studentID: <p>A2-008</p>,
       gender: <p>Male</p>,
       idClass: <p>JSS 1B</p>,
-      schStatus: <button className="border border-[var(--success)] text-[var(--success)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
+      Status: <button className="border border-[var(--success)] text-[var(--success)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
       guardianNum: <p>08122334455</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
@@ -203,7 +203,7 @@ export default function StudentTable() {
       studentID: <p>A2-009</p>,
       gender: <p>Female</p>,
       idClass: <p>JSS 2A</p>,
-      schStatus: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
+      Status: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
       guardianNum: <p>08099887766</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
@@ -220,7 +220,7 @@ export default function StudentTable() {
       studentID: <p>A2-010</p>,
       gender: <p>Male</p>,
       idClass: <p>JSS 2A</p>,
-      schStatus: <button className="border border-[var(--redColor2)] text-[var(--redColor2)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#fd9b9bc7]"><FaSquareMinus /> Not paid</button>,
+      Status: <button className="border border-[var(--redColor2)] text-[var(--redColor2)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#fd9b9bc7]"><FaSquareMinus /> Not paid</button>,
       guardianNum: <p>08012309098</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
@@ -237,7 +237,7 @@ export default function StudentTable() {
       studentID: <p>A2-011</p>,
       gender: <p>Male</p>,
       idClass: <p>JSS 2A</p>,
-      schStatus: <button className="border border-[var(--success)] text-[var(--success)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
+      Status: <button className="border border-[var(--success)] text-[var(--success)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
       guardianNum: <p>08123232323</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
@@ -254,7 +254,7 @@ export default function StudentTable() {
       studentID: <p>A2-012</p>,
       gender: <p>Female</p>,
       idClass: <p>JSS 2B</p>,
-      schStatus: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
+      Status: <button className="border border-[var(--warning)] text-[var(--warning)] bg-[white] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px]"><TbSquareDotFilled /> Partly paid</button>,
       guardianNum: <p>08123450376</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
@@ -271,7 +271,7 @@ export default function StudentTable() {
       studentID: <p>A2-013</p>,
       gender: <p>Female</p>,
       idClass: <p>JSS 2B</p>,
-      schStatus: <button className="border border-[var(--success)] text-[var(--success)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
+      Status: <button className="border border-[var(--success)] text-[var(--success)] flex items-center gap-2 w-[126px] h-[36px] p-[10px] text-[16px] bg-[#a2f8d4ad]"><FaSquareCheck /> Paid</button>,
       guardianNum: <p>08034567891</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
@@ -292,7 +292,7 @@ export default function StudentTable() {
               <StyledTableCell className="text-[18px]">Student ID</StyledTableCell>
               <StyledTableCell className="text-[18px]">Gender</StyledTableCell>
               <StyledTableCell className="text-[18px]">Class</StyledTableCell>
-              <StyledTableCell className="text-[18px]">Sch.fees status</StyledTableCell>
+              <StyledTableCell className="text-[18px]">Status</StyledTableCell>
               <StyledTableCell className="text-[18px]">Guardian Mobile no</StyledTableCell>
               <StyledTableCell className="text-[18px]"></StyledTableCell>
             </TableRow>
@@ -304,7 +304,7 @@ export default function StudentTable() {
                 <StyledTableCell>{row.studentID}</StyledTableCell>
                 <StyledTableCell>{row.gender}</StyledTableCell>
                 <StyledTableCell>{row.idClass}</StyledTableCell>
-                <StyledTableCell>{row.schStatus}</StyledTableCell>
+                <StyledTableCell>{row.Status}</StyledTableCell>
                 <StyledTableCell>{row.guardianNum}</StyledTableCell>
                 <StyledTableCell>{row.linkIt}</StyledTableCell>
               </StyledTableRow>
