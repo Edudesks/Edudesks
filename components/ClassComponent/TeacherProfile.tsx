@@ -3,6 +3,7 @@ import Image from 'next/image';
 import styles from '@/styles/TeacherProfile.module.css';
 import Range from "rc-slider";
 import "rc-slider/assets/index.css";
+import Slider from '@/components/SlideProgress'
 
 const ProgressBar = () => {
   const [range, setRange] = useState<number[]>([110000, 180000]); // Initial range values
@@ -52,7 +53,7 @@ const TeacherProfile = () => {
         <div className={styles.teacherInfo}>
           <h2>Class teacher: Anita Nwosu</h2>
           <p>Assigned Class: JSS2</p>
-          <p className={styles.sectionText}>Qualification/ Experience: B.Sc in Maths Edu</p>
+          {/* <p className={styles.sectionText}>Qualification/ Experience: B.Sc in Maths Edu</p> */}
         </div>
       </div>
 
@@ -70,7 +71,9 @@ const TeacherProfile = () => {
         <div className={styles.body}>
           <div className={styles.section}>
             <p className={styles.sectionText}>School fees Payment status for June</p>
-            <ProgressBar />
+            <div className={styles.sliderContainer}>
+            <Slider initialValue={70} />
+            </div>
           </div>
 
           <div className={styles.section}>
@@ -87,10 +90,10 @@ const TeacherProfile = () => {
               <span>₦180,000</span>
             </div>
           </div>
-          <div className={`${styles.paymentDetails} ${styles.paymentDue}`}>
-            <span>Payment Due:</span>
-            <span>₦180,000</span>
-          </div>
+          <div className="flex justify-between items-center w-full p-[1em] bg-[#fdfdfd] shadow-inner rounded-lg">
+          <span className="text-gray-700 text-[15px] font-normal">Payment Due:</span>
+          <span className="text-black text-[15px] font-normal">#180,000</span>
+        </div>
         </div>
       </div>
     </div>

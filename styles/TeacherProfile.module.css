@@ -1,28 +1,34 @@
 .container {
-  flex: 1;
+  width: 350px;
 }
 
 .header {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* shadow */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: white; /* bg-white */
+    background-color: white;
     flex-direction: column;
-    gap: 1rem; /* gap-4 */
-    padding: 2em 3em .6em;
-    margin-bottom: 1.5rem; /* mb-6 */
+    gap: 5px;
+    font-size: 15px;
+    padding: .8em;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
   }
 
 .body {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* shadow */
-    background-color: white; /* bg-white */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    background-color: white;
     margin-bottom: 1.5rem;
-    padding: 2em;
+    padding-top: .5em;
+    width: 350px;
+}
+.sliderContainer {
+  margin: 1em;
 }
   
   .avatar {
-    border-radius: 9999px; /* rounded-full */
+    border-radius: 9999px;
   }
   
   .teacherInfo h2 {
@@ -33,12 +39,13 @@
   
   .teacherInfo p {
     text-align: center;
-    color: #718096; /* text-gray-600 */
+    color: #718096;
     font-size: 0.875rem; /* text-sm */
     margin-bottom: .6rem;
   }
   
   .section {
+    /* padding: 1em; */
     margin-bottom: 1.5rem; /* mb-6 */
   }
   
@@ -46,39 +53,43 @@
     display: flex;
     align-items: center;
     gap: 0.5rem; /* gap-2 */
-    color: #718096; /* text-gray-600 */
+    color: #718096;
     margin-bottom: 0.25rem; /* mb-1 */
   }
   
   .sectionText {
-    font-size: 16px;
-    margin-bottom: 0.25rem;
+    font-size: 14px;
+    margin-bottom: 0.1rem;
   }
   
   .paymentStatus {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem; /* mb-2 */
+    margin-bottom: 0.5em;
   }
   
   p.sectionText{
-    font-size: 16px;
-    margin-bottom: 1.2em;
+    font-size: 14px;
+    margin-bottom: .8em;
     text-align: center;
   }
-  
+  .paymentDetails {
+    margin: 1em;
+    margin-bottom: .5em;
+  }
   .paymentDetails span{
     color: var(--primary-text-color);
+    font-size: 14px;
   }
   span.sectionText{
     color: var(--grey);
   }
   .paymentSelect {
-    border: 1px solid #e2e8f0; /* border */
-    border-radius: 0.25rem; /* rounded */
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
     padding: 0.5rem 1rem; 
-    font-size: 16px;
+    font-size: 12px;
     border: 1px solid rgb(185, 192, 222);
   }
  
@@ -86,7 +97,7 @@
   .progressBarContainer {
     width: 100%;
     background-color: #edf2f7; /* bg-gray-200 */
-    border-radius: 9999px; /* rounded-full */
+    border-radius: 9999px;
     height: 0.5rem; /* h-2 */
     margin-bottom: 1rem; /* mb-4 */
   }
@@ -94,7 +105,7 @@
   .progressBar {
     background-color: #2563eb; /* bg-blue-600 */
     height: 100%;
-    border-radius: 9999px; /* rounded-full */
+    border-radius: 9999px;
     width: 60%; /* w-3/5 */
   }
   
@@ -104,6 +115,8 @@
   }
   
   .paymentDue {
-    font-weight: 600; /* font-semibold */
+    font-weight: 600;
+    padding: 1em;
+    background-color: rgb(239, 239, 239);
   }
   

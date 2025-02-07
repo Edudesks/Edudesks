@@ -70,7 +70,8 @@ const Navbar: FC = () => {
 
           <div className={styles.navActions}>
             <div className={styles.logIn}>
-              <div onClick={handleLogin} >Log in</div>
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+              <a href="/login" >Log in</a>
               <Image
                 src="/icons/arrow-right-dark.svg"
                 alt="Edudesk Logo"

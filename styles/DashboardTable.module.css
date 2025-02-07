@@ -47,9 +47,7 @@
   }
 
   .dateRangeButton {
-    display: flex;
-    gap: 1rem;
-    padding: .4em 2em;
+    padding: 0;
     background-color: white;
     color: var(--grey);
     border-radius: 2rem;
