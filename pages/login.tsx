@@ -44,9 +44,12 @@ const Login: React.FC = () => {
         const payload = await dispatch(checkAuthToken()).unwrap();
         if (payload.school.schoolName) {
           router.push(payload.school.schoolName);
+        }else {
+          setIsCheckingAuth(false);
         }
       } catch (error) {
         // flash error message
+        setIsCheckingAuth(false);
         console.log("Not authenticated")
         // router.push("/login");
       }
