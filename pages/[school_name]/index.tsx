@@ -18,17 +18,7 @@ const Dashboard = () => {
   return (
         <>
         <div className="flex flex-wrap justify-between gap-1 px-6 mt-4">
-          <BalanceCard
-            title="Total Balance"
-            amount="₦ 1,000,000"
-            percentageChange={16.78}
-            changeLabel="last year"
-            data={[10, 20, 15, 30, 25]}
-            backgroundColors={['#4b8bbe33', '#4b8bbe33', '#4b8bbe33', '#4b8bbe33', '#4b8bbe']}
-            icon="/icons/balance-icon.svg"
-            barColor="#4b8bbe"
-            size="medium"
-          />
+          
           <BalanceCard
             title="Total Income"
             amount="₦ 5,000,000"
@@ -40,7 +30,7 @@ const Dashboard = () => {
             barColor="#48bb78"
             size="large"
           />
-          <BalanceCard
+          {/* <BalanceCard
             title="Total Expenses"
             amount="₦ 3,000,000"
             percentageChange={-10.78}
@@ -50,7 +40,7 @@ const Dashboard = () => {
             icon="/icons/expenses-icon-dark.svg"
             barColor="#F87171"
             size="medium"
-          />
+          /> */}
           <BalanceCard
             title="Total Employees"
             amount="250"
@@ -60,6 +50,17 @@ const Dashboard = () => {
             backgroundColors={['#ff7d0033', '#ff7d0033', '#ff7d0033', '#ff7d0033', '#ff7d00']}
             icon="/icons/employees-icon-dark.svg"
             barColor="#F97316"
+            size="medium"
+          />
+          <BalanceCard
+            title="Student Slut"
+            amount="150"
+            percentageChange={16.78}
+            changeLabel="last year"
+            data={[10, 20, 15, 30, 25]}
+            backgroundColors={['#4b8bbe33', '#4b8bbe33', '#4b8bbe33', '#4b8bbe33', '#4b8bbe']}
+            icon="/icons/balance-icon.svg"
+            barColor="#4b8bbe"
             size="medium"
           />
         </div>

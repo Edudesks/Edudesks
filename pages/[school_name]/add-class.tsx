@@ -11,12 +11,17 @@ const AddClass = () => {
   useEffect(()=>{
     dispatch(setActivePage({active:"add-class", parentNav: "class"})); 
   })
+  const teachersList = ["Mr. John", "Ms. Jane", "Dr. Smith"];
+  const classCategoriesList = ["Kindergarten", "Primary", "Secondary"];
+
   return (
     <div className={styles.pageContainer}>
-        <ClassForm 
-            onSave={(data) => router.push('/Edudesk/class')} 
-            onCancel={() => console.log('Cancel Edit')} 
-        />
+        <ClassForm
+          teachers={teachersList}
+          classCategories={classCategoriesList}
+          onSave={(data) => console.log("Saved data:", data)}
+          onCancel={() => console.log("Cancelled")}
+        />;
     </div>
   );
 };

@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import { useAppDispatch } from "@/store/hooks";
 import { signIn, resetSignin, createOtp } from "@/store/slices/authSlice";
 import { FaRegCircle } from "react-icons/fa";
+import { checkAuthToken } from '@/store/slices/authSlice';
 
 /**
  *
@@ -32,14 +33,34 @@ import { FaRegCircle } from "react-icons/fa";
 
 const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    return ()=> {
-      dispatch(resetSignin())
-    }
-  }, [dispatch])
+    const handleLogin = async () => {
+      try {
+        const payload = await dispatch(checkAuthToken()).unwrap();
+        if (payload.school.schoolName) {
+          router.push(payload.school.schoolName);
+        }else {
+          setIsCheckingAuth(false);
+        }
+      } catch (error) {
+        // flash error message
+        setIsCheckingAuth(false);
+        console.log("Not authenticated")
+        // router.push("/login");
+      }
+    };
+
+    handleLogin();
+
+    return () => {
+      dispatch(resetSignin());
+    };
+  }, [dispatch, router]);
   const {
     register,
     handleSubmit,
@@ -50,7 +71,7 @@ const Login: React.FC = () => {
     mode: "onSubmit",
   });
 
-  const [isLoading, setIsLoading] = useState(false);
+
 
   const submitData = async (data: LoginFormData) => {
     setIsLoading(true);  
@@ -105,6 +126,7 @@ const Login: React.FC = () => {
 
   return (
     <>
+    { isCheckingAuth ? "" : 
       <div
         className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[8.5625rem] h-screen whitespace-nowrap`}
       >
@@ -285,6 +307,7 @@ const Login: React.FC = () => {
           </form>
         </div>
       </div>
+}
     </>
   );
 };

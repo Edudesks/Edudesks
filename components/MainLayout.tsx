@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import Sidebar from '@/components/Sidebar'
-import Navbar from '@/components/NavBar'
+import Sidebar from '@/components/Sidebar';
+import Navbar from '@/components/NavBar';
 import { useRouter } from 'next/router';
 import { CircularProgress } from '@mui/material'; // Import CircularProgress from Material UI
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { checkAuthToken } from '@/store/slices/authSlice';
 import { activePage } from '@/store/slices/sidebarSlice';
 
-
-const MainLayout = ({ children, schoolName }: { children: React.ReactNode, schoolName: string | undefined}) => {
+const MainLayout = ({ children, schoolName }: { children: React.ReactNode; schoolName: string | undefined }) => {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState<boolean>(false);
   const router = useRouter();
-  const [loading, setLoading ] = useState(true)
+  const [loading, setLoading] = useState(true);
   const dispatch = useAppDispatch();
 
   const active = useAppSelector(activePage);
 
   useEffect(() => {
     const verifyToken = async () => {
+      if (!schoolName) return; // ✅ Only proceed when schoolName is defined
+
       try {
         const payload = await dispatch(checkAuthToken()).unwrap();
         if (payload.school.schoolName !== schoolName) {
@@ -32,10 +33,9 @@ const MainLayout = ({ children, schoolName }: { children: React.ReactNode, schoo
         setLoading(false);
       }
     };
-  
+
     verifyToken();
   }, [dispatch, router, schoolName]);
-  
 
   if (loading) {
     return (
@@ -43,9 +43,9 @@ const MainLayout = ({ children, schoolName }: { children: React.ReactNode, schoo
         <CircularProgress />
       </div>
     );
-  }else {
-   
-    return (
+  }
+
+  return (
     <div className="flex bg-[var(--secondary-text-color)]">
       <Sidebar 
         activeSection={active.active} 
@@ -60,6 +60,5 @@ const MainLayout = ({ children, schoolName }: { children: React.ReactNode, schoo
     </div>
   );
 };
-}
 
 export default MainLayout;

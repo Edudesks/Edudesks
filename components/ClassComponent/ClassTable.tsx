@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { tableCellClasses } from "@mui/material/TableCell";
+import ProgressBar from "@/components/PaymentProgress";
 import Link from "next/link";
 import styles from '@/styles/ClassTable.module.css'
 
@@ -19,10 +20,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     fontWeight: "bold",
     backgroundColor: "#002f49",
+    fontSize: 11,
     color: "white", // Set header text color to blue
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: 10,
   },
 }));
 
@@ -77,7 +79,8 @@ export default function Home() {
               <StyledTableCell>Mary Adebowale</StyledTableCell>
               <StyledTableCell>119 students</StyledTableCell>
               <StyledTableCell>
-                <Button variant="text">Fully Paid</Button>
+                <Button sx={{ fontSize:10, paddingLeft: 0}} variant="text">Fully Paid</Button>
+                <ProgressBar progress={20} />
               </StyledTableCell>
               <StyledTableCell>
                 <Link href="#">View</Link>
