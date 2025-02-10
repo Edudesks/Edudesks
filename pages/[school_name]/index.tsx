@@ -53,7 +53,7 @@ const Dashboard = () => {
             size="medium"
           />
           <BalanceCard
-            title="Student Slut"
+            title="Student Slot"
             amount="150"
             percentageChange={16.78}
             changeLabel="last year"
