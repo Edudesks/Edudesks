@@ -12,6 +12,7 @@ import {
   DangerIcon,
   ViewOffSlashIcon,
   InformationCircleIcon,
+  Call02Icon
 } from "hugeicons-react";
 import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -80,7 +81,8 @@ const SignUp: React.FC = () => {
   const email = watch("email");
   const password = watch("password");
   const confirmPassword = watch("confirmPassword");
-  const allFieldsFilled = schoolName && email && password && confirmPassword;
+  const phoneNumber = watch("phoneNumber");
+  const allFieldsFilled = schoolName && email && password && confirmPassword && phoneNumber;
 
   let buttonColor;
   if (!allFieldsFilled) {
@@ -217,6 +219,48 @@ const SignUp: React.FC = () => {
                       <InformationCircleIcon size={"18px"} />
                       <p className="text-sm leading-normal">
                         {errors.email.message}
+                      </p>
+                    </div>
+                  )}
+                </div>
+                {/* -------- school phone number -------- */}
+                <div className="flex flex-col gap-[0.4375rem]">
+                  <label
+                    htmlFor="school-phone-number"
+                    className="text-sm text-[var(--primary-text-color)]"
+                  >
+                    School Phone Number
+                  </label>
+                  <div className="w-full flex relative items-center text-[var(--grey)]">
+                    <input
+                      className={`border ${
+                        errors.phoneNumber
+                          ? "border-[var(--danger)]"
+                          : "border-[var(--border)]"
+                      } rounded-[10px] py-2.5 px-9 w-full placeholder:text-[var(--grey)] ${
+                        errors.phoneNumber
+                          ? "text-[var(--danger)]"
+                          : "text-[var(--primary-text-color)]"
+                      } focus:outline-none autofill:bg-none`}
+                      type="text"
+                      id="school-phone-number"
+                      placeholder="Enter your school phone number"
+                      required
+                      maxLength={11}
+                      {...register("phoneNumber")}
+                    />
+                    <span className="absolute left-2.5">
+                      <Call02Icon
+                        color={errors.phoneNumber ? "#f65252" : "#59676e"}
+                        size={18}
+                      />
+                    </span>
+                  </div>
+                  {errors.phoneNumber && (
+                    <div className="flex gap-[7px] text-[var(--danger)] items-center">
+                      <InformationCircleIcon size={"18px"} />
+                      <p className="text-sm leading-normal">
+                        {errors.phoneNumber.message}
                       </p>
                     </div>
                   )}

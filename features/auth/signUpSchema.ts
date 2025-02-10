@@ -1,14 +1,18 @@
 import { SignUpSubmitFormData } from "@/types/school";
 import { z, ZodType } from "zod";
 
-
-
 export const signUpSchema: ZodType<SignUpSubmitFormData> = z
   .object({
-    schoolName: z.string().min(1, 'School name is required'),
-    email: z.string().email('Invalid email address, try again').min(2, 'School email is required'),
-    password: z.string().min(6, 'Password must be at least 6 characters'),
-    confirmPassword: z.string().min(6, 'Confirm password is required'),
+    schoolName: z.string().min(1, "School name is required"),
+    email: z
+      .string()
+      .email("Invalid email address, try again")
+      .min(2, "School email is required"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+    confirmPassword: z.string().min(6, "Confirm password is required"),
+    phoneNumber: z
+      .string()
+      .regex(/^\d{11}$/, "Please enter valid phone number"),
     saveDetails: z.boolean().optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
