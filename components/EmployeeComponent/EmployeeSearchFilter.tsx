@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { EmployeeCardProps } from "@/types/employee";
-const EmployeeSearchFilter = ({ title, value }:EmployeeCardProps) => {
+
+const EmployeeSearchFilter = () => {
     return (
       <form className="flex items-center my-4 gap-4 py-4">
         {/* Input Container */}

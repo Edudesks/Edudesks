@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { EmployeeCardProps } from "@/types/employee";
 // Define the PersonalDetails type
 interface PersonalDetails {
   CVpdf: string;
   UniversityTranscriptPdf: string;
 }
 
-export default function EmployeeProfileSupportDetailsComponent() {
+export default function EmployeeProfileSupportDetailsComponent({CVpdf, UniversityTranscriptPdf}: PersonalDetails) {
   const [isEditingPersonalDetails, setIsEditingPersonalDetails] = useState<boolean>(false);
 
   // Use the PersonalDetails type for the state
   const [personalDetails, setPersonalDetails] = useState<PersonalDetails>({
-    CVpdf: "/documents/CV.pdf",
-    UniversityTranscriptPdf: "/documents/UniversityTranscript.pdf",
+    CVpdf: CVpdf,
+    UniversityTranscriptPdf: UniversityTranscriptPdf,
   });
 
   const handleEditClick = () => {

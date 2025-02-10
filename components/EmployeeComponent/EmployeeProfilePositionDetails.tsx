@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { TfiPencil } from "react-icons/tfi";
 import Image from "next/image";
-export default function EmployeeProfilePositionDetailsComponent() {
+import { EmployeePositionProps } from "@/types/employee";
+export default function EmployeeProfilePositionDetailsComponent({Department, Role}:EmployeePositionProps) {
   const [isEditingPersonalDetails, setIsEditingPersonalDetails] = useState(false);
   const [personalDetails, setPersonalDetails] = useState({
-    Department:"Teaching",
-    Role: "SSS1A English Teacher",
+    Department:Department,
+    Role:Role ,
   });
 
   const handleEditClick = () => {
