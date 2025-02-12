@@ -62,11 +62,11 @@ const Student = () => {
   };
   const dispatch = useAppDispatch();
     useEffect(()=>{
-        dispatch(setActivePage({active:"student", parentNav: "student"})); 
+        dispatch(setActivePage({active:"student", parentNav: "student"}));
       })
   return (
     <>
-      <StudentDialog
+      {/* <StudentDialog
         open={open}
         selectedOption={selectedOption}
         onClose={handleClose}
@@ -74,7 +74,8 @@ const Student = () => {
         onContinue={handleContinue}
       />
 
-      {selectedOption === "manual" && <StudentManualEntry />}
+      {selectedOption === "manual" && <StudentManualEntry />} */}
+      <StudentManualEntry />
     </>
   );
 };

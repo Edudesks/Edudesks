@@ -12,6 +12,7 @@ import {
   DangerIcon,
   ViewOffSlashIcon,
   InformationCircleIcon,
+  Call02Icon
 } from "hugeicons-react";
 import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -46,7 +47,7 @@ const SignUp: React.FC = () => {
   } = useForm<SignUpFormData>({ resolver: zodResolver(signUpSchema), mode: "onSubmit" });
   const [isLoading, setIsLoading] = useState(false);
   const submitData = async (data: SignUpSubmitFormData) => {
-    setIsLoading(true);  
+    setIsLoading(true);
     // Simulate the delay for 2 seconds
     setTimeout(async () => {
       const response = await dispatch(signUp(data));
@@ -80,7 +81,8 @@ const SignUp: React.FC = () => {
   const email = watch("email");
   const password = watch("password");
   const confirmPassword = watch("confirmPassword");
-  const allFieldsFilled = schoolName && email && password && confirmPassword;
+  const phoneNumber = watch("phoneNumber");
+  const allFieldsFilled = schoolName && email && password && confirmPassword && phoneNumber;
 
   let buttonColor;
   if (!allFieldsFilled) {
@@ -99,7 +101,7 @@ const SignUp: React.FC = () => {
         className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[8.5625rem] h-screen whitespace-nowrap pb-[4.1875rem] lg:pb-0 bg-white w-full`}
       >
         {/* -------- left half of signup page -------- */}
-        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[1.9375rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-e-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-[44.875rem]">
+        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[1.9375rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-e-[30px] lg:rounded-bl-none max-h-[24.5625rem] lg:max-h-full lg:w-[44.875rem]">
           <AuthentificationLogo />
           <div className="w-[16.625rem] lg:w-[33.6875rem] self-center">
             <Image
@@ -217,6 +219,48 @@ const SignUp: React.FC = () => {
                       <InformationCircleIcon size={"18px"} />
                       <p className="text-sm leading-normal">
                         {errors.email.message}
+                      </p>
+                    </div>
+                  )}
+                </div>
+                {/* -------- school phone number -------- */}
+                <div className="flex flex-col gap-[0.4375rem]">
+                  <label
+                    htmlFor="school-phone-number"
+                    className="text-sm text-[var(--primary-text-color)]"
+                  >
+                    School Phone Number
+                  </label>
+                  <div className="w-full flex relative items-center text-[var(--grey)]">
+                    <input
+                      className={`border ${
+                        errors.phoneNumber
+                          ? "border-[var(--danger)]"
+                          : "border-[var(--border)]"
+                      } rounded-[10px] py-2.5 px-9 w-full placeholder:text-[var(--grey)] ${
+                        errors.phoneNumber
+                          ? "text-[var(--danger)]"
+                          : "text-[var(--primary-text-color)]"
+                      } focus:outline-none autofill:bg-none`}
+                      type="text"
+                      id="school-phone-number"
+                      placeholder="Enter your school phone number"
+                      required
+                      maxLength={11}
+                      {...register("phoneNumber")}
+                    />
+                    <span className="absolute left-2.5">
+                      <Call02Icon
+                        color={errors.phoneNumber ? "#f65252" : "#59676e"}
+                        size={18}
+                      />
+                    </span>
+                  </div>
+                  {errors.phoneNumber && (
+                    <div className="flex gap-[7px] text-[var(--danger)] items-center">
+                      <InformationCircleIcon size={"18px"} />
+                      <p className="text-sm leading-normal">
+                        {errors.phoneNumber.message}
                       </p>
                     </div>
                   )}
