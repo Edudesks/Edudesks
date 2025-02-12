@@ -106,7 +106,7 @@ const columns: Column<Student>[] = [
    },
   { title: 'Gender', field: 'gender' },
   {
-    title: 'Sch.fees status',
+    title: 'Status',
     field: 'schoolFeesStatus',
     render: (row) => <StatusButton type={row.schoolFeesStatus} />,
   },
