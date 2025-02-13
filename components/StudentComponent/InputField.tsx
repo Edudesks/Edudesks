@@ -11,7 +11,9 @@ interface InputFieldProps {
   divClass?: string;
   error?: string;
   value?: string;
+  readOnly?: boolean; 
 }
+
 
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   (

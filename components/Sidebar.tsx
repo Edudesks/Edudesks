@@ -287,7 +287,7 @@ const Sidebar: React.FC<SidebarProp> = ({
                   "monthly-income"
                 )}`}
               >
-                Add new income
+                Add income
               </Link>
               <Link
                 href={`/${school_name}/income-list`}
@@ -295,7 +295,7 @@ const Sidebar: React.FC<SidebarProp> = ({
                   "annual-income"
                 )}`}
               >
-                View all incomes
+                View income
               </Link>
             </div>
           )}

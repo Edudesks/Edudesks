@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "../../app/globals.css";
 import UploadDialogComponenet from "./UploadDialogComponent";
 import {
@@ -8,6 +8,7 @@ import {
   Call02Icon,
   HealthIcon,
 } from "hugeicons-react";
+import { GrCircleInformation } from "react-icons/gr";
 import CalenderComponent from "../CalenderComponent";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import DropdownSelectComponent from "./DropdownSelectComponent";
@@ -56,7 +57,12 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
     "Senior Secondary 2",
     "Senior Secondary 3",
   ];
+  const [parentID, setParentID] = useState("");
 
+  const generateParentID = () => {
+    const newID = `PARENT-${Math.floor(100000 + Math.random() * 900000)}`; // Example: PARENT-123456
+    setParentID(newID);
+  };
   switch (step) {
     // -------- personal information --------
     case 0:
@@ -307,7 +313,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Street address/city/state/country"}
                 type={"text"}
                 icon={Location04Icon}
-                divClass="lg:col-span-2"
+                // divClass="lg:col-span-2"
                 {...register("parentInformation.motherHomeAddress")}
                 // error={errors.parentInformation?.motherHomeAddress?.message}
               />
@@ -365,10 +371,29 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Street address/city/state/country"}
                 type={"text"}
                 icon={Location04Icon}
-                divClass="lg:col-span-2"
+                // divClass="lg:col-span-2"
                 {...register("parentInformation.fatherHomeAddress")}
                 // error={errors.parentInformation?.fatherHomeAddress?.message}
               />
+
+              {/* parent id */}
+              <div className="flex flex-col gap-3">
+              <InputField
+  label={"Parent ID*"}
+  className={"py-2.5 px-2"}
+  id={"student-parent-id"}
+  placeholder={"Parent ID"}
+  type={"text"}
+  value={parentID}
+  readOnly={true} 
+  {...register("parentInformation.ParentID")}
+/>
+
+              <p className="text-[var(--secondary)] text-[14px] flex items-center gap-1 hover:cursor-pointer"  onClick={generateParentID}>
+                <GrCircleInformation/>
+                Click the button to generate parent ID
+              </p>
+              </div>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@
 //     updatedAt: string;
 //     __v: number;
 //   }
-  
+
 // Redux slice
   interface SignupState {
     signupLoading: boolean;
@@ -29,11 +29,13 @@
     email: string;
     password: string;
     confirmPassword: string;
+    phoneNumber: string;
   };
   export type SignUpSubmitFormData = {
     schoolName: string;
     email: string;
     password: string;
+    phoneNumber: string;
   };
 
   export type LoginFormData= {
@@ -41,6 +43,6 @@
     password: string;
     rememberMe?: boolean;
   };
-  
+
 
 export type { SignupState }
