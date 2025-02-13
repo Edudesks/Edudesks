@@ -139,7 +139,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
       disabled={state === "disabled"}
       onClick={handleClick}
       type={type}
-      form={form}
+      // form={form}
     >
       {icon && <span>{icon}</span>}
       {buttonText}

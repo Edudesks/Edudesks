@@ -1,5 +1,5 @@
 .container {
-  width: 350px;
+  width: 100%;
 }
 
 .header {
@@ -21,7 +21,7 @@
     background-color: white;
     margin-bottom: 1.5rem;
     padding-top: .5em;
-    width: 350px;
+    /* width: 350px; */
 }
 .sliderContainer {
   margin: 1em;

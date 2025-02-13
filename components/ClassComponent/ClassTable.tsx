@@ -20,11 +20,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     fontWeight: "bold",
     backgroundColor: "#002f49",
-    fontSize: 11,
+    fontSize: 12,
     color: "white", // Set header text color to blue
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 10,
+    fontSize: 11,
   },
 }));
 

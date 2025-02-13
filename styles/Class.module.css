@@ -1,8 +1,15 @@
 .container {
-    padding: 0 1.5em;
+  container-type: inline-size;
+  padding: 0 1.5em;
 }
 .section {
     display: flex;
+}
+.teacherProfile {
+  flex: 1;
+}
+.classTable {
+  width: 60%;
 }
 .header {
     display: flex;
@@ -41,3 +48,11 @@
     text-decoration: underline var(--primary);
   }
   
+  @container (max-width: 768px) {
+    .teacherProfile {
+      display: none;
+    }
+    .classTable {
+      width: 100%;
+    }
+  }
