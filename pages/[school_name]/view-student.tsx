@@ -19,13 +19,13 @@ function StudentList (){
       }, []);
       const dispatch = useAppDispatch();
       useEffect(()=>{
-        dispatch(setActivePage({active:"student-list", parentNav: "student"})); 
+        dispatch(setActivePage({active:"student-list", parentNav: "student"}));
       })
       const isBelow1184 = windowWidth <= 1184;
       const isAbove1184 = windowWidth > 1184;
     return(
         <>
-            <div className={`${openSans.className}`}>
+            <div className={`${openSans.className} font-Open-Sans`}>
             <StudentFilterProfile/>
             {isAbove1184 && (<StudentTable/>)}
             {isBelow1184 && (<StudentTableMedia/>)}
