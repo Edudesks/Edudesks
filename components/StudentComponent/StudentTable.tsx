@@ -20,14 +20,14 @@ import { useRouter } from 'next/router'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    fontWeight: "bold",
-    backgroundColor: "#002f49",
+    fontWeight: 600,
+    backgroundColor: "rgba(0, 47, 73, 0.95)",
     color: "white",
-    fontFamily: openSans.className,
+    fontFamily: 'Open Sans',
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 18,
-    fontFamily: openSans.className,
+    fontFamily: 'Open Sans',
   },
 }));
 
@@ -42,7 +42,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 interface TableValue {
-  profile: JSX.Element;
+  studentName: JSX.Element;
   studentID: JSX.Element;
   gender: JSX.Element;
   idClass: JSX.Element;
@@ -55,8 +55,8 @@ export default function StudentTable() {
   const router = useRouter();
     const { school_name } = router.query;
   const tableValue: TableValue[] = [
-    { 
-      profile: (
+    {
+      studentName: (
         <div className = 'flex items-center gap-3'>
           <div className='w-[30px] h-[30px]'>
             <Image src={"/student_profile_icon.svg"} alt="employees icon" width={1000} height={1000} loading="lazy" quality={75} />
@@ -71,10 +71,9 @@ export default function StudentTable() {
       guardianNum: <p>08145678930</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
-    { 
-      profile: (
+    {
+      studentName: (
         <div className = 'flex items-center gap-3'>
-          
           <div className='w-[30px] h-[30px]'>
             <Image src={"/student_profile_icon.svg"} alt="employees icon" width={1000} height={1000} loading="lazy" quality={75} />
           </div>
@@ -88,10 +87,10 @@ export default function StudentTable() {
       guardianNum: <p>08012345678</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
-    { 
-      profile: (
+    {
+      studentName: (
         <div className = 'flex items-center gap-3'>
-          
+
           <div className='w-[30px] h-[30px]'>
             <Image src={"/student_profile_icon.svg"} alt="employees icon" width={1000} height={1000} loading="lazy" quality={75} />
           </div>
@@ -105,10 +104,10 @@ export default function StudentTable() {
       guardianNum: <p>08123456789</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
-    { 
-      profile: (
+    {
+      studentName: (
         <div className = 'flex items-center gap-3'>
-          
+
           <div className='w-[30px] h-[30px]'>
             <Image src={"/student_profile_icon.svg"} alt="employees icon" width={1000} height={1000} loading="lazy" quality={75} />
           </div>
@@ -122,10 +121,10 @@ export default function StudentTable() {
       guardianNum: <p>08098765432</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
-    { 
-      profile: (
+    {
+      studentName: (
         <div className = 'flex items-center gap-3'>
-          
+
           <div className='w-[30px] h-[30px]'>
             <Image src={"/student_profile_icon.svg"} alt="employees icon" width={1000} height={1000} loading="lazy" quality={75} />
           </div>
@@ -139,10 +138,10 @@ export default function StudentTable() {
       guardianNum: <p>08111223344</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
-    { 
-      profile: (
+    {
+      studentName: (
         <div className = 'flex items-center gap-3'>
-          
+
           <div className='w-[30px] h-[30px]'>
             <Image src={"/student_profile_icon.svg"} alt="employees icon" width={1000} height={1000} loading="lazy" quality={75} />
           </div>
@@ -156,10 +155,10 @@ export default function StudentTable() {
       guardianNum: <p>08012340987</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
-    { 
-      profile: (
+    {
+      studentName: (
         <div className = 'flex items-center gap-3'>
-          
+
           <div className='w-[30px] h-[30px]'>
             <Image src={"/student_profile_icon.svg"} alt="employees icon" width={1000} height={1000} loading="lazy" quality={75} />
           </div>
@@ -173,10 +172,10 @@ export default function StudentTable() {
       guardianNum: <p>08055667788</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
-    { 
-      profile: (
+    {
+      studentName: (
         <div className = 'flex items-center gap-3'>
-          
+
           <div className='w-[30px] h-[30px]'>
             <Image src={"/student_profile_icon.svg"} alt="employees icon" width={1000} height={1000} loading="lazy" quality={75} />
           </div>
@@ -190,10 +189,10 @@ export default function StudentTable() {
       guardianNum: <p>08122334455</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
-    { 
-      profile: (
+    {
+      studentName: (
         <div className = 'flex items-center gap-3'>
-          
+
           <div className='w-[30px] h-[30px]'>
             <Image src={"/student_profile_icon.svg"} alt="employees icon" width={1000} height={1000} loading="lazy" quality={75} />
           </div>
@@ -207,10 +206,10 @@ export default function StudentTable() {
       guardianNum: <p>08099887766</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
-    { 
-      profile: (
+    {
+      studentName: (
         <div className = 'flex items-center gap-3'>
-          
+
           <div className='w-[30px] h-[30px]'>
             <Image src={"/student_profile_icon.svg"} alt="employees icon" width={1000} height={1000} loading="lazy" quality={75} />
           </div>
@@ -224,10 +223,10 @@ export default function StudentTable() {
       guardianNum: <p>08012309098</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
-    { 
-      profile: (
+    {
+      studentName: (
         <div className = 'flex items-center gap-3'>
-          
+
           <div className='w-[30px] h-[30px]'>
             <Image src={"/student_profile_icon.svg"} alt="employees icon" width={1000} height={1000} loading="lazy" quality={75} />
           </div>
@@ -241,10 +240,10 @@ export default function StudentTable() {
       guardianNum: <p>08123232323</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
-    { 
-      profile: (
+    {
+      studentName: (
         <div className = 'flex items-center gap-3'>
-          
+
           <div className='w-[30px] h-[30px]'>
             <Image src={"/student_profile_icon.svg"} alt="employees icon" width={1000} height={1000} loading="lazy" quality={75} />
           </div>
@@ -258,10 +257,10 @@ export default function StudentTable() {
       guardianNum: <p>08123450376</p>,
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
-    { 
-      profile: (
+    {
+      studentName: (
         <div className = 'flex items-center gap-3'>
-          
+
           <div className='w-[30px] h-[30px]'>
             <Image src={"/student_profile_icon.svg"} alt="employees icon" width={1000} height={1000} loading="lazy" quality={75} />
           </div>
@@ -276,19 +275,19 @@ export default function StudentTable() {
       linkIt: <Link href={`/${school_name}/student-profile`} className="text-[var(--primary)] underline text-[14px]">View Profile</Link>
     },
   ];
-  const [tableValues, setTableValues] = useState<any[]>([]); 
+  const [tableValues, setTableValues] = useState<any[]>([]);
 
   const reshuffleData = () => {
-    setTableValues((prev) => [...prev].sort(() => Math.random() - 0.5)); 
+    setTableValues((prev) => [...prev].sort(() => Math.random() - 0.5));
   };
 
   return (
     <Box sx={{ maxWidth: "100%", marginTop:'3rem' }}>
       <TableContainer>
         <Table sx={{ minWidth: 650 }} aria-label="customized table">
-          <TableHead>
+          <TableHead className="border border-[var(--border)]">
             <TableRow className={`${openSans.className}`}>
-              <StyledTableCell className="text-[18px]">Profile</StyledTableCell>
+              <StyledTableCell className="text-[18px]">Student Name</StyledTableCell>
               <StyledTableCell className="text-[18px]">Student ID</StyledTableCell>
               <StyledTableCell className="text-[18px]">Gender</StyledTableCell>
               <StyledTableCell className="text-[18px]">Class</StyledTableCell>
@@ -299,8 +298,8 @@ export default function StudentTable() {
           </TableHead>
           <TableBody>
             {tableValue.map((row, index) => (
-              <StyledTableRow key={index}>
-                <StyledTableCell>{row.profile}</StyledTableCell>
+              <StyledTableRow key={index} className="odd:bg-[#F8FBFD] even:bg-[#FDFDFD] border border-[#E2E9F6]">
+                <StyledTableCell>{row.studentName}</StyledTableCell>
                 <StyledTableCell>{row.studentID}</StyledTableCell>
                 <StyledTableCell>{row.gender}</StyledTableCell>
                 <StyledTableCell>{row.idClass}</StyledTableCell>
