@@ -5,7 +5,7 @@ interface GeneralButtonProps {
   buttonText: string;
   className?: string;
   size: "small" | "medium" | "large";
-  state: "active" | "inactive" | "disabled" | "clicked" | "hover" | "previous";
+  state: "active" | "inactive" | "disabled" | "clicked" | "hover" | "previous" | "plain";
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
   onClick?: () => void;
@@ -133,7 +133,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
 
   return (
     <button
-      className={`${className} ${buttonBorder} ${buttonBGColor} ${buttonTextColor} ${paddingY} ${flexDirection} border border-solid font-bold flex items-center justify-center px-2.5 gap-2.5 rounded-[2.0625rem]`}
+      className={`${buttonBorder} ${buttonBGColor} ${buttonTextColor}  ${flexDirection} border border-solid font-bold flex items-center justify-center ${className || `px-2.5 ${paddingY}`} gap-2.5 rounded-[2.0625rem]"`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       disabled={state === "disabled"}

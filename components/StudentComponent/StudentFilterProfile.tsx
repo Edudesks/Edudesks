@@ -179,7 +179,7 @@ export default function StudentFilterProfile() {
               {/* Sub Select Class */}
               {selectedClass && selectOpen && (
                 <div className="mt-4">
-                  <div className="flex flex-wrap gap-2 ">
+                  <div className="flex flex-wrap gap-2 border-t border-[var(--border)]">
                     {sectionOptions[selectedClass]?.map((section) => (
                       <div
                         key={section}
