@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "../../app/globals.css";
 import UploadDialogComponenet from "./UploadDialogComponent";
 import {
@@ -8,6 +8,7 @@ import {
   Call02Icon,
   HealthIcon,
 } from "hugeicons-react";
+import { GrCircleInformation } from "react-icons/gr";
 import CalenderComponent from "../CalenderComponent";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import DropdownSelectComponent from "./DropdownSelectComponent";
@@ -56,7 +57,12 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
     "Senior Secondary 2",
     "Senior Secondary 3",
   ];
+  const [parentID, setParentID] = useState("");
 
+  const generateParentID = () => {
+    const newID = `PARENT-${Math.floor(100000 + Math.random() * 900000)}`; // Example: PARENT-123456
+    setParentID(newID);
+  };
   switch (step) {
     // -------- personal information --------
     case 0:
@@ -80,7 +86,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student last name"}
                 type={"text"}
                 icon={UserIcon}
-                {...register("personalInformation.lastName")}
+                {...register("personalInformation.personal.lastName")}
                 // error={errors.personalInformation?.lastName?.message}
               />
               {/* -------- other names -------- */}
@@ -91,7 +97,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={UserIcon}
                 className={"py-2.5 px-9"}
-                {...register("personalInformation.otherNames")}
+                {...register("personalInformation.personal.otherNames")}
                 // error={errors.personalInformation?.otherNames?.message}
               />
               {/* -------- date of birth -------- */}
@@ -105,7 +111,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 <div className="w-full flex flex-col relative items-center text-[var(--grey)]">
                   <CalenderComponent
                     variant="form"
-                    {...register("personalInformation.dateOfBirth")}
+                    {...register("personalInformation.personal.dateOfBirth")}
                   />
                   {/* {errors.personalInformation?.dateOfBirth?.message && (
                     <p className="self-start text-sm text-[var(--danger)] mt-1">
@@ -121,7 +127,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student age"}
                 type={"text"}
                 className="p-2.5"
-                {...register("personalInformation.age")}
+                {...register("personalInformation.personal.age")}
                 // error={errors.personalInformation?.age?.message}
               />
               {/* -------- gender -------- */}
@@ -143,7 +149,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 </label>
                 <CalenderComponent
                   variant="form"
-                  {...register("personalInformation.admissionDate")}
+                  {...register("personalInformation.personal.admissionDate")}
                 />
                 {/* {errors.personalInformation?.admissionDate?.message && (
                   <p className="text-sm text-[var(--danger)] mt-1">
@@ -154,11 +160,11 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
               {/* -------- student class -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
                 <DropdownSelectComponent
-                  {...register("personalInformation.classes")}
+                  {...register("personalInformation.personal.classes")}
                   options={classes}
                   label="Classes*"
                   placeholder="select class"
-                  value={methods.watch("personalInformation.classes")}
+                  value={methods.watch("personalInformation.personal.classes")}
                 />
                 {/* {errors.personalInformation?.classes?.message && (
                   <p className="text-sm text-[var(--danger)] mt-1">
@@ -307,7 +313,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Street address/city/state/country"}
                 type={"text"}
                 icon={Location04Icon}
-                divClass="lg:col-span-2"
+                // divClass="lg:col-span-2"
                 {...register("parentInformation.motherHomeAddress")}
                 // error={errors.parentInformation?.motherHomeAddress?.message}
               />
@@ -365,10 +371,29 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Street address/city/state/country"}
                 type={"text"}
                 icon={Location04Icon}
-                divClass="lg:col-span-2"
+                // divClass="lg:col-span-2"
                 {...register("parentInformation.fatherHomeAddress")}
                 // error={errors.parentInformation?.fatherHomeAddress?.message}
               />
+
+              {/* parent id */}
+              <div className="flex flex-col gap-3">
+              <InputField
+  label={"Parent ID*"}
+  className={"py-2.5 px-2"}
+  id={"student-parent-id"}
+  placeholder={"Parent ID"}
+  type={"text"}
+  value={parentID}
+  readOnly={true} 
+  {...register("parentInformation.ParentID")}
+/>
+
+              <p className="text-[var(--secondary)] text-[14px] flex items-center gap-1 hover:cursor-pointer"  onClick={generateParentID}>
+                <GrCircleInformation/>
+                Click the button to generate parent ID
+              </p>
+              </div>
             </div>
           </div>
         </div>

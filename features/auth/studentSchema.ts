@@ -84,6 +84,9 @@ export const parentInformationSchema = z.object({
   fatherHomeAddress: z
     .string()
     .min(1, { message: "Enter father's home address" }),
+    ParentID: z
+    .string()
+    .min(1, { message: "Enter Parent ID" }),
 });
 
 export const healthInformationSchema = z.object({
