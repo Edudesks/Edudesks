@@ -378,6 +378,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
 
               {/* parent id */}
               <div className="flex flex-col gap-3">
+                <div className="flex items-end justify-between">
               <InputField
   label={"Parent ID*"}
   className={"py-2.5 px-2"}
@@ -388,8 +389,17 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
   readOnly={true} 
   {...register("parentInformation.ParentID")}
 />
+ <GeneralButton
+ buttonText="Generate Parent ID"
+ state={"active"}
+ size={"small"}
+ className="text-[10px]"
+ type="button"
+ onClick={generateParentID}
+/>
+</div>
 
-              <p className="text-[var(--secondary)] text-[14px] flex items-center gap-1 hover:cursor-pointer"  onClick={generateParentID}>
+              <p className="text-[var(--secondary)] text-[14px] flex items-center gap-1 hover:cursor-pointer">
                 <GrCircleInformation/>
                 Click the button to generate parent ID
               </p>
