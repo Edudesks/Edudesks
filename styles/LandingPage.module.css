@@ -1219,12 +1219,15 @@
 
   /* Start How it Works */
   .howItWorks {
-    position: relative;
+    /* position: relative; */
     padding: 50px;
     text-align: center;
-    overflow-x: hidden;
+    overflow-x: scroll;
   }
   
+  .howItWorks::-webkit-scrollbar {
+    display: none;
+  }
   /* Title and subtitle */
   .title {
     font-size: 36px;
