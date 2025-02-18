@@ -386,7 +386,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
   placeholder={"Parent ID"}
   type={"text"}
   value={parentID}
-  readOnly={true} 
+  readOnly={true}
   {...register("parentInformation.ParentID")}
 />
  <GeneralButton

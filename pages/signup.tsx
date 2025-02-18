@@ -1,5 +1,5 @@
 import AuthentificationLogo from "@/components/AuthentificationLogo";
-import "../app/globals.css"
+import "../app/globals.css";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { inter, openSans } from "@/app/fonts/fonts";
@@ -12,12 +12,12 @@ import {
   DangerIcon,
   ViewOffSlashIcon,
   InformationCircleIcon,
-  Call02Icon
+  Call02Icon,
 } from "hugeicons-react";
 import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormData, SignUpSubmitFormData } from "@/types/school";
-import {  signUpSchema } from "@/features/auth/signUpSchema";
+import { signUpSchema } from "@/features/auth/signUpSchema";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "@/store/hooks";
 import { signUp, resetSignup, createOtp } from "@/store/slices/authSlice";
@@ -33,18 +33,21 @@ const SignUp: React.FC = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const dispatch = useAppDispatch();
 
-  useEffect(()=>{
-    return ()=> {
-      dispatch(resetSignup())
-    }
-  }, [dispatch])
+  useEffect(() => {
+    return () => {
+      dispatch(resetSignup());
+    };
+  }, [dispatch]);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitted },
-    watch
-  } = useForm<SignUpFormData>({ resolver: zodResolver(signUpSchema), mode: "onSubmit" });
+    watch,
+  } = useForm<SignUpFormData>({
+    resolver: zodResolver(signUpSchema),
+    mode: "onSubmit",
+  });
   const [isLoading, setIsLoading] = useState(false);
   const submitData = async (data: SignUpSubmitFormData) => {
     setIsLoading(true);
@@ -56,7 +59,7 @@ const SignUp: React.FC = () => {
         const otpResponse = await dispatch(createOtp(data.email));
         if (otpResponse.type === "auth/createotp/fulfilled") {
           router.push({
-            pathname: '/verification',
+            pathname: "/verification",
             query: { email: data.email, isSignup: true },
           });
         } else {
@@ -82,7 +85,8 @@ const SignUp: React.FC = () => {
   const password = watch("password");
   const confirmPassword = watch("confirmPassword");
   const phoneNumber = watch("phoneNumber");
-  const allFieldsFilled = schoolName && email && password && confirmPassword && phoneNumber;
+  const allFieldsFilled =
+    schoolName && email && password && confirmPassword && phoneNumber;
 
   let buttonColor;
   if (!allFieldsFilled) {
@@ -98,22 +102,23 @@ const SignUp: React.FC = () => {
   return (
     <>
       <div
-        className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[8.5625rem] h-screen whitespace-nowrap pb-[4.1875rem] lg:pb-0 bg-white w-full`}
+        className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[8.5625rem] whitespace-nowrap pb-[4.1875rem] lg:pb-0 bg-white w-full min-h-screen`}
       >
         {/* -------- left half of signup page -------- */}
-        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[1.9375rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-e-[30px] lg:rounded-bl-none max-h-[24.5625rem] lg:max-h-full lg:w-[44.875rem]">
+        <div className="flex flex-col flex-1 align-top gap-[1.34125rem] lg:gap-[1.9375rem] bg-[var(--background)] pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] lg:w-[44.875rem]">
           <AuthentificationLogo />
-          <div className="w-[16.625rem] lg:w-[33.6875rem] self-center">
+          <div className="w-[16.625rem] lg:w-[33.6875rem] self-center h-full flex flex-grow items-center justify-center">
             <Image
               src={"/loginIcon.svg"}
               alt="login image"
               width={470}
               height={470}
+              className="h-full object-contain"
             />
           </div>
         </div>
         {/* -------- form input of signup page -------- */}
-        <div className="flex flex-col gap-9 items-center justify-start lg:justify-center h-full px-[1.125rem] lg:p-0 lg:w-[35.9375rem] lg:mr-2.5">
+        <div className="flex flex-1 flex-col gap-9 items-center justify-start lg:justify-center h-full px-[1.125rem] lg:p-0 lg:w-[35.9375rem] lg:mr-2.5 lg:my-auto">
           {/* -------- form heading -------- */}
           <div className="flex flex-col gap-[0.6875rem] self-start">
             <h2
@@ -300,7 +305,7 @@ const SignUp: React.FC = () => {
                           ? "text-[var(--danger)]"
                           : "text-[var(--primary-text-color)]"
                       } focus:outline-none autofill:bg-none`}
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       id="password"
                       placeholder="Enter your password"
                       required
@@ -331,8 +336,11 @@ const SignUp: React.FC = () => {
                     Confirm Password
                   </label>
                   <div className="w-full flex relative items-center text-[var(--grey)]">
-                    <button className="absolute right-2.5" onClick={handleShowConfirmPassword}>
-                    {showConfirmPassword ? (
+                    <button
+                      className="absolute right-2.5"
+                      onClick={handleShowConfirmPassword}
+                    >
+                      {showConfirmPassword ? (
                         <ViewOffSlashIcon
                           color={errors.password ? "#f65252" : "#59676e"}
                           size={18}
@@ -354,7 +362,7 @@ const SignUp: React.FC = () => {
                           ? "text-[var(--danger)]"
                           : "text-[var(--primary-text-color)]"
                       } focus:outline-none autofill:bg-none`}
-                      type={showConfirmPassword ? 'text' : 'password'}
+                      type={showConfirmPassword ? "text" : "password"}
                       id="confirm-password"
                       placeholder="Enter your password"
                       required
@@ -389,17 +397,17 @@ const SignUp: React.FC = () => {
               </div>
             </div>
             <button
-  className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
-  type="submit"
->
-  {isLoading ? (
-    <div className="loading-spinner flex items-center justify-center">
-      <FaRegCircle className="text-lg text-[var(--secondary-text-color)]" />
-    </div>
-  ) : (
-    "Create account"
-  )}
-</button>
+              className={`${buttonColor} px-2.5 py-[0.9375rem] rounded-[33px] text-lg font-bold leading-5 text-[var(--secondary-text-color)]`}
+              type="submit"
+            >
+              {isLoading ? (
+                <div className="loading-spinner flex items-center justify-center">
+                  <FaRegCircle className="text-lg text-[var(--secondary-text-color)]" />
+                </div>
+              ) : (
+                "Create account"
+              )}
+            </button>
           </form>
         </div>
       </div>
