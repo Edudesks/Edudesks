@@ -13,6 +13,7 @@ const HowItWorks = lazy(() => import('@/components/LandingPageComponents/HowItWo
 const FaqSection = lazy(() => import('@/components/LandingPageComponents/FaqSection'));
 const Footer = lazy(() => import('@/components/LandingPageComponents/Footer'));
 const TakeControl = lazy(() => import('@/components/LandingPageComponents/TakeControl'));
+const WhyChooseUs = lazy(() => import('@/components/LandingPageComponents/WhyChooseUs'));
 
 const LandingPage: React.FC = () => {
   const [isLoaderVisible, setIsLoaderVisible] = useState<boolean>(true);
@@ -51,7 +52,8 @@ const LandingPage: React.FC = () => {
             <Hero />
             <TrustedSection />
             <CallActionOne />
-            <Features />
+            {/* <Features /> */}
+            <WhyChooseUs />
             <CallActionTwo />
             <HowItWorks />
             <FaqSection />
