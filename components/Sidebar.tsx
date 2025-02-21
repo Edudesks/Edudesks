@@ -180,6 +180,14 @@ const Sidebar: React.FC<SidebarProp> = ({
               >
                 View all students
               </Link>
+              <div
+                // href={`/${school_name}/download-csv`}
+                className={`${styles.dropdownContentText} ${menuItemClasses(
+                  "download-csv"
+                )}`}
+              >
+                Download CSV
+              </div>
             </div>
           )}
         </div>
@@ -282,20 +290,20 @@ const Sidebar: React.FC<SidebarProp> = ({
           {isIncomeOpen && (
             <div className={styles.dropdownContent}>
               <Link
-                href={`/${school_name}/income-list`}
+                href={`/${school_name}/add-income`}
                 className={`${styles.dropdownContentText} ${menuItemClasses(
-                  "monthly-income"
+                  "add-income"
                 )}`}
               >
-                Add income
+                Add new income
               </Link>
               <Link
                 href={`/${school_name}/income-list`}
                 className={`${styles.dropdownContentText} ${menuItemClasses(
-                  "annual-income"
+                  "view-incomes"
                 )}`}
               >
-                View income
+                View all incomes
               </Link>
             </div>
           )}
@@ -315,6 +323,45 @@ const Sidebar: React.FC<SidebarProp> = ({
           Wallet
         </Link>
 
+        <Link
+          href={`/${school_name}/inventory`}
+          className={menuItemClasses("message")}
+        >
+          <Image
+            src="/icons/remit-icon.svg"
+            alt="Remit Payment"
+            width={20}
+            height={20}
+            className={styles.icon}
+          />
+          Inventory
+        </Link>
+        <Link
+          href={`/${school_name}/transport`}
+          className={menuItemClasses("message")}
+        >
+          <Image
+            src="/icons/remit-icon.svg"
+            alt="Remit Payment"
+            width={20}
+            height={20}
+            className={styles.icon}
+          />
+          Transport
+        </Link>
+        <Link
+          href={`/${school_name}/sales-management`}
+          className={menuItemClasses("message")}
+        >
+          <Image
+            src="/icons/remit-icon.svg"
+            alt="Remit Payment"
+            width={20}
+            height={20}
+            className={styles.icon}
+          />
+          Sales Management
+        </Link>
         <Link
           href={`/${school_name}/message`}
           className={menuItemClasses("message")}
