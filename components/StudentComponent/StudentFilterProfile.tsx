@@ -9,8 +9,10 @@ import { inter, openSans } from "@/app/fonts/fonts";
 import { IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 import { BiSolidDownArrow} from "react-icons/bi";
 import StudentFilter2 from "./StudentFilter2";
+import { useRouter } from "next/router";
 export default function StudentFilterProfile() {
- 
+  const router = useRouter();
+  const { school_name } = router.query;
   const [expanded, setExpanded] = useState<string>(""); // Tracks which filter section is expanded
   
   const [selectedClass, setSelectedClass] = useState<string>("Primary");
@@ -197,14 +199,15 @@ export default function StudentFilterProfile() {
           size="large"
           state="active"
           icon={<BsPersonPlus/>}
+          onClick={() => router.push(`/${school_name}/add-student`)}
         />
-        <GeneralButton
+        {/* <GeneralButton
           buttonText=""
           className="w-auto h-[50px] p-[12px] xl:hidden block rounded-[6px]"
           size="large"
           state="active"
           icon={<BsPersonPlus/>}
-        />
+        /> */}
       </div>
     </div>
   );

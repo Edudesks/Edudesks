@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from '@/styles/ClassExtraStats.module.css';
 import Image from 'next/image';
-import { UserAccountIcon } from 'hugeicons-react'; // Update with the correct icons
+import { UserAccountIcon } from 'hugeicons-react'; 
+import { useRouter } from "next/router";
 import GeneralButton from '../GeneralButton';
-
 interface StatCard2Props {
   icon: React.ReactNode;
   label: string;
@@ -40,6 +40,8 @@ const StatCard2: React.FC<StatCard2Props> = ({ icon, label, value, bgColor }) =>
 );
 
 const ClassExtraStats: React.FC = () => {
+  const router = useRouter();
+  const { school_name } = router.query;
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -76,6 +78,7 @@ const ClassExtraStats: React.FC = () => {
               />
             }
             className={styles.addButton}
+            onClick={() => router.push(`/${school_name}/add-class`)}
           />
         </div>
       </div>
