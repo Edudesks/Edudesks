@@ -1365,7 +1365,8 @@
   
   /* FAQ section */
   .faqSection {
-    flex: 1;
+    width: 65%;
+    /* flex: 1; */
   }
   
   .faqSection h2 {

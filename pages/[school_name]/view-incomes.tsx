@@ -312,7 +312,7 @@ const IncomeList = () => {
   const circularTotalAmount = circularChartItems.map((item) => item.amount).reduce((acc, curr) => acc + curr, 0);
 
     useEffect(() => {
-        dispatch(setActivePage({ active: "monthly-income", parentNav: "income" }));
+        dispatch(setActivePage({ active: "view-incomes", parentNav: "income" }));
       }, [dispatch]);
   return (
     <div className="w-full px-[18px] py-[30px] lg:pl-[31px] lg:pt-[29px] lg:pr-[85px] lg:pb-8 lg:bg-[#F9F9F9]">

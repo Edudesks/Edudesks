@@ -14,11 +14,7 @@ const FaqSection = () => {
   };
 
   const faqs = [
-    {
-      question: 'How easy is it to set up EduDesks?',
-      answer:
-        'Very easy! EduDesks has a simple setup process, with guided steps to get you up and running fast.',
-    },
+    
     {
       question: 'Can I track income and expenses?',
       answer:
@@ -30,19 +26,9 @@ const FaqSection = () => {
         'Yes, you can easily modify employee payment details and schedules whenever needed.',
     },
     {
-      question: 'Can parents pay school fees into the website?',
-      answer:
-        'Currently, the platform does not support fee collection. However, you can manage and track school fees by entering the income manually.',
-    },
-    {
       question: 'What happens if the wallet runs out of funds?',
       answer:
         'If your wallet runs low, you will be notified, and you can quickly top it up to continue making payments without interruption.',
-    },
-    {
-      question: 'How do I pay staff salaries?',
-      answer:
-        'You can pay staff salaries directly from the platform by funding your wallet, entering employee details, or directly from their profile.',
     },
   ];
 
@@ -71,7 +57,7 @@ const FaqSection = () => {
         </ul>
       </div>
 
-      <div className={styles.contactCard}>
+      {/* <div className={styles.contactCard}>
         <div className={styles.avatarGroup}>
         <Image
         src={"/icons/avatar1.svg"}
@@ -102,7 +88,7 @@ const FaqSection = () => {
           team.
         </p>
         <ButtonStart url="signup" variant="light" text="Get in touch" />
-      </div>
+      </div> */}
     </div>
   );
 };
