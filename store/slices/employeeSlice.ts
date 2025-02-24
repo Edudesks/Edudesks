@@ -10,7 +10,8 @@ export const fetchAllEmployees = createAsyncThunk(
   "employee/fetchAll",
   async (_,) => {
       const response = await makeApiCall("GET", "/employee");
-      return response.payload;
+      console.log(response)
+      return response.payload.employee.employees;
     }
 );
 

@@ -12,21 +12,21 @@ const RevenueAnalytics: React.FC = () => {
     labels: ['31 Jan', '29 Feb', '30 Mar', '30 Apr', '30 May', '30 Jun', '30 Jul', '30 Aug'],
     datasets: [
       {
-        label: 'Expenses',
+        label: 'Income',
         data: [200, 300, 150, 500, 600, 400, 200, 300],
         backgroundColor: '#4b8bbe',
         barPercentage: 0.8,
         borderRadius: 10,
         categoryPercentage: 0.9,
       },
-      {
-        label: 'Income',
-        data: [400, 500, 250, 700, 900, 800, 500, 600],
-        backgroundColor: '#E2E9F6',
-        barPercentage: 0.8,
-        borderRadius: 10,
-        categoryPercentage: 0.9,
-      },
+      // {
+      //   label: 'Expenses',
+      //   data: [400, 500, 250, 700, 900, 800, 500, 600],
+      //   backgroundColor: '#E2E9F6',
+      //   barPercentage: 0.8,
+      //   borderRadius: 10,
+      //   categoryPercentage: 0.9,
+      // },
     ],
   };
 
@@ -90,8 +90,8 @@ const RevenueAnalytics: React.FC = () => {
         </div>
         <div className={styles.legend}>
           <div className={styles.legendItem}>
-            <div className={styles.expensesDot} /> <span>Expenses</span>
-            <div className={styles.incomeDot} /> <span>Income</span>
+            {/* <div className={styles.expensesDot} /> <span>Expenses</span> */}
+            <div className={styles.expensesDot} /> <span>Income</span>
           </div>
           <Select defaultValue="This Year" variant="outlined" size="small" className={styles.selectBox}>
             <MenuItem value="This Year">2024</MenuItem>

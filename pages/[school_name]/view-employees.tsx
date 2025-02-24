@@ -208,6 +208,7 @@ const ViewEmployeePage = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    console.log(employees);
     const transformed = employees.map((emp: any) => ({
       employeeName: `${emp.personal.otherName} ${emp.personal.lastName}`,
       gender: emp.personal.gender[0],

@@ -176,9 +176,9 @@ const StudentManualEntry = () => {
             </div>
           </div>
           {/* -------- change method -------- */}
-          <button className="mt-[3.75rem] lg:mt-10 self-start lg:self-end text-[var(--primary)] text-sm lg:text-xl underline">
+          {/* <button className="mt-[3.75rem] lg:mt-10 self-start lg:self-end text-[var(--primary)] text-sm lg:text-xl underline">
             Change Method
-          </button>
+          </button> */}
           {/* -------- form step component -------- */}
           <div className="w-full mt-6 lg:mt-[0.8125rem]">
             <form action="" onSubmit={methods.handleSubmit(onSubmit)}>
