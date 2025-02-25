@@ -156,7 +156,7 @@ export default function StudentFilterProfile() {
 
                   {selectOpen2 && (
                     // -------- primary or secondary dropdown options --------
-                    <div className="shadow-lg mt-1 rounded-lg w-full max-w-[6.75rem] absolute z-50 right-0 top-2 border-[0.4px] border-[var(--border)] overflow-hidden bg-white">
+                    <div className="font-Open-Sans shadow-lg mt-1 rounded-lg w-full max-w-[6.75rem] absolute z-50 right-0 top-2 border-[0.4px] border-[var(--border)] overflow-hidden bg-white">
                       {classOptions.map((option) => (
                         <MenuItem
                           key={option}
@@ -166,6 +166,7 @@ export default function StudentFilterProfile() {
                             setSelectedClass(option);
                             setSelectOpen2(false); // Close after selection
                           }}
+                          sx={{ fontSize: "12px", fontFamily: "Open Sans", color: '#041822' }}
                           className="py-2 z-50 px-1.5 cursor-pointer hover:bg-[#E0EBF4] rounded-inherit font-Open-Sans text-xs text-[var(--primary-text-color)]"
                         >
                           {option}

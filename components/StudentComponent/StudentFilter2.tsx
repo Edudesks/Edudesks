@@ -29,7 +29,7 @@ export default function StudentFilter2() {
   const [filters, setFilters] = useState<{
     all: string;
     name: string;
-    age: number[];
+    age: number;
     gender: string;
     fees: string;
     class: string;
@@ -37,7 +37,7 @@ export default function StudentFilter2() {
   }>({
     all: "",
     name: "",
-    age: [0, 100],
+    age: 10,
     gender: "",
     fees: "",
     class: "",
@@ -67,7 +67,7 @@ export default function StudentFilter2() {
         ...filters,
         all: "All",
         name: "All",
-        age: [0, 100],
+        age: 10,
         gender: "All",
         fees: "All",
         class: "All",
@@ -80,7 +80,7 @@ export default function StudentFilter2() {
         ...filters,
         all: "",
         name: "",
-        age: [0, 100],
+        age: 10,
         gender: "",
         fees: "",
         class: "",
@@ -92,7 +92,7 @@ export default function StudentFilter2() {
   // Update individual filter state
   const handleFilterChange = (
     key: string,
-    value: string | number | number[]
+    value: string | number | number
   ) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -105,7 +105,7 @@ export default function StudentFilter2() {
     setFilters({
       all: "",
       name: "",
-      age: [0, 100],
+      age: 10,
       gender: "",
       fees: "",
       class: "",

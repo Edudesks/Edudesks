@@ -29,14 +29,14 @@ interface StudentFilter3Props {
   expanded: string[];
   alphabetButtons: JSX.Element[];
   filters: {
-    age: number[];
+    age: number;
     gender: string;
     fees: string;
     class: string;
     grade: string;
     name: string;
   };
-  handleFilterChange: (key: string, value: string | number | number[]) => void;
+  handleFilterChange: (key: string, value: string | number | number) => void;
   handleClassFilter: (placeholder: string) => void;
   primaryFilter: boolean;
   secondaryFilter: boolean;
@@ -153,23 +153,30 @@ const StudentFilter3: React.FC<StudentFilter3Props> = ({
                 <Slider
                   value={filters.age}
                   onChange={(e, newValue) =>
-                    handleFilterChange("age", newValue as number[])
+                    handleFilterChange("age", newValue as number)
                   }
+                  track={false}
                   valueLabelDisplay="auto"
                   min={2}
                   max={18}
                   marks={[
                     { value: 2, label: "2" },
+                    { value: 4, label: "4" },
+                    { value: 6, label: "6" },
                     { value: 8, label: "8" },
                     { value: 10, label: "10" },
+                    { value: 12, label: "12" },
                     { value: 14, label: "14" },
                     { value: 16, label: "16" },
                     { value: 18, label: "18" },
                   ]}
-                  className="text-[var(--grey-700)] h-0"
+                  className="text-[#59676E] h-[2px]"
                   sx={{
+                    color: "#002F49F2",
                     "& .MuiSlider-thumb": {
-                      display: "none",
+                      backgroundColor: "#002F49F2",
+                      width: 10,
+                      height: 10,
                     },
                     "& .MuiSlider-mark": {
                       display: "none",
@@ -181,13 +188,15 @@ const StudentFilter3: React.FC<StudentFilter3Props> = ({
                       fontFamily: "Open Sans",
                       lineHeight: "20px",
                     },
-                    "& .MuiSlider-mark[data-index='1'], & .MuiSlider-mark[data-index='4']":
-                      {
-                        display: "block",
-                        width: 8,
-                        height: 8,
-                        backgroundColor: "var(--grey-700)",
-                      },
+                    "& .MuiSlider-valueLabel": {
+                      lineHeight: 1.2,
+                      fontSize: 12,
+                      background: "unset",
+                      padding: 0,
+                      width: 32,
+                      height: 32,
+                      backgroundColor: "#002F49",
+                    },
                   }}
                 />
               </section>
