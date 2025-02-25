@@ -35,30 +35,19 @@ const AddFees = () => {
           <form
             id="incomeForm"
             action=""
-            className="grid gap-y-8 lg:gap-y-[2.6875rem] w-full"
+            className="grid gap-y-8 lg:gap-y-[1.875rem] w-full"
             onSubmit={methods.handleSubmit(onSubmit)}
           >
-            {/* -------- student full name -------- */}
+            {/* -------- student id -------- */}
             <InputField
-              id="student-full-name"
-              label="Student full name*"
+              id="student-id"
+              label="Student ID*"
               className={"py-2.5 px-9"}
               placeholder={"Enter student full name"}
               type={"text"}
               icon={MoneyAdd02Icon}
-              {...register("studentFullName")}
-              error={errors.studentFullName?.message}
-            />
-            {/* -------- student class -------- */}
-            <InputField
-              label={"Student Class*"}
-              id={"student-class"}
-              placeholder={"Enter student class"}
-              type={"text"}
-              icon={MoneyAdd02Icon}
-              className={"py-2.5 px-9"}
-              {...register("studentClass")}
-              error={errors.studentClass?.message}
+              {...register("studentID")}
+              error={errors.studentID?.message}
             />
             {/* -------- fees description -------- */}
             <InputField
@@ -93,28 +82,6 @@ const AddFees = () => {
               {...register("paymentMethod")}
               error={errors.paymentMethod?.message}
             />
-            {/* -------- receiver's account details -------- */}
-            <InputField
-              label={"Receiver's Account Details*"}
-              className={"py-2.5 px-9"}
-              id={"receivers-account-details"}
-              placeholder={"Enter receiver’s account number and bank"}
-              type={"text"}
-              icon={MoneyAdd02Icon}
-              {...register("receiverAccountDetails")}
-              error={errors.receiverAccountDetails?.message}
-            />
-            {/* -------- sender account details -------- */}
-            <InputField
-              label={"Sender Account Details*"}
-              className={"py-2.5 px-9"}
-              id={"sender-account-details"}
-              placeholder={"Enter sender’s account number and bank"}
-              type={"text"}
-              icon={MoneyAdd02Icon}
-              {...register("senderAccountDetails")}
-              error={errors.senderAccountDetails?.message}
-            />
             {/* -------- sender Account Holder’s name -------- */}
             <InputField
               id="sender-account-holders-name*"
@@ -124,7 +91,7 @@ const AddFees = () => {
               type={"text"}
               icon={MoneyAdd02Icon}
               {...register("senderAccountHolderName")}
-              error={errors.senderAccountDetails?.message}
+              error={errors.senderAccountHolderName?.message}
             />
           </form>
           {/* -------- submit and cancel buttons -------- */}
