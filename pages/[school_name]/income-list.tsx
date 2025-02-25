@@ -16,7 +16,7 @@ import { useAppDispatch } from '@/store/hooks';
 
 const DropDown: React.FC<{ row: ViewIncome }> = ({ row }) => {
   const router = useRouter();
-  const { school_name } = router.query; 
+  const { school_name } = router.query;
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
   const [currentRow, setCurrentRow] = useState<ViewIncome | null>(null);
 
@@ -223,18 +223,18 @@ const incomeColumns: Column<ViewIncome>[] = [
 
 const IncomeTable: React.FC<{ incomes: ViewIncome[] }> = ({ incomes }) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  
+
     const handleDateRangeClick = (event: React.MouseEvent<HTMLElement>) => {
       setAnchorEl(event.currentTarget);
     };
-  
+
     const handleClose = () => {
       setAnchorEl(null);
     };
-  
+
     const open = Boolean(anchorEl);
     const id = open ? 'date-picker-popover' : undefined;
-  
+
   return (
     <div className={styles.container}>
     <div className={styles.header}>
@@ -287,7 +287,7 @@ const IncomeTable: React.FC<{ incomes: ViewIncome[] }> = ({ incomes }) => {
 
 const IncomeList = () => {
     const dispatch = useAppDispatch();
-  
+
   const data = [
     329034, 101162, 325001, 428094, 317322, 247398, 362087, 297364, 416401,
     349249, 443280, 281720,
@@ -316,6 +316,7 @@ const IncomeList = () => {
       }, [dispatch]);
   return (
     <div className="w-full px-[18px] py-[30px] lg:pl-[31px] lg:pt-[29px] lg:pr-[85px] lg:pb-8 lg:bg-[#F9F9F9]">
+      <p className='lg:hidden text-center pb-6 text-xl font-bold text-[var(--secondary)]'>Income Overview</p>
       {/* -------- main content -------- */}
       <div className="flex flex-col gap-8 lg:gap-[18px]">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-[30px]">

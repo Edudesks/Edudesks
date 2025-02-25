@@ -290,7 +290,7 @@ const Sidebar: React.FC<SidebarProp> = ({
           {isIncomeOpen && (
             <div className={styles.dropdownContent}>
               <Link
-                href={`/${school_name}/add-income`}
+                href={`/${school_name}/add-fees`}
                 className={`${styles.dropdownContentText} ${menuItemClasses(
                   "add-income"
                 )}`}
