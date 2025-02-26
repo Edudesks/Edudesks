@@ -1,50 +1,28 @@
-import styles from '@/styles/LandingPage.module.css';
 import Image from 'next/image';
 
 const CallActionTwo = () => (
-  <section className={styles.callActionTwo}>
-    <div className={styles.actionTwoRight}>
-      <div className={styles.backCircle}>
-        <div className={`${styles.floatingCardOne} ${styles.floatingCard}`}>
-          <p>Total Outstanding</p>
-          <div className={styles.cardPrice}>
-            <h4>₦46,456</h4>
-            <span className={`${styles.percentage} ${styles.negative}`}>-5.7%</span>
-          </div>
-          <div className={styles.loaderOne}>
-            <div className={styles.inner}></div>
-          </div>
-        </div>
-        <Image 
-            src="/images/confirmation-pop-up.png"
-            alt="confirm-payment"
-            className={styles.conImage}
-            width={319}
-            height={312}
-            priority
-        />
-        <div className={`${styles.floatingCardTwo} ${styles.floatingCard}`}>
-          <p>Total Payout</p>
-          <div className={styles.cardPrice}>
-            <h4>₦456,456</h4>
-            <span className={`${styles.percentage} ${styles.positive}`}>+2.7%</span>
-          </div>
-          <div className={styles.loaderTwo}>
-          <div className={styles.inner}></div>
-
-          </div>
-        </div>
-      </div>
+  <section className="flex flex-col-reverse lg:flex-row items-center justify-between px-6 lg:px-16 py-12">
+    {/* Image Section */}
+    <div className="w-full lg:w-1/2 flex justify-center">
+      <Image
+        src="/images/analytics.png"
+        alt="analytics"
+        className="w-full max-w-[600px] h-auto object-contain"
+        width={600}
+        height={600}
+        priority
+      />
     </div>
-    <div className={styles.actionTwoLeft}>
-      <h2>Seamless and Efficient Salary Payment Solutions</h2>
-      <p>
-        Streamline your school&apos;s payroll process with our secure 
-        wallet system, enabling quick and efficient salary payments. 
-        With just a few clicks, you can reduce administrative workload, 
-        minimize errors, and ensure accurate, timely staff payments. 
-        This allows you to focus on what truly matters educating and 
-        supporting your students.
+
+    {/* Text Section */}
+    <div className="w-full lg:w-1/2 text-center lg:text-left mt-6 lg:mt-0">
+      <h2 className="text-[30px] lg:text-[35px] font-bold">
+        Smart Sales Tracking for Seamless Operations
+      </h2>
+      <p className="mt-4 mb-6 text-gray-700">
+        Eliminate manual errors and streamline financial management with automated fee processing, 
+        expense tracking, and real-time analytics. Keep your school&apos;s cash flow organized 
+        and optimize revenue collection effortlessly.
       </p>
     </div>
   </section>

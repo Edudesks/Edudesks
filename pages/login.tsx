@@ -74,7 +74,7 @@ const Login: React.FC = () => {
 
 
   const submitData = async (data: LoginFormData) => {
-    setIsLoading(true);  
+    setIsLoading(true);
 
     // Simulate the delay for 2 seconds
     setTimeout(async () => {
@@ -99,8 +99,8 @@ const Login: React.FC = () => {
       // router.push("/Edudesk")
       }
 
-      setIsLoading(false);  
-    }, 2000); 
+      setIsLoading(false);
+    }, 2000);
   };
 
   // show/hide password
@@ -126,24 +126,25 @@ const Login: React.FC = () => {
 
   return (
     <>
-    { isCheckingAuth ? "" : 
+    { isCheckingAuth ? "" :
       <div
-        className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[8.5625rem] h-screen whitespace-nowrap`}
+        className={`${openSans.className} flex flex-col lg:flex-row gap-[3.375rem] lg:gap-[8.5625rem] min-h-screen whitespace-nowrap`}
       >
         {/* -------- left half of signup page -------- */}
-        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[1.9375rem] bg-[var(--background)] h-full pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] rounded-t-none rounded-b-[30px] lg:rounded-e-[30px] max-h-[24.5625rem] lg:max-h-full lg:w-[44.875rem]">
+        <div className="flex flex-col align-top gap-[1.34125rem] lg:gap-[1.9375rem] bg-[var(--background)] pt-[1.625rem] pl-[1.125rem] lg:px-[3.9375rem] lg:py-[1.875rem] lg:w-[44.875rem]">
           <AuthentificationLogo />
-          <div className="w-[16.625rem] lg:w-[33.6875rem] self-center">
+          <div className="w-[16.625rem] lg:w-[33.6875rem] self-center h-full flex flex-grow items-center justify-center">
             <Image
               src={"/loginIcon.svg"}
               alt="login image"
               width={470}
               height={470}
+              className="h-full object-contain"
             />
           </div>
         </div>
         {/* -------- form input of signup page -------- */}
-        <div className="flex flex-col gap-9 items-center justify-start lg:justify-center h-full px-[1.125rem] lg:p-0 lg:w-[35.9375rem] lg:mr-2.5">
+        <div className="flex flex-1 flex-col gap-9 items-center justify-start lg:justify-center h-full px-[1.125rem] lg:p-0 lg:w-[35.9375rem] lg:mr-2.5 lg:my-auto">
           {/* -------- form heading -------- */}
           <div className="flex flex-col gap-[0.6875rem] self-start">
             <h2
@@ -302,7 +303,7 @@ const Login: React.FC = () => {
   ) : (
     "Sign In"
   )}
-              
+
             </button>
           </form>
         </div>

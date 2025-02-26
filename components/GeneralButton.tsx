@@ -5,7 +5,14 @@ interface GeneralButtonProps {
   buttonText: string;
   className?: string;
   size: "small" | "medium" | "large";
-  state: "active" | "inactive" | "disabled" | "clicked" | "hover" | "previous";
+  state:
+    | "active"
+    | "inactive"
+    | "disabled"
+    | "clicked"
+    | "hover"
+    | "previous"
+    | "plain";
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
   onClick?: () => void;
@@ -42,7 +49,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
   iconPosition,
   onClick,
   type,
-  form
+  form,
 }) => {
   const [state, setState] = useState(initialState);
   // -------- button border --------
@@ -52,7 +59,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
   }
 
   // -------- button border color --------
-  let buttonBGColor
+  let buttonBGColor;
   if (state === "active") {
     buttonBGColor = "bg-[var(--primary)]";
   } else if (state === "inactive") {
@@ -133,13 +140,13 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
 
   return (
     <button
-      className={`${className} ${buttonBorder} ${buttonBGColor} ${buttonTextColor} ${paddingY} ${flexDirection} border border-solid font-bold flex items-center justify-center px-2.5 gap-2.5 rounded-[2.0625rem]`}
+      className={` ${className} ${buttonBorder} ${buttonBGColor} ${buttonTextColor} ${flexDirection} border border-solid font-bold flex items-center justify-center gap-2.5 rounded-[2.0625rem] px-2.5 ${paddingY} `}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       disabled={state === "disabled"}
       onClick={handleClick}
       type={type}
-      form={form}
+      // form={form}
     >
       {icon && <span>{icon}</span>}
       {buttonText}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { UserAccountIcon, CapIcon, SchoolIcon } from 'hugeicons-react';
 import Image from 'next/image';
+import { useRouter } from "next/router";
 import GeneralButton from '../GeneralButton';
 import styles from '@/styles/ClassStats.module.css';
 
@@ -30,7 +31,9 @@ const StatCard: React.FC<StatCardProps> = ({ src, count, label, className = '' }
   </div>
 );
 
-const ClassStats = () => {
+const ClassStats = ({school_name}: {school_name: string|undefined}) => {
+    const router = useRouter();
+  
   return (
     <div className={styles.container}>
       <div className={styles.flexBetween}>
@@ -47,6 +50,7 @@ const ClassStats = () => {
             width={20} 
             height={20} 
             className={styles.icon}
+            onClick={()=> router.push(`/${school_name}/add-class`)}
           />}
           className={styles.button}
         />

@@ -6,8 +6,10 @@ import { useRouter } from "next/router";
 import { setPlan } from "@/store/slices/planSlice";
 import { useAppDispatch } from "@/store/hooks";
 
+type PlanType = "Monthly" | "Termly" | "Yearly"
+
 const PricingPlan = () => {
-  const [isAnnually, setIsAnnually] = useState(false);
+  const [planType, setPlanType] = useState<PlanType>("Monthly");
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -22,28 +24,35 @@ const PricingPlan = () => {
         Choose The Best Plan For Your School&apos;s Needs And Budget
       </p>
 
-      <div className={`${styles.toggleWrapper}`}>
+      <div className="flex gap-12 mb-6">
         <span
-          className={`${!isAnnually ? styles.activeToggleText : styles.inactiveToggleText}`}
-          onClick={() => setIsAnnually(false)}
+          className={`cursor-pointer pb-2 text-[var(--primary)] font-semibold ${
+            planType === "Monthly"
+              && "border-b-2 border-[var(--primary)]"
+          }`}
+          onClick={() => setPlanType("Monthly")}
         >
           Monthly
         </span>
-        <div
-          onClick={() => setIsAnnually(!isAnnually)}
-          className={`${styles.toggleSwitch}`}
-        >
-          <span
-            className={`${styles.toggleBall} ${isAnnually ? styles.translateRight : styles.translateLeft}`}
-          />
-        </div>
         <span
-          className={`${isAnnually ? styles.activeToggleText : styles.inactiveToggleText}`}
-          onClick={() => setIsAnnually(true)}
+          className={`cursor-pointer pb-2 text-[var(--primary)] font-semibold ${
+            planType === "Termly"
+              && "border-b-2 border-[var(--primary)]"
+          }`}
+          onClick={() => setPlanType("Termly")}
         >
-          Annually
+          Termly
         </span>
-        <span className={styles.discountBadge}>20% Off</span>
+        <span
+          className={`cursor-pointer pb-2 text-[var(--primary)] font-semibold ${
+            planType === "Yearly"
+              && "border-b-2 border-[var(--primary)]"
+          }`}
+          onClick={() => setPlanType("Yearly")}
+        >
+          Yearly
+        </span>
+        {/* <span className={styles.discountBadge}>20% Off</span> */}
       </div>
 
       <div className={`${styles.pricingGrid}`}>
@@ -54,10 +63,10 @@ const PricingPlan = () => {
             <h3 className={styles.planTitle}>Basic Plan</h3>
             <p className={styles.planDescription}>Perfect for small school or short-term needs</p>
             <div className={styles.priceContainer}>
-              <p className={styles.price}>₦ {isAnnually ? "60000" : "5000"}</p>
-              <p className={styles.priceLabel}>{isAnnually ? "Annually" : "Per Month"}</p>
+              <p className={styles.price}>₦ {planType === "Monthly" ? "100" : planType === "Termly"? "300" : "1200"}</p>
+              <p className={styles.priceLabel}>Per Student</p>
             </div>
-            <ButtonTrial onClick={()=>handlePlanSelect("Basic", isAnnually ? "60000" : "5000", isAnnually ? "Annual" : "Monthly")} variant={"dark"} text={"Start 30 days free trial"}/>
+            <ButtonTrial onClick={()=>handlePlanSelect("Basic", planType === "Monthly" ? "100" : planType === "Termly"? "300" : "1200", planType )} variant={"dark"} text={"Start 30 days free trial"}/>
           </div>
           <div className={styles.lineDivider}></div>
           <h4 className={styles.featuresTitle}>Features</h4>
@@ -75,13 +84,13 @@ const PricingPlan = () => {
           <h3 className={styles.planTitle}>Premium Plan</h3>
           <p className={styles.planDescription}>Enjoy premium features at a reduced rate.</p>
           <div className={styles.priceContainer}>
-              <p className={styles.price}>₦ {isAnnually ? "120000" : "10000"}</p>
-              <p className={styles.priceLabel}>{isAnnually ? "Annually" : "Per Month"}</p>
+              <p className={styles.price}>₦ {planType === "Monthly" ? "150" : planType === "Termly"? "450" : "1800"}</p>
+              <p className={styles.priceLabel}>Per Student</p>
             </div>
           </div>
           <div className={styles.premiumBottom}>
 
-            <ButtonTrial onClick={()=>handlePlanSelect("Premium", isAnnually ? "120000" : "10000", isAnnually ? "Annual" : "Monthly")} variant={"dark"} text={"Start 30 days free trial"}/>
+            <ButtonTrial onClick={()=>handlePlanSelect("Premium", planType === "Monthly" ? "150" : planType === "Termly"? "450" : "1800", planType )} variant={"dark"} text={"Start 30 days free trial"}/>
             <div className={styles.lineDivider}></div>
             <h4 className={styles.featuresTitle}>Features</h4>
             <ul className={`${styles.featureList} ${styles.textWhite}`}>
@@ -102,10 +111,10 @@ const PricingPlan = () => {
             Long-term solutions to enhance financial management and operational efficiency.
           </p>
           <div className={styles.priceContainer}>
-            <p className={styles.price}>₦ {isAnnually ? "180000" : "15000"}</p>
-            <p className={styles.priceLabel}>{isAnnually ? "Annually" : "Per Month"}</p>
+            <p className={styles.price}>₦ {planType === "Monthly" ? "200" : planType === "Termly"? "600" : "2400"}</p>
+            <p className={styles.priceLabel}>Per Student</p>
           </div>
-          <ButtonTrial onClick={()=>handlePlanSelect("Advance", isAnnually ? "180000" : "15000", isAnnually ? "Annual" : "Monthly")} variant={"dark"} text={"Start 30 days free trial"}/>
+          <ButtonTrial onClick={()=>handlePlanSelect("Advance", planType === "Monthly" ? "200" : planType === "Termly"? "600" : "2400", planType )} variant={"dark"} text={"Start 30 days free trial"}/>
           </div>
           <div className={styles.lineDivider}></div>
           <h4 className={styles.featuresTitle}>Features</h4>

@@ -802,20 +802,52 @@
   gap: 3.5em;
   margin-top: 120px;
   overflow-x: hidden;
+  height: 500px;
 }
+
+
+.actionTwoRight {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 50px;
+  /* height: fit-content; */
+}
+
 
 .actionTwoLeft {
   width: 45%;
 }
 
+.actionContainer {
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
 .backCircle {
-  padding: 5.5em;
+  /* padding: 5.5em; */
+  width: 480px;
+  height: 480px;
   border-radius: 50%;
   background: var(--primary);
-  position: relative;
+  position: absolute;
+}
+
+.higImage {
+  margin: auto;
+  z-index: 995;
+  transform: translateY(-25px);
 }
 .conImage {
-  transform: translateY(20px);
+  /* position: absolute; */
+  transform: translate(28px ,-25px);
+  z-index: 995;
+  top: 50px;
+  margin: 10px auto;
 }
 .floatingCard {
   padding: .8em 1.2em;
@@ -919,13 +951,6 @@
   width: 97%;
 }
 
-.actionTwoRight {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-right: 50px;
-}
 
 /* Responsive Action Two Screen */
 @media (max-width: 1200px) {
@@ -1194,12 +1219,15 @@
 
   /* Start How it Works */
   .howItWorks {
-    position: relative;
+    /* position: relative; */
     padding: 50px;
     text-align: center;
-    overflow-x: hidden;
+    overflow-x: scroll;
   }
   
+  .howItWorks::-webkit-scrollbar {
+    display: none;
+  }
   /* Title and subtitle */
   .title {
     font-size: 36px;
@@ -1337,7 +1365,8 @@
   
   /* FAQ section */
   .faqSection {
-    flex: 1;
+    width: 65%;
+    /* flex: 1; */
   }
   
   .faqSection h2 {

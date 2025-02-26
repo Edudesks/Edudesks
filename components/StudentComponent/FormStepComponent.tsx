@@ -86,7 +86,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student last name"}
                 type={"text"}
                 icon={UserIcon}
-                {...register("personalInformation.lastName")}
+                {...register("personalInformation.personal.lastName")}
                 // error={errors.personalInformation?.lastName?.message}
               />
               {/* -------- other names -------- */}
@@ -97,7 +97,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={UserIcon}
                 className={"py-2.5 px-9"}
-                {...register("personalInformation.otherNames")}
+                {...register("personalInformation.personal.otherNames")}
                 // error={errors.personalInformation?.otherNames?.message}
               />
               {/* -------- date of birth -------- */}
@@ -111,7 +111,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 <div className="w-full flex flex-col relative items-center text-[var(--grey)]">
                   <CalenderComponent
                     variant="form"
-                    {...register("personalInformation.dateOfBirth")}
+                    {...register("personalInformation.personal.dateOfBirth")}
                   />
                   {/* {errors.personalInformation?.dateOfBirth?.message && (
                     <p className="self-start text-sm text-[var(--danger)] mt-1">
@@ -127,7 +127,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student age"}
                 type={"text"}
                 className="p-2.5"
-                {...register("personalInformation.age")}
+                {...register("personalInformation.personal.age")}
                 // error={errors.personalInformation?.age?.message}
               />
               {/* -------- gender -------- */}
@@ -149,7 +149,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 </label>
                 <CalenderComponent
                   variant="form"
-                  {...register("personalInformation.admissionDate")}
+                  {...register("personalInformation.personal.admissionDate")}
                 />
                 {/* {errors.personalInformation?.admissionDate?.message && (
                   <p className="text-sm text-[var(--danger)] mt-1">
@@ -160,11 +160,11 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
               {/* -------- student class -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
                 <DropdownSelectComponent
-                  {...register("personalInformation.classes")}
+                  {...register("personalInformation.personal.classes")}
                   options={classes}
                   label="Classes*"
                   placeholder="select class"
-                  value={methods.watch("personalInformation.classes")}
+                  value={methods.watch("personalInformation.personal.classes")}
                 />
                 {/* {errors.personalInformation?.classes?.message && (
                   <p className="text-sm text-[var(--danger)] mt-1">
@@ -378,6 +378,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
 
               {/* parent id */}
               <div className="flex flex-col gap-3">
+                <div className="flex items-end justify-between">
               <InputField
   label={"Parent ID*"}
   className={"py-2.5 px-2"}
@@ -385,11 +386,20 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
   placeholder={"Parent ID"}
   type={"text"}
   value={parentID}
-  readOnly={true} 
+  readOnly={true}
   {...register("parentInformation.ParentID")}
 />
+ <GeneralButton
+ buttonText="Generate Parent ID"
+ state={"active"}
+ size={"small"}
+ className="text-[10px]"
+ type="button"
+ onClick={generateParentID}
+/>
+</div>
 
-              <p className="text-[var(--secondary)] text-[14px] flex items-center gap-1 hover:cursor-pointer"  onClick={generateParentID}>
+              <p className="text-[var(--secondary)] text-[14px] flex items-center gap-1 hover:cursor-pointer">
                 <GrCircleInformation/>
                 Click the button to generate parent ID
               </p>

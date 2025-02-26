@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import {
   Box,
   Table,
@@ -20,11 +21,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     fontWeight: "bold",
     backgroundColor: "#002f49",
-    fontSize: 11,
+    fontSize: 12,
     color: "white", // Set header text color to blue
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 10,
+    fontSize: 11,
   },
 }));
 
@@ -44,6 +45,8 @@ interface Section {
 
 export default function Home() {
   const [tabValue, setTabValue] = useState<number>(0);
+   const router = useRouter();
+    const { school_name } = router.query;
 
   const handleChange = (newValue: number) => {
     setTabValue(newValue);
@@ -83,7 +86,7 @@ export default function Home() {
                 <ProgressBar progress={20} />
               </StyledTableCell>
               <StyledTableCell>
-                <Link href="#">View</Link>
+                <Link href={`/${school_name}/class`}>View</Link>
               </StyledTableCell>
             </StyledTableRow>
           ))}
