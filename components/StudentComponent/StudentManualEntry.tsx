@@ -199,19 +199,19 @@ const StudentManualEntry = () => {
                 size={"small"}
                 state={activeStep > 0 ? "previous" : "disabled"}
                 onClick={handlePrevious}
-                icon={<ArrowLeft01Icon/>}
+                icon={<ArrowLeft01Icon />}
                 iconPosition="left"
                 className="w-[8.125rem]"
               />
             )}
             {activeStep < 4 && (
               <GeneralButton
-              key={`next-${activeStep}`}
+                key={`next-${activeStep}`}
                 buttonText={"Next"}
                 size={"small"}
-                state={'active'}
+                state={"active"}
                 onClick={handleNext}
-                icon={<ArrowRight01Icon/>}
+                icon={<ArrowRight01Icon />}
                 iconPosition="right"
                 className="w-[8.125rem]"
               />
@@ -226,7 +226,7 @@ const StudentManualEntry = () => {
           details={notification.details}
           onClose={handleCloseNotification}
           onPrimaryAction={() => console.log("Continue clicked")}
-          onSecondaryAction={() => router.push('/Edudesk/student-profile') }
+          onSecondaryAction={() => router.push("/Edudesk/student-profile")}
         />
       </div>
     </FormProvider>
