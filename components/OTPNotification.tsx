@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
-  Snackbar,
   Alert,
   Button,
   Dialog,
@@ -11,10 +10,13 @@ import {
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { CheckmarkCircle04Icon } from "hugeicons-react";
+import { useRouter } from "next/router";
 
 interface OTPNotificationProps {
   open: boolean;
   onClose: () => void;
+  duration?: number;
+  redirectTo: string;
 }
 
 const CustomAlert = styled(Alert, {
@@ -39,9 +41,25 @@ const CustomAlert = styled(Alert, {
   },
 }));
 
-const OTPNotification: React.FC<OTPNotificationProps> = ({ open, onClose }) => {
+const OTPNotification: React.FC<OTPNotificationProps> = ({
+  open,
+  onClose,
+  duration = 2000,
+  redirectTo,
+}) => {
+  const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  useEffect(() => {
+    if (open) {
+      const timer = setTimeout(() => {
+        onClose();
+        router.push(redirectTo);
+      }, duration);
+      return () => clearTimeout(timer);
+    }
+  }, [open, onClose, duration, redirectTo, router]);
 
   const NotificationContent = (
     <CustomAlert
@@ -82,6 +100,11 @@ const OTPNotification: React.FC<OTPNotificationProps> = ({ open, onClose }) => {
       open={open}
       onClose={onClose}
       sx={{
+        position: "fixed",
+        top: "1rem",
+        right: "1rem",
+        left: "auto",
+        bottom: "auto",
         "& .MuiPaper-root": {
           padding: "unset",
           borderRadius: "18px",

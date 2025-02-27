@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AuthentificationLogo from "@/components/AuthentificationLogo";
 import { openSans } from "@/app/fonts/fonts";
 import { Controller, useForm } from "react-hook-form";
@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import { useAppDispatch } from "@/store/hooks";
 import { createOtp, verifyOtp } from "@/store/slices/authSlice";
 import { Loading01Icon } from "hugeicons-react";
+import OTPNotification from "@/components/OTPNotification";
+import { useAppSelector } from "@/store/hooks";
 
 type OTPFormData = {
   otp1: string;
@@ -18,9 +20,14 @@ type OTPFormData = {
 const Verification: React.FC = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { email, isSignup } = router.query
-  const isSignupBoolean = isSignup === "true"? true : false
+  const { email, isSignup } = router.query;
+  const isSignupBoolean = isSignup === "true" ? true : false;
   const [resendOTP, setResendOTP] = React.useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const schoolName = useAppSelector(
+    (state) => state?.auth.schoolPayload?.schoolName
+  ); // Selector for school existence
+  const { reason } = router.query;
 
   useEffect(() => {
     if (!email) {
@@ -43,25 +50,34 @@ const Verification: React.FC = () => {
 
   const onSubmit = async (data: OTPFormData) => {
     const combinedOTP = `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`;
-    const otpData = { email: email || "", otp: combinedOTP, isSignup: isSignupBoolean || false };
+    const otpData = {
+      email: email || "",
+      otp: combinedOTP,
+      isSignup: isSignupBoolean || false,
+    };
     const otpResponse = await dispatch(verifyOtp(otpData));
     if (otpResponse.type === "auth/verifyotp/fulfilled") {
-      if (isSignupBoolean){
-        router.push({
-          pathname: "/otp-confirmation",
-          query: { reason: 'signup'},
-        })
-      }else {
-        console.log(otpResponse.payload)
-        localStorage.setItem('token', otpResponse.payload.token)
-        router.push({
-          pathname: "/otp-confirmation",
-          query: { reason: 'login'},
-        })
+      if (isSignupBoolean) {
+        setShowSuccessPopup(true);
+      } else {
+        console.log(otpResponse.payload);
+        localStorage.setItem("token", otpResponse.payload.token);
+        setShowSuccessPopup(true);
       }
     } else {
-      console.log(otpResponse.type)
+      console.log(otpResponse.type);
       console.error("Failed to send OTP");
+    }
+  };
+
+  // -------- redirect path after otp popup --------
+  const getRedirectPath = () => {
+    console.log(reason);
+    if (reason === "login") {
+      return schoolName ? `/${schoolName}` : "/";
+    }
+    if (reason === "signup") {
+      return "/pricing-plan";
     }
   };
 
@@ -109,18 +125,17 @@ const Verification: React.FC = () => {
     buttonColor = "bg-[var(--secondary)]";
   }
 
-  const handleResendClick = async() => {
-    if (email){
+  const handleResendClick = async () => {
+    if (email) {
       const otpResponse = await dispatch(createOtp(email));
       if (otpResponse.type === "auth/createotp/fulfilled") {
-        
         console.log("OTP sent successfully:", otpResponse.payload);
       } else {
         console.error("Failed to send OTP");
       }
-      setResendOTP(true)
-    };
-  }
+      setResendOTP(true);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center pt-[1.75rem] lg:pt-[2.75rem] px-[1.125rem] lg:pl-[5.625rem] text-[var(--primary-text-color)] h-screen relative">
@@ -199,6 +214,12 @@ const Verification: React.FC = () => {
           </div>
         </form>
       </div>
+      <OTPNotification
+        open={showSuccessPopup}
+        onClose={() => setShowSuccessPopup(false)}
+        redirectTo={getRedirectPath() ?? '/'}
+        duration={3000}
+      />
     </div>
   );
 };

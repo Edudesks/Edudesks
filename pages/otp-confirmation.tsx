@@ -22,7 +22,7 @@ const OtpConfirmation: React.FC = () => {
         router.push("/pricing-plan");
       }
     }
-  
+
   return (
     <div className="flex flex-col items-center justify-center pt-[1.75rem] lg:pt-[2.75rem] px-[1.125rem] lg:pl-[5.625rem] text-[var(--primary-text-color)] h-screen relative">
       <div className="absolute top-0 left-0 pt-[1.75rem] lg:pt-[2.75rem] pl-[1.125rem] lg:pl-[5.625rem]">
