@@ -5,7 +5,7 @@ const CallActionTwo = () => (
     {/* Image Section */}
     <div className="w-full lg:w-1/2 flex justify-center">
       <Image
-        src="/images/analytics.png"
+        src="/images/analytics.svg"
         alt="analytics"
         className="w-full max-w-[600px] h-auto object-contain"
         width={600}

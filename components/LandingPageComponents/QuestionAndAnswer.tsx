@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styles from '../../styles/LandingPage.module.css';
 
-
 const QuestionAndAnswer = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
@@ -13,12 +12,18 @@ const QuestionAndAnswer = () => {
     {
       question: 'Is there a free trial available?',
       answer:
-        'Yes you can try out the 30 days free trial. we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running.',
+        'Yes you can try out the 30 days free trial. we’ll provide you with 50 students free slot to get you started.',
     },
     {
       question: 'What are the available pricing plans for the platform?',
-      answer:
-        'Our platform offers three flexible pricing plans such as Basic Plan Ideal for small institutions with basic tracking needs. Standard Plan: Suitable for medium-sized institutions needing advanced features like automated reports and multi-user access. Premium Plan: Designed for larger institutions with comprehensive needs, including API integration and priority support',
+      answer: (
+        <>
+          Our platform offers three flexible pricing plans such as{' '}
+          <b>Basic Plan</b>: Ideal for small institutions with basic tracking needs,{' '}
+          <b>Standard Plan</b>: Suitable for medium-sized institutions needing advanced features like automated reports and multi-user access,{' '}
+          <b>Premium Plan</b>: Designed for larger institutions with comprehensive needs, including API integration and priority support.
+        </>
+      ),
     },
     {
       question: 'Can I upgrade or downgrade my plan anytime?',

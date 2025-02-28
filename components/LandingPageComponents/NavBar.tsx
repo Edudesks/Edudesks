@@ -31,7 +31,7 @@ const Navbar: FC = () => {
   return (
     <div className={styles.navWrapper}>
       <div className={styles.topPage}>
-        <p className={styles.topPageText}>Buy Now And Save 20% Off Plan</p>
+        <p className={styles.topPageText}>Buy Now And Save 20% Off Plan <span className={styles.topPageChosePlan}>— Choose A Plan</span></p>
         <Link href="/pricing-plan" className={styles.topPagePricing}>
           See Plans and Pricing
         </Link>
