@@ -220,8 +220,8 @@ export default function StudentFilterProfile() {
           className="w-auto h-[50px] p-[12px] xl:hidden block rounded-[6px]"
           size="large"
           state="active"
-          icon={<BsPersonPlus/>}
-        />
+          icon={<BsPersonPlus/> 
+        />*/}
       </div>
     </div>
   );
