@@ -7,7 +7,9 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { ArrowUp01Icon, ArrowDown01Icon } from "hugeicons-react";
 import { BiSolidDownArrow } from "react-icons/bi";
 import StudentFilter2 from "./StudentFilter2";
+import { useRouter } from "next/router";
 export default function StudentFilterProfile() {
+ 
   const [expanded, setExpanded] = useState<string>(""); // Tracks which filter section is expanded
 
   const [selectedClass, setSelectedClass] = useState<string>("Primary");
@@ -211,14 +213,14 @@ export default function StudentFilterProfile() {
           className="w-[202px] h-[50px] p-[12px] hidden xl:flex items-center"
           size="large"
           state="active"
-          icon={<BsPersonPlus />}
+          icon={<BsPersonPlus/>}
         />
-        <GeneralButton
+        {/* <GeneralButton
           buttonText=""
           className="w-auto h-[50px] p-[12px] xl:hidden block rounded-[6px]"
           size="large"
           state="active"
-          icon={<BsPersonPlus />}
+          icon={<BsPersonPlus/>}
         />
       </div>
     </div>

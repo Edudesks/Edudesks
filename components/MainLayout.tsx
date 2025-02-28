@@ -17,7 +17,7 @@ const MainLayout = ({ children, schoolName }: { children: React.ReactNode; schoo
 
   useEffect(() => {
     const verifyToken = async () => {
-      if (!schoolName) return; // ✅ Only proceed when schoolName is defined
+      if (!schoolName) return; 
 
       try {
         const payload = await dispatch(checkAuthToken()).unwrap();
