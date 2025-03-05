@@ -15,7 +15,7 @@ const PricingPlan = () => {
 
   const handlePlanSelect = (plan: string, price: string, subscription: string) => {
     dispatch(setPlan({ plan, price, subscription }));
-    router.push("/pricing-payment");
+    router.push("/signup");
   };
   return (
     <div className={`${styles.pricingContainer} ${styles.flexCol} ${styles.itemsCenter}`}>
