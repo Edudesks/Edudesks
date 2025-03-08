@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "../../app/globals.css";
 import UploadDialogComponenet from "./UploadDialogComponent";
 import {
@@ -57,11 +57,18 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
     "Senior Secondary 2",
     "Senior Secondary 3",
   ];
+
   const [parentID, setParentID] = useState("");
+  const [studentID, setStudentID] = useState("");
 
   const generateParentID = () => {
     const newID = `PARENT-${Math.floor(100000 + Math.random() * 900000)}`; // Example: PARENT-123456
     setParentID(newID);
+  };
+
+  const generateStudentID = () => {
+    const newID = `STUDENT-${Math.floor(100000 + Math.random() * 900000)}`; // Example: PARENT-123456
+    setStudentID(newID);
   };
   switch (step) {
     // -------- personal information --------
@@ -75,7 +82,10 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
           </h3>
           <div className="flex flex-col gap-10 lg:gap-[3.375rem]">
             {/* -------- add student image -------- */}
-            <UploadDialogComponenet uploadType={"image"} onFileUpload={()=>{}}/>
+            <UploadDialogComponenet
+              uploadType={"image"}
+              onFileUpload={() => {}}
+            />
             {/* -------- form input section -------- */}
             <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-[1.5625rem] lg:gap-x-[3.375rem] w-full">
               {/* -------- last name -------- */}
@@ -87,6 +97,17 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={UserIcon}
                 {...register("personalInformation.personal.lastName")}
+                // error={errors.personalInformation?.lastName?.message}
+              />
+              {/* -------- first name -------- */}
+              <InputField
+                id="student-first-name"
+                label="First Name*"
+                className={"py-2.5 px-9"}
+                placeholder={"Enter student first name"}
+                type={"text"}
+                icon={UserIcon}
+                {...register("personalInformation.personal.firstName")}
                 // error={errors.personalInformation?.lastName?.message}
               />
               {/* -------- other names -------- */}
@@ -120,16 +141,6 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                   )} */}
                 </div>
               </div>
-              {/* -------- age -------- */}
-              <InputField
-                label={"Age*"}
-                id={"student-age"}
-                placeholder={"Enter student age"}
-                type={"text"}
-                className="p-2.5"
-                {...register("personalInformation.personal.age")}
-                // error={errors.personalInformation?.age?.message}
-              />
               {/* -------- gender -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
                 <GenderField fieldName={"personalInformation.gender"} />
@@ -172,10 +183,45 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                   </p>
                 )} */}
               </div>
+              {/* -------- student id -------- */}
+              <div className="flex flex-col gap-[0.4375rem]">
+                <label
+                  htmlFor="student-id"
+                  className="text-sm text-[var(--primary-text-color)] whitespace-nowrap"
+                >
+                  Student ID*
+                </label>
+                <div className="flex items-end justify-between border border-solid border-[var(--border)] h-fit rounded-[0.625rem] overflow-hidden">
+                  <InputField
+                    className={"py-2.5 px-2 border-none"}
+                    id={"student-id"}
+                    placeholder={"Generate student ID"}
+                    type={"text"}
+                    value={studentID}
+                    readOnly={true}
+                    {...register("personalInformation.personal.studentID")}
+                    divClass="h-fit gap-0 flex-grow"
+                  />
+                  <GeneralButton
+                    buttonText="Generate Student ID"
+                    state={"active"}
+                    size={"small"}
+                    className="text-[10px] rounded-r-[0.625rem] rounded-l-[0.625rem] border-0 h-full"
+                    type="button"
+                    onClick={generateStudentID}
+                  />
+                </div>
+
+                <p className="text-[var(--secondary)] text-[14px] flex items-center gap-1 hover:cursor-pointer">
+                  <GrCircleInformation />
+                  Click the button to generate student ID
+                </p>
+              </div>
             </div>
           </div>
         </div>
       );
+
     // -------- contact information --------
     case 1:
       return (
@@ -376,33 +422,39 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 // error={errors.parentInformation?.fatherHomeAddress?.message}
               />
 
-              {/* parent id */}
-              <div className="flex flex-col gap-3">
-                <div className="flex items-end justify-between">
-              <InputField
-  label={"Parent ID*"}
-  className={"py-2.5 px-2"}
-  id={"student-parent-id"}
-  placeholder={"Parent ID"}
-  type={"text"}
-  value={parentID}
-  readOnly={true}
-  {...register("parentInformation.ParentID")}
-/>
- <GeneralButton
- buttonText="Generate Parent ID"
- state={"active"}
- size={"small"}
- className="text-[10px]"
- type="button"
- onClick={generateParentID}
-/>
-</div>
+              {/* -------- parent id -------- */}
+              <div className="flex flex-col gap-[0.4375rem]">
+                <label
+                  htmlFor="parent-id"
+                  className="text-sm text-[var(--primary-text-color)] whitespace-nowrap"
+                >
+                  Parent ID*
+                </label>
+                <div className="flex items-end justify-between border border-solid border-[var(--border)] h-fit rounded-[0.625rem] overflow-hidden">
+                  <InputField
+                    className={"py-2.5 px-2 border-none"}
+                    id={"parent-id"}
+                    placeholder={"Generate parent ID"}
+                    type={"text"}
+                    value={parentID}
+                    readOnly={true}
+                    {...register("parentInformation.ParentID")}
+                    divClass="h-fit gap-0 flex-grow"
+                  />
+                  <GeneralButton
+                    buttonText="Generate Parent ID"
+                    state={"active"}
+                    size={"small"}
+                    className="text-[10px] rounded-r-[0.625rem] rounded-l-[0.625rem] border-0 h-full"
+                    type="button"
+                    onClick={generateParentID}
+                  />
+                </div>
 
-              <p className="text-[var(--secondary)] text-[14px] flex items-center gap-1 hover:cursor-pointer">
-                <GrCircleInformation/>
-                Click the button to generate parent ID
-              </p>
+                <p className="text-[var(--secondary)] text-[14px] flex items-center gap-1 hover:cursor-pointer">
+                  <GrCircleInformation />
+                  Click the button to generate parent ID
+                </p>
               </div>
             </div>
           </div>

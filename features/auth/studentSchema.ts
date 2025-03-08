@@ -21,6 +21,7 @@ const classes = [
 export const personalInformationSchema = z.object({
   personal: z.object({
     lastName: z.string().min(1, { message: "Last name bawo" }), //done
+    firstName: z.string().min(1,), //done
     otherNames: z.string().min(1), //done
     dateOfBirth: z.string().refine(
       (value) => {
@@ -29,10 +30,6 @@ export const personalInformationSchema = z.object({
       },
       { message: "Invalid date format" }
     ),
-    age: z
-      .number()
-      .min(1)
-      .or(z.string().regex(/^\d+$/, "Age must be a number")),
     gender: z
       .array(z.enum(["Male", "Female"]))
       .min(1, { message: "Please select at least one gender" }),
@@ -44,6 +41,9 @@ export const personalInformationSchema = z.object({
       { message: "Invalid date format" }
     ),
     classes: z.enum(classes, { message: "Invalid class selected" }),
+    studentID: z
+    .string()
+    .min(1, { message: "Student ID required" }),
   }),
 });
 
