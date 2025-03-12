@@ -266,7 +266,7 @@ const IncomeTable: React.FC<{ incomes: ViewIncome[] }> = ({ incomes }) => {
           <button
             aria-describedby={id}
             onClick={handleDateRangeClick}
-            className={styles.dateRangeButton}
+            className={`${styles.dateRangeButton}`}
           >
             <Image
               src={"/icons/calendar.svg"}
