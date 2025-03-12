@@ -19,21 +19,23 @@ import {
   contactInformationSchema,
   parentInformationSchema,
   healthInformationSchema,
+  studentSchema,
+  studentFormData
 } from "@/features/auth/studentSchema";
 import { FormProvider, set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Notification from "@/components/StudentComponent/NotificationComponent";
 import { useRouter } from "next/router";
 
-const formSchema = z.object({
-  personalInformation: personalInformationSchema,
-  contactInformation: contactInformationSchema,
-  parentInformation: parentInformationSchema,
-  healthInformation: healthInformationSchema,
-});
+// const formSchema = z.object({
+//   personalInformation: personalInformationSchema,
+//   contactInformation: contactInformationSchema,
+//   parentInformation: parentInformationSchema,
+//   healthInformation: healthInformationSchema,
+// });
 
-export type FormData = z.infer<typeof formSchema>;
-type FormFieldKeys = keyof FormData | `${keyof FormData}.${string}`;
+// export type FormData = z.infer<typeof formSchema>;
+type FormFieldKeys = keyof studentFormData | `${keyof studentFormData}.${string}`;
 
 const StudentManualEntry = () => {
   const theme = useTheme();
@@ -49,41 +51,43 @@ const StudentManualEntry = () => {
   ];
   const stepFields: Record<number, FormFieldKeys[]> = {
     0: [
-      "personalInformation.lastName",
-      "personalInformation.otherNames",
-      "personalInformation.dateOfBirth",
-      "personalInformation.age",
-      "personalInformation.gender",
-      "personalInformation.admissionDate",
-      "personalInformation.classes",
+      "personal.lastName",
+      "personal.otherNames",
+      "personal.dateOfBirth",
+      "personal.age",
+      "personal.gender",
+      "personal.admissionDate",
+      "personal.classes",
+      "personal.studentID",
     ],
     1: [
-      "contactInformation.nationality",
-      "contactInformation.stateOfOrigin",
-      "contactInformation.localGovernment",
-      "contactInformation.town",
-      "contactInformation.homeAddress",
+      "contact.nationality",
+      "contact.stateOfOrigin",
+      "contact.localGovernment",
+      "contact.town",
+      "contact.homeAddress",
     ],
     2: [
-      "parentInformation.motherLastName",
-      "parentInformation.motherFirstName",
-      "parentInformation.motherEmailAddress",
-      "parentInformation.motherPhoneNumber",
-      "parentInformation.motherHomeAddress",
-      "parentInformation.fatherLastName",
-      "parentInformation.fatherFirstName",
-      "parentInformation.fatherEmailAddress",
-      "parentInformation.fatherPhoneNumber",
-      "parentInformation.fatherHomeAddress",
-      "parentInformation.parentID",
+      "parent.mother.lastName",
+      "parent.mother.firstName",
+      "parent.mother.email",
+      "parent.mother.phone",
+      "parent.mother.address",
+      "parent.parentID",
+      "parent.father.lastName",
+      "parent.father.firstName",
+      "parent.father.email",
+      "parent.father.phone",
+      "parent.father.address",
+      "parent.parentID",
     ],
     3: [
-      "healthInformation.currentMedication",
-      "healthInformation.healthCondition",
-      "healthInformation.genotype",
-      "healthInformation.bloodGroup",
-      "healthInformation.allergies",
-      "healthInformation.disabilities",
+      "health.currentMedication",
+      "health.healthCondition",
+      "health.genotype",
+      "health.bloodGroup",
+      "health.allergies",
+      "health.disabilities",
     ],
     4: [],
   };
@@ -95,8 +99,8 @@ const StudentManualEntry = () => {
     details: "",
   });
 
-  const methods = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+  const methods = useForm<studentFormData>({
+    resolver: zodResolver(studentSchema),
     mode: "onSubmit",
   });
 
@@ -105,8 +109,9 @@ const StudentManualEntry = () => {
   const handleNext = async () => {
     const fieldsToValidate = stepFields[activeStep as keyof typeof stepFields];
     const isValid = await methods.trigger(
-      fieldsToValidate as (keyof FormData)[]
+      fieldsToValidate as (keyof studentFormData)[]
     );
+    console.log("Validation Errors on Next Click:", methods.formState.errors);
     if (!isValid) {
       setNotification({
         open: true,
@@ -135,7 +140,7 @@ const StudentManualEntry = () => {
     setActiveStep(0);
   };
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: studentFormData) => {
     console.log("Final form data:", data);
     setNotification({
       open: true,
@@ -147,7 +152,7 @@ const StudentManualEntry = () => {
   };
   return (
     <FormProvider {...methods}>
-      <div className="w-full flex flex-col items-center lg:pl-[6.4375rem] lg:pr-[5.8125rem] lg:pt-[2.8125rem] bg-[#F9F9F9]">
+      <div className="w-full flex flex-col items-center lg:pl-[6.4375rem] lg:pr-[5.8125rem] lg:pt-[2.8125rem] bg-[red] lg:bg-[#F9F9F9]">
         {/* -------- main students content -------- */}
         <div className="w-full flex flex-col items-center pb-12 pt-9 px-[1.125rem] lg:p-[1.875rem]">
           {/* -------- heading and stepper -------- */}
