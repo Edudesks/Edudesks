@@ -14,7 +14,7 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import DropdownSelectComponent from "./DropdownSelectComponent";
 import InputField from "./InputField";
 import GeneralButton from "../GeneralButton";
-import { useFormContext, UseFormReturn } from "react-hook-form";
+import { useFormContext, UseFormReturn} from "react-hook-form";
 import { FormData } from "@/pages/[school_name]/add-student";
 import GenderField from "./GenderComponent";
 
@@ -36,6 +36,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
 }) => {
   const {
     register,
+    setValue,
     formState: { errors },
     getValues,
   } = useFormContext<FormData>();
@@ -58,12 +59,15 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
     "Senior Secondary 3",
   ];
 
-  const [parentID, setParentID] = useState("");
+  const [ParentID, setParentID] = useState("");
   const [studentID, setStudentID] = useState("");
 
   const generateParentID = () => {
     const newID = `PARENT-${Math.floor(100000 + Math.random() * 900000)}`; // Example: PARENT-123456
     setParentID(newID);
+    setValue("parentInformation.parentID", newID); 
+    console.log(newID);
+    
   };
 
   const generateStudentID = () => {
@@ -436,9 +440,9 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                     id={"parent-id"}
                     placeholder={"Generate parent ID"}
                     type={"text"}
-                    value={parentID}
+                    value={ParentID}
                     readOnly={true}
-                    {...register("parentInformation.ParentID")}
+                    {...register("parentInformation.parentID")}
                     divClass="h-fit gap-0 flex-grow"
                   />
                   <GeneralButton

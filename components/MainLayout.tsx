@@ -15,35 +15,35 @@ const MainLayout = ({ children, schoolName }: { children: React.ReactNode; schoo
 
   const active = useAppSelector(activePage);
 
-  useEffect(() => {
-    const verifyToken = async () => {
-      if (!schoolName) return; 
+  // useEffect(() => {
+  //   const verifyToken = async () => {
+  //     if (!schoolName) return; 
 
-      try {
-        const payload = await dispatch(checkAuthToken()).unwrap();
-        if (payload.school.schoolName !== schoolName) {
-          router.push({
-            pathname: '/404',
-            query: { dashboard: payload.school.schoolName },
-          });
-        }
-      } catch (error) {
-        router.push('/login');
-      } finally {
-        setLoading(false);
-      }
-    };
+  //     try {
+  //       const payload = await dispatch(checkAuthToken()).unwrap();
+  //       if (payload.school.schoolName !== schoolName) {
+  //         router.push({
+  //           pathname: '/404',
+  //           query: { dashboard: payload.school.schoolName },
+  //         });
+  //       }
+  //     } catch (error) {
+  //       router.push('/login');
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    verifyToken();
-  }, [dispatch, router, schoolName]);
+  //   verifyToken();
+  // }, [dispatch, router, schoolName]);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <CircularProgress />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen">
+  //       <CircularProgress />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="flex bg-[var(--secondary-text-color)]">

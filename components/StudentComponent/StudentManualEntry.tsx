@@ -75,7 +75,7 @@ const StudentManualEntry = () => {
       "parentInformation.fatherEmailAddress",
       "parentInformation.fatherPhoneNumber",
       "parentInformation.fatherHomeAddress",
-      "parentInformation.ParentID",
+      "parentInformation.parentID",
     ],
     3: [
       "healthInformation.currentMedication",
@@ -147,7 +147,7 @@ const StudentManualEntry = () => {
   };
   return (
     <FormProvider {...methods}>
-      <div className="w-full flex flex-col items-center lg:pl-[6.4375rem] lg:pr-[5.8125rem] lg:pt-[2.8125rem] bg-[red] lg:bg-[#F9F9F9]">
+      <div className="w-full flex flex-col items-center lg:pl-[6.4375rem] lg:pr-[5.8125rem] lg:pt-[2.8125rem] bg-[#F9F9F9]">
         {/* -------- main students content -------- */}
         <div className="w-full flex flex-col items-center pb-12 pt-9 px-[1.125rem] lg:p-[1.875rem]">
           {/* -------- heading and stepper -------- */}
