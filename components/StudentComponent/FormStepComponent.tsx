@@ -39,6 +39,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
     register,
     formState: { errors },
     getValues,
+    setValue,
+    watch,
   } = useFormContext<studentFormData>();
 
   const classes = [
@@ -59,20 +61,22 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
     "Senior Secondary 3",
   ];
 
-  const [parentID, setParentID] = useState("");
-  const [studentID, setStudentID] = useState("");
+  // const [parentID, setParentID] = useState("");
+  // const [studentID, setStudentID] = useState("");
+
+  const parentID = watch("parent.parentID");
+  const studentID = watch("personal.studentID");
 
   const generateParentID = () => {
     const newID = `PARENT-${Math.floor(100000 + Math.random() * 900000)}`; // Example: PARENT-123456
-    setParentID(newID);
+    setValue("parent.parentID", newID);
   };
 
   const generateStudentID = () => {
     const newID = `STUDENT-${Math.floor(100000 + Math.random() * 900000)}`; // Example: PARENT-123456
-    setStudentID(newID);
+    setValue("personal.studentID", newID);
   };
 
-  
   switch (step) {
     // -------- personal information --------
     case 0:

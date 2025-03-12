@@ -58,6 +58,7 @@ const StudentManualEntry = () => {
       "personal.gender",
       "personal.admissionDate",
       "personal.classes",
+      "personal.studentID",
     ],
     1: [
       "contact.nationality",
@@ -110,6 +111,7 @@ const StudentManualEntry = () => {
     const isValid = await methods.trigger(
       fieldsToValidate as (keyof studentFormData)[]
     );
+    console.log("Validation Errors on Next Click:", methods.formState.errors);
     if (!isValid) {
       setNotification({
         open: true,
