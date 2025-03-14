@@ -15,9 +15,9 @@ const MainLayout = ({ children, schoolName }: { children: React.ReactNode; schoo
 
   const active = useAppSelector(activePage);
 
-  // useEffect(() => {
-  //   const verifyToken = async () => {
-  //     if (!schoolName) return; 
+  useEffect(() => {
+    const verifyToken = async () => {
+      if (!schoolName) return;
 
   //     try {
   //       const payload = await dispatch(checkAuthToken()).unwrap();
@@ -47,11 +47,11 @@ const MainLayout = ({ children, schoolName }: { children: React.ReactNode; schoo
 
   return (
     <div className="flex bg-[var(--secondary-text-color)]">
-      <Sidebar 
-        activeSection={active.active} 
-        activeParentNav={active.parentNav} 
-        isMobileSidebarOpen={isMobileSidebarOpen} 
-        setIsMobileSidebarOpen={setIsMobileSidebarOpen} 
+      <Sidebar
+        activeSection={active.active}
+        activeParentNav={active.parentNav}
+        isMobileSidebarOpen={isMobileSidebarOpen}
+        setIsMobileSidebarOpen={setIsMobileSidebarOpen}
       />
       <div className="h-screen flex-1 overflow-y-scroll overflow-x-hidden">
         <Navbar setIsMobileSidebarOpen={setIsMobileSidebarOpen} />

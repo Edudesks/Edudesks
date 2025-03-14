@@ -16,6 +16,7 @@ import InputField from "./InputField";
 import GeneralButton from "../GeneralButton";
 import { useFormContext, UseFormReturn } from "react-hook-form";
 import { studentFormData } from "@/features/auth/studentSchema";
+// import { studentFormData } from "@/features/auth/studentSchema";
 // import { FormData } from "@/pages/[school_name]/add-student";
 import GenderField from "./GenderComponent";
 
@@ -86,13 +87,13 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
   const [selectedFees, setSelectedFees] = useState<number[]>([]);
   const [amount, setAmount] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
-  
+
   const feesOptions: FeeOption[] = [
     { id: 1, category: "Scholarship", amount: 200000 },
     { id: 2, category: "Scholarship", amount: 200000 },
     { id: 3, category: "Scholarship", amount: 200000 },
   ];
-  
+
   const handleSelect = (id: number) => {
     setSelectedFees((prevSelected) =>
       prevSelected.includes(id)
@@ -100,12 +101,13 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
         : [...prevSelected, id]
     );
   };
-  
+
   const totalAmount =
     selectedFees.reduce((sum, id) => {
       const fee = feesOptions.find((fee) => fee.id === id);
       return fee ? sum + fee.amount : sum;
-    }, 0) + amount - discount; 
+    }, 0) + amount - discount;
+
 
   switch (step) {
     // -------- personal information --------
