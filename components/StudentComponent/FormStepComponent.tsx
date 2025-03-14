@@ -30,6 +30,12 @@ interface FormStepComponentProps {
   onEditDetails?: () => void;
 }
 
+type FeeOption = {
+  id: number;
+  category: string;
+  amount: number;
+};
+
 const FormStepComponent: React.FC<FormStepComponentProps> = ({
   step,
   methods,
@@ -76,6 +82,30 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
     const newID = `STUDENT-${Math.floor(100000 + Math.random() * 900000)}`; // Example: PARENT-123456
     setValue("personal.studentID", newID);
   };
+
+  const [selectedFees, setSelectedFees] = useState<number[]>([]);
+  const [amount, setAmount] = useState<number>(0);
+  const [discount, setDiscount] = useState<number>(0);
+  
+  const feesOptions: FeeOption[] = [
+    { id: 1, category: "Scholarship", amount: 200000 },
+    { id: 2, category: "Scholarship", amount: 200000 },
+    { id: 3, category: "Scholarship", amount: 200000 },
+  ];
+  
+  const handleSelect = (id: number) => {
+    setSelectedFees((prevSelected) =>
+      prevSelected.includes(id)
+        ? prevSelected.filter((feeId) => feeId !== id)
+        : [...prevSelected, id]
+    );
+  };
+  
+  const totalAmount =
+    selectedFees.reduce((sum, id) => {
+      const fee = feesOptions.find((fee) => fee.id === id);
+      return fee ? sum + fee.amount : sum;
+    }, 0) + amount - discount; 
 
   switch (step) {
     // -------- personal information --------
@@ -577,21 +607,23 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                   id="student-school-fees"
                   name="student-school-fees"
                   className={`border border-solid border-[var(--border)] rounded-[0.625rem] w-full focus:outline-none autofill:bg-none shadow-form-shadow p-2.5`}
+  onChange={(e) => setAmount(Number(e.target.value))}
                 />
               </div>
               {/* -------- discount -------- */}
               <div className="flex flex-col lg:flex-row gap-2 lg:gap-[0.9375rem] lg:items-center">
                 <label
-                  htmlFor="student-school-fees"
+                  htmlFor="discount"
                   className=" text-sm text-[var(--primary-text-color)] whitespace-nowrap"
                 >
                   Discount:
                 </label>
                 <input
                   type="text"
-                  id="student-school-fees"
-                  name="student-school-fees"
+                  id="discount"
+                  name="discount"
                   className={`border border-solid border-[var(--border)] rounded-[0.625rem] w-full focus:outline-none autofill:bg-none shadow-form-shadow p-2.5`}
+                  onChange={(e) => setDiscount(Number(e.target.value))}
                 />
               </div>
               {/* -------- total balance -------- */}
@@ -600,7 +632,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                   htmlFor="student-school-fees"
                   className=" text-sm text-[var(--primary-text-color)] whitespace-nowrap font-semibold"
                 >
-                  Total Balance:
+                  Sub-total Balance:
                 </label>
                 <input
                   type="text"
@@ -610,6 +642,42 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 />
               </div>
             </div>
+
+
+            <div className="flex flex-col gap-7 w-full justify-center items-center p-4 rounded-lg">
+  <h3 className="text-[20px] font-bold text-[var(--primary-text-color)] text-start">
+    Select Optional Fees
+  </h3>
+  <div className="flex flex-col gap-3">
+    {feesOptions.map((fee) => (
+      <label
+        key={fee.id}
+        htmlFor={`fee-${fee.id}`}
+        className="flex items-center gap-5 cursor-pointer"
+      >
+        <input
+          type="checkbox"
+          id={`fee-${fee.id}`}
+          checked={selectedFees.includes(fee.id)}
+          onChange={() => handleSelect(fee.id)}
+          className="w-[20px] h-[20px] rounded-full"
+        />
+       <div className="flex items-center gap-5">
+        <span className="text-(--primary-text-color)] text-[14px] font-bold">Category:</span>
+        <span className="text-sm border border-[var(--grey)] px-[8px] py-[10px] rounded-[10px]">{fee.category}</span>
+       </div>
+       <div className="flex items-center gap-5">
+        <span className="text-(--primary-text-color)] text-[14px] font-bold">Amount:</span>
+       <span className="text-sm border border-[var(--grey)] px-[8px] py-[10px] rounded-[10px]">₦{fee.amount.toLocaleString()}</span>
+       </div>
+      </label>
+    ))}
+  </div>
+  <div className="font-semibold text-lg text-[var(--primary)]">
+    Total Balance: ₦{totalAmount.toLocaleString()}
+  </div>
+</div>
+
             {/* -------- edit and submit buttons -------- */}
             <div className="flex flex-col lg:flex-row w-full gap-6 lg:gap-[3.8125rem] items-center justify-center">
               <GeneralButton
