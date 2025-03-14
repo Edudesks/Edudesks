@@ -1,5 +1,4 @@
 import { FaT } from "react-icons/fa6";
-import { FaT } from "react-icons/fa6";
 import { z, ZodType } from "zod";
 
 const classes = [
@@ -20,79 +19,6 @@ const classes = [
   "Senior Secondary 3",
 ] as const;
 
-// -------- NEW SCHEMA --------
-export const studentSchema = z.object({
-  personal: z.object({
-    lastName: z.string().min(1, { message: "Last name bawo" }), //done
-    firstName: z.string().min(1), //done
-    otherNames: z.string().min(1), //done
-    dateOfBirth: z.string().refine(
-      (value) => {
-        const date = new Date(value);
-        return !isNaN(date.getTime());
-      },
-      { message: "Invalid date format" }
-    ),
-    gender: z
-      .array(z.enum(["Male", "Female"]))
-      .min(1, { message: "Please select at least one gender" }),
-    admissionDate: z.string().refine(
-      (value) => {
-        const date = new Date(value);
-        return !isNaN(date.getTime());
-      },
-      { message: "Invalid date format" }
-    ),
-    classes: z.enum(classes, { message: "Invalid class selected" }),
-    studentID: z.string().min(1, { message: "Student ID required" }),
-  }),
-  contact: z.object({
-    nationality: z.string().min(1, { message: "Enter nationality" }),
-    stateOfOrigin: z.string().min(1, { message: "Enter state of origin" }),
-    localGovernment: z.string().min(1, { message: "Enter local government" }),
-    town: z.string().min(1, { message: "Enter town" }),
-    homeAddress: z.string().min(1, { message: "Enter home address" }),
-  }),
-  parent: z.object({
-    mother: z.object({
-      lastName: z.string().min(1, { message: "Enter mother's last name" }),
-      firstName: z.string().min(1, { message: "Enter mother's first name" }),
-      email: z
-        .string()
-        .email()
-        .min(1, { message: "Enter mother's email address" }),
-      phone: z
-        .string()
-        .length(11, { message: "Enter mother's phone number" })
-        .regex(/^\d{11}$/, "Phone number must contain only digits."),
-      address: z.string().min(1, { message: "Enter mother's home address" }),
-    }),
-    father: z.object({
-      lastName: z.string().min(1, { message: "Enter father's last name" }),
-      firstName: z.string().min(1, { message: "Enter father's first name" }),
-      email: z
-        .string()
-        .email()
-        .min(1, { message: "Enter father's email address" }),
-      phone: z
-        .string()
-        .length(11, { message: "Enter father's phone number" })
-        .regex(/^\d{11}$/, "Phone number must contain only digits."),
-      address: z.string().min(1, { message: "Enter father's home address" }),
-    }),
-    parentID: z.string().min(1, { message: "Enter Parent ID" }),
-  }),
-  health: z.object({
-    currentMedication: z.string().optional(),
-    healthCondition: z.string().optional(),
-    genotype: z.string().optional(),
-    bloodGroup: z.string().optional(),
-    allergies: z.string().optional(),
-    disabilities: z.string().optional(),
-  }),
-});
-
-// -------- ERASE OLD SCHEMA --------
 // -------- NEW SCHEMA --------
 export const studentSchema = z.object({
   personal: z.object({
@@ -231,7 +157,6 @@ export const parentInformationSchema = z.object({
     .string()
     .min(1, { message: "Enter father's home address" }),
   ParentID: z.string().min(1, { message: "Enter Parent ID" }),
-  ParentID: z.string().min(1, { message: "Enter Parent ID" }),
 });
 
 export const healthInformationSchema = z.object({
@@ -251,5 +176,4 @@ export type contactInformationFormData = z.infer<
 >;
 export type parentInformationFormData = z.infer<typeof parentInformationSchema>;
 export type healthInformationFormData = z.infer<typeof healthInformationSchema>;
-export type studentFormData = z.infer<typeof studentSchema>;
 export type studentFormData = z.infer<typeof studentSchema>;

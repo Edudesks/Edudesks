@@ -15,9 +15,9 @@ const MainLayout = ({ children, schoolName }: { children: React.ReactNode; schoo
 
   const active = useAppSelector(activePage);
 
-  useEffect(() => {
-    const verifyToken = async () => {
-      if (!schoolName) return;
+  // useEffect(() => {
+  //   const verifyToken = async () => {
+  //     if (!schoolName) return;
 
   //     try {
   //       const payload = await dispatch(checkAuthToken()).unwrap();
