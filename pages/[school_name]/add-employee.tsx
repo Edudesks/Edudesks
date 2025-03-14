@@ -30,24 +30,24 @@ const AddEmployee = () => {
    const dispatch = useAppDispatch();
        useEffect(()=>{
         dispatch(setActivePage({active:"add-employee", parentNav: "employees"}));
-         
+
        })
        const methods = useForm<employeeFormData>({
         resolver: zodResolver(employeeSchema),
         mode: "onSubmit",
       });
-    
+
       const {
         register,
         formState: { errors },
       } = methods;
       const handleImageUpload = (file: File) => setUploadedImage(file);
       const handleFileUpload = (file: File) => setUploadedFile(file);
-    
+
       const onSubmit = async (data: employeeFormData) => {
         try {
           let formData = new FormData();
-      
+
           formData.append("personal[otherName]", data.personal.otherName);
           formData.append("personal[lastName]", data.personal.lastName);
           formData.append("personal[email]", data.personal.email);
@@ -58,16 +58,16 @@ const AddEmployee = () => {
           formData.append("personal[bankAccountHolder]", data.personal.bankAccountHolder);
           formData.append("personal[bankName]", data.personal.bankName);
           formData.append("personal[expectedSalary]", data.personal.expectedSalary);
-      
+
           formData.append("position[department]", data.position.department);
           formData.append("position[role]", data.position.role);
-      
+
           formData.append("contact[phoneNumber]", data.contact.phoneNumber);
           formData.append("contact[residentialAddress]", data.contact.residentialAddress);
-      
+
           formData.append("education[levelOfEducation]", data.education.levelOfEducation);
           formData.append("education[institution]", data.education.institution);
-      
+
           if (uploadedImage) {
             formData.append("profilePicture", uploadedImage, uploadedImage.name);
           }
@@ -75,25 +75,25 @@ const AddEmployee = () => {
             formData.append("cv", uploadedFile, uploadedFile.name);
             formData.append("transcript", uploadedFile, uploadedFile.name);
           }
-      
+
           console.log("Form Data Here you go:\n");
           formData.forEach((value, key) => console.log(key, value));
-      
+
           const response = await makeApiCall('POST','/employee/add-employee', formData);
           console.log(response)
           // if (!response.ok) {
           //   throw new Error(`HTTP error! status: ${response.status}`);
           // }
-      
+
           // const responseData = await response.json();
           console.log("Employee added successfully:", response.payload);
         } catch (error) {
           console.error("Error adding employee:", error);
         }
       };
-      
-      
-      
+
+
+
 
   return (
     <FormProvider {...methods}>
@@ -113,7 +113,7 @@ const AddEmployee = () => {
               className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-[1.5625rem] lg:gap-x-[3.375rem] w-full"
               onSubmit={methods.handleSubmit(onSubmit)}
             >
-            <div className="flex gap-[1.5625rem] self-start justify-start">
+            <div className="flex gap-[1.5625rem] self-start justify-start col-span-2">
               <UploadDialogComponent uploadType="image" onFileUpload={handleImageUpload} />
               <UploadDialogComponent uploadType="file" onFileUpload={handleFileUpload} />
             </div>

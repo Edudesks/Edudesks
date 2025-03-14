@@ -249,7 +249,7 @@ const IncomeTable: React.FC<{ incomes: ViewIncome[] }> = ({ incomes }) => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>Income</h1>
-        <div className={styles.headerActions}>
+        <div className={`${styles.headerActions} justify-end`}>
           <div className={styles.searchBox}>
             <Image
               src={"/icons/search-icon.svg"}
