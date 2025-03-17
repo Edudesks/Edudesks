@@ -4,6 +4,7 @@ import sidebarReducer from './slices/sidebarSlice';
 import schoolReducer from './slices/schoolSlice';
 import employeeReducer from './slices/employeeSlice';
 import planReducer from './slices/planSlice';
+import classReducer from './slices/classSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     employee: employeeReducer,
     sidebar: sidebarReducer,
     auth: authReducer,
+    class: classReducer,
   },
 });
 

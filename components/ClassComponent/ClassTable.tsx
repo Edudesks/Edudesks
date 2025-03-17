@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { fetchClassesByCategory } from "@/store/slices/classSlice"; 
 import {
   Box,
   Table,
@@ -10,19 +11,21 @@ import {
   TableRow,
   Typography,
   Button,
+  CircularProgress,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { tableCellClasses } from "@mui/material/TableCell";
 import ProgressBar from "@/components/PaymentProgress";
 import Link from "next/link";
-import styles from '@/styles/ClassTable.module.css'
+import styles from "@/styles/ClassTable.module.css";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     fontWeight: "bold",
     backgroundColor: "#002f49",
     fontSize: 12,
-    color: "white", // Set header text color to blue
+    color: "white",
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 11,
@@ -38,32 +41,25 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-interface Section {
-  name: string;
-  classes: string[];
-}
-
 export default function Home() {
   const [tabValue, setTabValue] = useState<number>(0);
-   const router = useRouter();
-    const { school_name } = router.query;
+  const router = useRouter();
+  const { school_name } = router.query;
+  const dispatch = useAppDispatch();
+
+  // Fetch classes from Redux store
+  const { classes, isLoading: loading, error } = useAppSelector((state) => state.class);
+
+  useEffect(() => {
+    const category = tabValue === 0 ? "primary" : "secondary";
+    dispatch(fetchClassesByCategory(category));
+  }, [tabValue, dispatch]);
 
   const handleChange = (newValue: number) => {
     setTabValue(newValue);
   };
 
-  const sections: Section[] = [
-    { name: "Kindergarten", classes: ["Creche", "Kindergarten 1", "Kindergarten 2"] },
-    { name: "Nursery", classes: ["Nursery 1", "Nursery 2"] },
-    { name: "Primary", classes: ["Primary 1", "Primary 2", "Primary 3", "Primary 4", "Primary 5", "Primary 6"] },
-  ];
-
-  const secondarySections: Section[] = [
-    { name: "Junior secondary", classes: ["JSS 1A", "JSS 1B", "JSS 1C"] },
-    { name: "Senior secondary", classes: ["SSS 1A", "SSS 2A", "SSS 3A"] },
-  ];
-
-  const renderTable = (classes: string[]) => (
+  const renderTable = (classes: any[]) => (
     <TableContainer>
       <Table>
         <TableHead>
@@ -76,20 +72,36 @@ export default function Home() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {classes.map((className, index) => (
-            <StyledTableRow key={index}>
-              <StyledTableCell>{className}</StyledTableCell>
-              <StyledTableCell>Mary Adebowale</StyledTableCell>
-              <StyledTableCell>119 students</StyledTableCell>
-              <StyledTableCell>
-                <Button sx={{ fontSize:10, paddingLeft: 0}} variant="text">Fully Paid</Button>
-                <ProgressBar progress={20} />
-              </StyledTableCell>
-              <StyledTableCell>
-                <Link href={`/${school_name}/class`}>View</Link>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
+          {loading ? (
+            <TableRow>
+              <TableCell colSpan={5} align="center">
+                <CircularProgress size={20} />
+              </TableCell>
+            </TableRow>
+          ) : error ? (
+            <TableRow>
+              <TableCell colSpan={5} align="center" sx={{ color: "red" }}>
+                {error}
+              </TableCell>
+            </TableRow>
+          ) : (
+            classes.map((classItem, index) => (
+              <StyledTableRow key={index}>
+                <StyledTableCell>{classItem.className}</StyledTableCell>
+                <StyledTableCell>{classItem.classTeacher || "N/A"}</StyledTableCell>
+                <StyledTableCell>{classItem.totalStudents }</StyledTableCell>
+                <StyledTableCell>
+                  <Button sx={{ fontSize: 10, paddingLeft: 0 }} variant="text">
+                    {classItem.paymentStatus || "Not Available"}
+                  </Button>
+                  <ProgressBar progress={classItem.progress || 0} />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <Link href={`/${school_name}/class/${classItem.id}`}>View</Link>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))
+          )}
         </TableBody>
       </Table>
     </TableContainer>
@@ -97,41 +109,22 @@ export default function Home() {
 
   return (
     <Box sx={{ paddingRight: 3 }}>
-        <div className={styles.tabContainer}
+      <div className={styles.tabContainer}>
+        <div
+          className={`${styles.tab} ${tabValue === 0 ? styles.activeTab : ""}`}
+          onClick={() => handleChange(0)}
         >
-            <div
-            className={`${styles.tab} ${tabValue === 0 ? styles.activeTab : ''}`}
-            onClick={()=>handleChange(0)}
-          >Primary</div>
-            <div
-            className={`${styles.tab} ${tabValue === 1 ? styles.activeTab : ''}`}
-            onClick={()=>handleChange(1)}
-            >Secondary</div>
+          Primary
         </div>
-  {tabValue === 0 && (
-    <Box>
-      {sections.map((section, index) => (
-        <Box key={index} sx={{ marginBottom: 4 }}>
-          <Typography variant="h6" sx={{ marginBottom: 2 }}>
-            {section.name}
-          </Typography>
-          {renderTable(section.classes)}
-        </Box>
-      ))}
-    </Box>
-  )}
-  {tabValue === 1 && (
-    <Box>
-      {secondarySections.map((section, index) => (
-        <Box key={index} sx={{ marginBottom: 4 }}>
-          <Typography variant="h6" sx={{ marginBottom: 2 }}>
-            {section.name}
-          </Typography>
-          {renderTable(section.classes)}
-        </Box>
-      ))}
-    </Box>
-  )}
+        <div
+          className={`${styles.tab} ${tabValue === 1 ? styles.activeTab : ""}`}
+          onClick={() => handleChange(1)}
+        >
+          Secondary
+        </div>
+      </div>
+
+      <Box>{renderTable(classes)}</Box>
     </Box>
   );
 }
