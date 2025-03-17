@@ -1,7 +1,7 @@
 import React, { ElementType, forwardRef } from "react";
 
 interface InputFieldProps {
-  label: string;
+  label?: string;
   className: string;
   icon?: ElementType;
   id: string;
@@ -11,7 +11,7 @@ interface InputFieldProps {
   divClass?: string;
   error?: string;
   value?: string;
-  readOnly?: boolean; 
+  readOnly?: boolean;
 }
 
 

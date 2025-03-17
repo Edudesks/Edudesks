@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "../../app/globals.css";
 import UploadDialogComponenet from "./UploadDialogComponent";
 import {
@@ -15,7 +15,9 @@ import DropdownSelectComponent from "./DropdownSelectComponent";
 import InputField from "./InputField";
 import GeneralButton from "../GeneralButton";
 import { useFormContext, UseFormReturn } from "react-hook-form";
-import { FormData } from "@/pages/[school_name]/add-student";
+import { studentFormData } from "@/features/auth/studentSchema";
+// import { studentFormData } from "@/features/auth/studentSchema";
+// import { FormData } from "@/pages/[school_name]/add-student";
 import GenderField from "./GenderComponent";
 
 /**
@@ -25,9 +27,15 @@ import GenderField from "./GenderComponent";
 
 interface FormStepComponentProps {
   step: number;
-  methods: UseFormReturn<FormData>;
+  methods: UseFormReturn<studentFormData>;
   onEditDetails?: () => void;
 }
+
+type FeeOption = {
+  id: number;
+  category: string;
+  amount: number;
+};
 
 const FormStepComponent: React.FC<FormStepComponentProps> = ({
   step,
@@ -38,7 +46,9 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
     register,
     formState: { errors },
     getValues,
-  } = useFormContext<FormData>();
+    setValue,
+    watch,
+  } = useFormContext<studentFormData>();
 
   const classes = [
     "Creche",
@@ -57,12 +67,48 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
     "Senior Secondary 2",
     "Senior Secondary 3",
   ];
-  const [parentID, setParentID] = useState("");
+
+  // const [parentID, setParentID] = useState("");
+  // const [studentID, setStudentID] = useState("");
+
+  const parentID = watch("parent.parentID");
+  const studentID = watch("personal.studentID");
 
   const generateParentID = () => {
     const newID = `PARENT-${Math.floor(100000 + Math.random() * 900000)}`; // Example: PARENT-123456
-    setParentID(newID);
+    setValue("parent.parentID", newID);
   };
+
+  const generateStudentID = () => {
+    const newID = `STUDENT-${Math.floor(100000 + Math.random() * 900000)}`; // Example: PARENT-123456
+    setValue("personal.studentID", newID);
+  };
+
+  const [selectedFees, setSelectedFees] = useState<number[]>([]);
+  const [amount, setAmount] = useState<number>(0);
+  const [discount, setDiscount] = useState<number>(0);
+
+  const feesOptions: FeeOption[] = [
+    { id: 1, category: "Scholarship", amount: 200000 },
+    { id: 2, category: "Scholarship", amount: 200000 },
+    { id: 3, category: "Scholarship", amount: 200000 },
+  ];
+
+  const handleSelect = (id: number) => {
+    setSelectedFees((prevSelected) =>
+      prevSelected.includes(id)
+        ? prevSelected.filter((feeId) => feeId !== id)
+        : [...prevSelected, id]
+    );
+  };
+
+  const totalAmount =
+    selectedFees.reduce((sum, id) => {
+      const fee = feesOptions.find((fee) => fee.id === id);
+      return fee ? sum + fee.amount : sum;
+    }, 0) + amount - discount;
+
+
   switch (step) {
     // -------- personal information --------
     case 0:
@@ -75,7 +121,10 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
           </h3>
           <div className="flex flex-col gap-10 lg:gap-[3.375rem]">
             {/* -------- add student image -------- */}
-            <UploadDialogComponenet uploadType={"image"} onFileUpload={()=>{}}/>
+            <UploadDialogComponenet
+              uploadType={"image"}
+              onFileUpload={() => {}}
+            />
             {/* -------- form input section -------- */}
             <div className="grid lg:grid-cols-2 gap-y-8 lg:gap-y-[1.5625rem] lg:gap-x-[3.375rem] w-full">
               {/* -------- last name -------- */}
@@ -86,7 +135,18 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student last name"}
                 type={"text"}
                 icon={UserIcon}
-                {...register("personalInformation.personal.lastName")}
+                {...register("personal.lastName")}
+                // error={errors.personalInformation?.lastName?.message}
+              />
+              {/* -------- first name -------- */}
+              <InputField
+                id="student-first-name"
+                label="First Name*"
+                className={"py-2.5 px-9"}
+                placeholder={"Enter student first name"}
+                type={"text"}
+                icon={UserIcon}
+                {...register("personal.firstName")}
                 // error={errors.personalInformation?.lastName?.message}
               />
               {/* -------- other names -------- */}
@@ -97,7 +157,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={UserIcon}
                 className={"py-2.5 px-9"}
-                {...register("personalInformation.personal.otherNames")}
+                {...register("personal.otherNames")}
                 // error={errors.personalInformation?.otherNames?.message}
               />
               {/* -------- date of birth -------- */}
@@ -111,7 +171,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 <div className="w-full flex flex-col relative items-center text-[var(--grey)]">
                   <CalenderComponent
                     variant="form"
-                    {...register("personalInformation.personal.dateOfBirth")}
+                    {...register("personal.dateOfBirth")}
                   />
                   {/* {errors.personalInformation?.dateOfBirth?.message && (
                     <p className="self-start text-sm text-[var(--danger)] mt-1">
@@ -120,19 +180,9 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                   )} */}
                 </div>
               </div>
-              {/* -------- age -------- */}
-              <InputField
-                label={"Age*"}
-                id={"student-age"}
-                placeholder={"Enter student age"}
-                type={"text"}
-                className="p-2.5"
-                {...register("personalInformation.personal.age")}
-                // error={errors.personalInformation?.age?.message}
-              />
               {/* -------- gender -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
-                <GenderField fieldName={"personalInformation.gender"} />
+                <GenderField fieldName={"personal.gender"} />
                 {/* {errors.personalInformation?.gender?.message && (
                   <p className="self-start text-sm text-[var(--danger)] mt-1">
                     {errors.personalInformation?.gender?.message}
@@ -149,7 +199,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 </label>
                 <CalenderComponent
                   variant="form"
-                  {...register("personalInformation.personal.admissionDate")}
+                  {...register("personal.admissionDate")}
                 />
                 {/* {errors.personalInformation?.admissionDate?.message && (
                   <p className="text-sm text-[var(--danger)] mt-1">
@@ -160,11 +210,11 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
               {/* -------- student class -------- */}
               <div className="flex flex-col gap-[0.4375rem]">
                 <DropdownSelectComponent
-                  {...register("personalInformation.personal.classes")}
+                  {...register("personal.classes")}
                   options={classes}
                   label="Classes*"
                   placeholder="select class"
-                  value={methods.watch("personalInformation.personal.classes")}
+                  value={methods.watch("personal.classes")}
                 />
                 {/* {errors.personalInformation?.classes?.message && (
                   <p className="text-sm text-[var(--danger)] mt-1">
@@ -172,10 +222,45 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                   </p>
                 )} */}
               </div>
+              {/* -------- student id -------- */}
+              <div className="flex flex-col gap-[0.4375rem]">
+                <label
+                  htmlFor="student-id"
+                  className="text-sm text-[var(--primary-text-color)] whitespace-nowrap"
+                >
+                  Student ID*
+                </label>
+                <div className="flex items-end justify-between border border-solid border-[var(--border)] h-fit rounded-[0.625rem] overflow-hidden">
+                  <InputField
+                    className={"py-2.5 px-2 border-none"}
+                    id={"student-id"}
+                    placeholder={"Generate student ID"}
+                    type={"text"}
+                    value={studentID}
+                    readOnly={true}
+                    {...register("personal.studentID")}
+                    divClass="h-fit gap-0 flex-grow"
+                  />
+                  <GeneralButton
+                    buttonText="Generate Student ID"
+                    state={"active"}
+                    size={"small"}
+                    className="text-[10px] rounded-r-[0.625rem] rounded-l-[0.625rem] border-0 h-full"
+                    type="button"
+                    onClick={generateStudentID}
+                  />
+                </div>
+
+                <p className="text-[var(--secondary)] text-[14px] flex items-center gap-1 hover:cursor-pointer">
+                  <GrCircleInformation />
+                  Click the button to generate student ID
+                </p>
+              </div>
             </div>
           </div>
         </div>
       );
+
     // -------- contact information --------
     case 1:
       return (
@@ -196,7 +281,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student nationality"}
                 type={"text"}
                 icon={Location04Icon}
-                {...register("contactInformation.nationality")}
+                {...register("contact.nationality")}
                 // error={errors.contactInformation?.nationality?.message}
               />
               {/* -------- state of origin -------- */}
@@ -207,7 +292,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student state of Origin"}
                 type={"text"}
                 icon={Location04Icon}
-                {...register("contactInformation.stateOfOrigin")}
+                {...register("contact.stateOfOrigin")}
                 // error={errors.contactInformation?.stateOfOrigin?.message}
               />
               {/* -------- local government -------- */}
@@ -218,7 +303,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student local government of Origin"}
                 type={"text"}
                 icon={Location04Icon}
-                {...register("contactInformation.localGovernment")}
+                {...register("contact.localGovernment")}
                 // error={errors.contactInformation?.localGovernment?.message}
               />
               {/* -------- town -------- */}
@@ -229,7 +314,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student town"}
                 type={"text"}
                 icon={Location04Icon}
-                {...register("contactInformation.town")}
+                {...register("contact.town")}
                 // error={errors.contactInformation?.town?.message}
               />
               {/* -------- home address -------- */}
@@ -241,7 +326,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Street address/city/state/country"}
                 type={"text"}
                 icon={Location04Icon}
-                {...register("contactInformation.homeAddress")}
+                {...register("contact.homeAddress")}
                 // error={errors.contactInformation?.homeAddress?.message}
               />
             </div>
@@ -269,8 +354,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter last name"}
                 type={"text"}
                 icon={UserIcon}
-                {...register("parentInformation.motherLastName")}
-                // error={errors.parentInformation?.motherLastName?.message}
+                {...register("parent.mother.lastName")}
+                error={errors.parent?.mother?.lastName?.message}
               />
               {/* -------- student-mother-guardian-first-name -------- */}
               <InputField
@@ -280,8 +365,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter first name"}
                 type={"text"}
                 icon={UserIcon}
-                {...register("parentInformation.motherFirstName")}
-                // error={errors.parentInformation?.motherFirstName?.message}
+                {...register("parent.mother.firstName")}
+                error={errors.parent?.mother?.firstName?.message}
               />
               {/* -------- student-mother-guardian-email-address -------- */}
               <InputField
@@ -291,8 +376,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter email address"}
                 type={"email"}
                 icon={Mail01Icon}
-                {...register("parentInformation.motherEmailAddress")}
-                // error={errors.parentInformation?.motherEmailAddress?.message}
+                {...register("parent.mother.email")}
+                error={errors.parent?.mother?.email?.message}
               />
               {/* -------- student-mother-guardian-phone-number -------- */}
               <InputField
@@ -302,8 +387,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"000-0000-000"}
                 type={"text"}
                 icon={Call02Icon}
-                {...register("parentInformation.motherPhoneNumber")}
-                // error={errors.parentInformation?.motherPhoneNumber?.message}
+                {...register("parent.mother.phone")}
+                error={errors.parent?.mother?.phone?.message}
               />
               {/* -------- student-mother-guardian-phone-number -------- */}
               <InputField
@@ -314,8 +399,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={Location04Icon}
                 // divClass="lg:col-span-2"
-                {...register("parentInformation.motherHomeAddress")}
-                // error={errors.parentInformation?.motherHomeAddress?.message}
+                {...register("parent.mother.address")}
+                error={errors.parent?.mother?.address?.message}
               />
 
               {/* -------- FATHER INFORMATION -------- */}
@@ -327,8 +412,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter last name"}
                 type={"text"}
                 icon={UserIcon}
-                {...register("parentInformation.fatherLastName")}
-                // error={errors.parentInformation?.fatherLastName?.message}
+                {...register("parent.father.lastName")}
+                error={errors.parent?.father?.lastName?.message}
               />
               {/* -------- student-father-guardian-first-name -------- */}
               <InputField
@@ -338,8 +423,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter first name"}
                 type={"text"}
                 icon={UserIcon}
-                {...register("parentInformation.fatherFirstName")}
-                // error={errors.parentInformation?.fatherFirstName?.message}
+                {...register("parent.father.firstName")}
+                error={errors.parent?.father?.firstName?.message}
               />
               {/* -------- student-father-guardian-email-address -------- */}
               <InputField
@@ -349,8 +434,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter email address"}
                 type={"email"}
                 icon={Mail01Icon}
-                {...register("parentInformation.fatherEmailAddress")}
-                // error={errors.parentInformation?.fatherEmailAddress?.message}
+                {...register("parent.father.email")}
+                error={errors.parent?.father?.email?.message}
               />
               {/* -------- student-father-guardian-phone-number -------- */}
               <InputField
@@ -360,8 +445,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"0000-0000-0000"}
                 type={"text"}
                 icon={Call02Icon}
-                {...register("parentInformation.fatherPhoneNumber")}
-                // error={errors.parentInformation?.fatherPhoneNumber?.message}
+                {...register("parent.father.phone")}
+                error={errors.parent?.father?.phone?.message}
               />
               {/* -------- student-father-guardian-phone-number -------- */}
               <InputField
@@ -372,37 +457,43 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 type={"text"}
                 icon={Location04Icon}
                 // divClass="lg:col-span-2"
-                {...register("parentInformation.fatherHomeAddress")}
-                // error={errors.parentInformation?.fatherHomeAddress?.message}
+                {...register("parent.father.address")}
+                error={errors.parent?.father?.address?.message}
               />
 
-              {/* parent id */}
-              <div className="flex flex-col gap-3">
-                <div className="flex items-end justify-between">
-              <InputField
-  label={"Parent ID*"}
-  className={"py-2.5 px-2"}
-  id={"student-parent-id"}
-  placeholder={"Parent ID"}
-  type={"text"}
-  value={parentID}
-  readOnly={true}
-  {...register("parentInformation.ParentID")}
-/>
- <GeneralButton
- buttonText="Generate Parent ID"
- state={"active"}
- size={"small"}
- className="text-[10px]"
- type="button"
- onClick={generateParentID}
-/>
-</div>
+              {/* -------- parent id -------- */}
+              <div className="flex flex-col gap-[0.4375rem]">
+                <label
+                  htmlFor="parent-id"
+                  className="text-sm text-[var(--primary-text-color)] whitespace-nowrap"
+                >
+                  Parent ID*
+                </label>
+                <div className="flex items-end justify-between border border-solid border-[var(--border)] h-fit rounded-[0.625rem] overflow-hidden">
+                  <InputField
+                    className={"py-2.5 px-2 border-none"}
+                    id={"parent-id"}
+                    placeholder={"Generate parent ID"}
+                    type={"text"}
+                    value={parentID}
+                    readOnly={true}
+                    {...register("parent.parentID")}
+                    divClass="h-fit gap-0 flex-grow"
+                  />
+                  <GeneralButton
+                    buttonText="Generate Parent ID"
+                    state={"active"}
+                    size={"small"}
+                    className="text-[10px] rounded-r-[0.625rem] rounded-l-[0.625rem] border-0 h-full"
+                    type="button"
+                    onClick={generateParentID}
+                  />
+                </div>
 
-              <p className="text-[var(--secondary)] text-[14px] flex items-center gap-1 hover:cursor-pointer">
-                <GrCircleInformation/>
-                Click the button to generate parent ID
-              </p>
+                <p className="text-[var(--secondary)] text-[14px] flex items-center gap-1 hover:cursor-pointer">
+                  <GrCircleInformation />
+                  Click the button to generate parent ID
+                </p>
               </div>
             </div>
           </div>
@@ -428,8 +519,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student current medication"}
                 type={"text"}
                 icon={HealthIcon}
-                {...register("healthInformation.currentMedication")}
-                // error={errors.healthInformation?.currentMedication?.message}
+                {...register("health.currentMedication")}
+                // error={errors.health?.currentMedication?.message}
               />
               {/* -------- health condition -------- */}
               <InputField
@@ -439,8 +530,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student health condition if any"}
                 icon={HealthIcon}
                 type={"text"}
-                {...register("healthInformation.healthCondition")}
-                // error={errors.healthInformation?.healthCondition?.message}
+                {...register("health.healthCondition")}
+                // error={errors.health?.healthCondition?.message}
               />
 
               {/* -------- genotype -------- */}
@@ -451,8 +542,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student genotype"}
                 icon={HealthIcon}
                 type={"text"}
-                {...register("healthInformation.genotype")}
-                // error={errors.healthInformation?.genotype?.message}
+                {...register("health.genotype")}
+                // error={errors.health?.genotype?.message}
               />
 
               {/* -------- blood group -------- */}
@@ -463,8 +554,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student blood group"}
                 type={"text"}
                 icon={HealthIcon}
-                {...register("healthInformation.bloodGroup")}
-                // error={errors.healthInformation?.bloodGroup?.message}
+                {...register("health.bloodGroup")}
+                // error={errors.health?.bloodGroup?.message}
               />
 
               {/* -------- allergies -------- */}
@@ -475,8 +566,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student allergies if any"}
                 type={"text"}
                 icon={HealthIcon}
-                {...register("healthInformation.allergies")}
-                // error={errors.healthInformation?.allergies?.message}
+                {...register("health.allergies")}
+                // error={errors.health?.allergies?.message}
               />
               {/* -------- disabilities -------- */}
               <InputField
@@ -486,8 +577,8 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 placeholder={"Enter student student disabilities if any"}
                 type={"text"}
                 icon={HealthIcon}
-                {...register("healthInformation.disabilities")}
-                // error={errors.healthInformation?.disabilities?.message}
+                {...register("health.disabilities")}
+                // error={errors.health?.disabilities?.message}
               />
             </div>
           </div>
@@ -518,21 +609,23 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                   id="student-school-fees"
                   name="student-school-fees"
                   className={`border border-solid border-[var(--border)] rounded-[0.625rem] w-full focus:outline-none autofill:bg-none shadow-form-shadow p-2.5`}
+  onChange={(e) => setAmount(Number(e.target.value))}
                 />
               </div>
               {/* -------- discount -------- */}
               <div className="flex flex-col lg:flex-row gap-2 lg:gap-[0.9375rem] lg:items-center">
                 <label
-                  htmlFor="student-school-fees"
+                  htmlFor="discount"
                   className=" text-sm text-[var(--primary-text-color)] whitespace-nowrap"
                 >
                   Discount:
                 </label>
                 <input
                   type="text"
-                  id="student-school-fees"
-                  name="student-school-fees"
+                  id="discount"
+                  name="discount"
                   className={`border border-solid border-[var(--border)] rounded-[0.625rem] w-full focus:outline-none autofill:bg-none shadow-form-shadow p-2.5`}
+                  onChange={(e) => setDiscount(Number(e.target.value))}
                 />
               </div>
               {/* -------- total balance -------- */}
@@ -541,7 +634,7 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                   htmlFor="student-school-fees"
                   className=" text-sm text-[var(--primary-text-color)] whitespace-nowrap font-semibold"
                 >
-                  Total Balance:
+                  Sub-total Balance:
                 </label>
                 <input
                   type="text"
@@ -551,6 +644,42 @@ const FormStepComponent: React.FC<FormStepComponentProps> = ({
                 />
               </div>
             </div>
+
+
+            <div className="flex flex-col gap-7 w-full justify-center items-center p-4 rounded-lg">
+  <h3 className="text-[20px] font-bold text-[var(--primary-text-color)] text-start">
+    Select Optional Fees
+  </h3>
+  <div className="flex flex-col gap-3">
+    {feesOptions.map((fee) => (
+      <label
+        key={fee.id}
+        htmlFor={`fee-${fee.id}`}
+        className="flex items-center gap-5 cursor-pointer"
+      >
+        <input
+          type="checkbox"
+          id={`fee-${fee.id}`}
+          checked={selectedFees.includes(fee.id)}
+          onChange={() => handleSelect(fee.id)}
+          className="w-[20px] h-[20px] rounded-full"
+        />
+       <div className="flex items-center gap-5">
+        <span className="text-(--primary-text-color)] text-[14px] font-bold">Category:</span>
+        <span className="text-sm border border-[var(--grey)] px-[8px] py-[10px] rounded-[10px]">{fee.category}</span>
+       </div>
+       <div className="flex items-center gap-5">
+        <span className="text-(--primary-text-color)] text-[14px] font-bold">Amount:</span>
+       <span className="text-sm border border-[var(--grey)] px-[8px] py-[10px] rounded-[10px]">₦{fee.amount.toLocaleString()}</span>
+       </div>
+      </label>
+    ))}
+  </div>
+  <div className="font-semibold text-lg text-[var(--primary)]">
+    Total Balance: ₦{totalAmount.toLocaleString()}
+  </div>
+</div>
+
             {/* -------- edit and submit buttons -------- */}
             <div className="flex flex-col lg:flex-row w-full gap-6 lg:gap-[3.8125rem] items-center justify-center">
               <GeneralButton

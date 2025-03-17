@@ -84,11 +84,16 @@ const IncomeCircularChart: React.FC<IncomeCircularChartProps> = ({
       <div className="text-[var(--primary-text-color)] flex justify-between">
         {description.map((item, index) => (
           <div key={index} className="flex flex-col gap-2">
-            <div className="flex gap-2 items-center">
-              <div className="w-[9px] h-[9px] rounded-full" style={{backgroundColor: item.color}}></div>
-              <p className="text-xs">
-                {item.name} ({item.percentage})%
-              </p>
+            <div className="flex gap-1 items-center">
+              <div className="w-[9px] h-[9px] flex rounded-full " style={{backgroundColor: item.color}}></div>
+              <div className="flex items-center">
+              <span className="text-[12px]">
+                {item.name} 
+              </span>
+              <span className="text-[12px]">
+              ({item.percentage})%
+              </span>
+              </div>
             </div>
             <p>{item.amount.toLocaleString()}.00</p>
           </div>
