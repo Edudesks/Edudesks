@@ -80,7 +80,7 @@ const Navbar: FC = () => {
                 priority
               />
             </div>
-            <ButtonTrial url="/signup" variant="dark" text="Start 30 days free trial" />
+            <ButtonTrial url="/pricing-plan" variant="dark" text="Start 30 days free trial" />
           </div>
           <div className={styles.hamburger} onClick={toggleMobileMenu}>
             ☰

@@ -20,14 +20,13 @@ type OTPFormData = {
 const Verification: React.FC = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { email, isSignup } = router.query;
+  const { email, isSignup, reason } = router.query;
   const isSignupBoolean = isSignup === "true" ? true : false;
   const [resendOTP, setResendOTP] = React.useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const schoolName = useAppSelector(
     (state) => state?.auth.schoolPayload?.schoolName
   ); // Selector for school existence
-  const { reason } = router.query;
 
   useEffect(() => {
     if (!email) {
@@ -72,13 +71,7 @@ const Verification: React.FC = () => {
 
   // -------- redirect path after otp popup --------
   const getRedirectPath = () => {
-    console.log(reason);
-    if (reason === "login") {
-      return schoolName ? `/${schoolName}` : "/";
-    }
-    if (reason === "signup") {
-      return "/pricing-plan";
-    }
+    return "/login";
   };
 
   const handleInputChange = (

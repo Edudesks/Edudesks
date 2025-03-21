@@ -60,7 +60,7 @@ const SignUp: React.FC = () => {
         if (otpResponse.type === "auth/createotp/fulfilled") {
           router.push({
             pathname: "/verification",
-            query: { email: data.email, isSignup: true },
+            query: { email: data.email, isSignup: true, reason: "signup" },
           });
         } else {
           console.error("Failed to send OTP");

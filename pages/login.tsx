@@ -62,6 +62,8 @@ const Login: React.FC = () => {
       dispatch(resetSignin());
     };
   }, [dispatch, router]);
+
+
   const {
     register,
     handleSubmit,
@@ -88,7 +90,7 @@ const Login: React.FC = () => {
       if (otpResponse.type === "auth/createotp/fulfilled") {
         router.push({
           pathname: '/verification',
-          query: { email: data.email, isSignup: false },
+          query: { email: data.email, isSignup: false, reason: "login" },
         });
       } else {
         console.log(otpResponse.payload)
