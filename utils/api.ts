@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const apiRootUrl = 'https://backend-edudesks.onrender.com'
+const apiRootUrl = 'https://backend-edudesks-vgj7.onrender.com'
 
 export interface ApiRequestHeaders {
   [key: string]: string | number | boolean;
